@@ -5,22 +5,40 @@ public class Type {
     private Video video;
     private Question question;
 
-    public Type() {
-
-    }
-
     public Type(Explanation explanation) {
-        this.explanation.setId(explanation.getId());
-        this.explanation.setActivity(explanation.getActivity());
-        this.explanation.setDescription(explanation.getDescription());
+        this.explanation = explanation;
+
     }
 
     public Type(Video video) {
-        this.video.setId(video.getId());
-        this.video.setUrl(video.getUrl());
-        this.video.setDuration(video.getDuration());
-        this.video.setTranscription(video.getTranscription());
+        this.video = video;
     }
 
+    public Type(Question question) {
+        this.question = question;
+    }
 
+    public Explanation getExplanation() {
+        return explanation;
+    }
+
+    public void setExplanation(Explanation explanation) {
+        this.explanation = explanation;
+    }
+
+    public Video getVideo() {
+        return video;
+    }
+
+    public void setVideo(Video video) {
+        this.video = video;
+    }
+
+    public Question getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(Question question) {
+        this.question = question;
+    }
 }

@@ -11,8 +11,6 @@ public class Section {
     private boolean test;
     private Course course;
 
-    public Section() {
-    }
 
     public Section(Long id, String name, String code, int order, boolean active, boolean test, Course course) {
         this.id = id;

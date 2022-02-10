@@ -1,5 +1,7 @@
 package entities;
 
+import validation.CourseValidation;
+
 import java.util.Date;
 import java.util.List;
 
@@ -16,11 +18,10 @@ public class Course{
   
 
 
-    public Course() {
-
-    }
 
     public Course(Long id, String name, String code, Date estimatedTime, boolean visibility, String target, String instructor, String courseProgram, String skillsDeveloped) {
+        CourseValidation.toValidateName(name);
+        CourseValidation.toValidCode(code);
         this.id = id;
         this.name = name;
         this.code = code;
