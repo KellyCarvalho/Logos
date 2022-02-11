@@ -1,7 +1,6 @@
 package validation;
 
 import entities.Section;
-import entities.Type;
 
 import static validation.StringValidationPresentContent.isBlankOrEmpty;
 import static validation.StringValidationPresentContent.isNull;
@@ -12,11 +11,11 @@ public class ActivityValidation extends RuntimeException {
     public static boolean toValidCode(String code) {
 
         try {
-            boolean validationName = code.matches("[a-z0-9^-]+");
+            boolean validationCode = code != null ? code.matches("[a-z0-9^-]+") : false;
 
 
-            if (!validationName)
-                throw new IllegalArgumentException("Código não é válido, deve ter caracteres de a-z e algarismos de 0-9 e tudo bem se tiver o hífen em sua composição");
+            if (!validationCode)
+                throw new IllegalArgumentException("Código de Atividade não é válido, deve ter caracteres de a-z e algarismos de 0-9 e tudo bem se tiver o hífen em sua composição");
             return true;
 
         } catch (IllegalArgumentException e) {
@@ -30,20 +29,20 @@ public class ActivityValidation extends RuntimeException {
 
     }
 
-    public static boolean fieldsContainsValue(String title, String code, Type type, Section section) {
+    public static boolean fieldsContainsValue(String title, String code, Section section) {
 
         try {
+            if (isNull(title)) throw new NullPointerException("Título de Atividade não pode ser nulo");
 
-            if (isBlankOrEmpty(title)) throw new IllegalArgumentException("Título não pode ser vazio");
+            if (isBlankOrEmpty(title)) throw new IllegalArgumentException("Título de Atividade não pode ser vazio");
 
-            if (isNull(title)) throw new NullPointerException("Título não pode ser nulo");
-
-            if (isBlankOrEmpty(code)) throw new IllegalArgumentException("Código não pode ser vazio");
-
-            if (isNull(code)) throw new NullPointerException("Código não pode ser nulo");
+            if (isNull(code)) throw new NullPointerException("Código de Atividade não pode ser nulo");
 
 
-            if (section == null) throw new NullPointerException("Seção não pode ser nula");
+            if (isBlankOrEmpty(code)) throw new IllegalArgumentException("Código de Atividade não pode ser vazio");
+
+
+            if (section == null) throw new NullPointerException("Seção de Atividade não pode ser nula");
 
 
             return true;

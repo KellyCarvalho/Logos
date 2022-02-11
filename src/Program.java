@@ -1,25 +1,29 @@
-import entities.*;
+import entities.Activity;
+import entities.Course;
+import entities.Section;
 
 public class Program {
     public static void main(String[] args) {
 
-        Course course = new Course(1L, "Lealdemais", "massa", 20, true, "crianças", "Ale", "aprender js", "OO em js");
-        Section section = new Section(1L, "Atividades de Java", "javinha-90", 2, true, false, course);
+        Course course = new Course(1L, "Java POO", "java-poo", 20, true, "Iniciantes", "Camila", "Aqui você vai aprender o paradgma de orientação a objetos usando Java", "Java, tratamento de exceção e POO");
+        Section section = new Section(1L, "java", "java-17", 2, true, false, course);
 
-        Activity activity = new Activity(1L, "Seja um ninja", "ninja", true, 1,section);
-        Activity activity2 = new Activity(2L, "Java", "java-17", true, 1,section);
+        Activity activity = new Activity(1L, "Código em Java", "java-90", true, 1, section);
+       /* Activity activity2 = new Activity(2L, null, null, true, 1, section);
 
-        Activity activity3 = new Activity(3L, "Como Trabalhar com Strings 3", "java-strings", true, 7,section);
+        Activity activity3 = new Activity(3L, null, null, true, 7, section);*/
 
-        Explanation explanation = new Explanation(1L, "Pense numa descrição aqui", activity);
+         /*
 
-        Question question = new Question(1L, "Java é igual ao javascript?", activity2);
+        Explanation explanation = new Explanation(1L, null, activity);
 
-        Alternative alternative = new Alternative(1L, "Não", true, "Não, Os criadores do Javascript aproveitaram a ascenção do Java para popularizar a linguagem", question);
+        Question question = new Question(1L, null, activity2);
 
-        Alternative alternative2 = new Alternative(2L, "Sim", false, "Sim são a mesma coisa", question);
+        Alternative alternative = new Alternative(1L, null, true, null, question);
 
-        Video video = new Video(1L, "videodocurso69-", 30, "essa é a trancrição", activity3);
+        Alternative alternative2 = new Alternative(2L, null, false, null, question);
+
+        Video video = new Video(1L, null, 30, null, activity3);
 
         System.out.println("Primeira Atividade");
         System.out.println("Título: " + activity.getTitle());
@@ -34,6 +38,9 @@ public class Program {
         System.out.println("Tipo: " + activity2.getType().getQuestion().getStatement());
         System.out.println("Alternativa 1: " + alternative.getDescription());
         System.out.println("Alternativa 2: " + alternative2.getDescription());
+
+
+*/
 
     }
 }

@@ -31,7 +31,7 @@ public class Activity {
     }
 
     public Activity(Long id, String title, String code, boolean active, int order) {
-        ActivityValidation.fieldsContainsValue( title,  code,  type,  section);
+        ActivityValidation.fieldsContainsValue(title, code, section);
         ActivityValidation.toValidCode(code);
         isValidOrder(order);
         this.id = id;
@@ -42,7 +42,7 @@ public class Activity {
     }
 
     public Activity(Long id, String title, String code, boolean active, int order, Section section) {
-        ActivityValidation.fieldsContainsValue( title,  code,  type,  section);
+        ActivityValidation.fieldsContainsValue(title, code, section);
         ActivityValidation.toValidCode(code);
         isValidOrder(order);
         this.id = id;

@@ -5,7 +5,7 @@ public class StringValidationPresentContent {
     public static boolean isBlankOrEmpty(String text) {
 
 
-            if (text.isBlank()||text.isEmpty())return true;
+        if (text.isBlank()||text.isEmpty())return true;
 
 
 
