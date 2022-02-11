@@ -5,17 +5,17 @@ import java.util.Date;
 public class Video extends Activity {
     private Long id;
     private String url;
-    private Date duration;
+    private int duration;
     private String transcription;
 
-    public Video(Long id, String url, Date duration, String transcription) {
+    public Video(Long id, String url, int duration, String transcription) {
         this.id = id;
         this.url = url;
         this.duration = duration;
         this.transcription = transcription;
     }
 
-    public Video(Long id, String url, Date duration, String transcription, Activity activity) {
+    public Video(Long id, String url, int duration, String transcription, Activity activity) {
         super(activity.getId(), activity.getTitle(), activity.getCode(), activity.isActive(), activity.getOrder(), activity.getType(), activity.getSection());
         this.id = id;
         this.url = url;
@@ -52,11 +52,11 @@ public class Video extends Activity {
         this.url = url;
     }
 
-    public Date getDuration() {
+    public int getDuration() {
         return duration;
     }
 
-    public void setDuration(Date duration) {
+    public void setDuration(int duration) {
         this.duration = duration;
     }
 

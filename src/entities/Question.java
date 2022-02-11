@@ -1,8 +1,12 @@
 package entities;
 
+import java.util.List;
+
 public class Question extends Activity {
     private Long id;
     private String statement;
+
+
 
     public Question(Long id, String statement){
         super();
@@ -39,4 +43,7 @@ public class Question extends Activity {
     public void setStatement(String statement) {
         this.statement = statement;
     }
+
+
+
 }

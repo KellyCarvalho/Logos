@@ -1,6 +1,11 @@
 package entities;
 
+import validation.SectionValidation;
+
 import java.util.List;
+
+import static validation.SectionValidation.fieldsContainsValue;
+import static validation.SectionValidation.isValidOrder;
 
 public class Section {
     private Long id;
@@ -13,6 +18,9 @@ public class Section {
 
 
     public Section(Long id, String name, String code, int order, boolean active, boolean test, Course course) {
+        fieldsContainsValue(name,code,course);
+        SectionValidation.isValidCode(code);
+        isValidOrder(order);
         this.id = id;
         this.name = name;
         this.code = code;

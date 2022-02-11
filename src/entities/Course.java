@@ -1,27 +1,26 @@
 package entities;
 
-import validation.CourseValidation;
+import static validation.CourseValidation.*;
 
-import java.util.Date;
-import java.util.List;
 
 public class Course{
     private  Long id;
     private  String name;
     private String code;
-    private Date estimatedTime;
+    private int estimatedTime;
     private boolean visibility;
     private String target;
     private String instructor;
     private String courseProgram;
     private String skillsDeveloped;
-  
 
 
+    public Course(Long id, String name, String code, int estimatedTime, boolean visibility, String target, String instructor, String courseProgram, String skillsDeveloped) {
+        fieldsContainsValue(name, code, target, instructor, courseProgram, skillsDeveloped);
+        isValidCode(code);
+        isValidEstimatedTime(estimatedTime);
 
-    public Course(Long id, String name, String code, Date estimatedTime, boolean visibility, String target, String instructor, String courseProgram, String skillsDeveloped) {
-        CourseValidation.toValidateName(name);
-        CourseValidation.toValidCode(code);
+
         this.id = id;
         this.name = name;
         this.code = code;
@@ -57,11 +56,11 @@ public class Course{
         this.code = code;
     }
 
-    public Date getEstimatedTime() {
+    public int getEstimatedTime() {
         return estimatedTime;
     }
 
-    public void setEstimatedTime(Date estimatedTime) {
+    public void setEstimatedTime(int estimatedTime) {
         this.estimatedTime = estimatedTime;
     }
 

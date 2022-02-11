@@ -7,7 +7,11 @@ public class Alternative {
     private String explanationAnswer;
     private Question question;
 
-    public Alternative() {
+    public Alternative(Long id, String description, boolean correct, String explanationAnswer) {
+        this.id = id;
+        this.description = description;
+        this.correct = correct;
+        this.explanationAnswer = explanationAnswer;
     }
 
     public Alternative(Long id, String description, boolean correct, String explanationAnswer, Question question) {
@@ -16,6 +20,7 @@ public class Alternative {
         this.correct = correct;
         this.explanationAnswer = explanationAnswer;
         this.question = question;
+
     }
 
     public Long getId() {
