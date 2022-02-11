@@ -1,6 +1,4 @@
-import entities.Activity;
-import entities.Course;
-import entities.Section;
+import entities.*;
 
 public class Program {
     public static void main(String[] args) {
@@ -9,13 +7,14 @@ public class Program {
         Section section = new Section(1L, "java", "java-17", 2, true, false, course);
 
         Activity activity = new Activity(1L, "Código em Java", "java-90", true, 1, section);
-       /* Activity activity2 = new Activity(2L, null, null, true, 1, section);
+        Explanation explanation = new Explanation(1L, "isso ai",activity);
 
-        Activity activity3 = new Activity(3L, null, null, true, 7, section);*/
 
-         /*
 
-        Explanation explanation = new Explanation(1L, null, activity);
+
+
+
+            /*
 
         Question question = new Question(1L, null, activity2);
 
