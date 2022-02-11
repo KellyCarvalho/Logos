@@ -30,16 +30,6 @@ public class Activity {
         this.section = section;
     }
 
-    public Activity(Long id, String title, String code, boolean active, int order) {
-        ActivityValidation.fieldsContainsValue(title, code, section);
-        ActivityValidation.toValidCode(code);
-        isValidOrder(order);
-        this.id = id;
-        this.title = title;
-        this.code = code;
-        this.active = active;
-        this.order = order;
-    }
 
     public Activity(Long id, String title, String code, boolean active, int order, Section section) {
         ActivityValidation.fieldsContainsValue(title, code, section);
@@ -50,6 +40,7 @@ public class Activity {
         this.code = code;
         this.active = active;
         this.order = order;
+        this.section=section;
     }
 
     public Long getId() {

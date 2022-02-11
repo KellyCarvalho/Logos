@@ -4,7 +4,7 @@ package validation;
 import static validation.StringValidationPresentContent.isBlankOrEmpty;
 import static validation.StringValidationPresentContent.isNull;
 
-public class ExplanationValidation {
+public class ExplanationValidation extends RuntimeException {
     public static boolean fieldsContainsValue(String description) {
 
         try {

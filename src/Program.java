@@ -7,22 +7,25 @@ public class Program {
         Section section = new Section(1L, "java", "java-17", 2, true, false, course);
 
         Activity activity = new Activity(1L, "Código em Java", "java-90", true, 1, section);
+        Activity activityWithQuestion = new Activity(1L, "Código em Java", "java-90", true, 1, section);
+        Activity activityWithVideo = new Activity(1L, "Código em Java", "java-90", true, 1, section);
         Explanation explanation = new Explanation(1L, "isso ai",activity);
 
 
-
-
-
-
-            /*
-
-        Question question = new Question(1L, null, activity2);
+        Question question = new Question(1L, null, activityWithQuestion);
 
         Alternative alternative = new Alternative(1L, null, true, null, question);
 
         Alternative alternative2 = new Alternative(2L, null, false, null, question);
 
-        Video video = new Video(1L, null, 30, null, activity3);
+        Video video = new Video(1L, "uioureiure", 30, "kfdlkfldsklçf", activityWithVideo);
+
+
+        System.out.println(video.getSection().getCode());
+
+            /*
+
+
 
         System.out.println("Primeira Atividade");
         System.out.println("Título: " + activity.getTitle());
