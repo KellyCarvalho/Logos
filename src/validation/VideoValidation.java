@@ -57,8 +57,8 @@ public class VideoValidation extends RuntimeException {
 
     public static boolean isValidDuration(int duration) {
         try {
-            if (duration<0)
-                throw new IllegalArgumentException("Minutos de duração do vídeo não podem ter valor menor que 0");
+            if (duration<1)
+                throw new IllegalArgumentException("Minutos de duração do vídeo não podem ter valor menor que 1");
             return true;
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());

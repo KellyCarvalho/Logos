@@ -1,20 +1,20 @@
 package entities;
 
-public class Type {
+public class TypeActivity {
     private Explanation explanation;
     private Video video;
     private Question question;
 
-    public Type(Explanation explanation) {
+    public TypeActivity(Explanation explanation) {
         this.explanation = explanation;
 
     }
 
-    public Type(Video video) {
+    public TypeActivity(Video video) {
         this.video = video;
     }
 
-    public Type(Question question) {
+    public TypeActivity(Question question) {
         this.question = question;
     }
 

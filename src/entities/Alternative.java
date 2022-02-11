@@ -1,26 +1,24 @@
 package entities;
 
+import static validation.AlternativeValidation.fieldsContainsValue;
+
 public class Alternative {
     private Long id;
     private String description;
+    private int order;
     private boolean correct;
     private String explanationAnswer;
     private Question question;
 
-    public Alternative(Long id, String description, boolean correct, String explanationAnswer) {
-        this.id = id;
-        this.description = description;
-        this.correct = correct;
-        this.explanationAnswer = explanationAnswer;
-    }
 
-    public Alternative(Long id, String description, boolean correct, String explanationAnswer, Question question) {
+    public Alternative(Long id, String description, int order, boolean correct, String explanationAnswer, Question question) {
+        fieldsContainsValue(description,explanationAnswer,question);
         this.id = id;
         this.description = description;
+        this.order = order;
         this.correct = correct;
         this.explanationAnswer = explanationAnswer;
         this.question = question;
-
     }
 
     public Long getId() {
