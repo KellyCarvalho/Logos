@@ -19,11 +19,7 @@ public class CourseValidation extends RuntimeException {
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             return false;
-        } catch (NullPointerException e) {
-            System.out.println(e.getMessage());
-            return false;
         }
-
 
     }
 
@@ -45,7 +41,7 @@ public class CourseValidation extends RuntimeException {
         }
     }
 
-    public static boolean fieldsContainsValue(String name, String code) {
+    public static boolean fieldsContainsValue(String name, String code, String instructor) {
         try {
 
             if (isNull(name))
@@ -59,6 +55,12 @@ public class CourseValidation extends RuntimeException {
                 throw new NullPointerException("Código do curso não pode ser nulo ");
 
             if (isBlankOrEmpty(code))
+                throw new IllegalArgumentException("Código do curso não pode ser vazio ");
+
+            if (isNull(instructor))
+                throw new NullPointerException("Código do curso não pode ser nulo ");
+
+            if (isBlankOrEmpty(instructor))
                 throw new IllegalArgumentException("Código do curso não pode ser vazio ");
 
 

@@ -7,7 +7,7 @@ import static validation.StringValidationPresentContent.isNull;
 
 public class AlternativeValidation extends RuntimeException{
 
-    public static boolean fieldsContainsValue(String description, String explanationAnswer, Question question) {
+    public static boolean fieldsContainsValue(String description,Question question) {
 
         try {
             if (isNull(description))
@@ -16,11 +16,7 @@ public class AlternativeValidation extends RuntimeException{
             if (isBlankOrEmpty(description))
                 throw new IllegalArgumentException("Descrição da alternativa  não pode ser vazia");
 
-            if (isNull(explanationAnswer))
-                throw new NullPointerException("Explicação da alternativa não pode ser nula");
 
-            if (isBlankOrEmpty(explanationAnswer))
-                throw new IllegalArgumentException("Explicação da alternativa  não pode ser vazia");
 
             if (question==null)
                 throw new NullPointerException("Questão da alternativa  não pode ser nula");
@@ -32,7 +28,17 @@ public class AlternativeValidation extends RuntimeException{
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             return false;
-        } catch (NullPointerException e) {
+        }
+
+
+    }
+
+    public static boolean isValidOrder(int order) {
+        try {
+            if (order < 0)
+                throw new IllegalArgumentException("Ordem não pode ter valor menor que 0");
+            return true;
+        } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             return false;
         }

@@ -14,12 +14,12 @@ public class SectionValidation extends RuntimeException {
 
 
         try {
-            boolean validationName = code!=null? code.matches("[a-z0-9^-]+"):false;
+            boolean validationCode = code!=null? code.matches("[a-z0-9^-]+"):false;
 
 
 
 
-            if (!validationName)
+            if (!validationCode)
                 throw new IllegalArgumentException("Código da seção não é válido, deve ter caracteres de a-z e algarismos de 0-9 e tudo bem se tiver o hífen em sua composição");
 
             return true;
@@ -27,11 +27,7 @@ public class SectionValidation extends RuntimeException {
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             return false;
-        } catch (NullPointerException e) {
-            System.out.println(e.getMessage());
-            return false;
         }
-
 
 
 

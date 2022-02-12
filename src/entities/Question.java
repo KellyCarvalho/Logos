@@ -1,7 +1,7 @@
 package entities;
 
+
 import static validation.QuestionValidation.fieldsContainsValue;
-import static validation.QuestionValidation.isValidTypeQuestion;
 
 public class Question extends Activity {
     private Long id;
@@ -10,7 +10,24 @@ public class Question extends Activity {
 
 
 
+    public Question(String title, String code, boolean active, int order, Section section, String statement, TypeQuestion typeQuestion) {
+        super(title, code, active, order, section);
+        fieldsContainsValue(statement);
+        this.statement = statement;
+        this.typeQuestion = typeQuestion;
 
 
+    }
 
+    public Long getId() {
+        return id;
+    }
+
+    public String getStatement() {
+        return statement;
+    }
+
+    public TypeQuestion getTypeQuestion() {
+        return typeQuestion;
+    }
 }

@@ -1,22 +1,24 @@
 package entities;
 
+
 import static validation.ExplanationValidation.fieldsContainsValue;
 
 public class Explanation extends Activity {
     private Long id;
     private String description;
 
-    public Explanation(Long id, String description) {
-        super();
-        this.id = id;
+    public Explanation(String title, String code, boolean active, int order, Section section, String description) {
+        super(title, code, active, order, section);
+        fieldsContainsValue(description);
+
         this.description = description;
-
-
     }
 
+    public Long getId() {
+        return id;
+    }
 
-
-
-
-
+    public String getDescription() {
+        return description;
+    }
 }

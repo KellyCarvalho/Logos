@@ -1,6 +1,7 @@
 package entities;
 
 import static validation.AlternativeValidation.fieldsContainsValue;
+import static validation.AlternativeValidation.isValidOrder;
 
 public class Alternative {
     private Long id;
@@ -10,10 +11,9 @@ public class Alternative {
     private String explanationAnswer;
     private Question question;
 
-
-    public Alternative(Long id, String description, int order, boolean correct, String explanationAnswer, Question question) {
-        fieldsContainsValue(description,explanationAnswer,question);
-        this.id = id;
+    public Alternative(String description, int order, boolean correct, String explanationAnswer, Question question) {
+        fieldsContainsValue(description,question);
+        isValidOrder(order);
         this.description = description;
         this.order = order;
         this.correct = correct;
@@ -21,43 +21,34 @@ public class Alternative {
         this.question = question;
     }
 
-    public Long getId() {
-        return id;
+    public Alternative(String description,boolean correct, Question question) {
+        fieldsContainsValue(description,question);
+        this.description = description;
+        this.question = question;
+        this.correct=correct;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public Long getId() {
+        return id;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public int getOrder() {
+        return order;
     }
 
     public boolean isCorrect() {
         return correct;
     }
 
-    public void setCorrect(boolean correct) {
-        this.correct = correct;
-    }
-
     public String getExplanationAnswer() {
         return explanationAnswer;
     }
 
-    public void setExplanationAnswer(String explanationAnswer) {
-        this.explanationAnswer = explanationAnswer;
-    }
-
     public Question getQuestion() {
         return question;
-    }
-
-    public void setQuestion(Question question) {
-        this.question = question;
     }
 }

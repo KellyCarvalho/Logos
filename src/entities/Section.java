@@ -30,59 +30,40 @@ public class Section {
         this.course = course;
     }
 
-    public Long getId() {
-        return id;
+    public Section(String name, String code, Course course) {
+        fieldsContainsValue(name,code,course);
+        this.name = name;
+        this.code = code;
+        this.course = course;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public Long getId() {
+        return id;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getCode() {
         return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
     }
 
     public int getOrder() {
         return order;
     }
 
-    public void setOrder(int order) {
-        this.order = order;
-    }
-
     public boolean isActive() {
         return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
     }
 
     public boolean isTest() {
         return test;
     }
 
-    public void setTest(boolean test) {
-        this.test = test;
-    }
-
     public Course getCourse() {
         return course;
     }
 
-    public void setCourse(Course course) {
-        this.course = course;
-    }
+
 }

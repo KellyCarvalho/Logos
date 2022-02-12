@@ -4,7 +4,7 @@ import static validation.StringValidationPresentContent.isBlankOrEmpty;
 import static validation.StringValidationPresentContent.isNull;
 
 public class VideoValidation extends RuntimeException {
-    public static boolean toValidCode(String code) {
+    public static boolean isValidCode(String code) {
 
         try {
             boolean validationCode = code != null ? code.matches("[a-z0-9^-]+") : false;
@@ -25,7 +25,7 @@ public class VideoValidation extends RuntimeException {
 
     }
 
-    public static boolean fieldsContainsValue(String url, String transcription) {
+    public static boolean fieldsContainsValue(String url) {
 
         try {
             if (isNull(url))
@@ -34,12 +34,7 @@ public class VideoValidation extends RuntimeException {
             if (isBlankOrEmpty(url))
                 throw new IllegalArgumentException("Url do vídeo não pode ser vazia");
 
-            if (isNull(transcription))
-                throw new NullPointerException("Transcrição do vídeo não pode ser nula");
 
-
-            if (isBlankOrEmpty(transcription))
-                throw new IllegalArgumentException("Transcrição do vídeo não pode ser vazia");
 
 
             return true;
@@ -47,10 +42,7 @@ public class VideoValidation extends RuntimeException {
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             return false;
-        } catch (NullPointerException e) {
-            System.out.println(e.getMessage());
-            return false;
-        }
+        } 
 
 
     }
