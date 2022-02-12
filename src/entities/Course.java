@@ -13,11 +13,13 @@ public class Course {
     private String instructor;
     private String courseProgram;
     private String skillsDeveloped;
+    private Section section;
 
-    public Course(String name, String code) {
+    public Course(String name, String code, Section section) {
         fieldsContainsValue(name,code);
         this.name = name;
         this.code = code;
+        this.section=section;
     }
 
     public Course(String name, String code, int estimatedTime, boolean visibility, String target, String instructor, String courseProgram, String skillsDeveloped) {

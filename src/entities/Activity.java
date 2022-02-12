@@ -16,6 +16,7 @@ public abstract class Activity {
     }
 
     public Activity(Long id, String title, String code, boolean active, int order, Section section) {
+
         this.id = id;
         this.title = title;
         this.code = code;
@@ -29,17 +30,12 @@ public abstract class Activity {
         this.id = id;
         this.title = title;
         this.code = code;
-        this.active = active;
-        this.order = order;
-        this.section = section;
+
     }
 
     public Activity(String title, String code) {
-        this.id = id;
         this.title = title;
         this.code = code;
-        this.active = active;
-        this.order = order;
-        this.section = section;
+
     }
 }
