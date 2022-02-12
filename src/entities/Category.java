@@ -1,5 +1,6 @@
 package entities;
 
+import static validation.CategoryValidation.fieldsContainsValue;
 import static validation.CategoryValidation.isValidColor;
 
 public class Category {
@@ -25,6 +26,7 @@ public class Category {
 
   public Category(String name, String code, String description, String studyGuide, boolean active, int order, String codeColor) {
     isValidColor(codeColor);
+    fieldsContainsValue(code,name);
     this.name = name;
     this.code = code;
     this.description = description;
