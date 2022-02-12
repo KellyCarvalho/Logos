@@ -10,8 +10,8 @@ public class Question extends Activity {
 
 
 
-    public Question(String title, String code, boolean active, int order, Section section, String statement, TypeQuestion typeQuestion) {
-        super(title, code, active, order, section);
+    public Question(String title, String code, boolean active, int order, Section section,TypeActivity typeActivity, String statement, TypeQuestion typeQuestion) {
+        super(title, code, active, order, section,typeActivity);
         fieldsContainsValue(statement);
         this.statement = statement;
         this.typeQuestion = typeQuestion;

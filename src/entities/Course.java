@@ -13,21 +13,24 @@ public class Course {
     private String instructor;
     private String courseProgram;
     private String skillsDeveloped;
+    private SubCategory subCategory;
 
 
-    public Course(String name, String code,  int estimatedTime,String instructor) {
-        fieldsContainsValue(name,code,instructor);
+    public Course(String name, String code,  int estimatedTime,String instructor,SubCategory subCategory) {
+        fieldsContainsValue(name,code,instructor,subCategory);
         isValidCode(code);
         isValidEstimatedTime(estimatedTime);
         this.name = name;
         this.code = code;
+        this.estimatedTime=estimatedTime;
         this.instructor = instructor;
+        this.subCategory=subCategory;
 
     }
 
-    public Course(String name, String code, int estimatedTime, boolean visibility, String target, String instructor, String courseProgram, String skillsDeveloped) {
+    public Course(String name, String code, int estimatedTime, boolean visibility, String target, String instructor, String courseProgram, String skillsDeveloped,SubCategory subCategory) {
         isValidCode(code);
-        fieldsContainsValue(name,code,instructor);
+        fieldsContainsValue(name,code,instructor, subCategory);
         isValidEstimatedTime(estimatedTime);
         this.name = name;
         this.code = code;
@@ -37,6 +40,7 @@ public class Course {
         this.instructor = instructor;
         this.courseProgram = courseProgram;
         this.skillsDeveloped = skillsDeveloped;
+        this.subCategory=subCategory;
     }
 
     public Long getId() {

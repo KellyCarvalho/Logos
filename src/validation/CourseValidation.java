@@ -1,5 +1,7 @@
 package validation;
 
+import entities.SubCategory;
+
 import static validation.StringValidationPresentContent.isBlankOrEmpty;
 import static validation.StringValidationPresentContent.isNull;
 
@@ -41,7 +43,7 @@ public class CourseValidation extends RuntimeException {
         }
     }
 
-    public static boolean fieldsContainsValue(String name, String code, String instructor) {
+    public static boolean fieldsContainsValue(String name, String code, String instructor, SubCategory subCategory) {
         try {
 
             if (isNull(name))
@@ -62,6 +64,9 @@ public class CourseValidation extends RuntimeException {
 
             if (isBlankOrEmpty(instructor))
                 throw new IllegalArgumentException("Código do curso não pode ser vazio ");
+
+            if(subCategory==null)
+                throw new IllegalArgumentException("Subcategoria não pode ser nula");
 
 
 

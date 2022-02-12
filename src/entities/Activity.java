@@ -10,10 +10,10 @@ public abstract class Activity {
     private boolean active;
     private int order;
     private Section section;
+    private TypeActivity typeActivity;
 
 
-
-    public Activity(Long id, String title, String code, boolean active, int order, Section section) {
+    public Activity(Long id, String title, String code, boolean active, int order, Section section,  TypeActivity typeActivity) {
         isValidCode(code);
         fieldsContainsValue(title, code, section);
         isValidOrder(order);
@@ -23,9 +23,10 @@ public abstract class Activity {
         this.active = active;
         this.order = order;
         this.section = section;
+        this.typeActivity=typeActivity;
     }
 
-    public Activity(String title, String code, boolean active, int order, Section section) {
+    public Activity(String title, String code, boolean active, int order, Section section,  TypeActivity typeActivity) {
         isValidCode(code);
         fieldsContainsValue(title, code, section);
         isValidOrder(order);
@@ -34,6 +35,7 @@ public abstract class Activity {
         this.active = active;
         this.order = order;
         this.section = section;
+        this.typeActivity=typeActivity;
     }
 
     public Activity(Long id, String title, String code, Section section) {

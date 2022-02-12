@@ -28,6 +28,9 @@ public class AlternativeValidation extends RuntimeException{
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             return false;
+        }catch (NullPointerException e){
+            System.out.println(e.getMessage());
+            return false;
         }
 
 
