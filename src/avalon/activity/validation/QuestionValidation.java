@@ -15,7 +15,7 @@ public class QuestionValidation extends RuntimeException{
                 throw new NullPointerException("Enunciado da questão não pode ser nulo");
 
             if (isBlankOrEmpty(statement))
-                throw new IllegalArgumentException("Enunciado da questão não pode ser vazio");
+                throw new IllegalArgumentException("Enunciado da questão não pode ser vazio ou em branco");
             return true;
 
         } catch (IllegalArgumentException e) {

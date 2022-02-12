@@ -31,12 +31,12 @@ public class ActivityValidation extends RuntimeException {
         try {
             if (isNull(title)) throw new NullPointerException("Título de Atividade não pode ser nulo");
 
-            if (isBlankOrEmpty(title)) throw new IllegalArgumentException("Título de Atividade não pode ser vazio");
+            if (isBlankOrEmpty(title)) throw new IllegalArgumentException("Título de Atividade não pode ser vazia ou em branco");
 
             if (isNull(code)) throw new NullPointerException("Código de Atividade não pode ser nulo");
 
 
-            if (isBlankOrEmpty(code)) throw new IllegalArgumentException("Código de Atividade não pode ser vazio");
+            if (isBlankOrEmpty(code)) throw new IllegalArgumentException("Código de Atividade não pode ser vazio ou em branco");
 
 
             if (section == null) throw new NullPointerException("Seção de Atividade não pode ser nula");

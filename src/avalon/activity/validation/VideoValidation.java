@@ -32,7 +32,7 @@ public class VideoValidation extends RuntimeException {
                 throw new NullPointerException("Url do vídeo não pode ser nula");
 
             if (isBlankOrEmpty(url))
-                throw new IllegalArgumentException("Url do vídeo não pode ser vazia");
+                throw new IllegalArgumentException("Url do vídeo não pode ser vazia ou em branco");
 
 
 

@@ -14,7 +14,7 @@ public class AlternativeValidation extends RuntimeException{
                 throw new NullPointerException("Descrição da alternativa não pode ser nula");
 
             if (isBlankOrEmpty(description))
-                throw new IllegalArgumentException("Descrição da alternativa  não pode ser vazia");
+                throw new IllegalArgumentException("Descrição da alternativa  não pode ser vazia ou em branco");
 
 
 

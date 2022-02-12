@@ -10,7 +10,7 @@ public class ExplanationValidation extends RuntimeException {
         try {
             if (isNull(description)) throw new NullPointerException("Descrição de Explicação não pode ser nulo");
 
-            if (isBlankOrEmpty(description)) throw new IllegalArgumentException("Descrição de Explicação não pode ser vazio");
+            if (isBlankOrEmpty(description)) throw new IllegalArgumentException("Descrição de Explicação não pode ser vazio ou em branco");
 
 
 

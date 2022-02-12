@@ -40,14 +40,14 @@ public class SectionValidation extends RuntimeException {
 
 
             if (isBlankOrEmpty(name))
-                throw new IllegalArgumentException("Nome da seção não pode ser vazio ");
+                throw new IllegalArgumentException("Nome da seção não pode ser vazio ou em branco");
 
             if (isNull(code))
                 throw new IllegalArgumentException("Código da seção não pode ser nulo");
 
 
             if (isBlankOrEmpty(code))
-                throw new NullPointerException("Código da seção não pode ser vazio ");
+                throw new NullPointerException("Código da seção não pode ser vazio ou em branco");
 
 
             if (course == null)

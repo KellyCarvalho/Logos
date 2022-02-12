@@ -11,6 +11,9 @@ public class CourseValidation extends RuntimeException {
     public static boolean isValidCode(String code) {
 
         try {
+
+
+
             boolean validationCode = code!=null? code.matches("[a-z0-9^-]+"):false;
 
 
@@ -21,6 +24,10 @@ public class CourseValidation extends RuntimeException {
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             return false;
+        }catch (NullPointerException e){
+            System.out.println(e.getMessage());
+            return false;
+
         }
 
     }
@@ -50,23 +57,23 @@ public class CourseValidation extends RuntimeException {
                 throw new NullPointerException("Nome do Curso não pode ser nulo ");
 
             if (isBlankOrEmpty(name))
-                throw new IllegalArgumentException("Nome do Curso não pode ser vazio ");
+                throw new IllegalArgumentException("Nome do Curso não pode ser vazio ou em branco");
 
 
             if (isNull(code))
-                throw new NullPointerException("Código do curso não pode ser nulo ");
+                throw new NullPointerException("Código do curso não pode ser nulo ou em branco");
 
             if (isBlankOrEmpty(code))
-                throw new IllegalArgumentException("Código do curso não pode ser vazio ");
+                throw new IllegalArgumentException("Código do curso não pode ser vazio ou em branco");
 
             if (isNull(instructor))
                 throw new NullPointerException("Código do curso não pode ser nulo ");
 
             if (isBlankOrEmpty(instructor))
-                throw new IllegalArgumentException("Código do curso não pode ser vazio ");
+                throw new IllegalArgumentException("Código do curso não pode ser vazio ou em branco");
 
             if(subCategory==null)
-                throw new IllegalArgumentException("Subcategoria não pode ser nula");
+                throw new IllegalArgumentException("Subcategoria do curso não pode ser nula");
 
 
 
