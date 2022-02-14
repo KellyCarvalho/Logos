@@ -11,6 +11,7 @@ public class ActivityValidation extends RuntimeException {
     public static boolean isValidCode(String code) {
 
         try {
+
             boolean validationCode = code != null ? code.matches("[a-z0-9^-]+") : false;
 
 
