@@ -1,7 +1,5 @@
 package avalon.category;
 
-import avalon.category.Category;
-
 public class SubCategory extends Category {
 
 private int id;
