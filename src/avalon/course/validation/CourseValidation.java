@@ -34,9 +34,9 @@ public class CourseValidation extends RuntimeException {
 
     public static boolean isValidEstimatedTime(int estimatedTime) {
         try {
-            if (estimatedTime < 1) throw new IllegalArgumentException("Tempo estimado não pode ser menor que 1 hora");
+            if (estimatedTime < 1) throw new IllegalArgumentException("Tempo estimado de curso não pode ser menor que 1 hora");
 
-            if (estimatedTime > 20) throw new IllegalArgumentException("Tempo estimado não pode ultrapassar 20 horas");
+            if (estimatedTime > 20) throw new IllegalArgumentException("Tempo estimado de curso não pode ultrapassar 20 horas");
 
 
             return true;
@@ -67,10 +67,10 @@ public class CourseValidation extends RuntimeException {
                 throw new IllegalArgumentException("Código do curso não pode ser vazio ou em branco");
 
             if (isNull(instructor))
-                throw new NullPointerException("Código do curso não pode ser nulo ");
+                throw new NullPointerException("Nome do instrutor  do curso não pode ser nulo ");
 
             if (isBlankOrEmpty(instructor))
-                throw new IllegalArgumentException("Código do curso não pode ser vazio ou em branco");
+                throw new IllegalArgumentException("Nome do instrutor do curso não pode ser vazio ou em branco");
 
             if(subCategory==null)
                 throw new IllegalArgumentException("Subcategoria do curso não pode ser nula");
