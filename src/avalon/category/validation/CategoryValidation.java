@@ -6,6 +6,28 @@ import static commonValidation.StringValidationPresentContent.isBlankOrEmpty;
 import static commonValidation.StringValidationPresentContent.isNull;
 
 public class CategoryValidation extends  RuntimeException{
+    public static boolean isValidCode(String code) {
+
+
+        try {
+            boolean validationCode = code!=null? code.matches("[a-z0-9^-]+"):false;
+
+
+
+
+            if (!validationCode)
+                throw new IllegalArgumentException("Código da categoria não é válido, deve ter caracteres de a-z e algarismos de 0-9 e tudo bem se tiver o hífen em sua composição");
+
+            return true;
+
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+
+
+
+    }
     public static boolean isValidColor(String color) {
 
         try {
@@ -13,7 +35,7 @@ public class CategoryValidation extends  RuntimeException{
 
 
             if (!validationCode)
-                throw new IllegalArgumentException("Cor não é válida");
+                throw new IllegalArgumentException("Cor da categoria não é válida");
             return true;
 
         } catch (IllegalArgumentException e) {

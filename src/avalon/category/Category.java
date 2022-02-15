@@ -1,7 +1,6 @@
 package avalon.category;
 
-import static avalon.category.validation.CategoryValidation.fieldsContainsValue;
-import static avalon.category.validation.CategoryValidation.isValidColor;
+import static avalon.category.validation.CategoryValidation.*;
 
 public class Category {
   private int id;
@@ -17,6 +16,7 @@ public class Category {
   public Category(String name, String code, String description, String studyGuide, boolean active, int order, String iconUrl, String codeColor) {
     fieldsContainsValue(name,code);
     isValidColor(codeColor);
+    isValidCode(code);
     this.name = name;
     this.code = code;
     this.description = description;
@@ -28,11 +28,15 @@ public class Category {
   }
 
   public Category(String name, String code) {
+    fieldsContainsValue(name,code);
+    isValidCode(code);
     this.name = name;
     this.code = code;
   }
 
   public Category(String name, String code, String description, String studyGuide, boolean active, int order) {
+    fieldsContainsValue(name,code);
+    isValidCode(code);
     this.name = name;
     this.code = code;
     this.description = description;

@@ -83,6 +83,31 @@ public class Program {
         System.out.println("Alternativa 2: "+alternative2.getDescription());
         System.out.println("Alternativa 3: "+alternative3.getDescription());
 
+        System.out.println();
+        System.out.println();
+        System.out.println("Validação Categoria");
+        System.out.println("Validando nulos");
+
+        Category categoryValidationNullName = new Category(null,"programacao","Cursos de Programação","Aprenda com mais diversos cursos e conteúdos de programação em diversas linguagens",true,1,"caminhodoicone.com.br","#363636");
+
+        Category categoryValidationNullCode = new Category("java",null,"Cursos de Programação","Aprenda com mais diversos cursos e conteúdos de programação em diversas linguagens",true,1,"caminhodoicone.com.br","#363636");
+
+        System.out.println();
+        System.out.println();
+        System.out.println("Validando brancos e vazios");
+        Category categoryValidationEmptyBlankName = new Category(" ","programacao","Cursos de Programação","Aprenda com mais diversos cursos e conteúdos de programação em diversas linguagens",true,1,"caminhodoicone.com.br","#363636");
+
+        Category categoryValidationEmptyBlanCode = new Category("java"," ","Cursos de Programação","Aprenda com mais diversos cursos e conteúdos de programação em diversas linguagens",true,1,"caminhodoicone.com.br","#363636");
+
+
+
+
+
+
+        System.out.println();
+        System.out.println();
+        System.out.println("Validação SubCategoria");
+        System.out.println("Validando nulos");
 
 
 
