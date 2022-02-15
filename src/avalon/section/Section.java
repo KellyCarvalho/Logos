@@ -16,11 +16,11 @@ public class Section {
     private Course course;
 
 
-    public Section(Long id, String name, String code, int order, boolean active, boolean test, Course course) {
+    public Section(String name, String code, int order, boolean active, boolean test, Course course) {
         fieldsContainsValue(name,code,course);
         SectionValidation.isValidCode(code);
         isValidOrder(order);
-        this.id = id;
+
         this.name = name;
         this.code = code;
         this.order = order;

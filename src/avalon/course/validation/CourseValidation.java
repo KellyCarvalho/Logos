@@ -61,7 +61,7 @@ public class CourseValidation extends RuntimeException {
 
 
             if (isNull(code))
-                throw new NullPointerException("Código do curso não pode ser nulo ou em branco");
+                throw new NullPointerException("Código do curso não pode ser nulo");
 
             if (isBlankOrEmpty(code))
                 throw new IllegalArgumentException("Código do curso não pode ser vazio ou em branco");

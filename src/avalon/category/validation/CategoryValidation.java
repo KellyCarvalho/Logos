@@ -48,7 +48,7 @@ public class CategoryValidation extends  RuntimeException{
     public static boolean fieldsContainsValue(String name, String code) {
 
         try {
-            if (isNull(name)) throw new NullPointerException("Nome da Categoria não pode ser null");
+            if (isNull(name)) throw new NullPointerException("Nome da Categoria não pode ser nula");
 
             if (isBlankOrEmpty(name)) throw new IllegalArgumentException("Nome da Categoria não pode estar vazio ou em branco");
 

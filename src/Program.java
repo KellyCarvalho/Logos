@@ -16,9 +16,9 @@ public class Program {
         Category category = new Category("Programação","programacao","Cursos de Programação","Aprenda com mais diversos cursos e conteúdos de programação em diversas linguagens",true,1,"caminhodoicone.com.br","#363636");
 
 
-        Category subCategory = new SubCategory("Programação","programacao","Lógica de programação","guia de estudos",true,1,category.getName());
+        SubCategory subCategory = new SubCategory("Programação", "programacao", "Lógica de programação", "guia de estudos", true, 1, category.getName());
 
-        Course course = new Course("Java OO: Introdução à Orientação a Objetos","java-introducao-orientacao-objetos",8,"Paulo Silveira", (SubCategory) subCategory);
+        Course course = new Course("Java OO: Introdução à Orientação a Objetos", "java-introducao-orientacao-objetos", 8, "Paulo Silveira", subCategory);
 
         Section section = new Section("O problema do paradigma procedural", "section1",course);
 
@@ -95,22 +95,99 @@ public class Program {
         System.out.println();
         System.out.println();
         System.out.println("Validando brancos e vazios");
-        Category categoryValidationEmptyBlankName = new Category(" ","programacao","Cursos de Programação","Aprenda com mais diversos cursos e conteúdos de programação em diversas linguagens",true,1,"caminhodoicone.com.br","#363636");
+        Category categoryValidationEmptyBlankName = new Category(" ", "programacao", "Cursos de Programação", "Aprenda com mais diversos cursos e conteúdos de programação em diversas linguagens", true, 1, "caminhodoicone.com.br", "#363636");
 
-        Category categoryValidationEmptyBlanCode = new Category("java"," ","Cursos de Programação","Aprenda com mais diversos cursos e conteúdos de programação em diversas linguagens",true,1,"caminhodoicone.com.br","#363636");
-
-
-
-
-
+        Category categoryValidationEmptyBlankCode = new Category("java", " ", "Cursos de Programação", "Aprenda com mais diversos cursos e conteúdos de programação em diversas linguagens", true, 1, "caminhodoicone.com.br", "#363636");
 
         System.out.println();
         System.out.println();
+
+        System.out.println("Validação Cor");
+
+
+        Category categoryColorValidation = new Category("Programação", "programacao", "Cursos de Programação", "Aprenda com mais diversos cursos e conteúdos de programação em diversas linguagens", true, 1, "caminhodoicone.com.br", "#35454");
+
+        System.out.println();
+        System.out.println();
+
         System.out.println("Validação SubCategoria");
         System.out.println("Validando nulos");
 
+        SubCategory subCategoryNullValidationName = new SubCategory(null, "programacao", "Lógica de programação", "guia de estudos", true, 1, category.getName());
+        SubCategory subCategoryNullValidationCode = new SubCategory("java", null, "Lógica de programação", "guia de estudos", true, 1, category.getName());
+
+        System.out.println();
+        System.out.println();
+        System.out.println("Validando brancos e vazios");
+
+        System.out.println();
+        System.out.println();
+        SubCategory subCategoryBlankValidationName = new SubCategory(" ", "programacao", "Lógica de programação", "guia de estudos", true, 1, category.getName());
+        SubCategory subCategoryBlankValidationCode = new SubCategory("java", " ", "Lógica de programação", "guia de estudos", true, 1, category.getName());
+        System.out.println("Validação Curso");
 
 
+        System.out.println();
+        System.out.println("Validando nulos");
+
+        Course courseNullValidationName = new Course(null, "java-introducao-orientacao-objetos", 8, "Paulo Silveira", subCategory);
+        Course courseNullValidationCode = new Course("java", null, 8, "Paulo Silveira", subCategory);
+        Course courseNullValidationInstructor = new Course("java", "java-introducao-orientacao-objetos", 8, null, subCategory);
+        Course courseNullValidationSubCategory = new Course("java", "java", 8, "Paulo Silveira", null);
+
+
+        System.out.println();
+        System.out.println("Regra de Tempo estimado de curso");
+        Course courseMinEstimedTimeValidationCode = new Course("java", "java", -8, "Paulo Silveira", subCategory);
+
+        Course courseMaxEstimedTimeValidationCode = new Course("java", "java", 21, "Paulo Silveira", subCategory);
+
+        System.out.println();
+        System.out.println();
+
+        System.out.println("Validação brancos e vazios");
+
+        Course courseEmptyBlankValidationName = new Course(" ", "java-introducao-orientacao-objetos", 8, "Paulo Silveira", subCategory);
+        Course courseEmptyBlankValidationCode = new Course("java", " ", 8, "Paulo Silveira", subCategory);
+        Course courseEmptyBlankValidationInstructor = new Course("java", "java-introducao-orientacao-objetos", 8, " ", subCategory);
+
+
+        System.out.println();
+        System.out.println();
+
+        System.out.println("Validação Seção");
+        System.out.println();
+        System.out.println("Validação nulos");
+        Section sectionNullValidationName = new Section(null, "section1", course);
+        Section sectionNullValidationCode = new Section("java", null, course);
+        Section sectionEmptyBlankValidationCourse = new Section("java", "java", null);
+
+        System.out.println();
+        System.out.println("Validação brancos e vazio");
+        Section sectionEmptyBlankValidationName = new Section(" ", "section1", course);
+        Section sectionEmptyBlankValidationCode = new Section("java", " ", course);
+        System.out.println();
+        System.out.println("Ordem");
+        Section sectionOrderValidationCode = new Section("java", "java", -1, true, true, course);
+
+        System.out.println();
+        System.out.println();
+        System.out.println("Validação Atividades -> Explicação");
+
+        Explanation explanationNullValidationTitle = new Explanation(null, "30957", true, 1, section, TypeActivity.EXPLANATION, "Vamos começar a implementar nosso projeto!");
+
+        Explanation explanationNullValidationCode = new Explanation("java", null, true, 1, section, TypeActivity.EXPLANATION, "Vamos começar a implementar nosso projeto!");
+
+        System.out.println("Validação brancos e nulos");
+
+        Explanation explanationEmptyBlankValidationTitle = new Explanation(" ", "30957", true, 1, section, TypeActivity.EXPLANATION, "Vamos começar a implementar nosso projeto!");
+
+        Explanation explanationEmptyBlankValidationCode = new Explanation("java", " ", true, 1, section, TypeActivity.EXPLANATION, "Vamos começar a implementar nosso projeto!");
+        System.out.println();
+        System.out.println();
+
+        System.out.println("Validação Atividades -> Vídeo");
+        Video videoNullValidation = new Video("Introdução", "29414", true, 1, null, TypeActivity.VIDEO, "https://cursos.alura.com.br/course/java-introducao-orientacao-objetos/task/29414", 2, "Olá, meu nome é Paulo Silveira. Neste curso iremos desvendar a orientação a objetos.");
 
 
     }
