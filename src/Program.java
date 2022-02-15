@@ -85,6 +85,7 @@ public class Program {
 
         System.out.println();
         System.out.println();
+
         System.out.println("Validação Categoria");
         System.out.println("Validando nulos");
 
