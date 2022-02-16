@@ -1,4 +1,7 @@
+import avalon.activity.Explanation;
+import avalon.activity.Question;
 import avalon.activity.Video;
+import avalon.activity.enums.TypeQuestion;
 import avalon.category.Category;
 import avalon.category.enums.CategoryStatus;
 import avalon.course.Course;
@@ -64,7 +67,7 @@ public class Program {
         //Testando o caso do nome do instrutor ser vazio
         //Course courseTestingEmptyOrBlankInstructor = new Course("java", "j-01", 20, true, "Crianças", " ", "Java OO", "Java, POO", subCategory);
 
-        Section section = new Section("cursos-java","java-course",1,true,true,course);
+        Section section = new Section("cursos-java", "java-course", 1, true, true, course);
         System.out.println(section.toString());
         //Testando o caso do nome da seção ser nulll
         //Section sectionTestingNullName = new Section(null,"java-course",1,true,true,course);
@@ -81,7 +84,7 @@ public class Program {
 
         //Section sectionTestingEmptyOrBlankCode = new Section("cursos-java"," ",1,true,true,course);
 
-        Video video = new Video("orientação a objetos em java","java-45",true,1,section,"java.com.br",39,"java é...");
+        Video video = new Video("orientação a objetos em java", "java-45", true, 1, section, "java.com.br", 39, "java é...");
         System.out.println();
         System.out.println(video.toString());
 
@@ -94,8 +97,18 @@ public class Program {
         //Video videoTestingEmptyOrBlankTitle = new Video("","java-45",true,1,section,"java.com.br",39,"java é...");
         //Testando o caso do Código  de atividade ser vazio
         //Video videoTestingEmptyOrBlankCode = new Video("orientação a objetos em java"," ",true,1,section,"java.com.br",39,"java é...");
+        System.out.println();
+        Question question = new Question("O que é JDK é o mesmo que JRE", "jdk-89", true, 1, section, "Como funciona", TypeQuestion.TRUE_OR_FALSE);
+        System.out.println(question.toString());
+        //Testando o caso de descrição da questão ser nula
+        //Question questionTestingNullDescription = new Question("O que é JDK é o mesmo que JRE", "jdk-89", true, 1, section, null, TypeQuestion.TRUE_OR_FALSE);
 
+        //Testando o caso de tipo de questão  ser nula
+        //Question questionTestingNullTypeQuestion = new Question("O que é JDK é o mesmo que JRE", "jdk-89", true, 1, section, "Como funciona", null);
+        //Testando o caso de descrição da questão ser vazia
+        Question questionTestingEmptyOrBlankDescritption = new Question("O que é JDK é o mesmo que JRE", "jdk-89", true, 1, section, "", TypeQuestion.TRUE_OR_FALSE);
 
+        Explanation explanation = new Explanation("está correto...","ex-1",true,1,section,"está correo...");
 
 
     }
