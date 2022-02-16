@@ -4,7 +4,4 @@ public enum TypeActivity {
     EXPLANATION,
     QUESTION,
     VIDEO
-
-
-
 }

@@ -1,8 +1,5 @@
 package avalon.activity.validation;
 
-import static commonValidation.StringValidationPresentContent.isBlankOrEmpty;
-import static commonValidation.StringValidationPresentContent.isNull;
-
 public class VideoValidation extends RuntimeException {
     public static boolean isValidCode(String code) {
 
@@ -25,27 +22,7 @@ public class VideoValidation extends RuntimeException {
 
     }
 
-    public static boolean fieldsContainsValue(String url) {
 
-        try {
-            if (isNull(url))
-                throw new NullPointerException("Url do vídeo não pode ser nula");
-
-            if (isBlankOrEmpty(url))
-                throw new IllegalArgumentException("Url do vídeo não pode ser vazia ou em branco");
-
-
-
-
-            return true;
-
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-            return false;
-        }
-
-
-    }
 
     public static boolean isValidDuration(int duration) {
         try {

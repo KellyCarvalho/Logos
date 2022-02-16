@@ -1,34 +1,24 @@
 package avalon.activity;
 
 
-import avalon.section.Section;
-import avalon.activity.enums.TypeActivity;
 import avalon.activity.enums.TypeQuestion;
+import avalon.section.Section;
 
-import static avalon.activity.validation.QuestionValidation.fieldsContainsValue;
 
 public class Question extends Activity {
-    private Long id;
-    private String statement;
-    private TypeQuestion typeQuestion;
+    private String description;
+    private TypeQuestion type;
 
-
-
-    public Question(String title, String code, boolean active, int order, Section section, TypeActivity typeActivity, String statement, TypeQuestion typeQuestion) {
-        super(title, code, active, order, section,typeActivity);
-        fieldsContainsValue(statement);
-        this.statement = statement;
-        this.typeQuestion = typeQuestion;
-
-
+    //TODO validar tipo obrigatório
+    public Question(String title, String code, boolean active, int order, Section section,  String statement, TypeQuestion type) {
+        super(title, code, active, order, section);
+        this.description = statement;
+        this.type = type;
     }
 
 
-    public String getStatement() {
-        return statement;
+    public String getDescription() {
+        return description;
     }
 
-    public TypeQuestion getTypeQuestion() {
-        return typeQuestion;
-    }
 }

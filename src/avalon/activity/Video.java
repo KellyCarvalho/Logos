@@ -6,34 +6,31 @@ import avalon.activity.enums.TypeActivity;
 import static avalon.activity.validation.VideoValidation.*;
 
 public class Video extends Activity {
-    private Long id;
     private String url;
-    private int duration;
+    private int durationInMinutes;
     private String transcription;
+    //TODO principal construtor como obrigátorio e referenciar ele nos outros construtores se usar sobrecarga
 
-    public Video(String title, String code, boolean active, int order, Section section, TypeActivity typeActivity, String url, int duration, String transcription) {
-        super(title, code, active, order, section,typeActivity);
-         isValidCode(code);
-         isValidDuration(duration);
-         fieldsContainsValue(url);
-        this.url = url;
-        this.duration = duration;
-        this.transcription = transcription;
-    }
-
-    public Video(String title, String code, boolean active, int order, Section section,TypeActivity typeActivity, String url) {
-        super(title, code, active, order, section,typeActivity);
-        fieldsContainsValue(url);
+    public Video(String title, String code, boolean active, int order, Section section, String url) {
+        super(title, code, active, order, section);
         isValidCode(code);
         this.url = url;
     }
+    public Video(String title, String code, boolean active, int order, Section section, String url, int durationInMinutes, String transcription) {
+        this(title, code, active, order, section,url);
+        isValidDuration(durationInMinutes);
+        this.durationInMinutes = durationInMinutes;
+        this.transcription = transcription;
+    }
+
+
 
     public String getUrl() {
         return url;
     }
 
-    public int getDuration() {
-        return duration;
+    public int getDurationInMinutes() {
+        return durationInMinutes;
     }
 
     public String getTranscription() {

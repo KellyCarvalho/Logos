@@ -1,79 +1,58 @@
 package avalon.category;
 
-import static avalon.category.validation.CategoryValidation.*;
+
+import avalon.category.enums.CategoryStatus;
+
+import static avalon.category.validation.CategoryValidation.isValidOrder;
+import static commonValidation.StringValidation.*;
 
 public class Category {
-  private int id;
-  private String name;
-  private String code;
-  private String description;
-  private String studyGuide;
-  private boolean active;
-  private int order;
-  private String iconUrl;
-  private String codeColor;
 
-  public Category(String name, String code, String description, String studyGuide, boolean active, int order, String iconUrl, String codeColor) {
-    fieldsContainsValue(name,code);
-    isValidColor(codeColor);
-    isValidCode(code);
-    this.name = name;
-    this.code = code;
-    this.description = description;
-    this.studyGuide = studyGuide;
-    this.active = active;
-    this.order = order;
-    this.iconUrl = iconUrl;
-    this.codeColor = codeColor;
-  }
+    private String name;
+    private String code;
+    private String description;
+    private String studyGuide;
+    private CategoryStatus status = CategoryStatus.DISABLED;
+    private int order;
+    private String imageUrl;
+    private String colorCode;
 
-  public Category(String name, String code) {
-    fieldsContainsValue(name,code);
-    isValidCode(code);
-    this.name = name;
-    this.code = code;
-  }
+    public Category(String name, String code) {
+        isBlankOrEmpty(name, "Nome da categoria é requerido, não pode ser vazio ou em branco");
+        isValidCode(code, "Código da SubCategoria não é válido ou está null ou vazio - deve ter caracteres de a-z - algarismos de 0-9 - Único caractere especial permitido é o hífen");
+        this.name = name;
+        this.code = code;
+    }
 
-  public Category(String name, String code, String description, String studyGuide, boolean active, int order) {
-    fieldsContainsValue(name,code);
-    isValidCode(code);
-    this.name = name;
-    this.code = code;
-    this.description = description;
-    this.studyGuide = studyGuide;
-    this.active = active;
-    this.order = order;
-  }
+    public Category(String name, String code, String description, String studyGuide, CategoryStatus status, int order, String imageUrl, String colorCode) {
+        this(name, code);
+        isValidOrder(order);
+        isValidColor(colorCode, "Cor não é válida, deve ser em formato hexadecimal");
+        this.description = description;
+        this.studyGuide = studyGuide;
+        this.status = status;
+        this.order = order;
+        this.imageUrl = imageUrl;
+        this.colorCode = colorCode;
+    }
 
-  public String getName() {
-    return name;
-  }
+    public String getCode() {
+        return code;
+    }
 
-  public String getCode() {
-    return code;
-  }
+    public int getOrder() {
+        return order;
+    }
 
-  public String getDescription() {
-    return description;
-  }
-
-  public String getStudyGuide() {
-    return studyGuide;
-  }
-
-  public boolean isActive() {
-    return active;
-  }
-
-  public int getOrder() {
-    return order;
-  }
-
-  public String getIconUrl() {
-    return iconUrl;
-  }
-
-  public String getCodeColor() {
-    return codeColor;
-  }
+    @Override
+    public String toString() {
+        return  "Nome='" + name + '\n' +
+                "Código='" + code + '\n' +
+                "Descrição='" + description + '\n' +
+                "Guia de estudo='" + studyGuide + '\n' +
+                "status=" + status + '\n' +
+                "Ordem=" + order + '\n' +
+                "imageUrl='" + imageUrl + '\n' +
+                "Cor em Hexadecimal='" + colorCode + '\'';
+    }
 }

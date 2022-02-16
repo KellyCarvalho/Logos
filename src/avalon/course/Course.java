@@ -1,83 +1,52 @@
 package avalon.course;
 
-import avalon.category.SubCategory;
+import avalon.subCategory.SubCategory;
 
 import static avalon.course.validation.CourseValidation.*;
 
+import static commonValidation.ObjectValidation.isObjectValid;
+import static commonValidation.StringValidation.isBlankOrEmpty;
+import static commonValidation.StringValidation.isValidCode;
+
+
 
 public class Course {
-    private  Long id;
-    private  String name;
+
+    private String name;
     private String code;
     private int estimatedTime;
     private boolean visibility;
-    private String target;
+    private String targetAudience;
     private String instructor;
-    private String courseProgram;
+    private String courseProgramDescription;
     private String skillsDeveloped;
     private SubCategory subCategory;
 
 
-    public Course(String name, String code,  int estimatedTime,String instructor,SubCategory subCategory) {
-        fieldsContainsValue(name,code,instructor,subCategory);
-        isValidCode(code);
-        isValidEstimatedTime(estimatedTime);
-        this.name = name;
-        this.code = code;
-        this.estimatedTime=estimatedTime;
-        this.instructor = instructor;
-        this.subCategory=subCategory;
-
-    }
-
-    public Course(String name, String code, int estimatedTime, boolean visibility, String target, String instructor, String courseProgram, String skillsDeveloped,SubCategory subCategory) {
-        isValidCode(code);
-        fieldsContainsValue(name,code,instructor, subCategory);
-        isValidEstimatedTime(estimatedTime);
+    public Course(String name, String code, int estimatedTime, String instructor, SubCategory subCategory) {
+        isValidCode(code,"Código do curso não é válido ou está null ou vazio - deve ter caracteres de a-z - algarismos de 0-9 - Único caractere especial permitido é o hífen");
+        isValidEstimatedTime(estimatedTime,1,20);
+        isBlankOrEmpty(instructor,"Nome do instrutor não pode ser vazio");
+        isObjectValid(subCategory,"SubCategoria é obrigatória e não pode estar nula");
         this.name = name;
         this.code = code;
         this.estimatedTime = estimatedTime;
-        this.visibility = visibility;
-        this.target = target;
         this.instructor = instructor;
-        this.courseProgram = courseProgram;
-        this.skillsDeveloped = skillsDeveloped;
-        this.subCategory=subCategory;
+        this.subCategory = subCategory;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public int getEstimatedTime() {
-        return estimatedTime;
-    }
-
-    public boolean isVisibility() {
-        return visibility;
-    }
-
-    public String getTarget() {
-        return target;
-    }
-
-    public String getInstructor() {
-        return instructor;
-    }
-
-    public String getCourseProgram() {
-        return courseProgram;
-    }
-
-    public String getSkillsDeveloped() {
-        return skillsDeveloped;
+    @Override
+    public String toString() {
+        return "Course{" +
+                "name='" + name + '\'' +
+                ", code='" + code + '\'' +
+                ", estimatedTime=" + estimatedTime +
+                ", visibility=" + visibility +
+                ", targetAudience='" + targetAudience + '\'' +
+                ", instructor='" + instructor + '\'' +
+                ", courseProgramDescription='" + courseProgramDescription + '\'' +
+                ", skillsDeveloped='" + skillsDeveloped + '\'' +
+                ", subCategory=" + subCategory +
+                '}';
     }
 }
