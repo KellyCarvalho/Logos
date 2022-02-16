@@ -2,7 +2,7 @@ package commonValidation;
 
 public class StringValidation {
 
-    public static boolean isBlankOrEmpty(String text, String message) {
+    public static boolean isBlankEmptyOrNull(String text, String message) {
 
         if (text == null || text.isBlank() || text.isEmpty()) throw new IllegalArgumentException(message);
 

@@ -2,7 +2,6 @@ package avalon.activity.validation;
 
 public class ActivityValidation extends RuntimeException {
 
-
     public static boolean isValidCode(String code) {
 
         try {
@@ -20,8 +19,6 @@ public class ActivityValidation extends RuntimeException {
 
 
     }
-
-
 
     public static boolean isValidOrder(int order) {
         try {

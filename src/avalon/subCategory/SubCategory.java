@@ -2,11 +2,9 @@ package avalon.subCategory;
 
 import avalon.category.Category;
 import avalon.subCategory.enums.SubCategoryStatus;
-
-import static avalon.subCategory.validation.SubCategoryValidation.isValidOrder;
-import static commonValidation.ObjectValidation.isObjectValid;
-import static commonValidation.StringValidation.isBlankOrEmpty;
-import static commonValidation.StringValidation.isValidCode;
+import static avalon.subCategory.validation.SubCategoryValidation.*;
+import static commonValidation.ObjectValidation.*;
+import static commonValidation.StringValidation.*;
 
 public class SubCategory {
 
@@ -19,7 +17,7 @@ public class SubCategory {
     private Category category;
 
     public SubCategory(String name, String code, Category category) {
-        isBlankOrEmpty(name, "Nome da SubCategoria é requerido, não pode ser vazia ou nula");
+        isBlankEmptyOrNull(name, "Nome da SubCategoria é requerido, não pode ser vazia ou nula");
         isValidCode(code, "Código da SubCategoria não é válido ou está null ou vazio - deve ter caracteres de a-z - algarismos de 0-9 - Único caractere especial permitido é o hífen");
         isObjectValid(category, "Categoria é obrigatória, não pode ser nula");
         this.name = name;
@@ -29,10 +27,7 @@ public class SubCategory {
 
     public SubCategory(String name, String code, String description, String studyGuide, SubCategoryStatus status, int order, Category category) {
         this(name, code, category);
-        isBlankOrEmpty(name, "Nome da SubCategoria é requerida, não pode ser vazia ou nula");
-        isValidCode(code, "Código da Categoria não é válido ou está null ou vazio - deve ter caracteres de a-z - algarismos de 0-9 - Único caractere especial permitido é o hífen");
         isValidOrder(order);
-        isObjectValid(category, "Categoria é obrigatória, não pode ser nula");
         this.description = description;
         this.studyGuide = studyGuide;
         this.status = status;
