@@ -3,7 +3,10 @@ package avalon.activity;
 
 import avalon.section.Section;
 
-import static avalon.activity.validation.ActivityValidation.*;
+import static avalon.activity.validation.ActivityValidation.isValidOrder;
+import static commonValidation.ObjectValidation.isObjectValid;
+import static commonValidation.StringValidation.isNotBlankEmptyOrNull;
+import static commonValidation.StringValidation.isValidCode;
 
 public abstract class Activity {
     private String title;
@@ -13,7 +16,9 @@ public abstract class Activity {
     private Section section;
 
     public Activity(String title, String code, Section section) {
-        isValidCode(code);
+        isNotBlankEmptyOrNull(title, "Título de atividade é requerida, não pode ser vazia ou nula");
+        isValidCode(code, "Código de Atividade não é válido ou está null ou vazio - deve ter caracteres de a-z - algarismos de 0-9 - Único caractere especial permitido é o hífen");
+        isObjectValid(section, "Seção de atividade é requerida, não pode ser vazia ou nula");
         this.title = title;
         this.code = code;
     }
@@ -23,6 +28,10 @@ public abstract class Activity {
         isValidOrder(order);
         this.active = active;
         this.order = order;
+    }
+
+    public int getOrder() {
+        return order;
     }
 
     public String getTitle() {
@@ -37,11 +46,17 @@ public abstract class Activity {
         return active;
     }
 
-    public int getOrder() {
-        return order;
-    }
-
     public Section getSection() {
         return section;
+    }
+
+    @Override
+    public String toString() {
+        return "Activity{" + '\n' +
+                "title='" + title + '\n' +
+                "code='" + code + '\n' +
+                "active=" + active + '\n' +
+                "order=" + order + '\n' +
+                "section=" + section + '\n';
     }
 }

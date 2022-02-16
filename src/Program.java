@@ -1,6 +1,8 @@
+import avalon.activity.Video;
 import avalon.category.Category;
 import avalon.category.enums.CategoryStatus;
 import avalon.course.Course;
+import avalon.section.Section;
 import avalon.subCategory.SubCategory;
 import avalon.subCategory.enums.SubCategoryStatus;
 
@@ -61,6 +63,38 @@ public class Program {
         //Course courseTestingEmptyOrBlankCode = new Course(" ", "j-01", 20, true, "Crianças", "Thais", "Java OO", "Java, POO", subCategory);
         //Testando o caso do nome do instrutor ser vazio
         //Course courseTestingEmptyOrBlankInstructor = new Course("java", "j-01", 20, true, "Crianças", " ", "Java OO", "Java, POO", subCategory);
+
+        Section section = new Section("cursos-java","java-course",1,true,true,course);
+        System.out.println(section.toString());
+        //Testando o caso do nome da seção ser nulll
+        //Section sectionTestingNullName = new Section(null,"java-course",1,true,true,course);
+        //Testando o caso do código da seção ser null
+        //Section sectionTestingNullCode = new Section("cursos-java",null,1,true,true,course);
+        //Testando o caso do curso da seção ser null
+        //Section sectionTestingNullCourse = new Section("cursos-java","java-course",1,true,true,null);
+
+        //Testando o caso do nome da seção ser vazia
+
+        //Section sectionTestingEmptyOrBlankName = new Section(" ","java-course",1,true,true,course);
+
+        //Testando o caso do código da seção ser vazia
+
+        //Section sectionTestingEmptyOrBlankCode = new Section("cursos-java"," ",1,true,true,course);
+
+        Video video = new Video("orientação a objetos em java","java-45",true,1,section,"java.com.br",39,"java é...");
+        System.out.println();
+        System.out.println(video.toString());
+
+        //Testando o caso do título de atividade ser nulo
+        //Video videoTestingNullTitle = new Video(null,"java-45",true,1,section,"java.com.br",39,"java é...");
+        //Testando o caso do código de atividade ser nulo
+        //Video videoTestingNullCode = new Video("orientação a objetos em java",null,true,1,section,"java.com.br",39,"java é...");
+
+        //Testando o caso do título de atividade ser vazio
+        //Video videoTestingEmptyOrBlankTitle = new Video("","java-45",true,1,section,"java.com.br",39,"java é...");
+        //Testando o caso do Código  de atividade ser vazio
+        //Video videoTestingEmptyOrBlankCode = new Video("orientação a objetos em java"," ",true,1,section,"java.com.br",39,"java é...");
+
 
 
 

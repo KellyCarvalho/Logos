@@ -2,7 +2,7 @@ package commonValidation;
 
 public class StringValidation {
 
-    public static boolean isBlankEmptyOrNull(String text, String message) {
+    public static boolean isNotBlankEmptyOrNull(String text, String message) {
 
         if (text == null || text.isBlank() || text.isEmpty()) throw new IllegalArgumentException(message);
 
@@ -13,7 +13,7 @@ public class StringValidation {
 
         boolean isValidCode = color != null ? color.matches("^#([a-fA-F0-9]){3}(([a-fA-F0-9]){3})?$") : false;
 
-        if(!isValidCode) throw new IllegalArgumentException(message);
+        if (!isValidCode) throw new IllegalArgumentException(message);
 
         return true;
 
@@ -23,7 +23,7 @@ public class StringValidation {
 
         boolean isValidCode = code != null ? code.matches("[a-z0-9^-]+") : false;
 
-        if(!isValidCode) throw new IllegalArgumentException(message);
+        if (!isValidCode) throw new IllegalArgumentException(message);
 
         return true;
     }

@@ -1,9 +1,11 @@
 package avalon.course;
 
 import avalon.subCategory.SubCategory;
-import static avalon.course.validation.CourseValidation.*;
-import static commonValidation.ObjectValidation.*;
-import static commonValidation.StringValidation.*;
+
+import static avalon.course.validation.CourseValidation.isValidEstimatedTime;
+import static commonValidation.ObjectValidation.isObjectValid;
+import static commonValidation.StringValidation.isNotBlankEmptyOrNull;
+import static commonValidation.StringValidation.isValidCode;
 
 public class Course {
 
@@ -18,11 +20,11 @@ public class Course {
     private SubCategory subCategory;
 
     public Course(String name, String code, int estimatedTime, String instructor, SubCategory subCategory) {
-        isValidCode(code,"Código do curso não é válido ou está null ou vazio - deve ter caracteres de a-z - algarismos de 0-9 - Único caractere especial permitido é o hífen");
-        isBlankEmptyOrNull(name,"Nome do curso é requerido, não pode ser vazio ou nulo");
-        isValidEstimatedTime(estimatedTime,1,20);
-        isBlankEmptyOrNull(instructor,"Nome do instrutor não pode ser vazio");
-        isObjectValid(subCategory,"SubCategoria é obrigatória e não pode estar nula");
+        isValidCode(code, "Código do curso não é válido ou está null ou vazio - deve ter caracteres de a-z - algarismos de 0-9 - Único caractere especial permitido é o hífen");
+        isNotBlankEmptyOrNull(name, "Nome do curso é requerido, não pode ser vazio ou nulo");
+        isValidEstimatedTime(estimatedTime, 1, 20);
+        isNotBlankEmptyOrNull(instructor, "Nome do instrutor não pode ser vazio");
+        isObjectValid(subCategory, "SubCategoria é obrigatória e não pode estar nula");
         this.name = name;
         this.code = code;
         this.estimatedTime = estimatedTime;
