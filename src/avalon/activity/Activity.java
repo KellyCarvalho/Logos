@@ -21,6 +21,7 @@ public abstract class Activity {
         isObjectValid(section, "Seção de atividade é requerida, não pode ser vazia ou nula");
         this.title = title;
         this.code = code;
+        this.section = section;
     }
 
     public Activity(String title, String code, boolean active, int order, Section section) {
@@ -36,18 +37,6 @@ public abstract class Activity {
 
     public String getTitle() {
         return title;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public Section getSection() {
-        return section;
     }
 
     @Override

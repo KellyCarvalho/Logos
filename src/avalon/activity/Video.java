@@ -17,10 +17,13 @@ public class Video extends Activity {
     }
 
     public Video(String title, String code, boolean active, int order, Section section, String url, int durationInMinutes, String transcription) {
-        this(title, code, section, url);
-        isValidDuration(durationInMinutes);
+        super(title,code,active,order,section);
+        isNotBlankEmptyOrNull(url, "Url de vídeo não pode ser vazia ou nula");
+        isValidDuration(durationInMinutes,1);
+        this.url = url;
         this.durationInMinutes = durationInMinutes;
         this.transcription = transcription;
+
     }
 
     @Override

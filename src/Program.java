@@ -2,6 +2,7 @@ import avalon.activity.Explanation;
 import avalon.activity.Question;
 import avalon.activity.Video;
 import avalon.activity.enums.TypeQuestion;
+import avalon.alternative.Alternative;
 import avalon.category.Category;
 import avalon.category.enums.CategoryStatus;
 import avalon.course.Course;
@@ -99,16 +100,43 @@ public class Program {
         //Video videoTestingEmptyOrBlankCode = new Video("orientação a objetos em java"," ",true,1,section,"java.com.br",39,"java é...");
         System.out.println();
         Question question = new Question("O que é JDK é o mesmo que JRE", "jdk-89", true, 1, section, "Como funciona", TypeQuestion.TRUE_OR_FALSE);
-        System.out.println(question.toString());
         //Testando o caso de descrição da questão ser nula
         //Question questionTestingNullDescription = new Question("O que é JDK é o mesmo que JRE", "jdk-89", true, 1, section, null, TypeQuestion.TRUE_OR_FALSE);
 
         //Testando o caso de tipo de questão  ser nula
         //Question questionTestingNullTypeQuestion = new Question("O que é JDK é o mesmo que JRE", "jdk-89", true, 1, section, "Como funciona", null);
         //Testando o caso de descrição da questão ser vazia
-        Question questionTestingEmptyOrBlankDescritption = new Question("O que é JDK é o mesmo que JRE", "jdk-89", true, 1, section, "", TypeQuestion.TRUE_OR_FALSE);
+        //Question questionTestingEmptyOrBlankDescritption = new Question("O que é JDK é o mesmo que JRE", "jdk-89", true, 1, section, "", TypeQuestion.TRUE_OR_FALSE);
 
-        Explanation explanation = new Explanation("está correto...","ex-1",true,1,section,"está correo...");
+        Explanation explanation = new Explanation("está correto...","ex-1",true,1,section,"está correto...");
+        System.out.println(explanation.toString());
+        //Testando se explicação é nula
+        //Explanation explanationTestingNUllDescription = new Explanation("está correto...","ex-1",true,1,section,null);
+
+        //Testando se explicação é vazia
+        //Explanation explanationTestingEmptyOrBlankDescription = new Explanation("está correto...","ex-1",true,1,section," ");
+
+        //Testando demais regras de negócio
+        //Duração de vídeo
+        //Video videoTestingDuration = new Video("orientação a objetos em java", "java-45", true, 1, section, "java.com.br", 0, "java é...");
+        //Ordem
+        //Video videoTestingOrder = new Video("orientação a objetos em java", "java-45", true, -1, section, "java.com.br", 1, "java é...");
+        //Section sectionestingOrder = new Section("cursos-java", "java-course", -1, true, true, course);
+        //Tempo estimado de curso
+        //Course courseTestingEstimatedTime = new Course("java", "j-01", 21, true, "Crianças", "Thais", "Java OO", "Java, POO", subCategory);
+        //Course courseTestingEstimatedTime2 = new Course("java", "j-01", -21, true, "Crianças", "Thais", "Java OO", "Java, POO", subCategory);
+
+        Alternative alternative = new Alternative("Verdadeiro",1,false,"Não",question);
+
+        System.out.println(alternative.toString());
+        //Testando descrição nula
+        //Alternative alternativeTestingNullDescription = new Alternative(null,1,true,"Sim",question);
+
+        //Testando Questão nula
+        Alternative alternativeTestingNullQuestion= new Alternative("ok",-1,true,"Sim",question);
+        //Ordem
+        Alternative alternativeTestingOrder= new Alternative(null,1,true,"Sim",question);
+
 
 
     }
