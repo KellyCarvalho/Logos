@@ -108,7 +108,7 @@ public class Program {
         //Testando o caso de descrição da questão ser vazia
         //Question questionTestingEmptyOrBlankDescritption = new Question("O que é JDK é o mesmo que JRE", "jdk-89", true, 1, section, "", TypeQuestion.TRUE_OR_FALSE);
 
-        Explanation explanation = new Explanation("está correto...","ex-1",true,1,section,"está correto...");
+        Explanation explanation = new Explanation("está correto...", "ex-1", true, 1, section, "está correto...");
         System.out.println(explanation.toString());
         //Testando se explicação é nula
         //Explanation explanationTestingNUllDescription = new Explanation("está correto...","ex-1",true,1,section,null);
@@ -126,18 +126,15 @@ public class Program {
         //Course courseTestingEstimatedTime = new Course("java", "j-01", 21, true, "Crianças", "Thais", "Java OO", "Java, POO", subCategory);
         //Course courseTestingEstimatedTime2 = new Course("java", "j-01", -21, true, "Crianças", "Thais", "Java OO", "Java, POO", subCategory);
 
-        Alternative alternative = new Alternative("Verdadeiro",1,false,"Não",question);
+        Alternative alternative = new Alternative("Verdadeiro", 1, false, "Não", question);
 
         System.out.println(alternative.toString());
         //Testando descrição nula
         //Alternative alternativeTestingNullDescription = new Alternative(null,1,true,"Sim",question);
 
         //Testando Questão nula
-        Alternative alternativeTestingNullQuestion= new Alternative("ok",-1,true,"Sim",question);
+        Alternative alternativeTestingNullQuestion = new Alternative("ok", -1, true, "Sim", question);
         //Ordem
-        Alternative alternativeTestingOrder= new Alternative(null,1,true,"Sim",question);
-
-
-
+        Alternative alternativeTestingOrder = new Alternative(null, 1, true, "Sim", question);
     }
 }
