@@ -28,7 +28,7 @@ public class SubCategory {
     }
 
     public void setOrder(int order) {
-        isValidOrder(order,"Ordem de subcategoria não pode ser menor que 1");
+        isValidOrder(order, "Ordem de subcategoria não pode ser menor que 1");
         this.order = order;
     }
 

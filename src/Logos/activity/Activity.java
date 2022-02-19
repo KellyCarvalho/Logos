@@ -1,8 +1,6 @@
 package Logos.activity;
 
-
 import Logos.section.Section;
-import commonValidation.ValidatorUtils;
 
 import static commonValidation.ObjectValidation.isObjectValid;
 import static commonValidation.StringValidation.isNotBlankEmptyOrNull;
@@ -15,7 +13,6 @@ public abstract class Activity {
     private Section section;
     private boolean active;
     private int order;
-
 
     public Activity(String title, String code, Section section) {
         isNotBlankEmptyOrNull(title, "Título de atividade é requerida, não pode ser vazia ou nula");
@@ -31,7 +28,7 @@ public abstract class Activity {
     }
 
     public void setOrder(int order) {
-       isValidOrder(order,"Ordem de atividade não pode ser menor que 1");
+        isValidOrder(order, "Ordem de atividade não pode ser menor que 1");
         this.order = order;
     }
 
