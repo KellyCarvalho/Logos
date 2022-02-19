@@ -31,7 +31,7 @@ public abstract class Activity {
     }
 
     public void setOrder(int order) {
-       isValidOrder(order,"Ordem de atividade não pode ser menor que 0");
+       isValidOrder(order,"Ordem de atividade não pode ser menor que 1");
         this.order = order;
     }
 

@@ -6,6 +6,7 @@ import Logos.subCategory.enums.SubCategoryStatus;
 import static commonValidation.ObjectValidation.isObjectValid;
 import static commonValidation.StringValidation.isNotBlankEmptyOrNull;
 import static commonValidation.StringValidation.isValidCode;
+import static commonValidation.ValidatorUtils.isValidOrder;
 
 public class SubCategory {
 
@@ -24,6 +25,11 @@ public class SubCategory {
         this.name = name;
         this.code = code;
         this.category = category;
+    }
+
+    public void setOrder(int order) {
+        isValidOrder(order,"Ordem de subcategoria não pode ser menor que 1");
+        this.order = order;
     }
 
     @Override

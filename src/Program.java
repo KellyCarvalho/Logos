@@ -16,6 +16,8 @@ public class Program {
         //Testando instanciação Categoria
         Category category = new Category("Programação", "programacao");
         System.out.println(category.toString());
+        //Ordem
+        //category.setOrder(0);
         //Testando o caso do nome da categoria ser null
         //Category categoryTestingNullName = new Category(null, "programacao");
 
@@ -45,6 +47,9 @@ public class Program {
         //Testando o caso do código da subcategoria ser vazio
 
         //SubCategory subCategoryTestingEmptyOrBlankCode = new SubCategory("java", "", category);
+
+        //Ordem
+        //subCategory.setOrder(0);
 
         //Testando instanciação Course
 
@@ -124,13 +129,20 @@ public class Program {
         //Ordem
         Video videoTestingOrder = new Video("orientação a objetos em java", "java-45", section, "java.com.br");
         //videoTestingOrder.setOrder(-1);
+        //Se é válida a duração de vídeo
+        Video videoTestingDuratiob= new Video("orientação a objetos em java", "java-45", section, "java.com.br");
+        videoTestingDuratiob.setDurationInMinutes(0);
+
         Section sectionestingOrder = new Section("cursos-java", "java-course", course);
-        //sectionestingOrder.setOrder(0);
+        sectionestingOrder.setOrder(0);
+
+
 
 
         //Tempo estimado de curso
-        //Course courseTestingEstimatedTime = new Course("java", "j-01", 21, "Thais",  subCategory);
-        //Course courseTestingEstimatedTime2 = new Course("java", "j-01", -21, "Thais", subCategory);
+        Course courseTestingEstimatedTime = new Course("java", "j-01", 20, "Thais",  subCategory);
+        Course courseTestingEstimatedTime2 = new Course("java", "j-01", 2, "Thais", subCategory);
+
 
         Alternative alternative = new Alternative("Verdadeiro", false, question);
 
@@ -145,7 +157,7 @@ public class Program {
         //Alternative alternativeTestingNullQuestion = new Alternative("ok", true,  null);
         //Ordem
         Alternative alternativeTestingOrder = new Alternative("ok",  true,  question);
-        //alternativeTestingOrder.setOrder(-1);
+        alternativeTestingOrder.setOrder(-1);
 
 
     }
