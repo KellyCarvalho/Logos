@@ -3,8 +3,7 @@ package Logos.category;
 
 import Logos.category.enums.CategoryStatus;
 
-import static commonValidation.StringValidation.isNotBlankEmptyOrNull;
-import static commonValidation.StringValidation.isValidCode;
+import static commonValidation.StringValidation.*;
 import static commonValidation.ValidatorUtils.isValidOrder;
 
 public class Category {
@@ -29,6 +28,11 @@ public class Category {
         isValidOrder(order,"Ordem de categoria não pode ser menor que 1");
 
         this.order = order;
+    }
+
+    public void setColorCode(String colorCode) {
+        isValidColor(colorCode," Cor de categoria não é válida");
+        this.colorCode = colorCode;
     }
 
     @Override

@@ -1,6 +1,6 @@
 package Logos.course.validation;
 
-public class CourseValidation extends RuntimeException {
+public class CourseValidation {
 
     public static boolean isValidEstimatedTime(int estimatedTime, int min, int max) {
 

@@ -27,7 +27,7 @@ public class Section {
     }
 
     public void setOrder(int order) {
-        isValidOrder(order,"Ordem de seção não pode ser menor que 1");
+        isValidOrder(order, "Ordem de seção não pode ser menor que 1");
         this.order = order;
     }
 
