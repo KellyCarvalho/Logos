@@ -2,9 +2,10 @@ package Logos.section;
 
 import Logos.course.Course;
 
-import static Logos.section.validation.SectionValidation.*;
-import static commonValidation.ObjectValidation.*;
-import static commonValidation.StringValidation.*;
+import static commonValidation.ObjectValidation.isObjectValid;
+import static commonValidation.StringValidation.isNotBlankEmptyOrNull;
+import static commonValidation.StringValidation.isValidCode;
+import static commonValidation.ValidatorUtils.isValidOrder;
 
 public class Section {
 
@@ -16,7 +17,7 @@ public class Section {
     private Course course;
 
     public Section(String name, String code, Course course) {
-        isNotBlankEmptyOrNull(name, "Nome é requerido, não pode ser vazio ou nulo");
+        isNotBlankEmptyOrNull(name, "Nome da seção é requerido, não pode ser vazio ou nulo");
         isValidCode(code, "Código da seção não é válido ou está null ou vazio - deve ter caracteres de a-z - algarismos de 0-9 - Único caractere especial permitido é o hífen");
         isNotBlankEmptyOrNull(name, "Nome é requerido, não pode ser vazio ou nulo");
         isObjectValid(course, "Curso de seção é requerido e não pode ser nulo");
@@ -25,15 +26,9 @@ public class Section {
         this.course = course;
     }
 
-    public Section(String name, String code, int order, boolean active, boolean test, Course course) {
-        this(name, code, course);
-        isValidOrder(order);
-        this.name = name;
-        this.code = code;
+    public void setOrder(int order) {
+        isValidOrder(order,"Ordem de seção deve ser maior que 0");
         this.order = order;
-        this.active = active;
-        this.test = test;
-        this.course = course;
     }
 
     @Override
@@ -46,13 +41,4 @@ public class Section {
                 "test=" + test + '\n' +
                 "course=" + course;
     }
-
-    public String getCode() {
-        return code;
-    }
-
-    public int getOrder() {
-        return order;
-    }
-
 }

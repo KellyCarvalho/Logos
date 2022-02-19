@@ -3,8 +3,8 @@ package Logos.category;
 
 import Logos.category.enums.CategoryStatus;
 
-import static Logos.category.validation.CategoryValidation.isValidOrder;
-import static commonValidation.StringValidation.*;
+import static commonValidation.StringValidation.isNotBlankEmptyOrNull;
+import static commonValidation.StringValidation.isValidCode;
 
 public class Category {
 
@@ -22,26 +22,6 @@ public class Category {
         isValidCode(code, "Código da Categoria não é válido ou está null ou vazio - deve ter caracteres de a-z - algarismos de 0-9 - Único caractere especial permitido é o hífen");
         this.name = name;
         this.code = code;
-    }
-
-    public Category(String name, String code, String description, String studyGuide, CategoryStatus status, int order, String imageUrl, String colorCode) {
-        this(name, code);
-        isValidOrder(order);
-        isValidColor(colorCode, "Cor não é válida, deve ser em formato hexadecimal");
-        this.description = description;
-        this.studyGuide = studyGuide;
-        this.status = status;
-        this.order = order;
-        this.imageUrl = imageUrl;
-        this.colorCode = colorCode;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public int getOrder() {
-        return order;
     }
 
     @Override

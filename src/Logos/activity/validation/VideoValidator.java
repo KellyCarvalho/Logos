@@ -1,6 +1,6 @@
 package Logos.activity.validation;
 
-public class VideoValidation {
+public class VideoValidator {
 
     public static boolean isValidDuration(int duration, int durationMin) {
 

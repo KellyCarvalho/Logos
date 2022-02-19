@@ -32,19 +32,6 @@ public class Course {
         this.subCategory = subCategory;
     }
 
-    public Course(String name, String code, int estimatedTime, boolean visibility, String targetAudience, String instructor, String courseProgramDescription, String skillsDeveloped, SubCategory subCategory) {
-        this(name, code, estimatedTime, instructor, subCategory);
-        this.visibility = visibility;
-        this.targetAudience = targetAudience;
-        this.instructor = instructor;
-        this.courseProgramDescription = courseProgramDescription;
-        this.skillsDeveloped = skillsDeveloped;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
     @Override
     public String toString() {
         return "Course" +

@@ -3,7 +3,6 @@ package Logos.subCategory;
 import Logos.category.Category;
 import Logos.subCategory.enums.SubCategoryStatus;
 
-import static Logos.subCategory.validation.SubCategoryValidation.isValidOrder;
 import static commonValidation.ObjectValidation.isObjectValid;
 import static commonValidation.StringValidation.isNotBlankEmptyOrNull;
 import static commonValidation.StringValidation.isValidCode;
@@ -19,29 +18,12 @@ public class SubCategory {
     private Category category;
 
     public SubCategory(String name, String code, Category category) {
-        isNotBlankEmptyOrNull(name, "Nome da SubCategoria é requerido, não pode ser vazia ou nula");
+        isNotBlankEmptyOrNull(name, "Nome da SubCategoria é requerido, não pode ser vazio ou nulo");
         isValidCode(code, "Código da SubCategoria não é válido ou está null ou vazio - deve ter caracteres de a-z - algarismos de 0-9 - Único caractere especial permitido é o hífen");
         isObjectValid(category, "Categoria é obrigatória, não pode ser nula");
         this.name = name;
         this.code = code;
         this.category = category;
-    }
-
-    public SubCategory(String name, String code, String description, String studyGuide, SubCategoryStatus status, int order, Category category) {
-        this(name, code, category);
-        isValidOrder(order);
-        this.description = description;
-        this.studyGuide = studyGuide;
-        this.status = status;
-        this.order = order;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public int getOrder() {
-        return order;
     }
 
     @Override

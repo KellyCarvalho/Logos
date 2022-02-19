@@ -2,9 +2,9 @@ package Logos.alternative;
 
 import Logos.activity.Question;
 
-import static Logos.alternative.validation.AlternativeValidation.isValidOrder;
 import static commonValidation.ObjectValidation.isObjectValid;
 import static commonValidation.StringValidation.isNotBlankEmptyOrNull;
+import static commonValidation.ValidatorUtils.isValidOrder;
 
 public class Alternative {
     private String description;
@@ -13,29 +13,17 @@ public class Alternative {
     private String explanationAnswer;
     private Question question;
 
-    //TODO identação, referenciar com o this o construtor principal toString()
-
-
     public Alternative(String description, boolean correct, Question question) {
-        isNotBlankEmptyOrNull(description,"Descrição de alternativa é requerida, não pode ser nula ou vazia");
-        isObjectValid(question,"Questão é obrigatória, não pode ser nula");
+        isNotBlankEmptyOrNull(description, "Descrição de alternativa é requerida, não pode ser nula ou vazia");
+        isObjectValid(question, "Questão é obrigatória, não pode ser nula");
         this.description = description;
         this.correct = correct;
         this.question = question;
     }
 
-    public Alternative(String description, int order, boolean correct, String explanationAnswer, Question question) {
-        this(description,correct,question);
-        isValidOrder(order);
-        this.description = description;
+    public void setOrder(int order) {
+        isValidOrder(order,"Ordem de alternativa não pode ser menor que 1");
         this.order = order;
-        this.correct = correct;
-        this.explanationAnswer = explanationAnswer;
-        this.question = question;
-    }
-
-    public int getOrder() {
-        return order;
     }
 
     @Override

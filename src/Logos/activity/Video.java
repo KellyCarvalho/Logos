@@ -2,7 +2,7 @@ package Logos.activity;
 
 import Logos.section.Section;
 
-import static Logos.activity.validation.VideoValidation.isValidDuration;
+import static Logos.activity.validation.VideoValidator.isValidDuration;
 import static commonValidation.StringValidation.isNotBlankEmptyOrNull;
 
 public class Video extends Activity {
@@ -16,14 +16,9 @@ public class Video extends Activity {
         this.url = url;
     }
 
-    public Video(String title, String code, boolean active, int order, Section section, String url, int durationInMinutes, String transcription) {
-        super(title,code,active,order,section);
-        isNotBlankEmptyOrNull(url, "Url de vídeo não pode ser vazia ou nula");
+    public void setDurationInMinutes(int durationInMinutes) {
         isValidDuration(durationInMinutes,1);
-        this.url = url;
         this.durationInMinutes = durationInMinutes;
-        this.transcription = transcription;
-
     }
 
     @Override

@@ -2,18 +2,20 @@ package Logos.activity;
 
 
 import Logos.section.Section;
+import commonValidation.ValidatorUtils;
 
-import static Logos.activity.validation.ActivityValidation.isValidOrder;
 import static commonValidation.ObjectValidation.isObjectValid;
 import static commonValidation.StringValidation.isNotBlankEmptyOrNull;
 import static commonValidation.StringValidation.isValidCode;
+import static commonValidation.ValidatorUtils.isValidOrder;
 
 public abstract class Activity {
     private String title;
     private String code;
+    private Section section;
     private boolean active;
     private int order;
-    private Section section;
+
 
     public Activity(String title, String code, Section section) {
         isNotBlankEmptyOrNull(title, "Título de atividade é requerida, não pode ser vazia ou nula");
@@ -24,19 +26,13 @@ public abstract class Activity {
         this.section = section;
     }
 
-    public Activity(String title, String code, boolean active, int order, Section section) {
-        this(title, code, section);
-        isValidOrder(order);
-        this.active = active;
-        this.order = order;
-    }
-
-    public int getOrder() {
-        return order;
-    }
-
     public String getTitle() {
         return title;
+    }
+
+    public void setOrder(int order) {
+       isValidOrder(order,"Ordem de atividade não pode ser menor que 0");
+        this.order = order;
     }
 
     @Override
