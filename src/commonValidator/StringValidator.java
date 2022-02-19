@@ -1,6 +1,6 @@
-package commonValidation;
+package commonValidator;
 
-public class StringValidation {
+public class StringValidator {
 
     public static boolean isNotBlankEmptyOrNull(String text, String message) {
 
@@ -16,7 +16,6 @@ public class StringValidation {
         if (!isValidCode) throw new IllegalArgumentException(message);
 
         return true;
-
     }
 
     public static boolean isValidCode(String code, String message) {

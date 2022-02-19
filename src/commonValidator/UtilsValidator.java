@@ -1,6 +1,6 @@
-package commonValidation;
+package commonValidator;
 
-public class ValidatorUtils {
+public class UtilsValidator {
 
     public static boolean isValidOrder(int order, String message) {
         if (order < 1)

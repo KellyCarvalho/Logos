@@ -3,10 +3,10 @@ package Logos.subCategory;
 import Logos.category.Category;
 import Logos.subCategory.enums.SubCategoryStatus;
 
-import static commonValidation.ObjectValidation.isObjectValid;
-import static commonValidation.StringValidation.isNotBlankEmptyOrNull;
-import static commonValidation.StringValidation.isValidCode;
-import static commonValidation.ValidatorUtils.isValidOrder;
+import static commonValidator.ObjectValidator.isObjectValid;
+import static commonValidator.StringValidator.isNotBlankEmptyOrNull;
+import static commonValidator.StringValidator.isValidCode;
+import static commonValidator.UtilsValidator.isValidOrder;
 
 public class SubCategory {
 

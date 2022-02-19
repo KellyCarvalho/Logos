@@ -3,9 +3,9 @@ package Logos.course;
 import Logos.subCategory.SubCategory;
 
 import static Logos.course.validation.CourseValidation.isValidEstimatedTime;
-import static commonValidation.ObjectValidation.isObjectValid;
-import static commonValidation.StringValidation.isNotBlankEmptyOrNull;
-import static commonValidation.StringValidation.isValidCode;
+import static commonValidator.ObjectValidator.isObjectValid;
+import static commonValidator.StringValidator.isNotBlankEmptyOrNull;
+import static commonValidator.StringValidator.isValidCode;
 
 public class Course {
 

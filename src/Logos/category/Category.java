@@ -3,8 +3,8 @@ package Logos.category;
 
 import Logos.category.enums.CategoryStatus;
 
-import static commonValidation.StringValidation.*;
-import static commonValidation.ValidatorUtils.isValidOrder;
+import static commonValidator.StringValidator.*;
+import static commonValidator.UtilsValidator.isValidOrder;
 
 public class Category {
 
