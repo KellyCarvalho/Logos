@@ -32,18 +32,21 @@ public class Course {
         this.subCategory = subCategory;
     }
 
+    public SubCategory getSubCategory() {
+        return subCategory;
+    }
+
     @Override
     public String toString() {
-        return "Course" +
+        return "Course" + '\n' +
                 "name='" + name + '\n' +
-                ", code='" + code + '\n' +
-                ", estimatedTime=" + estimatedTime + '\n' +
-                ", visibility=" + visibility +
-                ", targetAudience='" + targetAudience + '\n' +
-                ", instructor='" + instructor + '\n' +
-                ", courseProgramDescription='" + courseProgramDescription + '\n' +
-                ", skillsDeveloped='" + skillsDeveloped + '\n' +
-                ", subCategory=" + subCategory +
-                '}';
+                "code='" + code + '\n' +
+                "estimatedTime=" + estimatedTime + '\n' +
+                "visibility=" + visibility +
+                "targetAudience='" + targetAudience + '\n' +
+                "instructor='" + instructor + '\n' +
+                "courseProgramDescription='" + courseProgramDescription + '\n' +
+                "skillsDeveloped='" + skillsDeveloped + '\n' +
+                "subCategory:" + subCategory +'\n';
     }
 }

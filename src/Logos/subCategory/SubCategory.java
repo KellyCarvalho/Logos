@@ -1,6 +1,7 @@
 package Logos.subCategory;
 
 import Logos.category.Category;
+import Logos.subCategory.SubCategory;
 import Logos.subCategory.enums.SubCategoryStatus;
 
 import java.io.File;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import static Logos.category.Category.filterCategoriesByCode;
 import static Logos.category.Category.toReadCsvTocategories;
 import static Logos.commonValidator.ObjectValidator.isObjectValid;
 import static Logos.commonValidator.StringValidator.isNotBlankEmptyOrNull;
@@ -40,12 +42,23 @@ public class SubCategory {
         this.order = order;
     }
 
-    public static Category filterCategoriesByCode(List<Category> categories, String categoryCode) {
-        return categories.stream()
-                .filter(category -> category.getCode().equalsIgnoreCase(categoryCode))
-                .findFirst().orElse(null);
+    public String getCode() {
+        return code;
     }
 
+
+    public static SubCategory filterSubCategoriesByCode(List<SubCategory> subCategories, String subCategoryCode) {
+
+        for (SubCategory subCategory : subCategories) {
+            if (subCategory.getCode().equals(subCategoryCode)) {
+                return subCategory;
+            }
+        }
+        /*return categories.stream()
+                .filter(category -> category.getCode().equalsIgnoreCase(categoryCode))
+                .findFirst().orElse(null);*/
+        return null;
+    }
     public static List<SubCategory> toReadCsvToSubCategories(String pathName) throws FileNotFoundException {
         List<Category> categories = toReadCsvTocategories("/home/kelly/Downloads/planilha-dados-escola - Categoria.csv");
         List<SubCategory> subCategories = new ArrayList<>();
@@ -72,17 +85,13 @@ public class SubCategory {
                 subCategories.add(new SubCategory(name, code, description, status ? SubCategoryStatus.ACTIVE : SubCategoryStatus.DISABLED, order, filterCategoriesByCode(categories, category)));
             }
         }
-        subCategories.forEach(subCategory -> {
-            System.out.println(subCategory);
-        });
 
         return subCategories;
     }
 
     @Override
     public String toString() {
-        return "SubCategory" + '\n' +
-                "Nome='" + name + '\n' +
+        return   '\n' +"Nome=" + name + '\n' +
                 "Código='" + code + '\n' +
                 "Descrição='" + description + '\n' +
                 "Guia de Estudos='" + studyGuide + '\n' +

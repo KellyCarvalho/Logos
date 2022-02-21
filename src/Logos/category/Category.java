@@ -2,6 +2,7 @@ package Logos.category;
 
 
 import Logos.category.enums.CategoryStatus;
+import Logos.subCategory.SubCategory;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -39,6 +40,9 @@ public class Category {
         this.imageUrl = imageUrl;
         this.colorCode = colorCode;
     }
+    public String getCode() {
+        return code;
+    }
 
     public static List<Category> toReadCsvTocategories(String pathName) throws FileNotFoundException {
         List<Category> categories = new ArrayList<>();
@@ -66,16 +70,21 @@ public class Category {
                 categories.add(new Category(name, code, description, status ? CategoryStatus.ACTIVE : CategoryStatus.DISABLED, order, icon, color));
             }
         }
-        categories.forEach(category -> {
-            System.out.println(category);
-        });
+
         scanner.close();
         return categories;
     }
 
-    public String getCode() {
-        return code;
+    public static Category filterCategoriesByCode(List<Category> categories, String categoryCode) {
+
+        for (Category category : categories) {
+            if (category.getCode().equals(categoryCode)) {
+                return category;
+            }
+        }
+return null;
     }
+
 
     @Override
     public String toString() {
