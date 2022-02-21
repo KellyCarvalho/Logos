@@ -1,4 +1,4 @@
-package commonValidator;
+package Logos.commonValidator;
 
 public class ObjectValidator {
 

@@ -3,7 +3,7 @@ package Logos.activity;
 import Logos.section.Section;
 
 import static Logos.activity.validation.VideoValidator.isValidDuration;
-import static commonValidator.StringValidator.isNotBlankEmptyOrNull;
+import static Logos.commonValidator.StringValidator.isNotBlankEmptyOrNull;
 
 public class Video extends Activity {
     private String url;

@@ -3,8 +3,13 @@ package Logos.category;
 
 import Logos.category.enums.CategoryStatus;
 
-import static commonValidator.StringValidator.*;
-import static commonValidator.UtilsValidator.isValidOrder;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+import static Logos.commonValidator.StringValidator.*;
 
 public class Category {
 
@@ -13,7 +18,7 @@ public class Category {
     private String description;
     private String studyGuide;
     private CategoryStatus status = CategoryStatus.DISABLED;
-    private int order;
+    private String order;
     private String imageUrl;
     private String colorCode;
 
@@ -24,10 +29,13 @@ public class Category {
         this.code = code;
     }
 
-    public void setOrder(int order) {
-        isValidOrder(order, "Ordem de categoria não pode ser menor que 1");
-
+    public Category(String name, String code, String description, CategoryStatus status, String order, String imageUrl, String colorCode) {
+        this(name, code);
+        this.description = description;
+        this.status = status;
         this.order = order;
+        this.imageUrl = imageUrl;
+        this.colorCode = colorCode;
     }
 
     public void setColorCode(String colorCode) {
@@ -35,15 +43,55 @@ public class Category {
         this.colorCode = colorCode;
     }
 
+    public static void toReadCsvTocategories(String pathName) throws FileNotFoundException {
+        List<Category> categories = new ArrayList<>();
+
+        Scanner scanner = new Scanner(new File(pathName));
+
+        String name = "";
+        String code = "";
+        String order = "";
+        String description = "";
+        boolean status = false;
+        String icon = "";
+        String color = "";
+
+        while (scanner.hasNextLine()) {
+
+            String line = scanner.nextLine();
+            Scanner lineScanner = new Scanner(line);
+            lineScanner.useDelimiter(",");
+            name = lineScanner.next();
+            code = lineScanner.next();
+            order = lineScanner.next();
+            description = lineScanner.next();
+            status = lineScanner.next().equals("ATIVA") ? true : false;
+            icon = lineScanner.next();
+            color = lineScanner.next();
+
+            if (!(name.equals("nome") && code.equals("codigo") && order.equals("ordem") && description.equals("descricao") && icon.equals("icone") && color.equals("cor"))) {
+                categories.add(new Category(name, code, description, status ? CategoryStatus.ACTIVE : CategoryStatus.DISABLED, order, icon, color));
+            }
+
+            categories.forEach(cat -> {
+                System.out.println(cat);
+                System.out.println();
+            });
+
+
+        }
+        scanner.close();
+    }
+
     @Override
     public String toString() {
-        return "Nome='" + name + '\n' +
-                "Código='" + code + '\n' +
-                "Descrição='" + description + '\n' +
-                "Guia de estudo='" + studyGuide + '\n' +
-                "status=" + status + '\n' +
-                "Ordem=" + order + '\n' +
-                "imageUrl='" + imageUrl + '\n' +
-                "Cor em Hexadecimal='" + colorCode + '\'';
+        return "Nome= " + name + '\n' +
+                "Código= " + code + '\n' +
+                "Descrição= " + description + '\n' +
+                "Guia de estudo=" + studyGuide + '\n' +
+                "status= " + status + '\n' +
+                "Ordem= " + order + '\n' +
+                "imageUrl= " + imageUrl + '\n' +
+                "Cor em Hexadecimal= " + colorCode + '\n';
     }
 }
