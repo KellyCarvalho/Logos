@@ -1,5 +1,6 @@
 import Logos.category.Category;
-import Logos.category.enums.CategoryStatus;
+import Logos.subCategory.SubCategory;
+import Logos.subCategory.enums.SubCategoryStatus;
 
 import java.io.File;
 import java.io.IOException;
@@ -8,6 +9,8 @@ import java.util.List;
 import java.util.Scanner;
 
 import static Logos.category.Category.toReadCsvTocategories;
+import static Logos.subCategory.SubCategory.filterCategoriesByCode;
+import static Logos.subCategory.SubCategory.toReadCsvToSubCategories;
 
 public class Program {
     public static void main(String[] args) throws IOException {
@@ -133,11 +136,11 @@ public class Program {
         //Testando Questão nula
         //Alternative alternativeTestingNullQuestion = new Alternative("ok", true,  null);
 
+        //toReadCsvToSubCategories();
 
 
-
-        toReadCsvTocategories("/home/kelly/Downloads/planilha-dados-escola - Categoria.csv");
-
+     toReadCsvTocategories("/home/kelly/Downloads/planilha-dados-escola - Categoria.csv");
+       //toReadCsvToSubCategories("/home/kelly/Downloads/planilha-dados-escola - Subcategoria.csv");
 
     }
 }

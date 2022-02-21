@@ -3,10 +3,16 @@ package Logos.subCategory;
 import Logos.category.Category;
 import Logos.subCategory.enums.SubCategoryStatus;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+import static Logos.category.Category.toReadCsvTocategories;
 import static Logos.commonValidator.ObjectValidator.isObjectValid;
 import static Logos.commonValidator.StringValidator.isNotBlankEmptyOrNull;
 import static Logos.commonValidator.StringValidator.isValidCode;
-import static Logos.commonValidator.UtilsValidator.isValidOrder;
 
 public class SubCategory {
 
@@ -15,7 +21,7 @@ public class SubCategory {
     private String description;
     private String studyGuide;
     private SubCategoryStatus status = SubCategoryStatus.DISABLED;
-    private int order;
+    private String order;
     private Category category;
 
     public SubCategory(String name, String code, Category category) {
@@ -27,9 +33,50 @@ public class SubCategory {
         this.category = category;
     }
 
-    public void setOrder(int order) {
-        isValidOrder(order, "Ordem de subcategoria não pode ser menor que 1");
+    public SubCategory(String name, String code, String description, SubCategoryStatus status, String order, Category category) {
+        this(name, code, category);
+        this.description = description;
+        this.status = status;
         this.order = order;
+    }
+
+    public static Category filterCategoriesByCode(List<Category> categories, String categoryCode) {
+        return categories.stream()
+                .filter(category -> category.getCode().equalsIgnoreCase(categoryCode))
+                .findFirst().orElse(null);
+    }
+
+    public static List<SubCategory> toReadCsvToSubCategories(String pathName) throws FileNotFoundException {
+        List<Category> categories = toReadCsvTocategories("/home/kelly/Downloads/planilha-dados-escola - Categoria.csv");
+        List<SubCategory> subCategories = new ArrayList<>();
+        Scanner scanner = new Scanner(new File(pathName));
+        String name = "";
+        String code = "";
+        String order = "";
+        String description = "";
+        boolean status = false;
+        String category = "";
+
+        while (scanner.hasNextLine()) {
+            String line = scanner.nextLine();
+            Scanner lineScanner = new Scanner(line);
+            lineScanner.useDelimiter(",");
+            name = lineScanner.next();
+            code = lineScanner.next();
+            order = lineScanner.next();
+            description = lineScanner.next();
+            status = lineScanner.next().equals("ATIVA") ? true : false;
+            category = lineScanner.next();
+
+            if (!(name.equals("nome") && code.equals("codigo") && order.equals("ordem") && description.equals("descricao") && category.equals("categoria"))) {
+                subCategories.add(new SubCategory(name, code, description, status ? SubCategoryStatus.ACTIVE : SubCategoryStatus.DISABLED, order, filterCategoriesByCode(categories, category)));
+            }
+        }
+        subCategories.forEach(subCategory -> {
+            System.out.println(subCategory);
+        });
+
+        return subCategories;
     }
 
     @Override
