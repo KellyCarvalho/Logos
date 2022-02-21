@@ -2,7 +2,6 @@ package Logos.category;
 
 
 import Logos.category.enums.CategoryStatus;
-import Logos.subCategory.SubCategory;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -40,6 +39,7 @@ public class Category {
         this.imageUrl = imageUrl;
         this.colorCode = colorCode;
     }
+
     public String getCode() {
         return code;
     }
@@ -47,25 +47,19 @@ public class Category {
     public static List<Category> toReadCsvTocategories(String pathName) throws FileNotFoundException {
         List<Category> categories = new ArrayList<>();
         Scanner scanner = new Scanner(new File(pathName));
-        String name = "";
-        String code = "";
-        String order = "";
-        String description = "";
-        boolean status = false;
-        String icon = "";
-        String color = "";
+
 
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
             Scanner lineScanner = new Scanner(line);
             lineScanner.useDelimiter(",");
-            name = lineScanner.next();
-            code = lineScanner.next();
-            order = lineScanner.next();
-            description = lineScanner.next();
-            status = lineScanner.next().equals("ATIVA") ? true : false;
-            icon = lineScanner.next();
-            color = lineScanner.next();
+            String name = lineScanner.next();
+            String code = lineScanner.next();
+            String order = lineScanner.next();
+            String description = lineScanner.next();
+            boolean status = lineScanner.next().equals("ATIVA") ? true : false;
+            String icon = lineScanner.next();
+            String color = lineScanner.next();
             if (!(name.equals("nome") && code.equals("codigo") && order.equals("ordem") && description.equals("descricao") && icon.equals("icone") && color.equals("cor"))) {
                 categories.add(new Category(name, code, description, status ? CategoryStatus.ACTIVE : CategoryStatus.DISABLED, order, icon, color));
             }
@@ -82,7 +76,7 @@ public class Category {
                 return category;
             }
         }
-return null;
+        return null;
     }
 
 

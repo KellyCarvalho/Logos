@@ -1,7 +1,6 @@
 package Logos.subCategory;
 
 import Logos.category.Category;
-import Logos.subCategory.SubCategory;
 import Logos.subCategory.enums.SubCategoryStatus;
 
 import java.io.File;
@@ -11,7 +10,6 @@ import java.util.List;
 import java.util.Scanner;
 
 import static Logos.category.Category.filterCategoriesByCode;
-import static Logos.category.Category.toReadCsvTocategories;
 import static Logos.commonValidator.ObjectValidator.isObjectValid;
 import static Logos.commonValidator.StringValidator.isNotBlankEmptyOrNull;
 import static Logos.commonValidator.StringValidator.isValidCode;
@@ -54,32 +52,25 @@ public class SubCategory {
                 return subCategory;
             }
         }
-        /*return categories.stream()
-                .filter(category -> category.getCode().equalsIgnoreCase(categoryCode))
-                .findFirst().orElse(null);*/
+
         return null;
     }
-    public static List<SubCategory> toReadCsvToSubCategories(String pathName) throws FileNotFoundException {
-        List<Category> categories = toReadCsvTocategories("/home/kelly/Downloads/planilha-dados-escola - Categoria.csv");
+
+    public static List<SubCategory> toReadCsvToSubCategories(String pathName, List<Category> categories) throws FileNotFoundException {
         List<SubCategory> subCategories = new ArrayList<>();
         Scanner scanner = new Scanner(new File(pathName));
-        String name = "";
-        String code = "";
-        String order = "";
-        String description = "";
-        boolean status = false;
-        String category = "";
+
 
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
             Scanner lineScanner = new Scanner(line);
             lineScanner.useDelimiter(",");
-            name = lineScanner.next();
-            code = lineScanner.next();
-            order = lineScanner.next();
-            description = lineScanner.next();
-            status = lineScanner.next().equals("ATIVA") ? true : false;
-            category = lineScanner.next();
+            String name = lineScanner.next();
+            String code = lineScanner.next();
+            String order = lineScanner.next();
+            String description = lineScanner.next();
+            boolean status = lineScanner.next().equals("ATIVA") ? true : false;
+            String category = lineScanner.next();
 
             if (!(name.equals("nome") && code.equals("codigo") && order.equals("ordem") && description.equals("descricao") && category.equals("categoria"))) {
                 subCategories.add(new SubCategory(name, code, description, status ? SubCategoryStatus.ACTIVE : SubCategoryStatus.DISABLED, order, filterCategoriesByCode(categories, category)));
@@ -91,7 +82,7 @@ public class SubCategory {
 
     @Override
     public String toString() {
-        return   '\n' +"Nome=" + name + '\n' +
+        return '\n' + "Nome=" + name + '\n' +
                 "Código='" + code + '\n' +
                 "Descrição='" + description + '\n' +
                 "Guia de Estudos='" + studyGuide + '\n' +

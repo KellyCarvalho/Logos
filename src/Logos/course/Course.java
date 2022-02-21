@@ -2,10 +2,17 @@ package Logos.course;
 
 import Logos.subCategory.SubCategory;
 
-import static Logos.course.validation.CourseValidation.isValidEstimatedTime;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
 import static Logos.commonValidator.ObjectValidator.isObjectValid;
 import static Logos.commonValidator.StringValidator.isNotBlankEmptyOrNull;
 import static Logos.commonValidator.StringValidator.isValidCode;
+import static Logos.course.validation.CourseValidation.isValidEstimatedTime;
+import static Logos.subCategory.SubCategory.filterSubCategoriesByCode;
 
 public class Course {
 
@@ -32,8 +39,43 @@ public class Course {
         this.subCategory = subCategory;
     }
 
-    public SubCategory getSubCategory() {
-        return subCategory;
+    public Course(String name, String code, int estimatedTime, boolean visibility, String targetAudience, String instructor, String courseProgramDescription, String skillsDeveloped, SubCategory subCategory) {
+        this(name, code, estimatedTime, instructor, subCategory);
+        this.visibility = visibility;
+        this.targetAudience = targetAudience;
+        this.courseProgramDescription = courseProgramDescription;
+        this.skillsDeveloped = skillsDeveloped;
+
+    }
+
+    public static List<Course> toReadCsvTocourses(String pathName, List<SubCategory> subCategories) throws FileNotFoundException {
+        List<Course> courses = new ArrayList<>();
+        Scanner scanner = new Scanner(new File("/home/kelly/Downloads/planilha-dados-escola - Curso.csv"));
+
+        scanner.nextLine();
+
+        while (scanner.hasNextLine()) {
+            String line = scanner.nextLine();
+            Scanner lineScanner = new Scanner(line);
+            lineScanner.useDelimiter(",");
+            String name = lineScanner.hasNext() ? lineScanner.next().strip() : null;
+            String code = lineScanner.hasNext() ? lineScanner.next().strip() : null;
+            String estimedTime = lineScanner.hasNext() ? lineScanner.next().strip() : null;
+            String visibility = lineScanner.hasNext() ? lineScanner.next().strip() : null;
+            String targetAudience = lineScanner.hasNext() ? lineScanner.next().strip() : null;
+            String instructor = lineScanner.hasNext() ? lineScanner.next().strip() : null;
+            String courseProgramDescription = lineScanner.hasNext() ? lineScanner.next().strip() : null;
+            String skillsDeveloped = lineScanner.hasNext() ? lineScanner.next().strip() : null;
+            String subCategory = lineScanner.hasNext() ? lineScanner.next().strip() : null;
+
+            int time = Integer.parseInt(estimedTime);
+
+            if (name != null && code != null && estimedTime != null &&subCategory != null) {
+                courses.add(new Course(name, code, time, visibility.equals("PÚBLICA"), targetAudience, instructor, courseProgramDescription, skillsDeveloped, filterSubCategoriesByCode(subCategories, subCategory)));
+            }
+        }
+        return courses;
+
     }
 
     @Override
@@ -42,11 +84,11 @@ public class Course {
                 "name='" + name + '\n' +
                 "code='" + code + '\n' +
                 "estimatedTime=" + estimatedTime + '\n' +
-                "visibility=" + visibility +
+                "visibility=" + visibility +'\n' +
                 "targetAudience='" + targetAudience + '\n' +
                 "instructor='" + instructor + '\n' +
                 "courseProgramDescription='" + courseProgramDescription + '\n' +
                 "skillsDeveloped='" + skillsDeveloped + '\n' +
-                "subCategory:" + subCategory +'\n';
+                "subCategory:" + subCategory + '\n';
     }
 }

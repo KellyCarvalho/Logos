@@ -1,3 +1,4 @@
+import Logos.category.Category;
 import Logos.course.Course;
 import Logos.subCategory.SubCategory;
 
@@ -7,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import static Logos.category.Category.toReadCsvTocategories;
+import static Logos.course.Course.toReadCsvTocourses;
 import static Logos.subCategory.SubCategory.filterSubCategoriesByCode;
 import static Logos.subCategory.SubCategory.toReadCsvToSubCategories;
 
@@ -135,49 +138,18 @@ public class Program {
         //Alternative alternativeTestingNullQuestion = new Alternative("ok", true,  null);
 
 
-        //List<Category> categories = toReadCsvTocategories("/home/kelly/Downloads/planilha-dados-escola - Categoria.csv");
-        List<SubCategory> subCategories = toReadCsvToSubCategories("/home/kelly/Downloads/planilha-dados-escola - Subcategoria.csv");
-        List<Course> courses = new ArrayList<>();
-        Scanner scanner = new Scanner(new File("/home/kelly/Downloads/planilha-dados-escola - Curso.csv"));
-        String name = "";
-        String code = "";
-        String estimedTime = "";
-        String visibility = "";
-        String targetAudience = "";
-        String instructor = "";
-        String courseProgramDescription = "";
-        String skillsDeveloped = "";
-        String subCategory = "";
 
 
-        scanner.nextLine();
+        List<Category> categories = toReadCsvTocategories("/home/kelly/Downloads/planilha-dados-escola - Categoria.csv");
+        List<SubCategory> subCategories = toReadCsvToSubCategories("/home/kelly/Downloads/planilha-dados-escola - Subcategoria.csv",categories);
 
-        while (scanner.hasNextLine()) {
-            String line = scanner.nextLine();
-            Scanner lineScanner = new Scanner(line);
-            lineScanner.useDelimiter(",");
-            name = lineScanner.next().strip();
-            code = lineScanner.next().strip();
-            estimedTime = lineScanner.next().strip();
-            visibility = lineScanner.next().strip();
-            targetAudience = lineScanner.next().strip();
-            instructor = lineScanner.next().strip();
-            courseProgramDescription = lineScanner.next().strip();
-            skillsDeveloped = lineScanner.next().strip();
-
-            subCategory = lineScanner.hasNext() ? lineScanner.next() : null;
+        List<Course> courses = toReadCsvTocourses("/home/kelly/Downloads/planilha-dados-escola - Curso.csv", subCategories);
 
 
-            int time = Integer.parseInt(estimedTime);
-            if (subCategory != null) {
-                courses.add(new Course(name, code, time, instructor, filterSubCategoriesByCode(subCategories, subCategory)));
-            }
+        //System.out.println(subCategories);
+        System.out.println(courses);
 
-        }
 
-        courses.forEach(course -> {
-            System.out.println(course);
-        });
 
     }
 }
