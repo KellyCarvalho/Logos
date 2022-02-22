@@ -208,6 +208,7 @@ public class Category {
                 """;
 
         sb.append(textHeader);
+
         categories.forEach(category -> {
 
             List<Course> coursesToCategory = courses.stream().filter(course -> course.getSubCategory().getCategory() == category).toList();
@@ -219,8 +220,7 @@ public class Category {
             String nameCourses = "";
 
             String subCategoryDescription = "";
-
-
+            
             for (Course course : coursesToCategory) {
                 totalHoursCourse += course.getEstimatedTime();
 
@@ -230,6 +230,7 @@ public class Category {
 
                 subCategoryDescription = course.getSubCategory().getDescription();
             }
+
             String text = """
                                        
                               
