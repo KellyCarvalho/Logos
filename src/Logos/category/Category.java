@@ -193,10 +193,11 @@
                 Collections.sort(subCategories, Comparator.comparing(SubCategory::getOrder));
                 String textHeader = """
                           <html>
-                                            
-                                        <body>
                                         <head>
                                         </head>
+                                        <body style="background-color:#BCE0F3;">
+                                     <div style="padding:20px;">
+                                      <hr>
                                             <table>
                                                 <tr>
                                                     <th>Categoria</th>
@@ -207,6 +208,8 @@
                                                     <th>Horas de Curso</th>
                                                     <th>SubCategoria</th>
                                                 </tr>
+                                               
+                                                 </div>
                         """;
 
 
@@ -256,6 +259,7 @@
                 });
                 String textFoot = """
                                  </table>
+                                  <hr>
                                         </body>
                                             
                                         </html>
