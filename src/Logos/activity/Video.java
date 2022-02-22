@@ -2,7 +2,6 @@ package Logos.activity;
 
 import Logos.section.Section;
 
-import static Logos.activity.validation.VideoValidator.isValidDuration;
 import static commonValidator.StringValidator.isNotBlankEmptyOrNull;
 
 public class Video extends Activity {
@@ -14,6 +13,12 @@ public class Video extends Activity {
         super(title, code, section);
         isNotBlankEmptyOrNull(url, "Url de vídeo não pode ser vazia ou nula");
         this.url = url;
+    }
+
+    public static boolean isValidDuration(int duration, int durationMin) {
+        if (duration < durationMin)
+            throw new IllegalArgumentException("Minutos de duração do vídeo não podem ter valor menor que " + durationMin);
+        return true;
     }
 
     public void setDurationInMinutes(int durationInMinutes) {

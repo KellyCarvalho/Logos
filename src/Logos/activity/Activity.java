@@ -26,7 +26,7 @@ public abstract class Activity {
     public String getTitle() {
         return title;
     }
-
+//TODO verificar se ta sendo usada na main
     public void setOrder(int order) {
         isValidOrder(order, "Ordem de atividade não pode ser menor que 1");
         this.order = order;

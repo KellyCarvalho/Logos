@@ -13,7 +13,7 @@ public class Question extends Activity {
     public Question(String title, String code, Section section, String description, TypeQuestion type) {
         super(title, code, section);
         isNotBlankEmptyOrNull(description, "Descrição de questão é requerida, não pode ser vazia ou nula");
-        isObjectValid(type, "Tipo de questão é requerida, não pode ser nula ou vazia");
+        isObjectValid(type, "Tipo de questão é requerida, não pode ser nula");
         this.description = description;
         this.type = type;
     }
