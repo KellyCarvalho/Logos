@@ -2,15 +2,19 @@ package Logos.category;
 
 
 import Logos.category.enums.CategoryStatus;
+import Logos.course.Course;
+import Logos.subCategory.SubCategory;
+import Logos.subCategory.enums.SubCategoryStatus;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Scanner;
+import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
+import java.util.*;
 
 import static Logos.commonValidator.StringValidator.*;
+import static Logos.course.Course.toReadCsvTocourses;
+import static Logos.subCategory.SubCategory.toReadCsvToSubCategories;
 
 public class Category {
 
@@ -101,6 +105,78 @@ public class Category {
         return null;
     }
 
+    public static void toGenerateHtml(List<Course> courses, List<SubCategory> subCategories, List<Category> categories) throws FileNotFoundException, UnsupportedEncodingException {
+
+
+        Collections.sort(subCategories, Comparator.comparing(SubCategory::getOrder));
+
+        Locale locale = new Locale("pr", "br");
+        Locale.setDefault(locale);
+        PrintStream ps = new PrintStream(new File("categories.html"), "UTF-16");
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("<html>");
+        sb.append("<body>");
+        sb.append("<table>");
+        sb.append("<tr>");
+
+        sb.append("<th>");
+        sb.append("Categoria");
+        sb.append("</th>");
+
+        sb.append("<th>");
+        sb.append("Descrição");
+        sb.append("</th>");
+
+        sb.append("<th>");
+        sb.append("Ícone");
+        sb.append("</th>");
+
+        sb.append("<th>");
+        sb.append("Cor de Fundo");
+        sb.append("</th>");
+
+        sb.append("<th>");
+        sb.append("Número total de cursos");
+        sb.append("</th>");
+
+        sb.append("<th>");
+        sb.append("Soma total de horas de curso");
+        sb.append("</th>");
+
+        sb.append("<th>");
+        sb.append("SubCategoria");
+        sb.append("</th>");
+
+        sb.append("</tr>");
+
+        Collections.sort(categories, Comparator.comparing(Category::getOrder));
+        categories.forEach(category -> {
+            sb.append("<tr>" + "<td>" + category.getName() + "</td>");
+            sb.append("<td> " + category.getDescription() + " </td>");
+            sb.append("<td><img src=" + category.getImageUrl() + "></td>");
+            List<Course> coursesToCategory = courses.stream().filter(course -> course.getSubCategory().getCategory() == category).toList();
+            int totalHoursCourse = 0;
+            String subCategory = "";
+            List<String> nameCourses = new ArrayList<>();
+            for (Course course : coursesToCategory) {
+                totalHoursCourse += course.getEstimatedTime();
+                nameCourses.add(course!=null? course.getName():"");
+                subCategory = course.getSubCategory().getStatus()== SubCategoryStatus.ACTIVE? course.getSubCategory().getName():"";
+            }
+            sb.append("<td> <h1> |" + category.getColorCode() + "| </h1></td>");
+            sb.append("<td> <h1> |" + coursesToCategory.size() + "| </h1></td>");
+            sb.append("<th> |<h1> " + totalHoursCourse + " </h1>|</th>");
+            if(subCategory!=""&&nameCourses!=null){
+                sb.append("<th> |<h1> Categoria: " + subCategory + " Cursos: " + nameCourses + ", </h1>|</th>");
+            }
+            sb.append("</tr>");
+        });
+        sb.append("</table>");
+        sb.append("</body>");
+        sb.append("</html>");
+        ps.println(sb);
+    }
 
     @Override
     public String toString() {

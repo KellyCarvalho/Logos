@@ -56,6 +56,10 @@ public class SubCategory {
         return order;
     }
 
+    public SubCategoryStatus getStatus() {
+        return status;
+    }
+
     public static SubCategory filterSubCategoriesByCode(List<SubCategory> subCategories, String subCategoryCode) {
 
         for (SubCategory subCategory : subCategories) {

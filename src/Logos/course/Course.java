@@ -56,6 +56,10 @@ public class Course {
         return subCategory;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public static List<Course> toReadCsvTocourses(String pathName, List<SubCategory> subCategories) throws FileNotFoundException {
         List<Course> courses = new ArrayList<>();
         Scanner scanner = new Scanner(new File("/home/kelly/Downloads/planilha-dados-escola - Curso.csv"));
