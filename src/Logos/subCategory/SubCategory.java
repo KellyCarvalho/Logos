@@ -21,7 +21,7 @@ public class SubCategory {
     private String description;
     private String studyGuide;
     private SubCategoryStatus status = SubCategoryStatus.DISABLED;
-    private String order;
+    private int order;
     private Category category;
 
     public SubCategory(String name, String code, Category category) {
@@ -33,7 +33,7 @@ public class SubCategory {
         this.category = category;
     }
 
-    public SubCategory(String name, String code, String description, SubCategoryStatus status, String order, Category category) {
+    public SubCategory(String name, String code, String description, SubCategoryStatus status, int order, Category category) {
         this(name, code, category);
         this.description = description;
         this.status = status;
@@ -44,6 +44,17 @@ public class SubCategory {
         return code;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public int getOrder() {
+        return order;
+    }
 
     public static SubCategory filterSubCategoriesByCode(List<SubCategory> subCategories, String subCategoryCode) {
 
@@ -60,20 +71,21 @@ public class SubCategory {
         List<SubCategory> subCategories = new ArrayList<>();
         Scanner scanner = new Scanner(new File(pathName));
 
-
+        scanner.nextLine();
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
             Scanner lineScanner = new Scanner(line);
             lineScanner.useDelimiter(",");
             String name = lineScanner.next();
             String code = lineScanner.next();
-            String order = lineScanner.next();
+            String order = lineScanner.next().strip();
             String description = lineScanner.next();
             boolean status = lineScanner.next().equals("ATIVA") ? true : false;
-            String category = lineScanner.next();
-
-            if (!(name.equals("nome") && code.equals("codigo") && order.equals("ordem") && description.equals("descricao") && category.equals("categoria"))) {
-                subCategories.add(new SubCategory(name, code, description, status ? SubCategoryStatus.ACTIVE : SubCategoryStatus.DISABLED, order, filterCategoriesByCode(categories, category)));
+            String category = lineScanner.hasNext() ? lineScanner.next().strip() : null;
+            int orderInt = order==""?0: Integer.parseInt(order);
+            System.out.println(category);
+            if (name != null && code != null && category != null) {
+                subCategories.add(new SubCategory(name, code, description, status ? SubCategoryStatus.ACTIVE : SubCategoryStatus.DISABLED, orderInt, filterCategoriesByCode(categories, category)));
             }
         }
 

@@ -4,13 +4,11 @@ import Logos.subCategory.SubCategory;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.io.PrintStream;
+import java.util.*;
 
 import static Logos.category.Category.toReadCsvTocategories;
 import static Logos.course.Course.toReadCsvTocourses;
-import static Logos.subCategory.SubCategory.filterSubCategoriesByCode;
 import static Logos.subCategory.SubCategory.toReadCsvToSubCategories;
 
 public class Program {
@@ -138,17 +136,83 @@ public class Program {
         //Alternative alternativeTestingNullQuestion = new Alternative("ok", true,  null);
 
 
-
-
         List<Category> categories = toReadCsvTocategories("/home/kelly/Downloads/planilha-dados-escola - Categoria.csv");
-        List<SubCategory> subCategories = toReadCsvToSubCategories("/home/kelly/Downloads/planilha-dados-escola - Subcategoria.csv",categories);
+        List<SubCategory> subCategories = toReadCsvToSubCategories("/home/kelly/Downloads/planilha-dados-escola - Subcategoria.csv", categories);
 
         List<Course> courses = toReadCsvTocourses("/home/kelly/Downloads/planilha-dados-escola - Curso.csv", subCategories);
 
+        Locale locale = new Locale("pr", "br");
+        Locale.setDefault(locale);
+        PrintStream ps = new PrintStream(new File("categories.html"), "UTF-16");
 
-        //System.out.println(subCategories);
-        System.out.println(courses);
 
+        StringBuilder sb = new StringBuilder();
+        sb.append("<html>");
+        sb.append("<body>");
+        sb.append("<table>");
+        sb.append("<tr>");
+
+        sb.append("<th>");
+        sb.append("Categoria");
+        sb.append("</th>");
+
+        sb.append("<th>");
+        sb.append("Descrição");
+        sb.append("</th>");
+
+        sb.append("<th>");
+        sb.append("Ícone");
+        sb.append("</th>");
+
+        sb.append("<th>");
+        sb.append("Cor de Fundo");
+        sb.append("</th>");
+
+        sb.append("<th>");
+        sb.append("Número total de cursos");
+        sb.append("</th>");
+
+        sb.append("<th>");
+        sb.append("Soma total de horas de curso");
+        sb.append("</th>");
+
+        sb.append("<th>");
+        sb.append("SubCategoria");
+        sb.append("</th>");
+
+
+        sb.append("</tr>");
+
+        Collections.sort(categories, Comparator.comparing(Category::getOrder));
+        categories.forEach(category -> {
+            sb.append("<tr>" + "<td>" + category.getName() + "</td>");
+            sb.append("<td> " + category.getDescription() + " </td>");
+
+
+            sb.append("<td><img src=" + category.getImageUrl() + "></td>");
+
+
+            List<Course> coursesToCategory = courses.stream().filter(course -> course.getSubCategory().getCategory() == category).toList();
+            int totalHoursCourse = 0;
+           String subCategory ="";
+           List<String> nameCourses = new ArrayList<>();
+            for (Course course : coursesToCategory) {
+                totalHoursCourse += course.getEstimatedTime();
+                SubCategory subCategoryList =course.getSubCategory();
+            }
+            sb.append("<td> <h1> |" + category.getColorCode() + "| </h1></td>");
+            sb.append("<td> <h1> |" + coursesToCategory.size() + "| </h1></td>");
+            sb.append("<th> |<h1> " + totalHoursCourse + " </h1>|</th>");
+
+            sb.append("<th> |<h1> " + subCategory + " </h1>|</th>");
+
+
+            sb.append("</tr>");
+        });
+        sb.append("</table>");
+        sb.append("</body>");
+        sb.append("</html>");
+        ps.println(sb);
 
 
     }

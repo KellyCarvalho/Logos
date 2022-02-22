@@ -19,7 +19,7 @@ public class Category {
     private String description;
     private String studyGuide;
     private CategoryStatus status = CategoryStatus.DISABLED;
-    private String order;
+    private int order;
     private String imageUrl;
     private String colorCode;
 
@@ -30,7 +30,7 @@ public class Category {
         this.code = code;
     }
 
-    public Category(String name, String code, String description, CategoryStatus status, String order, String imageUrl, String colorCode) {
+    public Category(String name, String code, String description, CategoryStatus status, int order, String imageUrl, String colorCode) {
         this(name, code);
         isValidColor(colorCode, " Cor de categoria não é válida");
         this.description = description;
@@ -44,24 +44,46 @@ public class Category {
         return code;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public int getOrder() {
+        return order;
+    }
+
+    public String getColorCode() {
+        return colorCode;
+    }
+
     public static List<Category> toReadCsvTocategories(String pathName) throws FileNotFoundException {
         List<Category> categories = new ArrayList<>();
         Scanner scanner = new Scanner(new File(pathName));
 
-
+        scanner.nextLine();
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
             Scanner lineScanner = new Scanner(line);
             lineScanner.useDelimiter(",");
             String name = lineScanner.next();
-            String code = lineScanner.next();
-            String order = lineScanner.next();
+            String code = lineScanner.next().strip();
+            String order = lineScanner.next().strip();
             String description = lineScanner.next();
             boolean status = lineScanner.next().equals("ATIVA") ? true : false;
             String icon = lineScanner.next();
             String color = lineScanner.next();
+            int orderInt = order == "" ? 0 : Integer.parseInt(order);
+
             if (!(name.equals("nome") && code.equals("codigo") && order.equals("ordem") && description.equals("descricao") && icon.equals("icone") && color.equals("cor"))) {
-                categories.add(new Category(name, code, description, status ? CategoryStatus.ACTIVE : CategoryStatus.DISABLED, order, icon, color));
+                categories.add(new Category(name, code, description, status ? CategoryStatus.ACTIVE : CategoryStatus.DISABLED, orderInt, icon, color));
             }
         }
 
