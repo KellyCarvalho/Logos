@@ -74,34 +74,21 @@ public class Category {
         scanner.nextLine();
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
-
             Scanner lineScanner = new Scanner(line);
-
             lineScanner.useDelimiter(",");
-
             String name = lineScanner.next();
-
             String code = lineScanner.next().strip();
-
             String order = lineScanner.next().strip();
-
             String description = lineScanner.next();
-
             boolean status = lineScanner.next().equals("ATIVA") ? true : false;
-
             String icon = lineScanner.next();
-
             String color = lineScanner.next();
-
             int orderInt = order == "" ? 0 : Integer.parseInt(order);
-
             if (!(name.equals("nome") && code.equals("codigo") && order.equals("ordem") && description.equals("descricao") && icon.equals("icone") && color.equals("cor"))) {
                 categories.add(new Category(name, code, description, status ? CategoryStatus.ACTIVE : CategoryStatus.DISABLED, orderInt, icon, color));
             }
         }
-
         scanner.close();
-
         return categories;
     }
 
@@ -114,51 +101,114 @@ public class Category {
         return null;
     }
 
+    /*
+        public static void toGenerateHtml(List<Course> courses, List<SubCategory> subCategories, List<Category> categories) throws FileNotFoundException, UnsupportedEncodingException {
+            Collections.sort(subCategories, Comparator.comparing(SubCategory::getOrder));
+            Locale locale = new Locale("pr", "br");
+            Locale.setDefault(locale);
+            PrintStream ps = new PrintStream(new File("categories.html"), "UTF-16");
+
+            StringBuilder sb = new StringBuilder();
+
+            sb.append("<html>");
+
+            sb.append("<body  style=\"background-color:#2EE6AE;\">");
+
+
+            sb.append("<table>");
+
+            sb.append("<tr>");
+            sb.append("<th ><h1> Categoria</th><h1> ");
+            sb.append("<th><h1>  Descrição</h1> </th>");
+
+
+            sb.append("<th> <h1> Ícone</h1> </th>");
+
+
+            sb.append("<th><h1> Cor de Fundo</h1> </th>");
+
+            sb.append("<th> <h1>Cursos</h1> </th>");
+
+
+            sb.append("<th> <h1>Horas de Curso</h1> </th>");
+
+            sb.append("<th><h1> SubCategoria</h1> </th>");
+
+            sb.append("<tr>");
+
+            Collections.sort(categories, Comparator.comparing(Category::getOrder));
+            Collections.sort(subCategories, Comparator.comparing(SubCategory::getOrder));
+
+
+            categories.forEach(category -> {
+                sb.append("<tr> " + "<td style=\"padding:20px; text-align:center;\"> <h2> " + category.getName() + "</h2> </td>");
+
+                sb.append("<td style=\"padding:20px; text-align:center;\"> <h4> " + category.getDescription() + " </h4> </td>");
+
+                sb.append("<td><img width=100px; src=" + category.getImageUrl() + "></td>");
+
+                List<Course> coursesToCategory = courses.stream().filter(course -> course.getSubCategory().getCategory() == category).toList();
+
+                int totalHoursCourse = 0;
+
+                String subCategory = "";
+
+                String nameCourses = "";
+                String subCategoryDescription = "";
+
+                for (Course course : coursesToCategory) {
+                    totalHoursCourse += course.getEstimatedTime();
+
+                    nameCourses += (course != null ? course.getName() + ", " : nameCourses);
+
+                    subCategory = course.getSubCategory().getStatus() == SubCategoryStatus.ACTIVE ? course.getSubCategory().getName() : subCategory;
+
+                    subCategoryDescription = course.getSubCategory().getDescription();
+                }
+                sb.append("<td> <div style=\" padding:50px;  border-radius:50px; background-color:" + category.getColorCode() + "\"> <div></td>");
+                sb.append("<td> <div style=\"padding:20px; text-align:center;  font-size:30px\"> <h4>" + coursesToCategory.size() + "</h4> </div></td>");
+                sb.append("<th> <div  style=\"padding:20px; text-align:center;  font-size:30px\"> <h4> " + totalHoursCourse + "</h4>  </div></th>");
+                if (subCategory != "" && nameCourses != null) {
+                    sb.append("<th><div style=\"padding:20px;\"> Subategoria: " + subCategory + "</br>" + " Cursos: " + nameCourses + "<br> Descrição: " + subCategoryDescription + " </div></th>");
+                }
+                sb.append("</tr>");
+            });
+            sb.append("</table>");
+
+            sb.append("</body>");
+
+            sb.append("</html>");
+
+            ps.println(sb);
+        }
+    */
+
     public static void toGenerateHtml(List<Course> courses, List<SubCategory> subCategories, List<Category> categories) throws FileNotFoundException, UnsupportedEncodingException {
-        Collections.sort(subCategories, Comparator.comparing(SubCategory::getOrder));
-
-        Locale locale = new Locale("pr", "br");
-
-        Locale.setDefault(locale);
-
-        PrintStream ps = new PrintStream(new File("categories.html"), "UTF-16");
 
         StringBuilder sb = new StringBuilder();
-
-        sb.append("<html>");
-
-        sb.append("<body  style=\"background-color:#2EE6AE;\">");
-
-
-        sb.append("<table>");
-
-        sb.append("<tr>");
-        sb.append("<th ><h1> Categoria</th><h1> ");
-        sb.append("<th><h1>  Descrição</h1> </th>");
-
-
-        sb.append("<th> <h1> Ícone</h1> </th>");
-
-
-        sb.append("<th><h1> Cor de Fundo</h1> </th>");
-
-        sb.append("<th> <h1>Cursos</h1> </th>");
-
-
-        sb.append("<th> <h1>Horas de Curso</h1> </th>");
-
-        sb.append("<th><h1> SubCategoria</h1> </th>");
-
-        sb.append("<tr>");
-
+        PrintStream ps = new PrintStream(new File("categories.html"), "UTF-16");
         Collections.sort(categories, Comparator.comparing(Category::getOrder));
+        Collections.sort(subCategories, Comparator.comparing(SubCategory::getOrder));
+        String textHeader = """
+                  <html>
+                                    
+                                <body>
+                                <head>
+                                </head>
+                                    <table>
+                                        <tr>
+                                            <th>Categoria</th>
+                                            <th>Descrição</th>
+                                            <th>Ícone</th>
+                                            <th>Cor de Fundo</th>
+                                            <th>Nº Cursos</th>
+                                            <th>Horas de Curso</th>
+                                            <th>SubCategoria</th>
+                                        </tr>
+                """;
 
+        sb.append(textHeader);
         categories.forEach(category -> {
-            sb.append("<tr> " + "<td style=\"padding:20px; text-align:center;\"> <h2> " + category.getName() + "</h2> </td>");
-
-            sb.append("<td style=\"padding:20px; text-align:center;\"> <h4> " + category.getDescription() + " </h4> </td>");
-
-            sb.append("<td><img width=100px; src=" + category.getImageUrl() + "></td>");
 
             List<Course> coursesToCategory = courses.stream().filter(course -> course.getSubCategory().getCategory() == category).toList();
 
@@ -167,7 +217,9 @@ public class Category {
             String subCategory = "";
 
             String nameCourses = "";
-            String subCategoryDescription ="";
+
+            String subCategoryDescription = "";
+
 
             for (Course course : coursesToCategory) {
                 totalHoursCourse += course.getEstimatedTime();
@@ -175,23 +227,41 @@ public class Category {
                 nameCourses += (course != null ? course.getName() + ", " : nameCourses);
 
                 subCategory = course.getSubCategory().getStatus() == SubCategoryStatus.ACTIVE ? course.getSubCategory().getName() : subCategory;
-            subCategoryDescription=course.getSubCategory().getDescription();
+
+                subCategoryDescription = course.getSubCategory().getDescription();
             }
-            sb.append("<td> <div style=\" padding:50px;  border-radius:50px; background-color:" + category.getColorCode() + "\"> <div></td>");
-            sb.append("<td> <div style=\"padding:20px; text-align:center;  font-size:30px\"> <h4>" + coursesToCategory.size() + "</h4> </div></td>");
-            sb.append("<th> <div  style=\"padding:20px; text-align:center;  font-size:30px\"> <h4> " + totalHoursCourse + "</h4>  </div></th>");
-            if (subCategory != "" && nameCourses != null) {
-                sb.append("<th><div style=\"padding:20px;\"> Subategoria: " + subCategory + "</br>" + " Cursos: " + nameCourses + "<br> Descrição: "+subCategoryDescription+" </div></th>");
-            }
-            sb.append("</tr>");
+            String text = """
+                                       
+                              
+                                        <tr>
+                                            <td>%s</td>
+                                            <td %s</td>
+                                            <td>%s</td>
+                                            <td><img src="%s"></td>
+                                            <td>%s</td>
+                                            <td %s</td>
+                                            <td>%s</td>
+                                        </tr>
+                           
+                        
+                    """.formatted(category.getName(), category.getDescription(), category.getColorCode(), category.getImageUrl(), coursesToCategory.size(), totalHoursCourse, subCategory != "" ? ("Subcategoria: " + subCategory + "</br>" + "Cursos: " + nameCourses + "<br> Descrição: " + subCategoryDescription) : "");
+
+
+            sb.append(text);
+
         });
-        sb.append("</table>");
+        String textFoot = """
+                         </table>
+                                </body>
+                                    
+                                </html>
+                """;
 
-        sb.append("</body>");
-
-        sb.append("</html>");
-
+        sb.append(textFoot);
         ps.println(sb);
+        ps.flush();
+        ps.close();
+
     }
 
     @Override

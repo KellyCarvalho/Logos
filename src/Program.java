@@ -1,11 +1,15 @@
 import Logos.category.Category;
 import Logos.course.Course;
 import Logos.subCategory.SubCategory;
+import Logos.subCategory.enums.SubCategoryStatus;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.util.*;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Locale;
 
 import static Logos.category.Category.toGenerateHtml;
 import static Logos.category.Category.toReadCsvTocategories;
@@ -140,38 +144,13 @@ public class Program {
         List<SubCategory> subCategories = toReadCsvToSubCategories("/home/kelly/Downloads/planilha-dados-escola - Subcategoria.csv", categories);
         List<Course> courses = toReadCsvTocourses("/home/kelly/Downloads/planilha-dados-escola - Curso.csv", subCategories);
 
-        toGenerateHtml(courses, subCategories, categories);
+        System.out.println(categories);
+        System.out.println(subCategories);
+        System.out.println(courses);
 
-        String text = """
-                            <html>
-                                
-                            <body>
-                                <table>
-                                    <tr>
-                                        <th>Categoria</th>
-                                        <th>Descrição</th>
-                                        <th>Ícone</th>
-                                        <th>Cor de Fundo</th>
-                                        <th>Nº Cursos</th>
-                                        <th>Horas de Curso</th>
-                                        <th>SubCategoria</th>
-                                    </tr>
-                                    <tr>
-                                        <td>%s1</td>
-                                        <td>%s2</td>
-                                        <td>%s3</td>
-                                        <td>%s4</td>
-                                        <td>%s5</td>
-                                        <td>%s6</td>
-                                        <td>%s7</td>
-                                    </tr>
-                                </table>
-                            </body>
-                                
-                            </html>
-                    
-                """.formatted("test1","test2","test3","test4","test5","test6","test7");
+       toGenerateHtml(courses, subCategories, categories);
 
-        System.out.println(text);
+
+
     }
 }
