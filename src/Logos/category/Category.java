@@ -167,6 +167,7 @@ public class Category {
             String subCategory = "";
 
             String nameCourses = "";
+            String subCategoryDescription ="";
 
             for (Course course : coursesToCategory) {
                 totalHoursCourse += course.getEstimatedTime();
@@ -174,12 +175,13 @@ public class Category {
                 nameCourses += (course != null ? course.getName() + ", " : nameCourses);
 
                 subCategory = course.getSubCategory().getStatus() == SubCategoryStatus.ACTIVE ? course.getSubCategory().getName() : subCategory;
+            subCategoryDescription=course.getSubCategory().getDescription();
             }
             sb.append("<td> <div style=\" padding:50px;  border-radius:50px; background-color:" + category.getColorCode() + "\"> <div></td>");
             sb.append("<td> <div style=\"padding:20px; text-align:center;  font-size:30px\"> <h4>" + coursesToCategory.size() + "</h4> </div></td>");
             sb.append("<th> <div  style=\"padding:20px; text-align:center;  font-size:30px\"> <h4> " + totalHoursCourse + "</h4>  </div></th>");
             if (subCategory != "" && nameCourses != null) {
-                sb.append("<th><div style=\"padding:20px;\"> Categoria: " + subCategory + "</br>" + " Cursos: " + nameCourses + " </div></th>");
+                sb.append("<th><div style=\"padding:20px;\"> Subategoria: " + subCategory + "</br>" + " Cursos: " + nameCourses + "<br> Descrição: "+subCategoryDescription+" </div></th>");
             }
             sb.append("</tr>");
         });

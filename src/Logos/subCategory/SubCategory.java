@@ -60,6 +60,10 @@ public class SubCategory {
         return status;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     public static SubCategory filterSubCategoriesByCode(List<SubCategory> subCategories, String subCategoryCode) {
 
         for (SubCategory subCategory : subCategories) {
@@ -86,7 +90,7 @@ public class SubCategory {
             String description = lineScanner.next();
             boolean status = lineScanner.next().equals("ATIVA") ? true : false;
             String category = lineScanner.hasNext() ? lineScanner.next().strip() : null;
-            int orderInt = order==""?0: Integer.parseInt(order);
+            int orderInt = order == "" ? 0 : Integer.parseInt(order);
             System.out.println(category);
             if (name != null && code != null && category != null) {
                 subCategories.add(new SubCategory(name, code, description, status ? SubCategoryStatus.ACTIVE : SubCategoryStatus.DISABLED, orderInt, filterCategoriesByCode(categories, category)));
