@@ -144,9 +144,9 @@ public class Program {
         List<SubCategory> subCategories = toReadCsvToSubCategories("/home/kelly/Downloads/planilha-dados-escola - Subcategoria.csv", categories);
         List<Course> courses = toReadCsvTocourses("/home/kelly/Downloads/planilha-dados-escola - Curso.csv", subCategories);
 
-        System.out.println(categories);
-        System.out.println(subCategories);
-        System.out.println(courses);
+//        System.out.println(categories);
+//        System.out.println(subCategories);
+//        System.out.println(courses);
 
        toGenerateHtml(courses, subCategories, categories);
 
