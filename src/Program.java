@@ -25,8 +25,6 @@ public class Program {
         //Category categoryTestingEmptyOrBlankName = new Category(" ","programacao");
         //Testando o caso do código da categoria ser branco ou vazio
         //Category categoryTestingEmptyOrBlankCode = new Category("Programação", " ");
-        //Testando Ordem
-        //category.setOrder(0);
 
         //Testes Subcategory
         //Testando instanciação
@@ -41,8 +39,6 @@ public class Program {
         //SubCategory subCategoryTestingEmptyOrBlankName = new SubCategory("", "java",  category);
         //Testando o caso do código da subcategoria ser vazio
         //SubCategory subCategoryTestingEmptyOrBlankCode = new SubCategory("java", "", category);
-        //Ordem
-        //subCategory.setOrder(0);
 
         //Testes Course
         //Testando instanciação
@@ -80,8 +76,6 @@ public class Program {
         //Section sectionTestingEmptyOrBlankName = new Section(" ", "java-course",  course);
         //Testando o caso do código da seção ser vazia
         //Section sectionTestingEmptyOrBlankCode = new Section("cursos-java", " ",  course);
-        //Ordem
-        //section.setOrder(0);
 
         //Testes Vídeo
         //Testando instanciação
@@ -97,12 +91,10 @@ public class Program {
         //Testando o caso do Código  de atividade ser vazio
         //Video videoTestingEmptyOrBlankCode = new Video("orientação a objetos em java"," ",section,"java.com.br");
         System.out.println();
-        //Ordem
 
-        //video.setOrder(0);
+
         //Duração de vídeo
-        Video videoTestingDuration = new Video("orientação a objetos em java", "java-45", section, "java.com.br");
-        //videoTestingDuratiob.setDurationInMinutes(0);
+
         //Teste Questão
         Question question = new Question("O que é JDK é o mesmo que JRE", "jdk-89", section, "Como funciona", TypeQuestion.TRUE_OR_FALSE);
         //Testando o caso de descrição da questão ser nula
@@ -111,8 +103,6 @@ public class Program {
         //Question questionTestingNullTypeQuestion = new Question("O que é JDK é o mesmo que JRE", "jdk-89", section, "Como funciona", null);
         //Testando o caso de descrição da questão ser vazia
         //Question questionTestingEmptyOrBlankDescritption = new Question("O que é JDK é o mesmo que JRE", "jdk-89", section, "", TypeQuestion.TRUE_OR_FALSE);
-        //Ordem
-        //question.setOrder(0);
 
         //Teste Explanation
         Explanation explanation = new Explanation("está correto...", "ex-1", section, "está correto...");
@@ -121,8 +111,6 @@ public class Program {
         //Explanation explanationTestingNUllDescription = new Explanation(null, "ex-1",  section, null);
         //Testando se explicação é vazia
         //Explanation explanationTestingEmptyOrBlankDescription = new Explanation("", "ex-1", section, " ");
-        //Ordem
-        //explanation.setOrder(0);
         //Testando demais regras de negócio
         //Testando descrição nula
         //Alternative alternativeTestingNullDescription = new Alternative(null,  true,  question);

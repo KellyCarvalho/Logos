@@ -4,7 +4,6 @@ package Logos.category;
 import Logos.category.enums.CategoryStatus;
 
 import static commonValidator.StringValidator.*;
-import static commonValidator.UtilsValidator.isValidOrder;
 
 public class Category {
 
@@ -24,10 +23,6 @@ public class Category {
         this.code = code;
     }
 
-    public void setOrder(int order) {
-        isValidOrder(order, "Ordem de categoria não pode ser menor que 1");
-        this.order = order;
-    }
 
     public void setColorCode(String colorCode) {
         isValidColor(colorCode, " Cor de categoria não é válida");

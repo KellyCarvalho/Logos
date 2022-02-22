@@ -21,10 +21,7 @@ public class Video extends Activity {
         return true;
     }
 
-    public void setDurationInMinutes(int durationInMinutes) {
-        isValidDuration(durationInMinutes, 1);
-        this.durationInMinutes = durationInMinutes;
-    }
+
 
     @Override
     public String toString() {

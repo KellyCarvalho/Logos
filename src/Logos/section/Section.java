@@ -5,7 +5,6 @@ import Logos.course.Course;
 import static commonValidator.ObjectValidator.isObjectValid;
 import static commonValidator.StringValidator.isNotBlankEmptyOrNull;
 import static commonValidator.StringValidator.isValidCode;
-import static commonValidator.UtilsValidator.isValidOrder;
 
 public class Section {
 
@@ -23,11 +22,6 @@ public class Section {
         this.name = name;
         this.code = code;
         this.course = course;
-    }
-
-    public void setOrder(int order) {
-        isValidOrder(order, "Ordem de seção não pode ser menor que 1");
-        this.order = order;
     }
 
     @Override

@@ -5,7 +5,6 @@ import Logos.section.Section;
 import static commonValidator.ObjectValidator.isObjectValid;
 import static commonValidator.StringValidator.isNotBlankEmptyOrNull;
 import static commonValidator.StringValidator.isValidCode;
-import static commonValidator.UtilsValidator.isValidOrder;
 
 public abstract class Activity {
     private String title;
@@ -25,11 +24,6 @@ public abstract class Activity {
 
     public String getTitle() {
         return title;
-    }
-//TODO verificar se ta sendo usada na main
-    public void setOrder(int order) {
-        isValidOrder(order, "Ordem de atividade não pode ser menor que 1");
-        this.order = order;
     }
 
     @Override

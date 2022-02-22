@@ -4,7 +4,6 @@ import Logos.activity.Question;
 
 import static commonValidator.ObjectValidator.isObjectValid;
 import static commonValidator.StringValidator.isNotBlankEmptyOrNull;
-import static commonValidator.UtilsValidator.isValidOrder;
 
 public class Alternative {
     private String description;
