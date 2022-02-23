@@ -2,17 +2,10 @@ package Logos.course;
 
 import Logos.subCategory.SubCategory;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-
 import static Logos.commonValidator.ObjectValidator.isObjectValid;
 import static Logos.commonValidator.StringValidator.isNotBlankEmptyOrNull;
 import static Logos.commonValidator.StringValidator.isValidCode;
 import static Logos.course.validation.CourseValidation.isValidEstimatedTime;
-import static Logos.subCategory.SubCategory.filterSubCategoriesByCode;
 
 public class Course {
 
@@ -58,39 +51,6 @@ public class Course {
 
     public String getName() {
         return name;
-    }
-
-    //TODO isolar o csv em outra classe apenas de leitura
-    public static List<Course> toReadCsvTocourses(String pathName, List<SubCategory> subCategories) throws FileNotFoundException {
-        List<Course> courses = new ArrayList<>();
-
-        Scanner scanner = new Scanner(new File(pathName));
-
-        scanner.nextLine();
-        //TODO usar o método stático que já faz a verificação se é vazio
-        while (scanner.hasNextLine()) {
-            String line = scanner.nextLine();
-            Scanner lineScanner = new Scanner(line);
-            lineScanner.useDelimiter(",");
-            String name = lineScanner.hasNext() ? lineScanner.next().strip() : null;
-            String code = lineScanner.hasNext() ? lineScanner.next().strip() : null;
-            String estimedTime = lineScanner.hasNext() ? lineScanner.next().strip() : null;
-            String visibility = lineScanner.hasNext() ? lineScanner.next().strip() : null;
-            String targetAudience = lineScanner.hasNext() ? lineScanner.next().strip() : null;
-            String instructor = lineScanner.hasNext() ? lineScanner.next().strip() : null;
-            String courseProgramDescription = lineScanner.hasNext() ? lineScanner.next().strip() : null;
-            String skillsDeveloped = lineScanner.hasNext() ? lineScanner.next().strip() : null;
-            String subCategory = lineScanner.hasNext() ? lineScanner.next().strip() : null;
-
-            int time = Integer.parseInt(estimedTime);
-
-            if (name != null && code != null && estimedTime != null && subCategory != null) {
-                courses.add(new Course(name, code, time, visibility.equals("PÚBLICA"), targetAudience, instructor, courseProgramDescription, skillsDeveloped, filterSubCategoriesByCode(subCategories, subCategory)));
-            }
-        }
-        scanner.close();
-        return courses;
-
     }
 
     @Override
