@@ -11,10 +11,8 @@ import java.io.FileNotFoundException;
 import java.util.*;
 
 import static Logos.commonValidator.StringValidator.isNotBlankEmptyOrNull;
-import static Logos.subCategory.SubCategory.filterSubCategoriesByCode;
 
 public class CsvReader {
-
 
     public static List<Category> readCsvCategories(String pathName) throws FileNotFoundException {
         isNotBlankEmptyOrNull(pathName, "Caminho de arquivo deve ser preenchidpo");
@@ -42,11 +40,9 @@ public class CsvReader {
         return categories;
     }
 
-    public static List<Course> toReadCsvTocourses(String pathName, List<SubCategory> subCategories) throws FileNotFoundException {
+    public static List<Course> readCsvCourses(String pathName, List<SubCategory> subCategories) throws FileNotFoundException {
         List<Course> courses = new ArrayList<>();
-
         Scanner scanner = new Scanner(new File(pathName));
-
         scanner.nextLine();
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
@@ -60,12 +56,13 @@ public class CsvReader {
             String instructor = checkIfNext(lineScanner);
             String courseProgramDescription = checkIfNext(lineScanner);
             String skillsDeveloped = checkIfNext(lineScanner);
-            String subCategory = checkIfNext(lineScanner);
-
+            String subCategoryCode = checkIfNext(lineScanner);
             int time = Integer.parseInt(estimatedTime);
 
-            if ((name != "" && name != null) && (code != "" && code != null) && (estimatedTime != "" && estimatedTime != null) && (subCategory != "" && subCategory != null)) {
-                courses.add(new Course(name, code, time, visibility.equals("PÚBLICA"), targetAudience, instructor, courseProgramDescription, skillsDeveloped, filterSubCategoriesByCode(subCategories, subCategory)));
+            Optional<SubCategory> subCategory = subCategories.stream().filter(cat -> cat.getCode().equals(subCategoryCode)).findFirst();
+
+            if ((name != "" && name != null) && (code != "" && code != null) && (estimatedTime != "" && estimatedTime != null) && (subCategoryCode != "" && subCategoryCode != null) && subCategory.isPresent()) {
+                courses.add(new Course(name, code, time, visibility.equals("PÚBLICA"), targetAudience, instructor, courseProgramDescription, skillsDeveloped, subCategory.get()));
             }
         }
         scanner.close();
@@ -73,7 +70,7 @@ public class CsvReader {
 
     }
 
-    public static List<SubCategory> toReadCsvToSubCategories(String pathName, List<Category> categories) throws FileNotFoundException {
+    public static List<SubCategory> readCsvSubCategories(String pathName, List<Category> categories) throws FileNotFoundException {
         List<SubCategory> subCategories = new ArrayList<>();
         Scanner scanner = new Scanner(new File(pathName));
         scanner.nextLine();

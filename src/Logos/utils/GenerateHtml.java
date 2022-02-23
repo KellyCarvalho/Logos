@@ -14,16 +14,18 @@ import java.util.Comparator;
 import java.util.List;
 
 import static Logos.commonValidator.ObjectValidator.isObjectValid;
+import static Logos.course.Course.getCoursesNames;
+import static Logos.course.Course.getTotalCourseHours;
 
 public class GenerateHtml {
 
-    public static void generateHtml(){}
+    public static void generateHtml() {
+    }
 
-    //TODO isolar geração de Html em um genérico
     public static void toGenerateHtml(List<Course> courses, List<SubCategory> subCategories, List<Category> categories) throws FileNotFoundException, UnsupportedEncodingException {
-        isObjectValid(courses,"Lista de cursos não pode ser vazia");
-        isObjectValid(subCategories,"Lista de Subcategorias não pode ser vazia");
-        isObjectValid(categories,"Lista de Categorias não pode ser vazia");
+        isObjectValid(courses, "Lista de cursos não pode ser vazia");
+        isObjectValid(subCategories, "Lista de Subcategorias não pode ser vazia");
+        isObjectValid(categories, "Lista de Categorias não pode ser vazia");
         StringBuilder sb = new StringBuilder();
         PrintStream ps = new PrintStream(new File("categories.html"), "UTF-16");
         Collections.sort(categories, Comparator.comparing(Category::getOrder));
@@ -54,22 +56,15 @@ public class GenerateHtml {
             //TODO tentar isolar o for para procurar cursos fora
             //TODO corrigir várias chamadas encadeadas
             List<Course> coursesToCategory = courses.stream().filter(course -> course.getSubCategory().getCategory() == category).toList();
-            int totalHoursCourse = 0;
             String subCategory = "";
-            String nameCourses = "";
             String subCategoryDescription = "";
             //TODO Isolar for para pegar valores
             //TODO só gerar html se a subcategoria estiver ativa
             for (Course course : coursesToCategory) {
-                totalHoursCourse += course.getEstimatedTime();
-                //TODO retirar a vírgula final
-                nameCourses += (course != null ? course.getName() + ", " : nameCourses);
-                //TODO chance grande de dar null pointer - fazer chamadas separadas em cada classe responsável
-                subCategory = course.getSubCategory().getStatus() == SubCategoryStatus.ACTIVE ? course.getSubCategory().getName() : "";
+                subCategory = course.isActiveSubCategory() == SubCategoryStatus.ACTIVE ? course.getNameSubCategory() : "";
                 subCategoryDescription = course.getSubCategory().getDescription();
             }
 
-            //TODO isolar ternário de validação de subcategoria vazia em um método
             String text = """
                                         <tr>
                                             <td><div  style="padding:20px;">  %s</div></td>
@@ -82,12 +77,10 @@ public class GenerateHtml {
                                          </tr>
                                      
                     """.formatted(category.getName(), category.getDescription(), category.getImageUrl(),
-                    category.getColorCode(), coursesToCategory.size(), totalHoursCourse,
-                    (subCategory != "" ? "SubCategoria: " + subCategory + "</br> Cursos: " + nameCourses + "</br>  Descrição: " + subCategoryDescription : ""));
-            if(subCategory!=""){
-                sb.append(subCategory!=""? text:"");
-            }
+                    category.getColorCode(), coursesToCategory.size(), getTotalCourseHours(coursesToCategory),
+                    ("SubCategoria: " + subCategory + "</br> Cursos: " + getCoursesNames(coursesToCategory) + "</br>  Descrição: " + subCategoryDescription));
 
+            sb.append(subCategory != "" ? text : "");
 
         });
         String textFoot = """

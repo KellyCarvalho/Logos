@@ -1,6 +1,9 @@
 package Logos.course;
 
 import Logos.subCategory.SubCategory;
+import Logos.subCategory.enums.SubCategoryStatus;
+
+import java.util.List;
 
 import static Logos.commonValidator.ObjectValidator.isObjectValid;
 import static Logos.commonValidator.StringValidator.isNotBlankEmptyOrNull;
@@ -49,8 +52,26 @@ public class Course {
         return subCategory;
     }
 
+    public SubCategoryStatus isActiveSubCategory() {
+        return subCategory.getStatus();
+    }
+
+
+    public String getNameSubCategory() {
+
+        return subCategory.getName();
+    }
+
     public String getName() {
         return name;
+    }
+
+    public static long getTotalCourseHours(List<Course> courses){
+      return   courses.stream().map(course -> course.getEstimatedTime()).reduce(0, (subtotal, element) -> subtotal + element);
+    }
+
+    public static String getCoursesNames(List<Course> courses){
+        return courses.stream().map(course -> course.getName()).toList().toString().replace("[","").replace("]","");
     }
 
     @Override
