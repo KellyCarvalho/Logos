@@ -60,12 +60,14 @@ public class Course {
         return name;
     }
 
+    //TODO isolar o csv em outra classe apenas de leitura
     public static List<Course> toReadCsvTocourses(String pathName, List<SubCategory> subCategories) throws FileNotFoundException {
         List<Course> courses = new ArrayList<>();
-        Scanner scanner = new Scanner(new File("/home/kelly/Downloads/planilha-dados-escola - Curso.csv"));
+
+        Scanner scanner = new Scanner(new File(pathName));
 
         scanner.nextLine();
-
+        //TODO usar o método stático que já faz a verificação se é vazio
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
             Scanner lineScanner = new Scanner(line);
@@ -82,10 +84,11 @@ public class Course {
 
             int time = Integer.parseInt(estimedTime);
 
-            if (name != null && code != null && estimedTime != null &&subCategory != null) {
+            if (name != null && code != null && estimedTime != null && subCategory != null) {
                 courses.add(new Course(name, code, time, visibility.equals("PÚBLICA"), targetAudience, instructor, courseProgramDescription, skillsDeveloped, filterSubCategoriesByCode(subCategories, subCategory)));
             }
         }
+        scanner.close();
         return courses;
 
     }
@@ -96,7 +99,7 @@ public class Course {
                 "name='" + name + '\n' +
                 "code='" + code + '\n' +
                 "estimatedTime=" + estimatedTime + '\n' +
-                "visibility=" + visibility +'\n' +
+                "visibility=" + visibility + '\n' +
                 "targetAudience='" + targetAudience + '\n' +
                 "instructor='" + instructor + '\n' +
                 "courseProgramDescription='" + courseProgramDescription + '\n' +

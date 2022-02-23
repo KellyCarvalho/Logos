@@ -64,39 +64,39 @@ public class SubCategory {
         return description;
     }
 
+    //TODO evitar retornar null e extrair numa classe utils
     public static SubCategory filterSubCategoriesByCode(List<SubCategory> subCategories, String subCategoryCode) {
-
         for (SubCategory subCategory : subCategories) {
             if (subCategory.getCode().equals(subCategoryCode)) {
                 return subCategory;
             }
         }
-
         return null;
     }
 
+    //TODO isolar o csv em outra classe apenas de leitura
     public static List<SubCategory> toReadCsvToSubCategories(String pathName, List<Category> categories) throws FileNotFoundException {
         List<SubCategory> subCategories = new ArrayList<>();
         Scanner scanner = new Scanner(new File(pathName));
-
+        //TODO isolar ternário em um método retornando string vazia
         scanner.nextLine();
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
             Scanner lineScanner = new Scanner(line);
             lineScanner.useDelimiter(",");
-            String name = lineScanner.next();
-            String code = lineScanner.next();
+            String name = lineScanner.hasNext() ? lineScanner.next().strip() : null;
+            String code = lineScanner.hasNext() ? lineScanner.next().strip() : null;
             String order = lineScanner.next().strip();
             String description = lineScanner.next();
+            //TODO variável já receber ternário
             boolean status = lineScanner.next().equals("ATIVA") ? true : false;
             String category = lineScanner.hasNext() ? lineScanner.next().strip() : null;
             int orderInt = order == "" ? 0 : Integer.parseInt(order);
-            System.out.println(category);
             if (name != null && code != null && category != null) {
                 subCategories.add(new SubCategory(name, code, description, status ? SubCategoryStatus.ACTIVE : SubCategoryStatus.DISABLED, orderInt, filterCategoriesByCode(categories, category)));
             }
         }
-
+        scanner.close();
         return subCategories;
     }
 
