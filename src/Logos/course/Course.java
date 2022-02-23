@@ -15,7 +15,7 @@ public class Course {
     private String targetAudience;
     private String instructorName;
     private String courseProgramDescription;
-    private String skillsDeveloped;
+    private String developedSkills;
     private SubCategory subCategory;
 
     public Course(String name, String code, int estimatedTime, String instructorName, SubCategory subCategory) {
@@ -49,7 +49,7 @@ public class Course {
                 ", targetAudience='" + targetAudience + '\n' +
                 ", instructor='" + instructorName + '\n' +
                 ", courseProgramDescription='" + courseProgramDescription + '\n' +
-                ", skillsDeveloped='" + skillsDeveloped + '\n' +
+                ", skillsDeveloped='" + developedSkills + '\n' +
                 ", subCategory=" + subCategory +
                 '}';
     }
