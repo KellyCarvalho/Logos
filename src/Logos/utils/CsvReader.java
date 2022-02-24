@@ -24,13 +24,13 @@ public class CsvReader {
             String line = scanner.nextLine();
             Scanner lineScanner = new Scanner(line);
             lineScanner.useDelimiter(",");
-            String name = lineScanner.hasNext() ? lineScanner.next().strip() : null;
-            String code = lineScanner.hasNext() ? lineScanner.next().strip() : null;
-            String order = lineScanner.next().strip();
-            String description = lineScanner.next();
+            String name = checkIfNext(lineScanner);
+            String code = checkIfNext(lineScanner);
+            String order =checkIfNext(lineScanner);
+            String description = checkIfNext(lineScanner);
             CategoryStatus status = lineScanner.next().equals("ATIVA") ? CategoryStatus.ACTIVE : CategoryStatus.DISABLED;
-            String icon = lineScanner.next();
-            String color = lineScanner.next();
+            String icon = checkIfNext(lineScanner);
+            String color = checkIfNext(lineScanner);
             int orderInt = order == "" ? 0 : Integer.parseInt(order);
             if ((name != "" && name != null) && (code != "" && code != null)) {
                 categories.add(new Category(name, code, description, status, orderInt, icon, color));
@@ -61,13 +61,12 @@ public class CsvReader {
 
             Optional<SubCategory> subCategory = subCategories.stream().filter(cat -> cat.getCode().equals(subCategoryCode)).findFirst();
 
-            if ((name != "" && name != null) && (code != "" && code != null) && (estimatedTime != "" && estimatedTime != null) && (subCategoryCode != "" && subCategoryCode != null) && subCategory.isPresent()) {
+            if ((name != "" && name != null) && (code != "" && code != null) && (estimatedTime != "" && estimatedTime != null) && subCategory.isPresent()) {
                 courses.add(new Course(name, code, time, visibility.equals("PÚBLICA"), targetAudience, instructor, courseProgramDescription, skillsDeveloped, subCategory.get()));
             }
         }
         scanner.close();
         return courses;
-
     }
 
     public static List<SubCategory> readCsvSubCategories(String pathName, List<Category> categories) throws FileNotFoundException {
