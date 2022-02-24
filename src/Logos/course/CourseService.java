@@ -1,6 +1,5 @@
 package Logos.course;
 
-import Logos.category.enums.CategoryStatus;
 import Logos.subCategory.enums.SubCategoryStatus;
 
 import java.util.List;

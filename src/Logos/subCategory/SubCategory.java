@@ -59,16 +59,6 @@ public class SubCategory {
         return description;
     }
 
-    //TODO evitar retornar null e extrair numa classe utils
-    public static SubCategory filterSubCategoriesByCode(List<SubCategory> subCategories, String subCategoryCode) {
-        for (SubCategory subCategory : subCategories) {
-            if (subCategory.getCode().equals(subCategoryCode)) {
-                return subCategory;
-            }
-        }
-        return null;
-    }
-
     @Override
     public String toString() {
         return '\n' + "Nome=" + name + '\n' +

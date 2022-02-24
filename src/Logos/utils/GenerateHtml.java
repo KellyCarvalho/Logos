@@ -14,8 +14,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import static Logos.commonValidator.ObjectValidator.isObjectValid;
-import static Logos.course.Course.getCoursesNames;
-import static Logos.course.Course.getTotalCourseHours;
+import static Logos.course.CourseService.*;
 
 public class GenerateHtml {
 
@@ -45,7 +44,8 @@ public class GenerateHtml {
                                             <th>Cor de Fundo</th>
                                             <th>Nº Cursos</th>
                                             <th>Horas de Curso</th>
-                                            <th>SubCategoria</th>
+                                            <th>Cursos</th>
+                                            <th>SubCategorias</th>
                                         </tr>
                                        
                                          </div>
@@ -53,17 +53,8 @@ public class GenerateHtml {
 
         sb.append(textHeader);
         categories.forEach(category -> {
-            //TODO tentar isolar o for para procurar cursos fora
-            //TODO corrigir várias chamadas encadeadas
-            List<Course> coursesToCategory = courses.stream().filter(course -> course.getSubCategory().getCategory() == category).toList();
-            String subCategory = "";
-            String subCategoryDescription = "";
-            //TODO Isolar for para pegar valores
-            //TODO só gerar html se a subcategoria estiver ativa
-            for (Course course : coursesToCategory) {
-                subCategory = course.isActiveSubCategory() == SubCategoryStatus.ACTIVE ? course.getNameSubCategory() : "";
-                subCategoryDescription = course.getSubCategory().getDescription();
-            }
+
+            List<Course> coursesToCategory = courses.stream().filter(course -> course.getCategory() == category).toList();
 
             String text = """
                                         <tr>
@@ -72,15 +63,19 @@ public class GenerateHtml {
                                             <td><img style="width:100px;height:100px;" src="%s"></td>                                                            
                                             <td><div style="background-color:%s; padding:40px; border-radius:40px"></div></td>
                                             <td> <div  style="padding:20px;"> %s</div></td>
-                                            <td><div  style="padding:20px;">  %s</div></td>
-                                            <td><div  style="padding:20px;">  %s</div></td>
+                                             <td> <div  style="padding:20px;"> %s</div></td>   
+                                               <td> <div  style="padding:20px;"> %s</div></td>   
+                                              <td> <div  style="padding:20px;">
+                                                    <dl><dd>%s</dd>                                                                         
+                                             </dl> 
+                                              </div></td>                                         
                                          </tr>
                                      
                     """.formatted(category.getName(), category.getDescription(), category.getImageUrl(),
                     category.getColorCode(), coursesToCategory.size(), getTotalCourseHours(coursesToCategory),
-                    ("SubCategoria: " + subCategory + "</br> Cursos: " + getCoursesNames(coursesToCategory) + "</br>  Descrição: " + subCategoryDescription));
+                    getCoursesNames(coursesToCategory),getSubCategoryName(coursesToCategory));
 
-            sb.append(subCategory != "" ? text : "");
+            sb.append(!(getSubCategoryName(coursesToCategory).isBlank()||getSubCategoryName(coursesToCategory).isBlank()||getSubCategoryName(coursesToCategory).equals(null))? text : "");
 
         });
         String textFoot = """
