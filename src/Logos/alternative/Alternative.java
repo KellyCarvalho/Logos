@@ -21,11 +21,6 @@ public class Alternative {
         this.question = question;
     }
 
-    public void setOrder(int order) {
-        isValidOrder(order, "Ordem de alternativa não pode ser menor que 1");
-        this.order = order;
-    }
-
     @Override
     public String toString() {
         return "Alternative{" +

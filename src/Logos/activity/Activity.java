@@ -27,11 +27,6 @@ public abstract class Activity {
         return title;
     }
 
-    public void setOrder(int order) {
-        isValidOrder(order, "Ordem de atividade não pode ser menor que 1");
-        this.order = order;
-    }
-
     @Override
     public String toString() {
         return "Activity{" + '\n' +
