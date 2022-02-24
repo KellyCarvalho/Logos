@@ -24,8 +24,8 @@ public class Program {
 //      System.out.println(courses);
 
 
-       List<Category> categories = readCsvCategories("/home/kelly/Downloads/planilha-dados-escola - Categoria.csv");
-                List<SubCategory> subCategories = readCsvSubCategories("/home/kelly/Downloads/planilha-dados-escola - Subcategoria.csv", categories);
+        List<Category> categories = readCsvCategories("/home/kelly/Downloads/planilha-dados-escola - Categoria.csv");
+        List<SubCategory> subCategories = readCsvSubCategories("/home/kelly/Downloads/planilha-dados-escola - Subcategoria.csv", categories);
         List<Course> courses = readCsvCourses("/home/kelly/Downloads/planilha-dados-escola - Curso.csv", subCategories);
 
         System.out.println(courses);

@@ -69,4 +69,5 @@ public class SubCategory {
                 "Order=" + order + '\n' + '\n' +
                 "Categoria: " + '\n' + category.toString();
     }
+
 }

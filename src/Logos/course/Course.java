@@ -70,6 +70,7 @@ public class Course {
     public Category getCategory(){
         return getSubCategory().getCategory();
     }
+
     @Override
     public String toString() {
         return "Course" + '\n' +
