@@ -5,7 +5,6 @@ import Logos.section.Section;
 import static Logos.commonValidator.ObjectValidator.isObjectValid;
 import static Logos.commonValidator.StringValidator.isNotBlankEmptyOrNull;
 import static Logos.commonValidator.StringValidator.isValidCode;
-import static Logos.commonValidator.UtilsValidator.isValidOrder;
 
 public abstract class Activity {
     private String title;

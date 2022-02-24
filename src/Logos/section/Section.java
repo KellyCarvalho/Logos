@@ -5,7 +5,6 @@ import Logos.course.Course;
 import static Logos.commonValidator.ObjectValidator.isObjectValid;
 import static Logos.commonValidator.StringValidator.isNotBlankEmptyOrNull;
 import static Logos.commonValidator.StringValidator.isValidCode;
-import static Logos.commonValidator.UtilsValidator.isValidOrder;
 
 public class Section {
 
