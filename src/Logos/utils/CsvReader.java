@@ -46,7 +46,8 @@ public class CsvReader {
 
     }
 
-    private static void isValidCategory(List<Category> categories, String name, String code, String description, CategoryStatus status, String icon, String color, int orderInt) {
+    private static void isValidCategory(List<Category> categories, String name, String code, String description, CategoryStatus status,
+                                        String icon, String color, int orderInt) {
         if ((name != "" && name != null) && (code != "" && code != null)) {
             categories.add(new Category(name, code, description, status, orderInt, icon, color));
         }
