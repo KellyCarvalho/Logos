@@ -3,7 +3,7 @@ package Logos.category;
 
 import Logos.category.enums.CategoryStatus;
 
-import java.util.*;
+import java.util.Objects;
 
 import static Logos.commonValidator.StringValidator.*;
 
@@ -76,11 +76,11 @@ public class Category {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Category category = (Category) o;
-        return name.equals(category.name);
+        return code.equals(category.code);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name);
+        return Objects.hash(code);
     }
 }

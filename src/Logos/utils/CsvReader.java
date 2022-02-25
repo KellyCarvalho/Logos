@@ -2,16 +2,16 @@ package Logos.utils;
 
 import Logos.category.Category;
 import Logos.category.enums.CategoryStatus;
-import Logos.commonValidator.StringValidator;
 import Logos.course.Course;
 import Logos.subCategory.SubCategory;
 import Logos.subCategory.enums.SubCategoryStatus;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.*;
-
-import static Logos.commonValidator.StringValidator.isNotBlankEmptyOrNull;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.Scanner;
 
 public class CsvReader {
 
@@ -34,12 +34,10 @@ public class CsvReader {
                 String icon = checkIfNext(lineScanner);
                 String color = checkIfNext(lineScanner);
                 int orderInt = order == "" ? 0 : Integer.parseInt(order);
-                if ((name != "" && name != null) && (code != "" && code != null)) {
-                    categories.add(new Category(name, code, description, status, orderInt, icon, color));
-                }
+                isValidCategory(categories, name, code, description, status, icon, color, orderInt);
             }
 
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.out.println("Ocorreu um erro no caminho do arquivo de cursos, certifique-se de que o arquivo existe ou se de fato foi preenchido");
             System.out.println(e.getMessage());
         } finally {
@@ -48,7 +46,13 @@ public class CsvReader {
 
     }
 
-    public static List<Course> readCsvCourses(String pathName, List<SubCategory> subCategories){
+    private static void isValidCategory(List<Category> categories, String name, String code, String description, CategoryStatus status, String icon, String color, int orderInt) {
+        if ((name != "" && name != null) && (code != "" && code != null)) {
+            categories.add(new Category(name, code, description, status, orderInt, icon, color));
+        }
+    }
+
+    public static List<Course> readCsvCourses(String pathName, List<SubCategory> subCategories) {
         List<Course> courses = new ArrayList<>();
         try (Scanner scanner = new Scanner(new File(pathName))) {
             scanner.nextLine();
@@ -69,49 +73,57 @@ public class CsvReader {
 
                 Optional<SubCategory> subCategory = subCategories.stream().filter(cat -> cat.getCode().equals(subCategoryCode)).findFirst();
 
-                if ((name != "" && name != null) && (code != "" && code != null) && (estimatedTime != "" && estimatedTime != null) && subCategory.isPresent()) {
-                    courses.add(new Course(name, code, time, visibility.equals("PÚBLICA"), targetAudience, instructor, courseProgramDescription, skillsDeveloped, subCategory.get()));
-                }
+                isValidCourse(courses, name, code, estimatedTime, visibility, targetAudience, instructor, courseProgramDescription, skillsDeveloped, time, subCategory);
             }
 
 
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.out.println("Ocorreu um erro no caminho do arquivo de cursos, certifique-se de que o arquivo existe ou se de fato foi preenchido");
         } finally {
             return courses;
         }
     }
 
+    private static void isValidCourse(List<Course> courses, String name, String code, String estimatedTime, String visibility, String targetAudience, String instructor, String courseProgramDescription, String skillsDeveloped, int time, Optional<SubCategory> subCategory) {
+        if ((name != "" && name != null) && (code != "" && code != null) && (estimatedTime != "" && estimatedTime != null) && subCategory.isPresent()) {
+            courses.add(new Course(name, code, time, visibility.equals("PÚBLICA"), targetAudience, instructor, courseProgramDescription, skillsDeveloped, subCategory.get()));
+        }
+    }
+
     public static List<SubCategory> readCsvSubCategories(String pathName, List<Category> categories) {
         List<SubCategory> subCategories = new ArrayList<>();
-       try( Scanner scanner = new Scanner(new File(pathName));) {
-           scanner.nextLine();
-           while (scanner.hasNextLine()) {
-               String line = scanner.nextLine();
-               Scanner lineScanner = new Scanner(line);
-               lineScanner.useDelimiter(",");
-               String name = checkIfNext(lineScanner);
-               String code = checkIfNext(lineScanner);
-               String order = checkIfNext(lineScanner);
-               String description = checkIfNext(lineScanner);
-               SubCategoryStatus status = lineScanner.next().equals("ATIVA") ? SubCategoryStatus.ACTIVE : SubCategoryStatus.DISABLED;
-               String categoryCode = checkIfNext(lineScanner);
-               int orderInt = order == "" ? 0 : Integer.parseInt(order);
+        try (Scanner scanner = new Scanner(new File(pathName));) {
+            scanner.nextLine();
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                Scanner lineScanner = new Scanner(line);
+                lineScanner.useDelimiter(",");
+                String name = checkIfNext(lineScanner);
+                String code = checkIfNext(lineScanner);
+                String order = checkIfNext(lineScanner);
+                String description = checkIfNext(lineScanner);
+                SubCategoryStatus status = lineScanner.next().equals("ATIVA") ? SubCategoryStatus.ACTIVE : SubCategoryStatus.DISABLED;
+                String categoryCode = checkIfNext(lineScanner);
+                int orderInt = order == "" ? 0 : Integer.parseInt(order);
 
-               Optional<Category> category = categories.stream().filter(cat -> cat.getCode().equals(categoryCode)).findFirst();
+                Optional<Category> category = categories.stream().filter(cat -> cat.getCode().equals(categoryCode)).findFirst();
 
-               if ((name != "" && name != null) && (code != "" && code != null) && (categoryCode != "" && categoryCode != null) && category.isPresent()) {
-                   subCategories.add(new SubCategory(name, code, description, status, orderInt, category.get()));
-               }
-           }
+                isValidSubCategory(subCategories, name, code, description, status, categoryCode, orderInt, category);
+            }
 
-       }catch (Exception e){
-           System.out.println("Ocorreu um erro no caminho do arquivo de cursos, certifique-se de que o arquivo existe ou se de fato foi preenchido");
+        } catch (IOException e) {
+            System.out.println("Ocorreu um erro no caminho do arquivo de cursos, certifique-se de que o arquivo existe ou se de fato foi preenchido");
 
-       }finally {
-           return subCategories;
-       }
+        } finally {
+            return subCategories;
+        }
 
+    }
+
+    private static void isValidSubCategory(List<SubCategory> subCategories, String name, String code, String description, SubCategoryStatus status, String categoryCode, int orderInt, Optional<Category> category) {
+        if ((name != "" && name != null) && (code != "" && code != null) && (categoryCode != "" && categoryCode != null) && category.isPresent()) {
+            subCategories.add(new SubCategory(name, code, description, status, orderInt, category.get()));
+        }
     }
 
     private static String checkIfNext(Scanner lineScanner) {

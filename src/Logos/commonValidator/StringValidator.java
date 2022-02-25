@@ -18,6 +18,4 @@ public class StringValidator {
         if (!isValidCode) throw new IllegalArgumentException(message);
         return true;
     }
-
-
 }

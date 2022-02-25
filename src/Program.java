@@ -5,10 +5,8 @@ import Logos.subCategory.SubCategory;
 import java.io.IOException;
 import java.util.List;
 
+import static Logos.utils.CsvReader.*;
 import static Logos.utils.GenerateHtml.toGenerateHtml;
-import static Logos.utils.CsvReader.readCsvCourses;
-import static Logos.utils.CsvReader.readCsvSubCategories;
-import static Logos.utils.CsvReader.readCsvCategories;
 
 
 public class Program {
@@ -23,7 +21,5 @@ public class Program {
         System.out.println(!courses.isEmpty() ? courses : "");
 
         toGenerateHtml(courses, subCategories, categories);
-
-
     }
 }
