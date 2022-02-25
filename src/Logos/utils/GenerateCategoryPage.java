@@ -13,7 +13,7 @@ import java.util.List;
 
 import static Logos.course.CourseService.*;
 
-public class GenerateHtml {
+public class GenerateCategoryPage {
 
     public static void toGenerateHtml(List<Course> courses, List<SubCategory> subCategories, List<Category> categories) {
         StringBuilder sb = new StringBuilder();

@@ -15,7 +15,7 @@ import java.util.Scanner;
 
 public class CsvReader {
 
-    public static List<Category> readCsvCategories(String pathName) {
+    public static List<Category> readCategories(String pathName) {
 
         List<Category> categories = new ArrayList<>();
 
@@ -52,7 +52,7 @@ public class CsvReader {
         }
     }
 
-    public static List<Course> readCsvCourses(String pathName, List<SubCategory> subCategories) {
+    public static List<Course> readCourses(String pathName, List<SubCategory> subCategories) {
         List<Course> courses = new ArrayList<>();
         try (Scanner scanner = new Scanner(new File(pathName))) {
             scanner.nextLine();
@@ -90,7 +90,7 @@ public class CsvReader {
         }
     }
 
-    public static List<SubCategory> readCsvSubCategories(String pathName, List<Category> categories) {
+    public static List<SubCategory> readSubCategories(String pathName, List<Category> categories) {
         List<SubCategory> subCategories = new ArrayList<>();
         try (Scanner scanner = new Scanner(new File(pathName));) {
             scanner.nextLine();

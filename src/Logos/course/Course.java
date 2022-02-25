@@ -39,7 +39,8 @@ public class Course {
         return true;
     }
 
-    public Course(String name, String code, int estimatedTime, boolean visibility, String targetAudience, String instructorName, String courseProgramDescription, String developedSkills, SubCategory subCategory) {
+    public Course(String name, String code, int estimatedTime, boolean visibility, String targetAudience,
+                  String instructorName, String courseProgramDescription, String developedSkills, SubCategory subCategory) {
         this(name, code, estimatedTime, instructorName, subCategory);
         this.visibility = visibility;
         this.targetAudience = targetAudience;
