@@ -74,7 +74,8 @@ public class CsvReader {
 
                 Optional<SubCategory> subCategory = subCategories.stream().filter(cat -> cat.getCode().equals(subCategoryCode)).findFirst();
 
-                isValidCourse(courses, name, code, estimatedTime, visibility, targetAudience, instructor, courseProgramDescription, skillsDeveloped, time, subCategory);
+                isValidCourse(courses, name, code, estimatedTime, visibility, targetAudience, instructor, courseProgramDescription,
+                        skillsDeveloped, time, subCategory);
             }
 
 
@@ -89,7 +90,8 @@ public class CsvReader {
                                       String targetAudience, String instructor, String courseProgramDescription, String skillsDeveloped,
                                       int time, Optional<SubCategory> subCategory) {
         if ((name != "" && name != null) && (code != "" && code != null) && (estimatedTime != "" && estimatedTime != null) && subCategory.isPresent()) {
-            courses.add(new Course(name, code, time, visibility.equals("PÚBLICA"), targetAudience, instructor, courseProgramDescription, skillsDeveloped, subCategory.get()));
+            courses.add(new Course(name, code, time, visibility.equals("PÚBLICA"), targetAudience, instructor, courseProgramDescription,
+                    skillsDeveloped, subCategory.get()));
         }
     }
 
