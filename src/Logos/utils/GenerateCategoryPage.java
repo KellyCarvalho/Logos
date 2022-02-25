@@ -83,7 +83,8 @@ public class GenerateCategoryPage {
                         category.getColorCode(), coursesToCategory.size(), getTotalCourseHours(coursesToCategory),
                         getCoursesNames(coursesToCategory), getSubCategoryName(coursesToCategory));
 
-                sb.append(!(getSubCategoryName(coursesToCategory).isBlank() || getSubCategoryName(coursesToCategory).isBlank() || getSubCategoryName(coursesToCategory).equals(null)) ? text : "");
+                sb.append(!(getSubCategoryName(coursesToCategory).isBlank() || getSubCategoryName(coursesToCategory).isBlank() ||
+                        getSubCategoryName(coursesToCategory).equals(null)) ? text : "");
 
             });
             String textFoot = """
@@ -97,7 +98,8 @@ public class GenerateCategoryPage {
             ps.println(sb);
             ps.flush();
         } catch (IOException e) {
-            System.out.println("Ocorreu um erro ao gerar o arquivo html, certifique de que não faltou nenhuma lista a ser referenciada, pois é necessário que a lista de categorias, subcategorias e cursos sejam passadas obrigatoriamente para gerar o arquivo");
+            System.out.println("Ocorreu um erro ao gerar o arquivo html, certifique de que não faltou nenhuma lista a " +
+                    "ser referenciada, pois é necessário que a lista de categorias, subcategorias e cursos sejam passadas obrigatoriamente para gerar o arquivo");
         }
     }
 }
