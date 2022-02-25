@@ -85,7 +85,8 @@ public class CsvReader {
     }
 
     private static void isValidCourse(List<Course> courses, String name, String code, String estimatedTime, String visibility,
-                                      String targetAudience, String instructor, String courseProgramDescription, String skillsDeveloped, int time, Optional<SubCategory> subCategory) {
+                                      String targetAudience, String instructor, String courseProgramDescription, String skillsDeveloped,
+                                      int time, Optional<SubCategory> subCategory) {
         if ((name != "" && name != null) && (code != "" && code != null) && (estimatedTime != "" && estimatedTime != null) && subCategory.isPresent()) {
             courses.add(new Course(name, code, time, visibility.equals("PÚBLICA"), targetAudience, instructor, courseProgramDescription, skillsDeveloped, subCategory.get()));
         }
