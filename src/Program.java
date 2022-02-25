@@ -14,13 +14,13 @@ import static Logos.utils.CsvReader.readCsvCategories;
 public class Program {
     public static void main(String[] args) throws IOException {
 
-        List<Category> categories = readCsvCategories("/home/kelly/Downloads/planilha-dados-escola - Categoria.csv");
-        List<SubCategory> subCategories = readCsvSubCategories("/home/kelly/Downloads/planilha-dados-escola - Subcategoria.csv", categories);
-        List<Course> courses = readCsvCourses("/home/kelly/Downloads/planilha-dados-escola - Curso.csv", subCategories);
+        List<Category> categories = readCsvCategories("files/planilha-dados-escola - Categoria.csv");
+        List<SubCategory> subCategories = readCsvSubCategories("files/planilha-dados-escola - Subcategoria.csv", categories);
+        List<Course> courses = readCsvCourses("files/planilha-dados-escola - Curso.csv", subCategories);
 
-        System.out.println(categories);
-        System.out.println(subCategories);
-        System.out.println(courses);
+        System.out.println(!categories.isEmpty() ? categories : "");
+        System.out.println(!subCategories.isEmpty() ? subCategories : "");
+        System.out.println(!courses.isEmpty() ? courses : "");
 
         toGenerateHtml(courses, subCategories, categories);
 
