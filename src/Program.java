@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.List;
 
 import static Logos.utils.CsvReader.*;
-import static Logos.utils.GenerateCategoryPage.toGenerateHtml;
+import static Logos.utils.GenerateHtml.generateCategoryPage;
 
 
 public class Program {
@@ -20,6 +20,6 @@ public class Program {
         System.out.println(!subCategories.isEmpty() ? subCategories : "");
         System.out.println(!courses.isEmpty() ? courses : "");
 
-        toGenerateHtml(courses, subCategories, categories);
+        generateCategoryPage(courses, subCategories, categories);
     }
 }

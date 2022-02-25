@@ -13,9 +13,9 @@ import java.util.List;
 
 import static Logos.course.CourseService.*;
 
-public class GenerateCategoryPage {
+public class GenerateHtml {
 
-    public static void toGenerateHtml(List<Course> courses, List<SubCategory> subCategories, List<Category> categories) {
+    public static void generateCategoryPage(List<Course> courses, List<SubCategory> subCategories, List<Category> categories) {
         StringBuilder sb = new StringBuilder();
         try (PrintStream ps = new PrintStream(new File("categories.html"), "UTF-16");) {
 
