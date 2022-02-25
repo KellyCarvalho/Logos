@@ -2,8 +2,8 @@ package Logos.alternative;
 
 import Logos.activity.Question;
 
-import static commonValidator.ObjectValidator.isObjectValid;
-import static commonValidator.StringValidator.isNotBlankEmptyOrNull;
+import static Logos.commonValidator.ObjectValidator.isObjectValid;
+import static Logos.commonValidator.StringValidator.isNotBlankEmptyOrNull;
 
 public class Alternative {
     private String description;

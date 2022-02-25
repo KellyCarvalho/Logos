@@ -3,8 +3,8 @@ package Logos.activity;
 import Logos.activity.enums.TypeQuestion;
 import Logos.section.Section;
 
-import static commonValidator.ObjectValidator.isObjectValid;
-import static commonValidator.StringValidator.isNotBlankEmptyOrNull;
+import static Logos.commonValidator.ObjectValidator.isObjectValid;
+import static Logos.commonValidator.StringValidator.isNotBlankEmptyOrNull;
 
 public class Question extends Activity {
     private String description;

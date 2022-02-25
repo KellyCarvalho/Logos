@@ -1,10 +1,12 @@
 package Logos.course;
 
+import Logos.category.Category;
 import Logos.subCategory.SubCategory;
+import Logos.subCategory.enums.SubCategoryStatus;
 
-import static commonValidator.ObjectValidator.isObjectValid;
-import static commonValidator.StringValidator.isNotBlankEmptyOrNull;
-import static commonValidator.StringValidator.isValidCode;
+import static Logos.commonValidator.ObjectValidator.isObjectValid;
+import static Logos.commonValidator.StringValidator.isNotBlankEmptyOrNull;
+import static Logos.commonValidator.StringValidator.isValidCode;
 
 public class Course {
 
@@ -32,25 +34,61 @@ public class Course {
     }
 
     public static boolean isValidEstimatedTime(int estimatedTime, int min, int max) {
-
         if (estimatedTime < min || estimatedTime > max)
             throw new IllegalArgumentException("Tempo estimado de curso não pode ser menor que " + min + " ou maior que " + max);
-
         return true;
+    }
+
+    public Course(String name, String code, int estimatedTime, boolean visibility, String targetAudience,
+                  String instructorName, String courseProgramDescription, String developedSkills, SubCategory subCategory) {
+        this(name, code, estimatedTime, instructorName, subCategory);
+        this.visibility = visibility;
+        this.targetAudience = targetAudience;
+        this.courseProgramDescription = courseProgramDescription;
+        this.developedSkills = developedSkills;
+
+    }
+
+    public int getEstimatedTime() {
+        return estimatedTime;
+    }
+
+    public SubCategory getSubCategory() {
+        return subCategory;
+    }
+
+    public SubCategoryStatus isActiveSubCategory() {
+        return subCategory.getStatus();
+    }
+
+    public String getNameSubCategory() {
+
+        return subCategory.getName();
+    }
+
+    public String getDescriptionSubCategory() {
+        return subCategory.getDescription();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Category getCategory() {
+        return getSubCategory().getCategory();
     }
 
     @Override
     public String toString() {
-        return "Course" +
+        return "Course" + '\n' +
                 "name='" + name + '\n' +
-                ", code='" + code + '\n' +
-                ", estimatedTime=" + estimatedTime + '\n' +
-                ", visibility=" + visibility +
-                ", targetAudience='" + targetAudience + '\n' +
-                ", instructor='" + instructorName + '\n' +
-                ", courseProgramDescription='" + courseProgramDescription + '\n' +
-                ", skillsDeveloped='" + developedSkills + '\n' +
-                ", subCategory=" + subCategory +
-                '}';
+                "code='" + code + '\n' +
+                "estimatedTime=" + estimatedTime + '\n' +
+                "visibility=" + visibility + '\n' +
+                "targetAudience='" + targetAudience + '\n' +
+                "instructor='" + instructorName + '\n' +
+                "courseProgramDescription='" + courseProgramDescription + '\n' +
+                "skillsDeveloped='" + developedSkills + '\n' +
+                "subCategory:" + subCategory + '\n';
     }
 }

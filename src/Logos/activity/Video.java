@@ -2,7 +2,7 @@ package Logos.activity;
 
 import Logos.section.Section;
 
-import static commonValidator.StringValidator.isNotBlankEmptyOrNull;
+import static Logos.commonValidator.StringValidator.isNotBlankEmptyOrNull;
 
 public class Video extends Activity {
     private String url;
@@ -14,7 +14,7 @@ public class Video extends Activity {
         isNotBlankEmptyOrNull(url, "Url de vídeo não pode ser vazia ou nula");
         this.url = url;
     }
-    
+
     @Override
     public String toString() {
         return "Video = " + getTitle() + '\n' +

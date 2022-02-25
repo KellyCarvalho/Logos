@@ -2,9 +2,9 @@ package Logos.section;
 
 import Logos.course.Course;
 
-import static commonValidator.ObjectValidator.isObjectValid;
-import static commonValidator.StringValidator.isNotBlankEmptyOrNull;
-import static commonValidator.StringValidator.isValidCode;
+import static Logos.commonValidator.ObjectValidator.isObjectValid;
+import static Logos.commonValidator.StringValidator.isNotBlankEmptyOrNull;
+import static Logos.commonValidator.StringValidator.isValidCode;
 
 public class Section {
 
@@ -23,6 +23,7 @@ public class Section {
         this.code = code;
         this.course = course;
     }
+
 
     @Override
     public String toString() {

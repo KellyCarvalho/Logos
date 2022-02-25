@@ -3,7 +3,9 @@ package Logos.category;
 
 import Logos.category.enums.CategoryStatus;
 
-import static commonValidator.StringValidator.*;
+import java.util.Objects;
+
+import static Logos.commonValidator.StringValidator.*;
 
 public class Category {
 
@@ -23,21 +25,62 @@ public class Category {
         this.code = code;
     }
 
-
-    public void setColorCode(String colorCode) {
-        isValidColor(colorCode, " Cor de categoria não é válida");
+    public Category(String name, String code, String description, CategoryStatus status, int order, String imageUrl, String colorCode) {
+        this(name, code);
+        isValidColor(colorCode, "Cor de categoria não é válida");
+        this.description = description;
+        this.status = status;
+        this.order = order;
+        this.imageUrl = imageUrl;
         this.colorCode = colorCode;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public int getOrder() {
+        return order;
+    }
+
+    public String getColorCode() {
+        return colorCode;
     }
 
     @Override
     public String toString() {
-        return "Nome='" + name + '\n' +
-                "Código='" + code + '\n' +
-                "Descrição='" + description + '\n' +
-                "Guia de estudo='" + studyGuide + '\n' +
-                "status=" + status + '\n' +
-                "Ordem=" + order + '\n' +
-                "imageUrl='" + imageUrl + '\n' +
-                "Cor em Hexadecimal='" + colorCode + '\'';
+        return "Nome= " + name + '\n' +
+                "Código= " + code + '\n' +
+                "Descrição= " + description + '\n' +
+                "Guia de estudo=" + studyGuide + '\n' +
+                "status= " + status + '\n' +
+                "Ordem= " + order + '\n' +
+                "imageUrl= " + imageUrl + '\n' +
+                "Cor em Hexadecimal= " + colorCode + '\n';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Category category = (Category) o;
+        return code.equals(category.code);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(code);
     }
 }

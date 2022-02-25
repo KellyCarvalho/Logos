@@ -2,7 +2,7 @@ package Logos.activity;
 
 import Logos.section.Section;
 
-import static commonValidator.StringValidator.isNotBlankEmptyOrNull;
+import static Logos.commonValidator.StringValidator.isNotBlankEmptyOrNull;
 
 public class Explanation extends Activity {
 

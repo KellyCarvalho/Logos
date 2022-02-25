@@ -3,9 +3,10 @@ package Logos.subCategory;
 import Logos.category.Category;
 import Logos.subCategory.enums.SubCategoryStatus;
 
-import static commonValidator.ObjectValidator.isObjectValid;
-import static commonValidator.StringValidator.isNotBlankEmptyOrNull;
-import static commonValidator.StringValidator.isValidCode;
+import static Logos.commonValidator.ObjectValidator.isObjectValid;
+import static Logos.commonValidator.StringValidator.isNotBlankEmptyOrNull;
+import static Logos.commonValidator.StringValidator.isValidCode;
+
 public class SubCategory {
 
     private String name;
@@ -25,10 +26,40 @@ public class SubCategory {
         this.category = category;
     }
 
+    public SubCategory(String name, String code, String description, SubCategoryStatus status, int order, Category category) {
+        this(name, code, category);
+        this.description = description;
+        this.status = status;
+        this.order = order;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public int getOrder() {
+        return order;
+    }
+
+    public SubCategoryStatus getStatus() {
+        return status;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
     @Override
     public String toString() {
-        return "SubCategory" + '\n' +
-                "Nome='" + name + '\n' +
+        return '\n' + "Nome=" + name + '\n' +
                 "Código='" + code + '\n' +
                 "Descrição='" + description + '\n' +
                 "Guia de Estudos='" + studyGuide + '\n' +
