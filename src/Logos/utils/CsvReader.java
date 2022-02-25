@@ -84,7 +84,8 @@ public class CsvReader {
         }
     }
 
-    private static void isValidCourse(List<Course> courses, String name, String code, String estimatedTime, String visibility, String targetAudience, String instructor, String courseProgramDescription, String skillsDeveloped, int time, Optional<SubCategory> subCategory) {
+    private static void isValidCourse(List<Course> courses, String name, String code, String estimatedTime, String visibility,
+                                      String targetAudience, String instructor, String courseProgramDescription, String skillsDeveloped, int time, Optional<SubCategory> subCategory) {
         if ((name != "" && name != null) && (code != "" && code != null) && (estimatedTime != "" && estimatedTime != null) && subCategory.isPresent()) {
             courses.add(new Course(name, code, time, visibility.equals("PÚBLICA"), targetAudience, instructor, courseProgramDescription, skillsDeveloped, subCategory.get()));
         }
@@ -120,7 +121,8 @@ public class CsvReader {
 
     }
 
-    private static void isValidSubCategory(List<SubCategory> subCategories, String name, String code, String description, SubCategoryStatus status, String categoryCode, int orderInt, Optional<Category> category) {
+    private static void isValidSubCategory(List<SubCategory> subCategories, String name, String code, String description,
+                                           SubCategoryStatus status, String categoryCode, int orderInt, Optional<Category> category) {
         if ((name != "" && name != null) && (code != "" && code != null) && (categoryCode != "" && categoryCode != null) && category.isPresent()) {
             subCategories.add(new SubCategory(name, code, description, status, orderInt, category.get()));
         }
