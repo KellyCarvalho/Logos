@@ -3,6 +3,8 @@ package Logos.subCategory;
 import Logos.category.Category;
 import Logos.subCategory.enums.SubCategoryStatus;
 
+import java.util.List;
+
 import static Logos.commonValidator.ObjectValidator.isObjectValid;
 import static Logos.commonValidator.StringValidator.isNotBlankEmptyOrNull;
 import static Logos.commonValidator.StringValidator.isValidCode;
@@ -55,6 +57,20 @@ public class SubCategory {
 
     public String getDescription() {
         return description;
+    }
+
+    public String getCategoryDescription() {
+        return this.getCategory().getDescription();
+    }
+
+    public static List<SubCategory> getCategoriesWithoutDescription(List<SubCategory> subCategories) {
+        return subCategories.stream().filter(subCategory -> subCategory.getCategoryDescription().isBlank() ||
+                subCategory.getCategoryDescription().isEmpty()).toList();
+    }
+
+    public static Long getQuantitySubCategoriesActivesWithDescription(List<SubCategory> subCategories) {
+        return subCategories.stream().filter(subCategory -> subCategory.getStatus().equals(SubCategoryStatus.ACTIVE) &&
+                !subCategory.getDescription().isBlank() || !subCategory.getDescription().isEmpty()).count();
     }
 
     @Override

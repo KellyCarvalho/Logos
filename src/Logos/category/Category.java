@@ -3,6 +3,7 @@ package Logos.category;
 
 import Logos.category.enums.CategoryStatus;
 
+import java.util.List;
 import java.util.Objects;
 
 import static Logos.commonValidator.StringValidator.*;
@@ -59,6 +60,13 @@ public class Category {
         return colorCode;
     }
 
+    public CategoryStatus getStatus() {
+        return status;
+    }
+
+    public static List<Category> isActive(List<Category> categories){
+       return categories.stream().filter(category ->category.getStatus().equals(CategoryStatus.ACTIVE)).toList();
+    }
     @Override
     public String toString() {
         return "Nome= " + name + '\n' +
