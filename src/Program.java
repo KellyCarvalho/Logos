@@ -30,9 +30,10 @@ public class Program {
 //        System.out.println(getCategoriesWithoutDescription(subCategories).isEmpty()?
 //                "Não há categorias com descrição em branco ou vazia":getCategoriesWithoutDescription(subCategories));
 
-        System.out.println(isAnyPrivateCourse(courses));
-        System.out.println(getInstructorsListToCourses(courses));
-        System.out.println(getQuantitySubCategoriesActivesWithDescription(subCategories));
+//        System.out.println(isAnyPrivateCourse(courses));
+//        System.out.println(getInstructorsListToCourses(courses));
+//        System.out.println(getQuantitySubCategoriesActivesWithDescription(subCategories));
+        System.out.println(getInstructorsWithCourseQuantities(courses));
 
     }
 }
