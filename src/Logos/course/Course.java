@@ -10,7 +10,6 @@ import java.util.stream.Collectors;
 import static Logos.commonValidator.ObjectValidator.isObjectValid;
 import static Logos.commonValidator.StringValidator.isNotBlankEmptyOrNull;
 import static Logos.commonValidator.StringValidator.isValidCode;
-import static java.util.regex.Pattern.matches;
 
 public class Course {
 
@@ -101,12 +100,14 @@ public class Course {
         return courses.stream().map(course -> course.getInstructorName()).distinct().collect(Collectors.joining(", "));
     }
 
-    public static Long countQuantityCoursesToTeacher(List<Course> courses,String instructorName){
+    public static Long countQuantityCoursesToInstructor(List<Course> courses, String instructorName){
         return courses.stream().filter(course -> course.getInstructorName().equals(instructorName)).count();
     }
 
     public static String getInstructorsWithCourseQuantities(List<Course> courses) {
-        return courses.stream().map(course -> course.getInstructorName()+" - Quantidade de cursos: "+countQuantityCoursesToTeacher(courses,course.getInstructorName())).distinct().collect(Collectors.joining(", "));
+        return courses.stream().map(course -> course.getInstructorName()+" - Quantidade de cursos: "+
+                countQuantityCoursesToInstructor(courses,course.getInstructorName()))
+                .distinct().collect(Collectors.joining(", "));
     }
 
     @Override

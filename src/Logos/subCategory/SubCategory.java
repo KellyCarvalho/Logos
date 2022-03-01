@@ -68,6 +68,11 @@ public class SubCategory {
                 subCategory.getCategoryDescription().isEmpty()).toList();
     }
 
+    public static List<SubCategory> getSubCategoriesWithoutDescription(List<SubCategory> subCategories) {
+        return subCategories.stream().filter(subCategory -> subCategory.getDescription().isBlank() ||
+                subCategory.getDescription().isEmpty()).toList();
+    }
+
     public static Long getQuantitySubCategoriesActivesWithDescription(List<SubCategory> subCategories) {
         return subCategories.stream().filter(subCategory -> subCategory.getStatus().equals(SubCategoryStatus.ACTIVE) &&
                 !subCategory.getDescription().isBlank() || !subCategory.getDescription().isEmpty()).count();
