@@ -18,18 +18,20 @@ public class Program {
         List<Category> categories = readCategories("files/planilha-dados-escola - Categoria.csv");
         List<SubCategory> subCategories = readSubCategories("files/planilha-dados-escola - Subcategoria.csv", categories);
         List<Course> courses = readCourses("files/planilha-dados-escola - Curso.csv", subCategories);
-
-        System.out.println(isActive(categories)); ;
-        System.out.println(getCategoriesWithoutDescription(subCategories));
-
-
+        
+        //Card 1
+        System.out.println(isActive(categories));
+        //Card 2
         System.out.println(getCategoriesWithoutDescription(subCategories).isEmpty()?
                 "Não há categorias com descrição em branco ou vazia":getCategoriesWithoutDescription(subCategories));
-
-        System.out.println(getSubCategoriesWithoutDescription(subCategories));
-        System.out.println(isAnyPrivateCourse(courses));
-        System.out.println(getInstructorsListToCourses(courses));
+        System.out.println( getSubCategoriesWithoutDescription(subCategories));
+        //Card 3
         System.out.println(getQuantitySubCategoriesActivesWithDescription(subCategories));
+        //Card 4
+        System.out.println(isAnyPrivateCourse(courses));
+        //Card 5
+        System.out.println(getInstructorsListToCourses(courses));
+        //Card 6
         System.out.println(getInstructorsWithCourseQuantities(courses));
 
     }

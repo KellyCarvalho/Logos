@@ -88,7 +88,7 @@ public class Course {
     }
 
     public static String isAnyPrivateCourse(List<Course> courses) {
-        return courses.stream().filter(course -> !course.isVisibility()).map(course -> "Existem cursos Privados na lista de cursos")
+        return courses.stream().filter(course -> !course.isVisibility()).map(course -> "Existem cursos Privados na lista de cursos: ")
                 .findFirst().orElse("Não Existem cursos privados na lista de cursos");
     }
 
