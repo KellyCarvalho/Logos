@@ -62,19 +62,19 @@ public class SubCategory {
     }
 
     public static List<SubCategory> getSubCategoriesWithoutDescription(List<SubCategory> subCategories) {
-        return subCategories.stream().filter(subCategory -> subCategory.isEmptyDescription()).toList();
+        return subCategories.stream().filter(SubCategory::isEmptyDescription).toList();
     }
 
     public boolean isActive() {
-        return this.status.equals(CategoryStatus.ACTIVE) ? true : false;
+        return CategoryStatus.ACTIVE.equals(this.status);
     }
 
     public boolean isEmptyDescription() {
-        return this.getDescription().isEmpty() || this.getDescription().isBlank() ? true : false;
+        return this.getDescription().isEmpty();
     }
 
     public static Long getQuantitySubCategoriesActivesWithDescription(List<SubCategory> subCategories) {
-        return subCategories.stream().filter(subCategory -> !subCategory.isEmptyDescription()).map(subCategory -> subCategory.isActive()).count();
+        return subCategories.stream().filter(subCategory -> !subCategory.isEmptyDescription()).map(SubCategory::isActive).count();
     }
 
     @Override

@@ -70,7 +70,7 @@ public class Category {
     }
 
     public static List<Category> getActiveCategories(List<Category> categories) {
-        return categories.stream().filter(category -> category.isActive()).toList();
+        return categories.stream().filter(Category::isActive).toList();
     }
 
     @Override
