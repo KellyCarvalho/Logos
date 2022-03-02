@@ -65,9 +65,14 @@ public class Category {
         return status;
     }
 
-    public static List<Category> isActive(List<Category> categories){
-       return categories.stream().filter(category ->category.getStatus().equals(CategoryStatus.ACTIVE)).toList();
+    public boolean isActive() {
+        return this.getStatus().equals(CategoryStatus.ACTIVE);
     }
+
+    public static List<Category> getActiveCategories(List<Category> categories) {
+        return categories.stream().filter(category -> category.isActive()).toList();
+    }
+
     @Override
     public String toString() {
         return "Nome= " + name + '\n' +

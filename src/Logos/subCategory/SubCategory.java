@@ -1,6 +1,7 @@
 package Logos.subCategory;
 
 import Logos.category.Category;
+import Logos.category.enums.CategoryStatus;
 import Logos.subCategory.enums.SubCategoryStatus;
 
 import java.util.List;
@@ -60,23 +61,20 @@ public class SubCategory {
         return description;
     }
 
-    public String getCategoryDescription() {
-        return this.getCategory().getDescription();
-    }
-
-    public static List<SubCategory> getCategoriesWithoutDescription(List<SubCategory> subCategories) {
-        return subCategories.stream().filter(subCategory -> subCategory.getCategoryDescription().isBlank() ||
-                subCategory.getCategoryDescription().isEmpty()).toList();
-    }
-
     public static List<SubCategory> getSubCategoriesWithoutDescription(List<SubCategory> subCategories) {
-        return subCategories.stream().filter(subCategory -> subCategory.getDescription().isBlank() ||
-                subCategory.getDescription().isEmpty()).toList();
+        return subCategories.stream().filter(subCategory -> subCategory.isEmptyDescription()).toList();
+    }
+
+    public boolean isActive() {
+        return this.status.equals(CategoryStatus.ACTIVE) ? true : false;
+    }
+
+    public boolean isEmptyDescription() {
+        return this.getDescription().isEmpty() || this.getDescription().isBlank() ? true : false;
     }
 
     public static Long getQuantitySubCategoriesActivesWithDescription(List<SubCategory> subCategories) {
-        return subCategories.stream().filter(subCategory -> subCategory.getStatus().equals(SubCategoryStatus.ACTIVE) &&
-                !subCategory.getDescription().isBlank() || !subCategory.getDescription().isEmpty()).count();
+        return subCategories.stream().filter(subCategory -> !subCategory.isEmptyDescription()).map(subCategory -> subCategory.isActive()).count();
     }
 
     @Override

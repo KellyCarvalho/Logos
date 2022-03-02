@@ -5,6 +5,7 @@ import Logos.subCategory.SubCategory;
 import Logos.subCategory.enums.SubCategoryStatus;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static Logos.commonValidator.ObjectValidator.isObjectValid;
@@ -87,27 +88,20 @@ public class Course {
         return visibility;
     }
 
-    public static String isAnyPrivateCourse(List<Course> courses) {
-        return courses.stream().filter(course -> !course.isVisibility()).map(course -> "Existem cursos Privados na lista de cursos: ")
-                .findFirst().orElse("Não Existem cursos privados na lista de cursos");
+    public static boolean hasAnyPrivateCourse(List<Course> courses) {
+        return courses.stream().anyMatch(course -> !course.isVisibility());
     }
 
     public String getInstructorName() {
         return instructorName;
     }
 
-    public static String getInstructorsListToCourses(List<Course> courses) {
-        return courses.stream().map(course -> course.getInstructorName()).distinct().collect(Collectors.joining(", "));
+    public static List<String> getInstructorFrom(List<Course> courses) {
+        return courses.stream().map(course -> course.getInstructorName()).distinct().toList();
     }
 
-    public static Long countQuantityCoursesToInstructor(List<Course> courses, String instructorName){
-        return courses.stream().filter(course -> course.getInstructorName().equals(instructorName)).count();
-    }
-
-    public static String getInstructorsWithCourseQuantities(List<Course> courses) {
-        return courses.stream().map(course -> course.getInstructorName()+" - Quantidade de cursos: "+
-                countQuantityCoursesToInstructor(courses,course.getInstructorName()))
-                .distinct().collect(Collectors.joining(", "));
+    public static Map<String, Long> getInstructorsWithCourseQuantities(List<Course> courses) {
+        return courses.stream().collect(Collectors.groupingBy(Course::getInstructorName, Collectors.counting()));
     }
 
     @Override
