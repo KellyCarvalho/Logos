@@ -66,7 +66,7 @@ public class Category {
     }
 
     public boolean isActive() {
-        return this.getStatus().equals(CategoryStatus.ACTIVE);
+        return CategoryStatus.ACTIVE.equals(this.getStatus());
     }
 
     public static List<Category> getActiveCategories(List<Category> categories) {
