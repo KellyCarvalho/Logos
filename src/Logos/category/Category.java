@@ -3,6 +3,7 @@ package Logos.category;
 
 import Logos.category.enums.CategoryStatus;
 
+import java.util.List;
 import java.util.Objects;
 
 import static Logos.commonValidator.StringValidator.*;
@@ -20,7 +21,8 @@ public class Category {
 
     public Category(String name, String code) {
         isNotBlankEmptyOrNull(name, "Nome da categoria é requerido, não pode ser vazio ou em branco");
-        isValidCode(code, "Código da Categoria não é válido ou está null ou vazio - deve ter caracteres de a-z - algarismos de 0-9 - Único caractere especial permitido é o hífen");
+        isValidCode(code, "Código da Categoria não é válido ou está null ou vazio - deve ter caracteres de a-z - " +
+                "algarismos de 0-9 - Único caractere especial permitido é o hífen");
         this.name = name;
         this.code = code;
     }
@@ -57,6 +59,18 @@ public class Category {
 
     public String getColorCode() {
         return colorCode;
+    }
+
+    public CategoryStatus getStatus() {
+        return status;
+    }
+
+    public boolean isActive() {
+        return CategoryStatus.ACTIVE.equals(this.getStatus());
+    }
+
+    public static List<Category> getActiveCategories(List<Category> categories) {
+        return categories.stream().filter(Category::isActive).toList();
     }
 
     @Override
