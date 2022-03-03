@@ -48,13 +48,6 @@ public class Course {
 
     }
 
-    private static boolean isValidEstimatedTime(int estimatedTime, int min, int max) {
-        if (estimatedTime < min || estimatedTime > max)
-            throw new IllegalArgumentException("Tempo estimado de curso não pode ser menor que " + min + " ou maior que " + max);
-        return true;
-    }
-
-
     public int getEstimatedTime() {
         return estimatedTime;
     }
@@ -102,6 +95,12 @@ public class Course {
 
     public static Map<String, Long> getInstructorsWithCourseQuantities(List<Course> courses) {
         return courses.stream().collect(Collectors.groupingBy(Course::getInstructorName, Collectors.counting()));
+    }
+
+    private static boolean isValidEstimatedTime(int estimatedTime, int min, int max) {
+        if (estimatedTime < min || estimatedTime > max)
+            throw new IllegalArgumentException("Tempo estimado de curso não pode ser menor que " + min + " ou maior que " + max);
+        return true;
     }
 
     @Override
