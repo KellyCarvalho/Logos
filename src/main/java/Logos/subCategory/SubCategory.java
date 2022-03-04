@@ -66,7 +66,7 @@ public class SubCategory {
     }
 
     public boolean isActive() {
-        return CategoryStatus.ACTIVE.equals(this.status);
+        return SubCategoryStatus.ACTIVE.equals(this.status);
     }
 
     public boolean isEmptyDescription() {

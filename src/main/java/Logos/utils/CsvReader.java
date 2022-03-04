@@ -36,14 +36,12 @@ public class CsvReader {
                 int orderInt = order == "" ? 0 : Integer.parseInt(order);
                 isValidCategory(categories, name, code, description, status, icon, color, orderInt);
             }
-
         } catch (IOException e) {
             System.out.println("Ocorreu um erro no caminho do arquivo de cursos, certifique-se de que o arquivo existe ou se de fato foi preenchido");
             System.out.println(e.getMessage());
         } finally {
             return categories;
         }
-
     }
 
     private static void isValidCategory(List<Category> categories, String name, String code, String description, CategoryStatus status,
@@ -77,8 +75,6 @@ public class CsvReader {
                 isValidCourse(courses, name, code, estimatedTime, visibility, targetAudience, instructor, courseProgramDescription,
                         skillsDeveloped, time, subCategory);
             }
-
-
         } catch (IOException e) {
             System.out.println("Ocorreu um erro no caminho do arquivo de cursos, certifique-se de que o arquivo existe ou se de fato foi preenchido");
         } finally {
@@ -122,7 +118,6 @@ public class CsvReader {
         } finally {
             return subCategories;
         }
-
     }
 
     private static void isValidSubCategory(List<SubCategory> subCategories, String name, String code, String description,
