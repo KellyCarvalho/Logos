@@ -12,7 +12,7 @@ import static Logos.utils.CsvReader.*;
 
 
 public class Program {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
 
         List<Category> categories = readCategories("files/planilha-dados-escola - Categoria.csv");
         List<SubCategory> subCategories = readSubCategories("files/planilha-dados-escola - Subcategoria.csv", categories);
