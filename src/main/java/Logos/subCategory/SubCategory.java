@@ -74,7 +74,7 @@ public class SubCategory {
     }
 
     public static Long getQuantitySubCategoriesActivesWithDescription(List<SubCategory> subCategories) {
-        return subCategories.stream().filter(subCategory -> !subCategory.isEmptyDescription()).map(SubCategory::isActive).count();
+        return subCategories.stream().filter(subCategory -> !subCategory.isEmptyDescription()).filter(SubCategory::isActive).count();
     }
 
     @Override

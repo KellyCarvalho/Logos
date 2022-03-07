@@ -72,10 +72,13 @@ public class CategoryTest {
 
     @Test
     void getActiveCategoriesShouldReturnOnlyActivesCategories() {
-        List<Category> categories = Arrays.asList(new Category("Programação", "programacao"),
-                new Category("Devops", "devops"), new Category("Business", "business",
-                        CategoryStatus.ACTIVE));
-        assertTrue(getActiveCategories(categories).get(0)
-                .isActive() && getActiveCategories(categories).size() == 1);
+        List<Category> categories = Arrays.asList(
+                new Category("Programação", "programacao", CategoryStatus.ACTIVE),
+                new Category("Devops", "devops", CategoryStatus.ACTIVE),
+                new Category("Business", "business", CategoryStatus.ACTIVE));
+
+        List<Category> categoriesActives = getActiveCategories(categories);
+
+        assertEquals(categories, categoriesActives);
     }
 }

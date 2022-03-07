@@ -18,6 +18,6 @@ public class Program {
         List<SubCategory> subCategories = readSubCategories("files/planilha-dados-escola - Subcategoria.csv", categories);
         List<Course> courses = readCourses("files/planilha-dados-escola - Curso.csv", subCategories);
 
-        System.out.println(courses);
+
     }
 }
