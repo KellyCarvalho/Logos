@@ -28,7 +28,7 @@ public class SubCategoryTest {
 
     @ParameterizedTest
     @NullAndEmptySource
-    void shouldThrowIllegalArgumentExceptionToEmptyOrNullCode(String code) {
+    void shouldThrowIllegalArgumentExceptionIfEmptyOrNullCode(String code) {
         assertThrows(IllegalArgumentException.class, () -> {
             new SubCategory("java", code, category);
         });
@@ -36,7 +36,7 @@ public class SubCategoryTest {
 
     @ParameterizedTest
     @NullAndEmptySource
-    void shouldThrowIllegalArgumentExceptionToEmptyOrNullName(String name) {
+    void shouldThrowIllegalArgumentExceptionIfEmptyOrNullName(String name) {
         assertThrows(IllegalArgumentException.class, () -> {
             new SubCategory(name, "java", category);
         });

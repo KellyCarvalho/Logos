@@ -27,6 +27,11 @@ public class Category {
         this.code = code;
     }
 
+    public Category(String name, String code, CategoryStatus status) {
+        this(name, code);
+        this.status = status;
+    }
+
     public Category(String name, String code, String description, CategoryStatus status, int order, String imageUrl, String colorCode) {
         this(name, code);
         isValidColor(colorCode, "Cor de categoria não é válida");
