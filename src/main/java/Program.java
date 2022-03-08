@@ -9,6 +9,7 @@ import static Logos.category.Category.getActiveCategories;
 import static Logos.course.Course.*;
 import static Logos.subCategory.SubCategory.*;
 import static Logos.utils.CsvReader.*;
+import static Logos.utils.GenerateSql.*;
 
 
 public class Program {
@@ -17,7 +18,6 @@ public class Program {
         List<Category> categories = readCategories("files/planilha-dados-escola - Categoria.csv");
         List<SubCategory> subCategories = readSubCategories("files/planilha-dados-escola - Subcategoria.csv", categories);
         List<Course> courses = readCourses("files/planilha-dados-escola - Curso.csv", subCategories);
-
-
+        writeSql();
     }
 }

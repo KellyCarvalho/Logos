@@ -5,6 +5,7 @@ import Logos.category.enums.CategoryStatus;
 import Logos.subCategory.enums.SubCategoryStatus;
 
 import java.util.List;
+import java.util.Objects;
 
 import static Logos.commonValidator.ObjectValidator.isObjectValid;
 import static Logos.commonValidator.StringValidator.isNotBlankEmptyOrNull;
@@ -61,6 +62,10 @@ public class SubCategory {
         return description;
     }
 
+    public String getStudyGuide() {
+        return studyGuide;
+    }
+
     public static List<SubCategory> getSubCategoriesWithoutDescription(List<SubCategory> subCategories) {
         return subCategories.stream().filter(SubCategory::isEmptyDescription).toList();
     }
@@ -75,6 +80,23 @@ public class SubCategory {
 
     public static Long getQuantitySubCategoriesActivesWithDescription(List<SubCategory> subCategories) {
         return subCategories.stream().filter(subCategory -> !subCategory.isEmptyDescription()).filter(SubCategory::isActive).count();
+    }
+
+    public String getCategoryCode() {
+        return this.getCategory().getCode();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SubCategory that = (SubCategory) o;
+        return code.equals(that.code);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(code);
     }
 
     @Override

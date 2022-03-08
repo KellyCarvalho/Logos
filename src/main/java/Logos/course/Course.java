@@ -6,6 +6,7 @@ import Logos.subCategory.enums.SubCategoryStatus;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static Logos.commonValidator.ObjectValidator.isObjectValid;
@@ -73,12 +74,32 @@ public class Course {
         return name;
     }
 
+    public String getCode() {
+        return code;
+    }
+
+    public String getTargetAudience() {
+        return targetAudience;
+    }
+
+    public String getCourseProgramDescription() {
+        return courseProgramDescription;
+    }
+
+    public String getDevelopedSkills() {
+        return developedSkills;
+    }
+
     public Category getCategory() {
         return getSubCategory().getCategory();
     }
 
     public boolean isVisibility() {
         return visibility;
+    }
+
+    public String getSubCategoryCode() {
+        return this.getSubCategory().getCode();
     }
 
     public static boolean hasAnyPrivateCourse(List<Course> courses) {
@@ -101,6 +122,19 @@ public class Course {
         if (estimatedTime < min || estimatedTime > max)
             throw new IllegalArgumentException("Tempo estimado de curso não pode ser menor que " + min + " ou maior que " + max);
         return true;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Course course = (Course) o;
+        return code.equals(course.code);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(code);
     }
 
     @Override

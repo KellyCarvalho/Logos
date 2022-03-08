@@ -33,6 +33,7 @@ public class CsvReaderTest {
                 "Aprenda Git. Entenda a entrega contínua. Estude Linux. Gerencie servidores na nuvem. Explore o mundo de Internet das coisas e da robótica.",
                 CategoryStatus.ACTIVE, 2, "https://www.alura.com.br/assets/api/formacoes/categorias/512/devops-transparent.png",
                 "#f16165");
+
         Category categoryBusiness = new Category("Business", "business",
                 "Agilidade. Práticas de gestão. Vendas. Liderança.",
                 CategoryStatus.DISABLED, 0, "https://www.alura.com.br/assets/api/formacoes/categorias/512/inovacao-gestao-transparent.png",
@@ -41,12 +42,16 @@ public class CsvReaderTest {
         SubCategory subCategoryJava = new SubCategory("Java", "java", "Java é uma grande plataforma presente" +
                 " em todo lugar: de corporações à bancos e governo. Desenvolva aplicações robustas com um back-end e construa APIs.",
                 SubCategoryStatus.ACTIVE, 1, categoryProgramming);
+
         SubCategory subCategoryJavaAndPersistence = new SubCategory("Java e Persistência", "java-e-persistencia", "",
                 SubCategoryStatus.ACTIVE, 2, categoryProgramming);
+
         SubCategory subCategoryPhp = new SubCategory("PHP", "php", "PHP é uma das linguagens mais utilizadas.",
                 SubCategoryStatus.ACTIVE, 3, categoryProgramming);
+
         SubCategory subCategoryCobol = new SubCategory("COBOL", "cobol", "",
                 SubCategoryStatus.DISABLED, 0, categoryProgramming);
+
         SubCategory subCategoryBuilds = new SubCategory("Builds e Controle de versão", "builds-e-controle-de-versao",
                 "As ferramentas mais utilizadas para desenvolvimento: controle de versão com Git e Github além de build da aplicação através de Maven.",
                 SubCategoryStatus.ACTIVE, 1, categoryDevops);
@@ -71,6 +76,7 @@ public class CsvReaderTest {
                         "*Consolidando o seu conhecimento", "Descubra o que é Git e Github? <br>" +
                 " Entenda um sistema de controle de versão <br> Salve e recupere seu código em diferentes versões <br>" +
                 " Resolva merges e conflitos <br> Trabalhe com diferentes branches", subCategoryBuilds);
+
         Course courseJpa = new Course("Java e JPA: Consultas avançadas performance e modelos complexos", "java-jpa-consultas" +
                 "-avancadas-performance-modelos-complexos",
                 10, true, "Pessoas desenvolvedoras que já conhecem o básico de JPA " +
@@ -110,6 +116,7 @@ public class CsvReaderTest {
                 " de programação mais usado no mercado de trabalho <br> Entenda o que são referências e objetos <br> " +
                 "Use atributos métodos da instancia e da classe <br> Define objetos através de construtores <br> Aprenda " +
                 "sobre encapsulamento", subCategoryJava);
+
         Course courseJdk = new Course("Java JRE e JDK: Escreva o seu primeiro código com Eclipse", "java-primeiros-passos",
                 8, true, "Desenvolvedores que querem começar com a linguagem Java.",
                 "Paulo Silveira", "-O que é Java? <br> *A plataforma Java <br> *Benefício da JVM <br>" +
@@ -153,12 +160,12 @@ public class CsvReaderTest {
     @Test
     void readSubCategoriesShouldReturnAListOfSubCategories() {
         List<SubCategory> subCategoriesCsv = readSubCategories("files/planilha-dados-escola - Subcategoria.csv", categories);
-        assertEquals(subcategories.toString(), subCategoriesCsv.toString());
+        assertEquals(subcategories, subCategoriesCsv);
     }
 
     @Test
-    void readCourses() {
+    void readCoursesShouldReturnAListOfCourses() {
         List<Course> coursesCsv = CsvReader.readCourses("files/planilha-dados-escola - Curso.csv", subcategories);
-        assertEquals(coursesCsv.toString(), courses.toString());
+        assertEquals(coursesCsv, courses);
     }
 }

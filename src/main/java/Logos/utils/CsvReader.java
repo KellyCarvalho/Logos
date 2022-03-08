@@ -37,7 +37,7 @@ public class CsvReader {
                 isValidCategory(categories, name, code, description, status, icon, color, orderInt);
             }
         } catch (IOException e) {
-            System.out.println("Ocorreu um erro no caminho do arquivo de cursos, certifique-se de que o arquivo existe ou se de fato foi preenchido");
+            System.out.println("Ocorreu um erro no caminho do arquivo de Categorias, certifique-se de que o arquivo existe ou se de fato foi preenchido");
             System.out.println(e.getMessage());
         } finally {
             return categories;
@@ -113,7 +113,7 @@ public class CsvReader {
             }
 
         } catch (IOException e) {
-            System.out.println("Ocorreu um erro no caminho do arquivo de cursos, certifique-se de que o arquivo existe ou se de fato foi preenchido");
+            System.out.println("Ocorreu um erro no caminho do arquivo de Subcategorias, certifique-se de que o arquivo existe ou se de fato foi preenchido");
 
         } finally {
             return subCategories;

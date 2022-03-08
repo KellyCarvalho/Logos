@@ -54,6 +54,10 @@ public class Category {
         return description;
     }
 
+    public String getStudyGuide() {
+        return studyGuide;
+    }
+
     public String getImageUrl() {
         return imageUrl;
     }
