@@ -19,7 +19,6 @@ public class GenerateSql {
     private static StringBuilder sb = new StringBuilder();
 
     public static void insertCategories() {
-
         categories.forEach(category -> {
             String sql = """
                     INSERT INTO Category (`name`,`code`,`order`,`description`,`status`,`image_url`,`color_code`) 
@@ -31,13 +30,12 @@ public class GenerateSql {
     }
 
     public static void insertSubCategories() {
-
         subCategories.forEach(subCategory -> {
             String sql = """
                     INSERT INTO Subcategory (`name`,`code`,`order`,`description`,`status`,`fk_category`) 
                     VALUES('%s','%s',%d,'%s','%s',(SELECT `id` FROM Category WHERE `code`='%s'));                               
-                    """.formatted(subCategory.getName(), subCategory.getCode(),subCategory.getOrder(), subCategory.getDescription()
-                    , subCategory.getStatus(),  subCategory.getCategoryCode());
+                    """.formatted(subCategory.getName(), subCategory.getCode(), subCategory.getOrder(), subCategory.getDescription()
+                    , subCategory.getStatus(), subCategory.getCategoryCode());
             sb.append(sql);
         });
     }
@@ -48,7 +46,8 @@ public class GenerateSql {
                     INSERT INTO Course(`name`,`code` ,`estimated_time`,`visibility`,`target_audience`,`instructor_name`,`course_program_description`,`developed_skills`,`fk_subcategory`)
                     VALUES(" %s "," %s ",%s,%s," %s "," %s "," %s "," %s ",(SELECT `id` FROM `Subcategory` WHERE `code`="%s"));
                                         
-                    """.formatted(course.getName(), course.getCode(), course.getEstimatedTime(), course.isVisibility(), course.getTargetAudience(), course.getInstructorName(), course.getCourseProgramDescription(), course.getDevelopedSkills(), course.getSubCategoryCode());
+                    """.formatted(course.getName(), course.getCode(), course.getEstimatedTime(), course.isVisibility(),
+                    course.getTargetAudience(), course.getInstructorName(), course.getCourseProgramDescription(), course.getDevelopedSkills(), course.getSubCategoryCode());
             sb.append(sql);
         });
     }
