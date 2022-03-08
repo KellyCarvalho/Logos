@@ -22,13 +22,11 @@ public class GenerateSql {
 
         categories.forEach(category -> {
             String sql = """
-                    INSERT INTO CATEGORY (`NAME`,`CODE`,`STUDY_GUIDE`,`DESCRIPTION`,`STATUS`,`ORDER`,`IMAGE_URL`,`COLOR_CODE`) 
-                    VALUES('%s','%s','%s','%s','%s',%s,'%s','%s');
-                    
-                    """.formatted(category.getName(), category.getCode(), category.getStudyGuide(), category.getDescription()
-                    , category.getStatus(), category.getOrder(), category.getImageUrl(), category.getColorCode());
+                    INSERT INTO Category (`name`,`code`,`order`,`description`,`status`,`image_url`,`color_code`) 
+                    VALUES('%s','%s',%d,'%s','%s','%s','%s');                                
+                    """.formatted(category.getName(), category.getCode(), category.getOrder(), category.getDescription()
+                    , category.getStatus(), category.getImageUrl(), category.getColorCode());
             sb.append(sql);
-            sb.append("");
         });
     }
 
@@ -36,23 +34,20 @@ public class GenerateSql {
 
         subCategories.forEach(subCategory -> {
             String sql = """
-                    INSERT INTO SUBCATEGORY (`NAME`,`CODE`,`STUDY_GUIDE`,`DESCRIPTION`,`STATUS`,`ORDER`,`FK_CATEGORY`) 
-                    VALUES('%s','%s','%s','%s','%s',%s,(SELECT `id` FROM category WHERE `code`='%s'));
-                    
-                    """.formatted(subCategory.getName(), subCategory.getCode(), subCategory.getStudyGuide(), subCategory.getDescription()
-                    , subCategory.getStatus(), subCategory.getOrder(), subCategory.getCategoryCode());
+                    INSERT INTO Subcategory (`name`,`code`,`order`,`description`,`status`,`fk_category`) 
+                    VALUES('%s','%s',%d,'%s','%s',(SELECT `id` FROM Category WHERE `code`='%s'));                               
+                    """.formatted(subCategory.getName(), subCategory.getCode(),subCategory.getOrder(), subCategory.getDescription()
+                    , subCategory.getStatus(),  subCategory.getCategoryCode());
             sb.append(sql);
-            sb.append("");
         });
     }
 
     public static void insertCourses() {
-
         courses.forEach(course -> {
             String sql = """
-                    INSERT INTO COURSE(`NAME`,`CODE` ,`ESTIMATED_TIME`,`VISIBILITY`,`TARGET_AUDIENCE`,`INSTRUCTOR_NAME`,`COURSE_PROGRAM_DESCRIPTION`,`DEVELOPED_SKILLS`,`FK_SUBCATEGORY`)
-                    VALUES('%s','%s',%s,%s,'%s','%s','%s','%s',(SELECT `id` FROM `SUBCATEGORY` WHERE `CODE`='%s'));
-                    
+                    INSERT INTO Course(`name`,`code` ,`estimated_time`,`visibility`,`target_audience`,`instructor_name`,`course_program_description`,`developed_skills`,`fk_subcategory`)
+                    VALUES(" %s "," %s ",%s,%s," %s "," %s "," %s "," %s ",(SELECT `id` FROM `Subcategory` WHERE `code`="%s"));
+                                        
                     """.formatted(course.getName(), course.getCode(), course.getEstimatedTime(), course.isVisibility(), course.getTargetAudience(), course.getInstructorName(), course.getCourseProgramDescription(), course.getDevelopedSkills(), course.getSubCategoryCode());
             sb.append(sql);
         });
