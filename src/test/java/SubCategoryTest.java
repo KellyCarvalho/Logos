@@ -10,8 +10,7 @@ import java.util.List;
 
 import static Logos.subCategory.SubCategory.getQuantitySubCategoriesActivesWithDescription;
 import static Logos.subCategory.SubCategory.getSubCategoriesWithoutDescription;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class SubCategoryTest {
     private static Category category;
@@ -31,11 +30,18 @@ public class SubCategoryTest {
 
     @ParameterizedTest
     @CsvSource({"Java", "J@v@", "ja va", "jáva"})
-    void shouldThrowArgumentExceptionIfInvalidCode(String code) {
+    void constructorShouldThrowArgumentExceptionIfInvalidCode(String code) {
         assertThrows(IllegalArgumentException.class, () -> {
             new SubCategory("java", code, category);
         });
     }
+
+    @ParameterizedTest
+    @CsvSource({"java", "java-oo","java-","j-v"})
+    void constructorShouldNotThrowExceptionIfValidCode(String code) {
+        assertDoesNotThrow( () -> { new SubCategory("java", code, category);});
+    }
+
 
     @ParameterizedTest
     @NullAndEmptySource
@@ -49,6 +55,14 @@ public class SubCategoryTest {
     @NullAndEmptySource
     void ConstructorShouldThrowIllegalArgumentExceptionIfEmptyOrNullName(String name) {
         assertThrows(IllegalArgumentException.class, () -> {
+            new SubCategory(name, "java", category);
+        });
+    }
+
+    @ParameterizedTest
+    @CsvSource({"Java", "Java oo","java"})
+    void ConstructorShouldNotThrowIllegalArgumentExceptionIfIsNotEmptyOrNullName(String name) {
+        assertDoesNotThrow( () -> {
             new SubCategory(name, "java", category);
         });
     }

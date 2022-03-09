@@ -18,28 +18,25 @@ public class CategoryTest {
     @ParameterizedTest
     @CsvSource({"Java", "J@v@", "ja va", "jáva"})
     void shouldThrowArgumentExceptionIfInvalidCode(String code) {
-        assertThrows(IllegalArgumentException.class,
-                () -> new Category("java", code));
+        assertThrows(IllegalArgumentException.class, () -> new Category("java", code));
     }
 
     //TODO fazer um teste que não gera exceção de Code
     @ParameterizedTest
     @NullAndEmptySource
-    void shouldThrowIllegalArgumentExceptionIfEmptyOrNullCode(String code) {
-        assertThrows(IllegalArgumentException.class,
-                () -> new Category("Java", code));
+    void constructorShouldThrowIllegalArgumentExceptionIfEmptyOrNullCode(String code) {
+        assertThrows(IllegalArgumentException.class, () -> new Category("Java", code));
     }
 
     @ParameterizedTest
     @NullAndEmptySource
-    void shouldThrowIllegalArgumentExceptionToEmptyOrNullName(String name) {
-        assertThrows(IllegalArgumentException.class,
-                () ->  new Category(name, "java"));
+    void constructorShouldThrowIllegalArgumentExceptionToEmptyOrNullName(String name) {
+        assertThrows(IllegalArgumentException.class, () ->  new Category(name, "java"));
     }
 
     @ParameterizedTest
     @ValueSource(strings = {"!191970", "#!78839", "#4545433"})
-    void shouldThrowIllegalArgumentExceptionIfColorCodeIsInvalid(String colorCode) {
+    void constructorShouldThrowIllegalArgumentExceptionIfColorCodeIsInvalid(String colorCode) {
         assertThrows(IllegalArgumentException.class,
                 () -> { new Category("Java", "java", "java é legal", CategoryStatus.ACTIVE,
                             0, "umaurlqualquer.com.br", colorCode);
@@ -49,7 +46,7 @@ public class CategoryTest {
     //TODO especificar construtor
     @ParameterizedTest
     @ValueSource(strings = {"#191970", "#00008B", "#6495ED"})
-    void shouldNotThrowExceptionIfColorCodeIsValid(String colorCode) {
+    void constructorShouldNotThrowExceptionIfColorCodeIsValid(String colorCode) {
         assertDoesNotThrow(() -> {
             new Category("Java", "java", "java é legal", CategoryStatus.ACTIVE,
                     0, "umaurlqualquer.com.br", colorCode);
