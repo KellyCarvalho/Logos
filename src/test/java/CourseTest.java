@@ -22,13 +22,9 @@ public class CourseTest {
 
 
     @BeforeAll
-    public static void initializeDependencies() {
+    public static void setUp() {
         category = new Category("programação", "programacao");
         subCategory = new SubCategory("java", "java", category);
-    }
-
-    @BeforeAll
-    public static void initializeLists() {
         courses.add(new Course("java2", "java2", 10, true, "Iniciantes",
                 "Paulo", "Curso de Java", "java", subCategory));
 
@@ -40,10 +36,10 @@ public class CourseTest {
         instructorsNames = Arrays.asList("Paulo", "Camila", "Tamires");
     }
 
-
+    //TODO testar construtor
     @ParameterizedTest
     @CsvSource({"Java", "J@v@", "ja va", "jáva"})
-    void shouldThrowArgumentExceptionIfSpecialCharactersSpacesAndLettersInUpperCaseInCode(String code) {
+    void shouldThrowArgumentExceptionIfInvalidCode(String code) {
         assertThrows(IllegalArgumentException.class, () -> {
             new Course("Java", code, 10, "Paulo", subCategory);
         });
@@ -83,7 +79,7 @@ public class CourseTest {
 
     @ParameterizedTest
     @ValueSource(ints = {-1, 0, 21})
-    void shouldThrowIllegalArgumentExceptionIfEstimatedTimeIsLargerOrLowerAllowed(int estimatedTime) {
+    void shouldThrowIllegalArgumentExceptionIfIsBetweenZeroAndTwenty(int estimatedTime) {
         assertThrows(IllegalArgumentException.class, () -> {
             new Course("Java", "java", estimatedTime, "Paulo", subCategory);
         });
@@ -91,22 +87,10 @@ public class CourseTest {
 
     @ParameterizedTest
     @ValueSource(ints = {1, 10, 20})
-    void shouldAcceptIfValueEstimatedTimeIsWithinTheAllowed(int estimatedTime) {
+    void shouldNotThrowExceptionIfIsBetweenZeroAndTwenty(int estimatedTime) {
         assertDoesNotThrow(() -> {
             new Course("Java", "java", estimatedTime, "Paulo", subCategory);
         });
-    }
-
-    @ParameterizedTest
-    @ValueSource(strings = {"Paulo", "Camila", "Tamires"})
-    void getInstructorFromShouldReturnAInstructorName(String name) {
-        Course course = new Course("Java", "java", 10, name, subCategory);
-        assertEquals(course.getInstructorName(), name);
-    }
-
-    @Test
-    void getInstructorFromShouldReturnAListWithInstructorsNames() {
-        assertEquals(instructorsNames, getInstructorFrom(courses));
     }
 
     @Test

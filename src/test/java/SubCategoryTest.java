@@ -2,7 +2,6 @@ import Logos.category.Category;
 import Logos.subCategory.SubCategory;
 import Logos.subCategory.enums.SubCategoryStatus;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.*;
 
@@ -11,19 +10,28 @@ import java.util.List;
 
 import static Logos.subCategory.SubCategory.getQuantitySubCategoriesActivesWithDescription;
 import static Logos.subCategory.SubCategory.getSubCategoriesWithoutDescription;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class SubCategoryTest {
     private static Category category;
+    private static List<SubCategory> subCategories;
 
     @BeforeAll
-    public static void initializeDependencies() {
+    public static void setUp() {
         category = new Category("programação", "programacao");
+        subCategories = Arrays.asList(
+                new SubCategory("Html", "html", "html", SubCategoryStatus.ACTIVE, 1, category),
+                new SubCategory("javascript", "javascript", "javascript", SubCategoryStatus.DISABLED, 1, category),
+                new SubCategory("jpa", "jpa", "", SubCategoryStatus.DISABLED, 1, category),
+                new SubCategory("java", "java", null, SubCategoryStatus.ACTIVE, 1, category),
+                new SubCategory("javaoo", "javaoo", "", SubCategoryStatus.ACTIVE, 1, category),
+                new SubCategory("javaweb", "javaweb", "Java é uma ...", SubCategoryStatus.ACTIVE, 1, category));
     }
 
     @ParameterizedTest
     @CsvSource({"Java", "J@v@", "ja va", "jáva"})
-    void shouldThrowArgumentExceptionIfSpecialCharactersSpacesAndLettersInUpperCaseInCode(String code) {
+    void shouldThrowArgumentExceptionIfInvalidCode(String code) {
         assertThrows(IllegalArgumentException.class, () -> {
             new SubCategory("java", code, category);
         });
@@ -31,7 +39,7 @@ public class SubCategoryTest {
 
     @ParameterizedTest
     @NullAndEmptySource
-    void shouldThrowIllegalArgumentExceptionIfEmptyOrNullCode(String code) {
+    void ConstructorShouldThrowIllegalArgumentExceptionIfEmptyOrNullCode(String code) {
         assertThrows(IllegalArgumentException.class, () -> {
             new SubCategory("java", code, category);
         });
@@ -39,7 +47,7 @@ public class SubCategoryTest {
 
     @ParameterizedTest
     @NullAndEmptySource
-    void shouldThrowIllegalArgumentExceptionIfEmptyOrNullName(String name) {
+    void ConstructorShouldThrowIllegalArgumentExceptionIfEmptyOrNullName(String name) {
         assertThrows(IllegalArgumentException.class, () -> {
             new SubCategory(name, "java", category);
         });
@@ -47,62 +55,25 @@ public class SubCategoryTest {
 
     @ParameterizedTest
     @NullSource
-    void shouldThrowIllegalArgumentExceptionToEmptyOrNullCategory(Category category) {
+    void ConstructorShouldThrowIllegalArgumentExceptionToEmptyOrNullCategory(Category category) {
         assertThrows(IllegalArgumentException.class, () -> {
             new SubCategory("java", "java", category);
         });
     }
 
-    @Test
-    void isActiveShouldReturnTrueIfStatusIsActive() {
-        SubCategory subCategory = new SubCategory("java", "java", "entendendo o java",
-                SubCategoryStatus.ACTIVE, 1, category);
-        assertTrue(subCategory.isActive());
-    }
-
-    @Test
-    void isActiveShouldReturnFalseIfStatusIsDisabled() {
-        SubCategory subCategory = new SubCategory("java", "java", "entendendo o java",
-                SubCategoryStatus.DISABLED, 1, category);
-        assertFalse(subCategory.isActive());
+    @ParameterizedTest
+    @ValueSource(longs = {3L})
+    void getQuantitySubCategoriesActivesWithDescriptionShouldReturnTheQuantitySubCategoriesActivesWithDescription(long sizeExpected) {
+        assertTrue(getQuantitySubCategoriesActivesWithDescription(subCategories) == sizeExpected);
     }
 
     @ParameterizedTest
     @EmptySource
-    void isEmptyDescriptionShouldReturnTrueIfDescriptionIsEmpty(String description) {
-        SubCategory subCategory = new SubCategory("java", "java", description,
-                SubCategoryStatus.DISABLED, 1, category);
-        assertTrue(subCategory.isEmptyDescription());
-    }
-
-    @Test
-    void isEmptyDescriptionShouldReturnFalseIfDescriptionIsNotEmpty() {
-        SubCategory subCategory = new SubCategory("java", "java", "java é legal",
-                SubCategoryStatus.DISABLED, 1, category);
-        assertFalse(subCategory.isEmptyDescription());
-    }
-
-    @ParameterizedTest
-    @ValueSource(strings = "Java é uma ...")
-    void getQuantitySubCategoriesActivesWithDescriptionShouldReturnAItQuantity(String description) {
-        List<SubCategory> categories = Arrays.asList(
-                new SubCategory("java", "java", description,
-                        SubCategoryStatus.DISABLED, 1, category),
-                new SubCategory("java2", "java2", description,
-                        SubCategoryStatus.ACTIVE, 1, category));
-
-        assertTrue(getQuantitySubCategoriesActivesWithDescription(categories) == 1L);
-    }
-
-    @Test
-    void getSubCategoriesWithoutDescriptionShouldReturnAItList() {
-        List<SubCategory> categories = Arrays.asList(
-                new SubCategory("java", "java", "",
-                        SubCategoryStatus.ACTIVE, 1, category),
-                new SubCategory("java2", "java2", "",
-                        SubCategoryStatus.ACTIVE, 1, category));
-
-        List<SubCategory> categoriesActives = getSubCategoriesWithoutDescription(categories);
-        assertEquals(categories, categoriesActives);
+    void getSubCategoriesWithoutDescriptionShouldReturnSubCategoriesWithoutDescription(String description) {
+        List<SubCategory> subcategoriesWithoutDescription = Arrays.asList(
+                new SubCategory("jpa", "jpa", description, SubCategoryStatus.DISABLED, 1, category),
+                new SubCategory("javaoo", "javaoo", description, SubCategoryStatus.ACTIVE, 1, category)
+        );
+        assertTrue(getSubCategoriesWithoutDescription(subCategories).containsAll(subcategoriesWithoutDescription));
     }
 }

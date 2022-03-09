@@ -18,6 +18,9 @@ public class GenerateSql {
     private static List<Course> courses = readCourses("files/planilha-dados-escola - Curso.csv", subCategories);
     private static StringBuilder sb = new StringBuilder();
 
+    //TODO trocar pra aspas duplas e sem espaçamento
+    //TODO trocar o nome de order
+    //TODO trocar nome pra write insert e o nome
     public static void insertCategories() {
         categories.forEach(category -> {
             String sql = """
@@ -43,8 +46,8 @@ public class GenerateSql {
     public static void insertCourses() {
         courses.forEach(course -> {
             String sql = """
-                    INSERT INTO Course(`name`,`code` ,`estimated_time`,`visibility`,`target_audience`,`instructor_name`,`course_program_description`,`developed_skills`,`fk_subcategory`)
-                    VALUES(" %s "," %s ",%s,%s," %s "," %s "," %s "," %s ",(SELECT `id` FROM `Subcategory` WHERE `code`="%s"));
+                    INSERT INTO Course(`name`,`code`,`estimated_time`,`visibility`,`target_audience`,`instructor_name`,`course_program_description`,`developed_skills`,`fk_subcategory`)
+                    VALUES("%s"," %s ",%s,%s," %s "," %s "," %s "," %s ",(SELECT `id` FROM `Subcategory` WHERE `code`="%s"));
                                         
                     """.formatted(course.getName(), course.getCode(), course.getEstimatedTime(), course.isVisibility(),
                     course.getTargetAudience(), course.getInstructorName(), course.getCourseProgramDescription(), course.getDevelopedSkills(), course.getSubCategoryCode());
@@ -62,6 +65,4 @@ public class GenerateSql {
             e.printStackTrace();
         }
     }
-
-
 }
