@@ -31,48 +31,38 @@ public class SubCategoryTest {
     @ParameterizedTest
     @CsvSource({"Java", "J@v@", "ja va", "jáva"})
     void constructorShouldThrowArgumentExceptionIfInvalidCode(String code) {
-        assertThrows(IllegalArgumentException.class, () -> {
-            new SubCategory("java", code, category);
-        });
+        assertThrows(IllegalArgumentException.class, () -> new SubCategory("java", code, category));
     }
 
     @ParameterizedTest
-    @CsvSource({"java", "java-oo","java-","j-v"})
+    @CsvSource({"java", "java-oo", "java-", "j-v"})
     void constructorShouldNotThrowExceptionIfValidCode(String code) {
-        assertDoesNotThrow( () -> { new SubCategory("java", code, category);});
+        assertDoesNotThrow(() -> new SubCategory("java", code, category));
     }
 
 
     @ParameterizedTest
     @NullAndEmptySource
     void ConstructorShouldThrowIllegalArgumentExceptionIfEmptyOrNullCode(String code) {
-        assertThrows(IllegalArgumentException.class, () -> {
-            new SubCategory("java", code, category);
-        });
+        assertThrows(IllegalArgumentException.class, () -> new SubCategory("java", code, category));
     }
 
     @ParameterizedTest
     @NullAndEmptySource
     void ConstructorShouldThrowIllegalArgumentExceptionIfEmptyOrNullName(String name) {
-        assertThrows(IllegalArgumentException.class, () -> {
-            new SubCategory(name, "java", category);
-        });
+        assertThrows(IllegalArgumentException.class, () -> new SubCategory(name, "java", category));
     }
 
     @ParameterizedTest
-    @CsvSource({"Java", "Java oo","java"})
+    @CsvSource({"Java", "Java oo", "java"})
     void ConstructorShouldNotThrowIllegalArgumentExceptionIfIsNotEmptyOrNullName(String name) {
-        assertDoesNotThrow( () -> {
-            new SubCategory(name, "java", category);
-        });
+        assertDoesNotThrow(() -> new SubCategory(name, "java", category));
     }
 
     @ParameterizedTest
     @NullSource
     void ConstructorShouldThrowIllegalArgumentExceptionToEmptyOrNullCategory(Category category) {
-        assertThrows(IllegalArgumentException.class, () -> {
-            new SubCategory("java", "java", category);
-        });
+        assertThrows(IllegalArgumentException.class, () -> new SubCategory("java", "java", category));
     }
 
     @ParameterizedTest
