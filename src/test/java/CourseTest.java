@@ -9,9 +9,12 @@ import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.NullSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-import static Logos.course.Course.*;
+import static Logos.course.Course.getInstructorsWithCourseQuantities;
+import static Logos.course.Course.hasAnyPrivateCourse;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CourseTest {
@@ -24,7 +27,9 @@ public class CourseTest {
     @BeforeAll
     public static void setUp() {
         category = new Category("programação", "programacao");
+
         subCategory = new SubCategory("java", "java", category);
+
         courses.add(new Course("java2", "java2", 10, true, "Iniciantes",
                 "Paulo", "Curso de Java", "java", subCategory));
 
@@ -53,7 +58,7 @@ public class CourseTest {
     void constructorShouldThrowIllegalArgumentExceptionIfEmptyOrNullCode(String code) {
         assertThrows(IllegalArgumentException.class,
                 () -> {
-                 new Course("java", code, 10, "Paulo", subCategory);
+                    new Course("java", code, 10, "Paulo", subCategory);
                 });
     }
 
@@ -62,7 +67,7 @@ public class CourseTest {
     void constructorShouldThrowIllegalArgumentExceptionIfEmptyOrNullName(String name) {
         assertThrows(IllegalArgumentException.class,
                 () -> {
-                   new Course(name, "java", 10, "Paulo", subCategory);
+                    new Course(name, "java", 10, "Paulo", subCategory);
                 });
     }
 
