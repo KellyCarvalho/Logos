@@ -43,25 +43,25 @@ public class SubCategoryTest {
 
     @ParameterizedTest
     @NullAndEmptySource
-    void ConstructorShouldThrowIllegalArgumentExceptionIfEmptyOrNullCode(String code) {
+    void constructorShouldThrowIllegalArgumentExceptionIfEmptyOrNullCode(String code) {
         assertThrows(IllegalArgumentException.class, () -> new SubCategory("java", code, category));
     }
 
     @ParameterizedTest
     @NullAndEmptySource
-    void ConstructorShouldThrowIllegalArgumentExceptionIfEmptyOrNullName(String name) {
+    void constructorShouldThrowIllegalArgumentExceptionIfEmptyOrNullName(String name) {
         assertThrows(IllegalArgumentException.class, () -> new SubCategory(name, "java", category));
     }
 
     @ParameterizedTest
     @CsvSource({"Java", "Java oo", "java"})
-    void ConstructorShouldNotThrowIllegalArgumentExceptionIfIsNotEmptyOrNullName(String name) {
+    void constructorShouldNotThrowIllegalArgumentExceptionIfIsNotEmptyOrNullName(String name) {
         assertDoesNotThrow(() -> new SubCategory(name, "java", category));
     }
 
     @ParameterizedTest
     @NullSource
-    void ConstructorShouldThrowIllegalArgumentExceptionToEmptyOrNullCategory(Category category) {
+    void constructorShouldThrowIllegalArgumentExceptionToEmptyOrNullCategory(Category category) {
         assertThrows(IllegalArgumentException.class, () -> new SubCategory("java", "java", category));
     }
 

@@ -36,29 +36,40 @@ public class CourseTest {
         instructorsNames = Arrays.asList("Paulo", "Camila", "Tamires");
     }
 
-    //TODO testar construtor
     @ParameterizedTest
     @CsvSource({"Java", "J@v@", "ja va", "jáva"})
-    void shouldThrowArgumentExceptionIfInvalidCode(String code) {
-        assertThrows(IllegalArgumentException.class, () -> {
-            new Course("Java", code, 10, "Paulo", subCategory);
-        });
+    void constructorShouldThrowArgumentExceptionIfInvalidCode(String code) {
+        assertThrows(IllegalArgumentException.class, () -> new Course("java", code, 10, "Paulo", subCategory));
+    }
+
+    @ParameterizedTest
+    @CsvSource({"java", "java-oo", "java-", "j-v"})
+    void constructorShouldNotThrowExceptionIfValidCode(String code) {
+        assertDoesNotThrow(() -> new Course("java", code, 10, "Paulo", subCategory));
     }
 
     @ParameterizedTest
     @NullAndEmptySource
-    void shouldThrowIllegalArgumentExceptionsIfEmptyOrNullCode(String code) {
-        assertThrows(IllegalArgumentException.class, () -> {
-            new Course("Java", code, 10, "Paulo", subCategory);
-        });
+    void constructorShouldThrowIllegalArgumentExceptionIfEmptyOrNullCode(String code) {
+        assertThrows(IllegalArgumentException.class,
+                () -> {
+                 new Course("java", code, 10, "Paulo", subCategory);
+                });
     }
 
     @ParameterizedTest
     @NullAndEmptySource
-    void shouldThrowIllegalArgumentExceptionIfEmptyOrNullName(String name) {
-        assertThrows(IllegalArgumentException.class, () -> {
-            new Course(name, "java", 10, "Paulo", subCategory);
-        });
+    void constructorShouldThrowIllegalArgumentExceptionIfEmptyOrNullName(String name) {
+        assertThrows(IllegalArgumentException.class,
+                () -> {
+                   new Course(name, "java", 10, "Paulo", subCategory);
+                });
+    }
+
+    @ParameterizedTest
+    @CsvSource({"Java", "Java oo", "java"})
+    void constructorShouldNotThrowIllegalArgumentExceptionIfIsNotEmptyOrNullName(String name) {
+        assertDoesNotThrow(() -> new Course(name, "java", 10, "Paulo", subCategory));
     }
 
     @ParameterizedTest
@@ -67,6 +78,12 @@ public class CourseTest {
         assertThrows(IllegalArgumentException.class, () -> {
             new Course("Java", "java", 10, instructorName, subCategory);
         });
+    }
+
+    @ParameterizedTest
+    @CsvSource({"Paulo", "paulo", "paulo paulo"})
+    void constructorShouldNotThrowIllegalArgumentExceptionIfIsNotEmptyOrNullInstructorName(String instructorName) {
+        new Course("Java", "java", 10, instructorName, subCategory);
     }
 
     @ParameterizedTest

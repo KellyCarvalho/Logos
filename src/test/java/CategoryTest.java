@@ -41,19 +41,19 @@ public class CategoryTest {
 
     @ParameterizedTest
     @NullAndEmptySource
-    void ConstructorShouldThrowIllegalArgumentExceptionIfEmptyOrNullCode(String code) {
+    void constructorShouldThrowIllegalArgumentExceptionIfEmptyOrNullCode(String code) {
         assertThrows(IllegalArgumentException.class, () -> new Category("java", code));
     }
 
     @ParameterizedTest
     @NullAndEmptySource
-    void ConstructorShouldThrowIllegalArgumentExceptionIfEmptyOrNullName(String name) {
+    void constructorShouldThrowIllegalArgumentExceptionIfEmptyOrNullName(String name) {
         assertThrows(IllegalArgumentException.class, () -> new Category(name, "java"));
     }
 
     @ParameterizedTest
     @CsvSource({"Java", "Java oo", "java"})
-    void ConstructorShouldNotThrowIllegalArgumentExceptionIfIsNotEmptyOrNullName(String name) {
+    void constructorShouldNotThrowIllegalArgumentExceptionIfIsNotEmptyOrNullName(String name) {
         assertDoesNotThrow(() -> new Category(name, "java"));
     }
 
