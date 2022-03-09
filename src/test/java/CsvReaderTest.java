@@ -5,6 +5,7 @@ import Logos.subCategory.SubCategory;
 import Logos.subCategory.enums.SubCategoryStatus;
 import Logos.utils.CsvReader;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -47,6 +48,8 @@ public class CsvReaderTest {
                 "Agilidade. Práticas de gestão. Vendas. Liderança.",
                 CategoryStatus.DISABLED, 0, "https://www.alura.com.br/assets/api/formacoes/categorias/512/inovacao-gestao-transparent.png",
                 "#ff8c2a");
+
+        categories = Arrays.asList(categoryProgramming, categoryDevops, categoryBusiness);
     }
 
     @BeforeAll
@@ -67,13 +70,14 @@ public class CsvReaderTest {
         subCategoryBuilds = new SubCategory("Builds e Controle de versão", "builds-e-controle-de-versao",
                 "As ferramentas mais utilizadas para desenvolvimento: controle de versão com Git e Github além de build da aplicação através de Maven.",
                 SubCategoryStatus.ACTIVE, 1, categoryDevops);
+        subcategories = Arrays.asList(subCategoryJava, subCategoryJavaAndPersistence, subCategoryPhp, subCategoryCobol, subCategoryBuilds);
 
+        System.out.println(subCategoryBuilds);
     }
 
-    @BeforeAll
-    private static void setUpCourse() {
-
-        courseGit = new Course("Git e Github para Sobrevivência", "git-e-github-para-sobrevivencia",
+    @BeforeEach
+    private  void setUpCourse() {
+       courseGit = new Course("Git e Github para Sobrevivência", "git-e-github-para-sobrevivencia",
                 6, true,
                 "Desenvolvedores em qualquer linguagem ou plataforma que desejam mais segurança para seus projetos" +
                         " com as ferramentas de controle de versão Git e GitHub.", "Mario Souto",
@@ -93,8 +97,9 @@ public class CsvReaderTest {
                         "*Consolidando o seu conhecimento", "Descubra o que é Git e Github? <br>" +
                 " Entenda um sistema de controle de versão <br> Salve e recupere seu código em diferentes versões <br>" +
                 " Resolva merges e conflitos <br> Trabalhe com diferentes branches", subCategoryBuilds);
+        System.out.println(subCategoryBuilds);
 
-        courseJpa = new Course("Java e JPA: Consultas avançadas performance e modelos complexos", "java-jpa-consultas" +
+      courseJpa = new Course("Java e JPA: Consultas avançadas performance e modelos complexos", "java-jpa-consultas" +
                 "-avancadas-performance-modelos-complexos",
                 10, true, "Pessoas desenvolvedoras que já conhecem o básico de JPA " +
                 "e queiram aprofundar os conhecimentos.", "Rodrigo Ferreira",
@@ -163,14 +168,12 @@ public class CsvReaderTest {
                         "Aprenda a usar Eclipse <br> Veja como usar variáveis e controle de fluxo <br> Conheça os principais" +
                         " tipos do Java", subCategoryJava);
         courses = Arrays.asList(courseGit, courseJpa, courseJavaOO, courseJdk);
-        categories = Arrays.asList(categoryProgramming, categoryDevops, categoryBusiness);
-        subcategories = Arrays.asList(subCategoryJava, subCategoryJavaAndPersistence, subCategoryPhp, subCategoryCobol, subCategoryBuilds);
-
     }
 
     @Test
     void readCategoriesShouldReturnAListOfCategories() {
         List<Category> categoriesCsv = readCategories("files/planilha-dados-escola - Categoria.csv");
+        System.out.println(categoriesCsv);
         assertEquals(categories, categoriesCsv);
     }
 
