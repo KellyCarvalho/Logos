@@ -59,7 +59,7 @@ public class GenerateSql {
         insertCategories();
         insertSubCategories();
         insertCourses();
-        try (PrintStream ps = new PrintStream(new File("files/loadData.sql"))) {
+        try (PrintStream ps = new PrintStream(new File("files/database/loadData.sql"))) {
             ps.println(sb.toString());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
