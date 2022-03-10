@@ -3,11 +3,11 @@ CREATE DATABASE LOGOS;
 USE LOGOS;
 
 CREATE TABLE `Category`(
-`id` BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+`id` BIGINT  PRIMARY KEY AUTO_INCREMENT,
 `name` VARCHAR(255) NOT NULL,
 `identifier_code` VARCHAR(255) UNIQUE NOT NULL,
 `study_guide` TEXT,
-`category_description` TEXT,
+`description` TEXT,
 `status` ENUM('ACTIVE','DISABLED'), 
 `position` INT,
 `image_url` VARCHAR(255),
@@ -15,11 +15,11 @@ CREATE TABLE `Category`(
 );
 
 CREATE TABLE `Subcategory`(
-`id` BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+`id` BIGINT  PRIMARY KEY AUTO_INCREMENT,
 `name` VARCHAR(255) NOT NULL,
 `identifier_code` VARCHAR(255) UNIQUE NOT NULL,
 `study_guide` TEXT,
-`subcategory_description` TEXT,
+`description` TEXT,
 `status` ENUM('ACTIVE','DISABLED'),
 `position` INT,
 `fk_category` BIGINT NOT NULL,
@@ -27,7 +27,7 @@ FOREIGN KEY(`fk_category`) REFERENCES `Category`(`id`)
 );
 
 CREATE TABLE `Course`(
-`id` BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+`id` BIGINT  PRIMARY KEY AUTO_INCREMENT,
 `name` VARCHAR(255) NOT NULL,
 `identifier_code` VARCHAR(255) UNIQUE NOT NULL,
 `estimated_time` INT,
@@ -41,7 +41,7 @@ FOREIGN KEY(`fk_subcategory`) REFERENCES `Subcategory`(`id`)
 );
 
 CREATE TABLE `Section`(
-`id` BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+`id` BIGINT  PRIMARY KEY AUTO_INCREMENT,
 `name` VARCHAR(255) NOT NULL,
 `identifier_code` VARCHAR(255) UNIQUE NOT NULL,
 `position` INT,
@@ -52,19 +52,19 @@ FOREIGN KEY(`fk_course`) REFERENCES `Course`(`id`)
 );
 
 CREATE TABLE `Explanation`(
-`id` BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+`id` BIGINT  PRIMARY KEY AUTO_INCREMENT,
 `title` VARCHAR(255) NOT NULL,
 `identifier_code` VARCHAR(255) UNIQUE NOT NULL,
 `active` BOOLEAN DEFAULT FALSE,
 `position` INT,
-`explanation_description` TEXT NOT NULL,
+`description` TEXT NOT NULL,
 `fk_section_explanation`  BIGINT NOT NULL,
 FOREIGN KEY(`fk_section_explanation`) REFERENCES `Section`(`id`)
 );
 
 
 CREATE TABLE `Video`(
-`id`BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+`id`BIGINT  PRIMARY KEY AUTO_INCREMENT,
 `title` VARCHAR(255) NOT NULL,
 `identifier_code` VARCHAR(255) UNIQUE  NOT NULL,
 `active` BOOLEAN DEFAULT FALSE,
@@ -77,23 +77,23 @@ FOREIGN KEY (`fk_section_video`) REFERENCES `Section`(`id`)
 );
 
 CREATE TABLE `Question`(
-`id` BIGINT NOT  NULL PRIMARY KEY AUTO_INCREMENT,
+`id` BIGINT  PRIMARY KEY AUTO_INCREMENT,
 `title` VARCHAR(255) NOT NULL,
 `identifier_code`  VARCHAR(255) UNIQUE NOT NULL,
 `active` BOOLEAN DEFAULT FALSE,
 `position` INT,
-`question_description` TEXT NOT NULL,
+`description` TEXT NOT NULL,
 `type_question` ENUM('SINGLE_ANSWER','MULTIPLE_CHOICE','TRUE_OR_FALSE') NOT NULL,
 `fk_section_question` BIGINT NOT NULL,
 FOREIGN KEY(`fk_section_question`) REFERENCES `Section`(`id`)
 );
 
 CREATE TABLE `Alternative`(
-`id` BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+`id` BIGINT  PRIMARY KEY AUTO_INCREMENT,
 `alternative_description` TEXT NOT NULL,
 `position` INT,
 `correct` BOOLEAN DEFAULT FALSE, 
-`explanation_answer` TEXT,
+`explanation_answer` VARCHAR(255),
 `fk_question` BIGINT NOT NULL,
 FOREIGN KEY(`fk_question`) REFERENCES `Question`(`id`)
 );
