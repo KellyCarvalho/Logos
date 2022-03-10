@@ -2,7 +2,6 @@ import Logos.category.Category;
 import Logos.course.Course;
 import Logos.subCategory.SubCategory;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
@@ -90,18 +89,12 @@ public class CourseTest {
     @ParameterizedTest
     @ValueSource(ints = {-1, 0, 21})
     void shouldThrowIllegalArgumentExceptionIfIsBetweenZeroAndTwenty(int estimatedTime) {
-        assertThrows(IllegalArgumentException.class, () -> {
-            new Course("Java", "java", estimatedTime, "Paulo", subCategory);
-        });
+        assertThrows(IllegalArgumentException.class, () -> new Course("Java", "java", estimatedTime, "Paulo", subCategory));
     }
 
     @ParameterizedTest
     @ValueSource(ints = {1, 10, 20})
     void shouldNotThrowExceptionIfIsBetweenZeroAndTwenty(int estimatedTime) {
-        assertDoesNotThrow(() -> {
-            new Course("Java", "java", estimatedTime, "Paulo", subCategory);
-        });
+        assertDoesNotThrow(() -> new Course("Java", "java", estimatedTime, "Paulo", subCategory));
     }
-
-
 }
