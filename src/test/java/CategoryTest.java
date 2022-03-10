@@ -1,7 +1,6 @@
 import Logos.category.Category;
 import Logos.category.enums.CategoryStatus;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
@@ -10,8 +9,8 @@ import org.junit.jupiter.params.provider.ValueSource;
 import java.util.Arrays;
 import java.util.List;
 
-import static Logos.category.Category.getActiveCategories;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class CategoryTest {
     public static List<Category> categories;
@@ -37,7 +36,6 @@ public class CategoryTest {
     void constructorShouldNotThrowExceptionIfValidCode(String code) {
         assertDoesNotThrow(() -> new Category("java", code));
     }
-
 
     @ParameterizedTest
     @NullAndEmptySource
@@ -75,25 +73,5 @@ public class CategoryTest {
                     new Category("Java", "java", "java é legal", CategoryStatus.ACTIVE,
                             0, "umaurlqualquer.com.br", colorCode);
                 });
-    }
-
-    @Test
-    void getActiveCategoriesShouldReturnOnlyActivesCategories() {
-        List<Category> categoriesTest = Arrays.asList(
-                new Category("Programação", "programacao", CategoryStatus.ACTIVE),
-                new Category("Devops", "devops", CategoryStatus.ACTIVE),
-                new Category("Business", "business", CategoryStatus.ACTIVE));
-        List<Category> categoriesActives = getActiveCategories(categories);
-        assertTrue(categoriesActives.containsAll(categoriesTest));
-    }
-
-    @Test
-    void getActiveCategoriesShouldNotReturnDisabledCategories() {
-        List<Category> categories = Arrays.asList(
-                new Category("Produtividade", "produtividade", CategoryStatus.DISABLED),
-                new Category("Comunicação", "comunicacao", CategoryStatus.DISABLED)
-        );
-        List<Category> categoriesActives = getActiveCategories(categories);
-        assertFalse(categoriesActives.containsAll(categories));
     }
 }

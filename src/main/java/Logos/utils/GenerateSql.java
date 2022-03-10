@@ -18,36 +18,34 @@ public class GenerateSql {
     private static List<Course> courses = readCourses("files/planilha-dados-escola - Curso.csv", subCategories);
     private static StringBuilder sb = new StringBuilder();
 
-    //TODO trocar pra aspas duplas e sem espaçamento
-    //TODO trocar o nome de order
     //TODO trocar nome pra write insert e o nome
-    public static void insertCategories() {
+    public static void writeInsertCategories() {
         categories.forEach(category -> {
             String sql = """
-                    INSERT INTO Category (`name`,`code`,`order`,`description`,`status`,`image_url`,`color_code`) 
-                    VALUES('%s','%s',%d,'%s','%s','%s','%s');                                
+                    INSERT INTO Category (`name`,`identifier_code`,`position`,`category_description`,`status`,`image_url`,`color_code`) 
+                    VALUES("%s","%s",%d,"%s","%s","%s","%s");                                
                     """.formatted(category.getName(), category.getCode(), category.getOrder(), category.getDescription()
                     , category.getStatus(), category.getImageUrl(), category.getColorCode());
             sb.append(sql);
         });
     }
 
-    public static void insertSubCategories() {
+    public static void writeInsertSubCategories() {
         subCategories.forEach(subCategory -> {
             String sql = """
-                    INSERT INTO Subcategory (`name`,`code`,`order`,`description`,`status`,`fk_category`) 
-                    VALUES('%s','%s',%d,'%s','%s',(SELECT `id` FROM Category WHERE `code`='%s'));                               
+                    INSERT INTO Subcategory (`name`,`identifier_code`,`position`,`subcategory_description`,`status`,`fk_category`) 
+                    VALUES("%s","%s",%d,"%s","%s",(SELECT `id` FROM Category WHERE `identifier_code`="%s"));                               
                     """.formatted(subCategory.getName(), subCategory.getCode(), subCategory.getOrder(), subCategory.getDescription()
                     , subCategory.getStatus(), subCategory.getCategoryCode());
             sb.append(sql);
         });
     }
 
-    public static void insertCourses() {
+    public static void writeInsertCourses() {
         courses.forEach(course -> {
             String sql = """
-                    INSERT INTO Course(`name`,`code`,`estimated_time`,`visibility`,`target_audience`,`instructor_name`,`course_program_description`,`developed_skills`,`fk_subcategory`)
-                    VALUES("%s"," %s ",%s,%s," %s "," %s "," %s "," %s ",(SELECT `id` FROM `Subcategory` WHERE `code`="%s"));
+                    INSERT INTO Course(`name`,`identifier_code`,`estimated_time`,`visibility`,`target_audience`,`instructor_name`,`course_program_description`,`developed_skills`,`fk_subcategory`)
+                    VALUES("%s"," %s ",%s,%s," %s "," %s "," %s "," %s ",(SELECT `id` FROM `Subcategory` WHERE `identifier_code`="%s"));
                                         
                     """.formatted(course.getName(), course.getCode(), course.getEstimatedTime(), course.isVisibility(),
                     course.getTargetAudience(), course.getInstructorName(), course.getCourseProgramDescription(), course.getDevelopedSkills(), course.getSubCategoryCode());
@@ -56,9 +54,9 @@ public class GenerateSql {
     }
 
     public static void writeSql() {
-        insertCategories();
-        insertSubCategories();
-        insertCourses();
+        writeInsertCategories();
+        writeInsertSubCategories();
+        writeInsertCourses();
         try (PrintStream ps = new PrintStream(new File("files/database/loadData.sql"))) {
             ps.println(sb.toString());
         } catch (FileNotFoundException e) {

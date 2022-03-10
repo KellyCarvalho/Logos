@@ -3,7 +3,6 @@ package Logos.category;
 
 import Logos.category.enums.CategoryStatus;
 
-import java.util.List;
 import java.util.Objects;
 
 import static Logos.commonValidator.StringValidator.*;
@@ -54,10 +53,6 @@ public class Category {
         return description;
     }
 
-    public String getStudyGuide() {
-        return studyGuide;
-    }
-
     public String getImageUrl() {
         return imageUrl;
     }
@@ -76,11 +71,6 @@ public class Category {
 
     public boolean isActive() {
         return CategoryStatus.ACTIVE.equals(this.getStatus());
-    }
-
-    //TODO colocar num service
-    public static List<Category> getActiveCategories(List<Category> categories) {
-        return categories.stream().filter(Category::isActive).toList();
     }
 
     @Override

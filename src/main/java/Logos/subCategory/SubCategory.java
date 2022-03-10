@@ -70,7 +70,7 @@ public class SubCategory {
     }
 
     public boolean isEmptyDescription() {
-        return this.getDescription()!=null? this.getDescription().isEmpty():false;
+        return this.getDescription() != null && this.getDescription().isEmpty();
     }
 
     public static Long getQuantitySubCategoriesActivesWithDescription(List<SubCategory> subCategories) {

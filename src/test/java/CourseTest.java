@@ -23,7 +23,6 @@ public class CourseTest {
     private static List<Course> courses = new ArrayList<>();
     private static List<String> instructorsNames;
 
-
     @BeforeAll
     public static void setUp() {
         category = new Category("programação", "programacao");
@@ -56,19 +55,13 @@ public class CourseTest {
     @ParameterizedTest
     @NullAndEmptySource
     void constructorShouldThrowIllegalArgumentExceptionIfEmptyOrNullCode(String code) {
-        assertThrows(IllegalArgumentException.class,
-                () -> {
-                    new Course("java", code, 10, "Paulo", subCategory);
-                });
+        assertThrows(IllegalArgumentException.class, () -> new Course("java", code, 10, "Paulo", subCategory));
     }
 
     @ParameterizedTest
     @NullAndEmptySource
     void constructorShouldThrowIllegalArgumentExceptionIfEmptyOrNullName(String name) {
-        assertThrows(IllegalArgumentException.class,
-                () -> {
-                    new Course(name, "java", 10, "Paulo", subCategory);
-                });
+        assertThrows(IllegalArgumentException.class, () -> new Course(name, "java", 10, "Paulo", subCategory));
     }
 
     @ParameterizedTest
@@ -80,9 +73,7 @@ public class CourseTest {
     @ParameterizedTest
     @NullAndEmptySource
     void shouldThrowIllegalArgumentExceptionIfEmptyOrNullInstructorName(String instructorName) {
-        assertThrows(IllegalArgumentException.class, () -> {
-            new Course("Java", "java", 10, instructorName, subCategory);
-        });
+        assertThrows(IllegalArgumentException.class, () -> new Course("Java", "java", 10, instructorName, subCategory));
     }
 
     @ParameterizedTest
@@ -94,9 +85,7 @@ public class CourseTest {
     @ParameterizedTest
     @NullSource
     void shouldThrowIllegalArgumentExceptionIfNullSubCategory(SubCategory subCategory) {
-        assertThrows(IllegalArgumentException.class, () -> {
-            new Course("Java", "java", 10, "Paulo", subCategory);
-        });
+        assertThrows(IllegalArgumentException.class, () -> new Course("Java", "java", 10, "Paulo", subCategory));
     }
 
     @ParameterizedTest

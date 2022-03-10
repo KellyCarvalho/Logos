@@ -43,7 +43,7 @@ public class StringValidatorTest {
     @ParameterizedTest
     @ValueSource( strings = {"Javá-12","j4ava","j#v@","j @v4"})
     void isValidCodeWithoutNumbersShouldThrowIllegalArgumentExceptionIfCodeIsInvalid(String code){
-        assertThrows(IllegalArgumentException.class,()->isValidCodeWithoutNumbers(code,"Código não é válido"));
+        assertThrows(IllegalArgumentException.class,()-> isValidCodeWithoutNumbers(code,"Código não é válido"));
     }
     @ParameterizedTest
     @ValueSource(strings = {"java","java-","java-java"})
