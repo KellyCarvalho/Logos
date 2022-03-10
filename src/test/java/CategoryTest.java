@@ -59,19 +59,12 @@ public class CategoryTest {
     @ValueSource(strings = {"!191970", "#!78839", "#4545433"})
     void constructorShouldThrowIllegalArgumentExceptionIfColorCodeIsInvalid(String colorCode) {
         assertThrows(IllegalArgumentException.class,
-                () -> {
-                    new Category("Java", "java", "java é legal", CategoryStatus.ACTIVE,
-                            0, "umaurlqualquer.com.br", colorCode);
-                });
+                () -> new Category("Java", "java", "java é legal", CategoryStatus.ACTIVE, 0, "umaurlqualquer.com.br", colorCode));
     }
 
     @ParameterizedTest
     @ValueSource(strings = {"#191970", "#00008B", "#6495ED"})
     void constructorShouldNotThrowExceptionIfColorCodeIsValid(String colorCode) {
-        assertDoesNotThrow(
-                () -> {
-                    new Category("Java", "java", "java é legal", CategoryStatus.ACTIVE,
-                            0, "umaurlqualquer.com.br", colorCode);
-                });
+        assertDoesNotThrow(() -> new Category("Java", "java", "java é legal", CategoryStatus.ACTIVE, 0, "umaurlqualquer.com.br", colorCode));
     }
 }

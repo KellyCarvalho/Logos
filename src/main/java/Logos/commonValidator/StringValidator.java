@@ -18,7 +18,7 @@ public class StringValidator {
         if (!isValidCode) throw new IllegalArgumentException(message);
         return true;
     }
-    public static boolean isValidCodeWithoutNumbers(String code, String message) {
+    public static boolean doesCodeContainsOnlyLettersInLowerCaseAndHyphen(String code, String message) {
         boolean isValidCode = code != null ? code.matches("[a-z-]+") : false;
         if (!isValidCode) throw new IllegalArgumentException(message);
         return true;

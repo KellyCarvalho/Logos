@@ -8,7 +8,7 @@ import java.util.Objects;
 
 import static Logos.commonValidator.ObjectValidator.isObjectValid;
 import static Logos.commonValidator.StringValidator.isNotBlankEmptyOrNull;
-import static Logos.commonValidator.StringValidator.isValidCodeWithoutNumbers;
+import static Logos.commonValidator.StringValidator.doesCodeContainsOnlyLettersInLowerCaseAndHyphen;
 
 public class SubCategory {
 
@@ -22,7 +22,7 @@ public class SubCategory {
 
     public SubCategory(String name, String code, Category category) {
         isNotBlankEmptyOrNull(name, "Nome da SubCategoria é requerido, não pode ser vazio ou nulo");
-        isValidCodeWithoutNumbers(code, "Código da SubCategoria não é válido ou está null ou vazio - deve ter caracteres de a-z -" +
+        doesCodeContainsOnlyLettersInLowerCaseAndHyphen(code, "Código da SubCategoria não é válido ou está null ou vazio - deve ter caracteres de a-z -" +
                 "Único caractere especial permitido é o hífen");
         isObjectValid(category, "Categoria é obrigatória, não pode ser nula");
         this.name = name;

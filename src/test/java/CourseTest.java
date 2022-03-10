@@ -13,8 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static Logos.course.Course.getInstructorsWithCourseQuantities;
-import static Logos.course.Course.hasAnyPrivateCourse;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CourseTest {
@@ -104,20 +103,5 @@ public class CourseTest {
         });
     }
 
-    @Test
-    void hasAnyPrivateCourseShouldReturnFalseIfDoesNotExistAnyPrivateCourse() {
-        assertFalse(hasAnyPrivateCourse(courses));
-    }
 
-    @Test
-    void hasAnyPrivateCourseShouldReturnTrueIfExistAnyPrivateCourse() {
-        courses.add(new Course("javaTest", "java", 10, "Alana", subCategory));
-        assertTrue(hasAnyPrivateCourse(courses));
-    }
-
-    @Test
-    void getInstructorsWithCourseQuantitiesShouldReturnInstructorsNamesAndQuantitiesCourses() {
-        String instructorsWithCoursesQuantities = "{Camila=1, Paulo=1, Tamires=1}";
-        assertEquals(instructorsWithCoursesQuantities, getInstructorsWithCourseQuantities(courses).toString());
-    }
 }

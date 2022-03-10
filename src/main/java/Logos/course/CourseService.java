@@ -3,6 +3,7 @@ package Logos.course;
 import Logos.subCategory.enums.SubCategoryStatus;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class CourseService {
@@ -20,7 +21,20 @@ public class CourseService {
                         isPresentText(activeCourse.getDescriptionSubCategory()) + "</br></br>").collect(Collectors.joining(" "));
     }
 
+    public static boolean hasAnyPrivateCourse(List<Course> courses) {
+        return courses.stream().anyMatch(course -> !course.isVisibility());
+    }
+
+    public static List<String> getInstructorFrom(List<Course> courses) {
+        return courses.stream().map(course -> course.getInstructorName()).distinct().toList();
+    }
+
+    public static Map<String, Long> getInstructorsWithCourseQuantities(List<Course> courses) {
+        return courses.stream().collect(Collectors.groupingBy(Course::getInstructorName, Collectors.counting()));
+    }
+
     private static String isPresentText(String text) {
         return text.isEmpty() || text.isBlank() || text.equals(null) ? "Campo Vazio" : text;
     }
+
 }

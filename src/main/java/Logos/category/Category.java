@@ -20,7 +20,7 @@ public class Category {
 
     public Category(String name, String code) {
         isNotBlankEmptyOrNull(name, "Nome da categoria é requerido, não pode ser vazio ou em branco");
-        isValidCodeWithoutNumbers(code, "Código da Categoria não é válido ou está null ou vazio - deve ter caracteres de a-z - " +
+        doesCodeContainsOnlyLettersInLowerCaseAndHyphen(code, "Código da Categoria não é válido ou está null ou vazio - deve ter caracteres de a-z - " +
                 "Único caractere especial permitido é o hífen");
         this.name = name;
         this.code = code;
