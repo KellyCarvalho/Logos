@@ -11,7 +11,6 @@ import java.util.List;
 import static Logos.course.CourseService.getSubCategoryName;
 import static Logos.course.CourseService.getTotalCourseHours;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CourseServiceTest {
 
