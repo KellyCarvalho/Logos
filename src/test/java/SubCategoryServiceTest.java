@@ -2,6 +2,7 @@ import Logos.category.Category;
 import Logos.subCategory.SubCategory;
 import Logos.subCategory.enums.SubCategoryStatus;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -29,10 +30,10 @@ public class SubCategoryServiceTest {
                 new SubCategory("javaoo", "javaoo", "", SubCategoryStatus.ACTIVE, 1, category),
                 new SubCategory("javaweb", "javaweb", "Java é uma ...", SubCategoryStatus.ACTIVE, 1, category));
     }
-    @ParameterizedTest
-    @ValueSource(longs = {3L})
-    void getQuantitySubCategoriesActivesWithDescriptionShouldReturnTheQuantitySubCategoriesActivesWithDescription(long sizeExpected) {
-        assertEquals(getQuantitySubCategoriesActivesWithDescription(subCategories) ,sizeExpected);
+
+    @Test
+    void getQuantitySubCategoriesActivesWithDescriptionShouldReturnTheQuantitySubCategoriesActivesWithDescription() {
+        assertEquals(getQuantitySubCategoriesActivesWithDescription(subCategories) ,3L);
     }
 
     @ParameterizedTest
