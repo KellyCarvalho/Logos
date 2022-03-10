@@ -3,4 +3,4 @@ Logos.iml
 .idea
 out/
 categories.html
-.class
+target/
