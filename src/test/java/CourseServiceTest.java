@@ -43,6 +43,4 @@ public class CourseServiceTest {
     void getSubCategoryNameShouldReturnNameSubCategoryWithBrTags() {
         assertEquals(getSubCategoryName(courses), "java</br> Descrição: java</br></br> java</br> Descrição: java</br></br> java</br> Descrição: java</br></br>");
     }
-
-
 }
