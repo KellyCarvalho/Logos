@@ -77,7 +77,7 @@ public class CourseTest {
     @ParameterizedTest
     @CsvSource({"Paulo", "paulo", "paulo paulo"})
     void constructorShouldNotThrowIllegalArgumentExceptionIfIsNotEmptyOrNullInstructorName(String instructorName) {
-        new Course("Java", "java", 10, instructorName, subCategory);
+        assertDoesNotThrow(() -> new Course("Java", "java", 10, instructorName, subCategory));
     }
 
     @ParameterizedTest

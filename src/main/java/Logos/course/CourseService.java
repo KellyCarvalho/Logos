@@ -36,5 +36,4 @@ public class CourseService {
     private static String isPresentText(String text) {
         return text.isEmpty() || text.isBlank() || text.equals(null) ? "Campo Vazio" : text;
     }
-
 }

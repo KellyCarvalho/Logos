@@ -3,14 +3,15 @@ import Logos.subCategory.SubCategory;
 import Logos.subCategory.enums.SubCategoryStatus;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.*;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
+import org.junit.jupiter.params.provider.NullSource;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static Logos.subCategory.SubCategory.getQuantitySubCategoriesActivesWithDescription;
-import static Logos.subCategory.SubCategory.getSubCategoriesWithoutDescription;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class SubCategoryTest {
     private static Category category;
@@ -40,7 +41,6 @@ public class SubCategoryTest {
         assertDoesNotThrow(() -> new SubCategory("java", code, category));
     }
 
-
     @ParameterizedTest
     @NullAndEmptySource
     void constructorShouldThrowIllegalArgumentExceptionIfEmptyOrNullCode(String code) {
@@ -63,21 +63,5 @@ public class SubCategoryTest {
     @NullSource
     void constructorShouldThrowIllegalArgumentExceptionToEmptyOrNullCategory(Category category) {
         assertThrows(IllegalArgumentException.class, () -> new SubCategory("java", "java", category));
-    }
-
-    @ParameterizedTest
-    @ValueSource(longs = {3L})
-    void getQuantitySubCategoriesActivesWithDescriptionShouldReturnTheQuantitySubCategoriesActivesWithDescription(long sizeExpected) {
-        assertTrue(getQuantitySubCategoriesActivesWithDescription(subCategories) == sizeExpected);
-    }
-
-    @ParameterizedTest
-    @EmptySource
-    void getSubCategoriesWithoutDescriptionShouldReturnSubCategoriesWithoutDescription(String description) {
-        List<SubCategory> subcategoriesWithoutDescription = Arrays.asList(
-                new SubCategory("jpa", "jpa", description, SubCategoryStatus.DISABLED, 1, category),
-                new SubCategory("javaoo", "javaoo", description, SubCategoryStatus.ACTIVE, 1, category)
-        );
-        assertTrue(getSubCategoriesWithoutDescription(subCategories).containsAll(subcategoriesWithoutDescription));
     }
 }

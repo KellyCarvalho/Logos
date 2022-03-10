@@ -32,7 +32,6 @@ public class CsvReaderTest {
     private static Course courseJavaOO;
     private static Course courseJdk;
 
-
     @BeforeAll
     private static void setUp() {
         setUpCategory();

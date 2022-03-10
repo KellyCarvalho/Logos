@@ -22,7 +22,8 @@ public class CategoryTest {
                 new Category("Devops", "devops", CategoryStatus.ACTIVE),
                 new Category("Business", "business", CategoryStatus.ACTIVE),
                 new Category("Produtividade", "produtividade", CategoryStatus.DISABLED),
-                new Category("Comunicação", "comunicacao", CategoryStatus.DISABLED));
+                new Category("Comunicação", "comunicacao", CategoryStatus.DISABLED)
+        );
     }
 
     @ParameterizedTest

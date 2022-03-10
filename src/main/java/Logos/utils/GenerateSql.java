@@ -18,7 +18,6 @@ public class GenerateSql {
     private static List<Course> courses = readCourses("files/planilha-dados-escola - Curso.csv", subCategories);
     private static StringBuilder sb = new StringBuilder();
 
-    //TODO trocar nome pra write insert e o nome
     public static void writeInsertCategories() {
         categories.forEach(category -> {
             String sql = """
