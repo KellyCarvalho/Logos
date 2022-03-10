@@ -49,7 +49,6 @@ public class CsvReaderTest {
     void readSubCategoriesShouldReturnAListOfSubCategories() {
         List<SubCategory> subCategoriesCsv = readSubCategories("files/planilha-dados-escola - Subcategoria.csv", categories);
         assertEquals(subcategories, subCategoriesCsv);
-
     }
 
     @Test
