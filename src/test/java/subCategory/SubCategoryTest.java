@@ -2,17 +2,11 @@ package subCategory;
 
 import Logos.category.Category;
 import Logos.subCategory.SubCategory;
-import Logos.subCategory.enums.SubCategoryStatus;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.NullSource;
-import static Logos.subCategory.enums.SubCategoryStatus.ACTIVE;
-import static Logos.subCategory.enums.SubCategoryStatus.DISABLED;
-
-import java.util.Arrays;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
