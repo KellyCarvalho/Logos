@@ -21,7 +21,6 @@ public class CourseTest {
     private static SubCategory subCategory;
     private static Category category;
     private static List<Course> courses = new ArrayList<>();
-    private static List<String> instructorsNames;
 
     @BeforeAll
     public static void setUp() {
