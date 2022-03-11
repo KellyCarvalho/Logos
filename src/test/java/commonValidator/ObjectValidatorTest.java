@@ -1,3 +1,5 @@
+package commonValidator;
+
 import org.junit.jupiter.api.Test;
 
 import static Logos.commonValidator.ObjectValidator.isObjectValid;

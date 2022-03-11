@@ -1,3 +1,5 @@
+package utils;
+
 import Logos.category.Category;
 import Logos.category.enums.CategoryStatus;
 import Logos.course.Course;

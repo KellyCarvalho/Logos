@@ -5,6 +5,9 @@ import Logos.category.enums.CategoryStatus;
 
 import java.util.Objects;
 
+import static Logos.category.enums.CategoryStatus.DISABLED;
+import static Logos.category.enums.CategoryStatus.ACTIVE;
+
 import static Logos.commonValidator.StringValidator.*;
 
 public class Category {
@@ -13,7 +16,7 @@ public class Category {
     private String code;
     private String description;
     private String studyGuide;
-    private CategoryStatus status = CategoryStatus.DISABLED;
+    private CategoryStatus status = DISABLED;
     private int order;
     private String imageUrl;
     private String colorCode;
@@ -70,7 +73,7 @@ public class Category {
     }
 
     public boolean isActive() {
-        return CategoryStatus.ACTIVE.equals(this.getStatus());
+        return ACTIVE.equals(this.getStatus());
     }
 
     @Override

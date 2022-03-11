@@ -1,3 +1,5 @@
+package subCategory;
+
 import Logos.category.Category;
 import Logos.subCategory.SubCategory;
 import Logos.subCategory.enums.SubCategoryStatus;
@@ -6,6 +8,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.NullSource;
+import static Logos.subCategory.enums.SubCategoryStatus.ACTIVE;
+import static Logos.subCategory.enums.SubCategoryStatus.DISABLED;
 
 import java.util.Arrays;
 import java.util.List;
@@ -21,12 +25,12 @@ public class SubCategoryTest {
     public static void setUp() {
         category = new Category("programação", "programacao");
         subCategories = Arrays.asList(
-                new SubCategory("Html", "html", "html", SubCategoryStatus.ACTIVE, 1, category),
-                new SubCategory("javascript", "javascript", "javascript", SubCategoryStatus.DISABLED, 1, category),
-                new SubCategory("jpa", "jpa", "", SubCategoryStatus.DISABLED, 1, category),
-                new SubCategory("java", "java", null, SubCategoryStatus.ACTIVE, 1, category),
-                new SubCategory("javaoo", "javaoo", "", SubCategoryStatus.ACTIVE, 1, category),
-                new SubCategory("javaweb", "javaweb", "Java é uma ...", SubCategoryStatus.ACTIVE, 1, category));
+                new SubCategory("Html", "html", "html", ACTIVE, 1, category),
+                new SubCategory("javascript", "javascript", "javascript", DISABLED, 1, category),
+                new SubCategory("jpa", "jpa", "", DISABLED, 1, category),
+                new SubCategory("java", "java", null, ACTIVE, 1, category),
+                new SubCategory("javaoo", "javaoo", "", ACTIVE, 1, category),
+                new SubCategory("javaweb", "javaweb", "Java é uma ...", ACTIVE, 1, category));
     }
 
     @ParameterizedTest

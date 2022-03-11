@@ -8,6 +8,8 @@ import java.util.Objects;
 import static Logos.commonValidator.ObjectValidator.isObjectValid;
 import static Logos.commonValidator.StringValidator.isNotBlankEmptyOrNull;
 import static Logos.commonValidator.StringValidator.doesCodeContainsOnlyLettersInLowerCaseAndHyphen;
+import static Logos.subCategory.enums.SubCategoryStatus.DISABLED;
+import static Logos.subCategory.enums.SubCategoryStatus.ACTIVE;
 
 public class SubCategory {
 
@@ -15,7 +17,7 @@ public class SubCategory {
     private String code;
     private String description;
     private String studyGuide;
-    private SubCategoryStatus status = SubCategoryStatus.DISABLED;
+    private SubCategoryStatus status = DISABLED;
     private int order;
     private Category category;
 
@@ -61,7 +63,7 @@ public class SubCategory {
     }
 
     public boolean isActive() {
-        return SubCategoryStatus.ACTIVE.equals(this.status);
+        return ACTIVE.equals(this.status);
     }
 
     public boolean isEmptyDescription() {

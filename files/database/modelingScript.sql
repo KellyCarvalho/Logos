@@ -8,7 +8,7 @@ CREATE TABLE `Category`(
 `identifier_code` VARCHAR(255) UNIQUE NOT NULL,
 `study_guide` TEXT,
 `description` TEXT,
-`status` ENUM('ACTIVE','DISABLED'), 
+`status` ENUM('ACTIVE','DISABLED') DEFAULT 'DISABLED', 
 `position` INT,
 `image_url` VARCHAR(255),
 `color_code` VARCHAR(7)
@@ -20,7 +20,7 @@ CREATE TABLE `Subcategory`(
 `identifier_code` VARCHAR(255) UNIQUE NOT NULL,
 `study_guide` TEXT,
 `description` TEXT,
-`status` ENUM('ACTIVE','DISABLED'),
+`status` ENUM('ACTIVE','DISABLED') DEFAULT 'DISABLED',
 `position` INT,
 `fk_category` BIGINT NOT NULL,
 FOREIGN KEY(`fk_category`) REFERENCES `Category`(`id`)

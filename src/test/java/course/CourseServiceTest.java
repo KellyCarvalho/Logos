@@ -1,3 +1,5 @@
+package course;
+
 import Logos.category.Category;
 import Logos.course.Course;
 import Logos.subCategory.SubCategory;

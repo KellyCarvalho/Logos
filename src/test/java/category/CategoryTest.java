@@ -1,5 +1,6 @@
+package category;
+
 import Logos.category.Category;
-import Logos.category.enums.CategoryStatus;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -9,22 +10,12 @@ import org.junit.jupiter.params.provider.ValueSource;
 import java.util.Arrays;
 import java.util.List;
 
+import static Logos.category.enums.CategoryStatus.ACTIVE;
+import static Logos.category.enums.CategoryStatus.DISABLED;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class CategoryTest {
-    public static List<Category> categories;
-
-    @BeforeAll
-    public static void setUp() {
-        categories = Arrays.asList(
-                new Category("Programação", "programacao", CategoryStatus.ACTIVE),
-                new Category("Devops", "devops", CategoryStatus.ACTIVE),
-                new Category("Business", "business", CategoryStatus.ACTIVE),
-                new Category("Produtividade", "produtividade", CategoryStatus.DISABLED),
-                new Category("Comunicação", "comunicacao", CategoryStatus.DISABLED)
-        );
-    }
 
     @ParameterizedTest
     @CsvSource({"Java", "J@v@", "ja va", "jáva"})
@@ -60,12 +51,12 @@ public class CategoryTest {
     @ValueSource(strings = {"!191970", "#!78839", "#4545433"})
     void constructorShouldThrowIllegalArgumentExceptionIfColorCodeIsInvalid(String colorCode) {
         assertThrows(IllegalArgumentException.class,
-                () -> new Category("Java", "java", "java é legal", CategoryStatus.ACTIVE, 0, "umaurlqualquer.com.br", colorCode));
+                () -> new Category("Java", "java", "java é legal", ACTIVE, 0, "umaurlqualquer.com.br", colorCode));
     }
 
     @ParameterizedTest
     @ValueSource(strings = {"#191970", "#00008B", "#6495ED"})
     void constructorShouldNotThrowExceptionIfColorCodeIsValid(String colorCode) {
-        assertDoesNotThrow(() -> new Category("Java", "java", "java é legal", CategoryStatus.ACTIVE, 0, "umaurlqualquer.com.br", colorCode));
+        assertDoesNotThrow(() -> new Category("Java", "java", "java é legal", ACTIVE, 0, "umaurlqualquer.com.br", colorCode));
     }
 }
