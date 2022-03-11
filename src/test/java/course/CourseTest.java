@@ -28,16 +28,6 @@ public class CourseTest {
         category = new Category("programação", "programacao");
 
         subCategory = new SubCategory("java", "java", category);
-
-        courses.add(new Course("java2", "java2", 10, true, "Iniciantes",
-                "Paulo", "Curso de Java", "java", subCategory));
-
-        courses.add(new Course("java3", "java3", 10, true, "Iniciantes",
-                "Camila", "Curso de Java", "java", subCategory));
-
-        courses.add(new Course("java4", "java4", 10, true, "Iniciantes",
-                "Tamires", "Curso de Java", "java", subCategory));
-        instructorsNames = Arrays.asList("Paulo", "Camila", "Tamires");
     }
 
     @ParameterizedTest

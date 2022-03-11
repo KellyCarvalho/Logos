@@ -7,7 +7,6 @@ import Logos.subCategory.SubCategory;
 import Logos.subCategory.enums.SubCategoryStatus;
 import Logos.utils.CsvReader;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -21,24 +20,10 @@ public class CsvReaderTest {
     private static List<Category> categories;
     private static List<SubCategory> subcategories;
     private static List<Course> courses;
-    private static Category categoryProgramming;
-    private static Category categoryDevops;
-    private static Category categoryBusiness;
-    private static SubCategory subCategoryJava;
-    private static SubCategory subCategoryJavaAndPersistence;
-    private static SubCategory subCategoryPhp;
-    private static SubCategory subCategoryCobol;
-    private static SubCategory subCategoryBuilds;
-    private static Course courseGit;
-    private static Course courseJpa;
-    private static Course courseJavaOO;
-    private static Course courseJdk;
 
     @BeforeAll
     private static void setUp() {
-        setUpCategory();
-        setUpSubCategory();
-        setUpCourse();
+        initializeObjects();
     }
 
     @Test
@@ -59,46 +44,44 @@ public class CsvReaderTest {
         assertEquals(coursesCsv, courses);
     }
 
-    private static void setUpCategory() {
-        categoryProgramming = new Category("Programação", "programacao",
+    private static void initializeObjects() {
+        Category categoryProgramming = new Category("Programação", "programacao",
                 "Programe nas principais linguagens e plataformas. Iniciantes são bem vindos nos cursos de lógica e JavaScript.",
                 CategoryStatus.ACTIVE, 1, "https://www.alura.com.br/assets/api/formacoes/categorias/512/programacao-transparent.png",
                 "#00c86f");
 
-        categoryDevops = new Category("DevOps", "devops",
+        Category categoryDevops = new Category("DevOps", "devops",
                 "Aprenda Git. Entenda a entrega contínua. Estude Linux. Gerencie servidores na nuvem. Explore o mundo de Internet das coisas e da robótica.",
                 CategoryStatus.ACTIVE, 2, "https://www.alura.com.br/assets/api/formacoes/categorias/512/devops-transparent.png",
                 "#f16165");
 
-        categoryBusiness = new Category("Business", "business",
+        Category categoryBusiness = new Category("Business", "business",
                 "Agilidade. Práticas de gestão. Vendas. Liderança.",
                 CategoryStatus.DISABLED, 0, "https://www.alura.com.br/assets/api/formacoes/categorias/512/inovacao-gestao-transparent.png",
                 "#ff8c2a");
-        categories = Arrays.asList(categoryProgramming, categoryDevops, categoryBusiness);
-    }
 
-    private static void setUpSubCategory() {
-        subCategoryJava = new SubCategory("Java", "java", "Java é uma grande plataforma presente" +
+        categories = Arrays.asList(categoryProgramming, categoryDevops, categoryBusiness);
+
+        SubCategory subCategoryJava = new SubCategory("Java", "java", "Java é uma grande plataforma presente" +
                 " em todo lugar: de corporações à bancos e governo. Desenvolva aplicações robustas com um back-end e construa APIs.",
                 SubCategoryStatus.ACTIVE, 1, categoryProgramming);
 
-        subCategoryJavaAndPersistence = new SubCategory("Java e Persistência", "java-e-persistencia", "",
+        SubCategory subCategoryJavaAndPersistence = new SubCategory("Java e Persistência", "java-e-persistencia", "",
                 SubCategoryStatus.ACTIVE, 2, categoryProgramming);
 
-        subCategoryPhp = new SubCategory("PHP", "php", "PHP é uma das linguagens mais utilizadas.",
+        SubCategory subCategoryPhp = new SubCategory("PHP", "php", "PHP é uma das linguagens mais utilizadas.",
                 SubCategoryStatus.ACTIVE, 3, categoryProgramming);
 
-        subCategoryCobol = new SubCategory("COBOL", "cobol", "",
+        SubCategory subCategoryCobol = new SubCategory("COBOL", "cobol", "",
                 SubCategoryStatus.DISABLED, 0, categoryProgramming);
 
-        subCategoryBuilds = new SubCategory("Builds e Controle de versão", "builds-e-controle-de-versao",
+        SubCategory subCategoryBuilds = new SubCategory("Builds e Controle de versão", "builds-e-controle-de-versao",
                 "As ferramentas mais utilizadas para desenvolvimento: controle de versão com Git e Github além de build da aplicação através de Maven.",
                 SubCategoryStatus.ACTIVE, 1, categoryDevops);
-        subcategories = Arrays.asList(subCategoryJava, subCategoryJavaAndPersistence, subCategoryPhp, subCategoryCobol, subCategoryBuilds);
-    }
 
-    private static void setUpCourse() {
-        courseGit = new Course("Git e Github para Sobrevivência", "git-e-github-para-sobrevivencia",
+        subcategories = Arrays.asList(subCategoryJava, subCategoryJavaAndPersistence, subCategoryPhp, subCategoryCobol, subCategoryBuilds);
+
+        Course courseGit = new Course("Git e Github para Sobrevivência", "git-e-github-para-sobrevivencia",
                 6, true,
                 "Desenvolvedores em qualquer linguagem ou plataforma que desejam mais segurança para seus projetos" +
                         " com as ferramentas de controle de versão Git e GitHub.", "Mario Souto",
@@ -119,7 +102,7 @@ public class CsvReaderTest {
                 " Entenda um sistema de controle de versão <br> Salve e recupere seu código em diferentes versões <br>" +
                 " Resolva merges e conflitos <br> Trabalhe com diferentes branches", subCategoryBuilds);
 
-        courseJpa = new Course("Java e JPA: Consultas avançadas performance e modelos complexos", "java-jpa-consultas" +
+        Course courseJpa = new Course("Java e JPA: Consultas avançadas performance e modelos complexos", "java-jpa-consultas" +
                 "-avancadas-performance-modelos-complexos",
                 10, true, "Pessoas desenvolvedoras que já conhecem o básico de JPA " +
                 "e queiram aprofundar os conhecimentos.", "Rodrigo Ferreira",
@@ -137,7 +120,7 @@ public class CsvReaderTest {
                         " Conheça a API de Criteria da JPA <br> Saiba como mapear entidades que utilizam herança e chave composta",
                 subCategoryJavaAndPersistence);
 
-        courseJavaOO = new Course("Java OO: Introdução à Orientação a Objetos", "java-introducao-orientacao-objetos", 8,
+        Course courseJavaOO = new Course("Java OO: Introdução à Orientação a Objetos", "java-introducao-orientacao-objetos", 8,
                 true, "Desenvolvedores que estão começando com Java e querem aprender mais sobre OO.",
                 "Paulo Silveira", "-O problema do paradigma procedural <br> *Paradigma procedural" +
                 " vs Objetos <br> *Idéia central do paradigma OO <br> *Cheiro procedural <br>  <br> -Começando com Orientação " +
@@ -159,7 +142,7 @@ public class CsvReaderTest {
                 "Use atributos métodos da instancia e da classe <br> Define objetos através de construtores <br> Aprenda " +
                 "sobre encapsulamento", subCategoryJava);
 
-        courseJdk = new Course("Java JRE e JDK: Escreva o seu primeiro código com Eclipse", "java-primeiros-passos",
+        Course courseJdk = new Course("Java JRE e JDK: Escreva o seu primeiro código com Eclipse", "java-primeiros-passos",
                 8, true, "Desenvolvedores que querem começar com a linguagem Java.",
                 "Paulo Silveira", "-O que é Java? <br> *A plataforma Java <br> *Benefício da JVM <br>" +
                 " *Quais características? <br> *Quais sistemas? <br> *Bytecode vs EXE? <br> *Sobre o Bytecode <br> *Para " +
@@ -187,6 +170,7 @@ public class CsvReaderTest {
                 "JVM? JDK? JRE? Aprenda o que são essas siglas? <br> Compile e execute código java <br> " +
                         "Aprenda a usar Eclipse <br> Veja como usar variáveis e controle de fluxo <br> Conheça os principais" +
                         " tipos do Java", subCategoryJava);
+
         courses = Arrays.asList(courseGit, courseJpa, courseJavaOO, courseJdk);
     }
 }
