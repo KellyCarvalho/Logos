@@ -19,18 +19,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class SubCategoryTest {
     private static Category category;
-    private static List<SubCategory> subCategories;
 
     @BeforeAll
     public static void setUp() {
         category = new Category("programação", "programacao");
-        subCategories = Arrays.asList(
-                new SubCategory("Html", "html", "html", ACTIVE, 1, category),
-                new SubCategory("javascript", "javascript", "javascript", DISABLED, 1, category),
-                new SubCategory("jpa", "jpa", "", DISABLED, 1, category),
-                new SubCategory("java", "java", null, ACTIVE, 1, category),
-                new SubCategory("javaoo", "javaoo", "", ACTIVE, 1, category),
-                new SubCategory("javaweb", "javaweb", "Java é uma ...", ACTIVE, 1, category));
     }
 
     @ParameterizedTest
