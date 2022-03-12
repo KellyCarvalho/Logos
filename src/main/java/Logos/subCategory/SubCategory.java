@@ -1,14 +1,15 @@
 package Logos.subCategory;
 
 import Logos.category.Category;
-import Logos.category.enums.CategoryStatus;
 import Logos.subCategory.enums.SubCategoryStatus;
 
-import java.util.List;
+import java.util.Objects;
 
 import static Logos.commonValidator.ObjectValidator.isObjectValid;
 import static Logos.commonValidator.StringValidator.isNotBlankEmptyOrNull;
-import static Logos.commonValidator.StringValidator.isValidCode;
+import static Logos.commonValidator.StringValidator.doesCodeContainsOnlyLettersInLowerCaseAndHyphen;
+import static Logos.subCategory.enums.SubCategoryStatus.DISABLED;
+import static Logos.subCategory.enums.SubCategoryStatus.ACTIVE;
 
 public class SubCategory {
 
@@ -16,14 +17,14 @@ public class SubCategory {
     private String code;
     private String description;
     private String studyGuide;
-    private SubCategoryStatus status = SubCategoryStatus.DISABLED;
+    private SubCategoryStatus status = DISABLED;
     private int order;
     private Category category;
 
     public SubCategory(String name, String code, Category category) {
         isNotBlankEmptyOrNull(name, "Nome da SubCategoria é requerido, não pode ser vazio ou nulo");
-        isValidCode(code, "Código da SubCategoria não é válido ou está null ou vazio - deve ter caracteres de a-z -" +
-                " algarismos de 0-9 - Único caractere especial permitido é o hífen");
+        doesCodeContainsOnlyLettersInLowerCaseAndHyphen(code, "Código da SubCategoria não é válido ou está null ou vazio - deve ter caracteres de a-z -" +
+                "Único caractere especial permitido é o hífen");
         isObjectValid(category, "Categoria é obrigatória, não pode ser nula");
         this.name = name;
         this.code = code;
@@ -61,20 +62,29 @@ public class SubCategory {
         return description;
     }
 
-    public static List<SubCategory> getSubCategoriesWithoutDescription(List<SubCategory> subCategories) {
-        return subCategories.stream().filter(SubCategory::isEmptyDescription).toList();
-    }
-
     public boolean isActive() {
-        return CategoryStatus.ACTIVE.equals(this.status);
+        return ACTIVE.equals(this.status);
     }
 
     public boolean isEmptyDescription() {
-        return this.getDescription().isEmpty();
+        return this.getDescription() == null? false : this.getDescription().isEmpty();
     }
 
-    public static Long getQuantitySubCategoriesActivesWithDescription(List<SubCategory> subCategories) {
-        return subCategories.stream().filter(subCategory -> !subCategory.isEmptyDescription()).map(SubCategory::isActive).count();
+    public String getCategoryCode() {
+        return this.getCategory().getCode();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SubCategory that = (SubCategory) o;
+        return code.equals(that.code);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(code);
     }
 
     @Override

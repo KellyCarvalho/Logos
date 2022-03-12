@@ -3,8 +3,10 @@ package Logos.category;
 
 import Logos.category.enums.CategoryStatus;
 
-import java.util.List;
 import java.util.Objects;
+
+import static Logos.category.enums.CategoryStatus.DISABLED;
+import static Logos.category.enums.CategoryStatus.ACTIVE;
 
 import static Logos.commonValidator.StringValidator.*;
 
@@ -14,17 +16,22 @@ public class Category {
     private String code;
     private String description;
     private String studyGuide;
-    private CategoryStatus status = CategoryStatus.DISABLED;
+    private CategoryStatus status = DISABLED;
     private int order;
     private String imageUrl;
     private String colorCode;
 
     public Category(String name, String code) {
         isNotBlankEmptyOrNull(name, "Nome da categoria é requerido, não pode ser vazio ou em branco");
-        isValidCode(code, "Código da Categoria não é válido ou está null ou vazio - deve ter caracteres de a-z - " +
-                "algarismos de 0-9 - Único caractere especial permitido é o hífen");
+        doesCodeContainsOnlyLettersInLowerCaseAndHyphen(code, "Código da Categoria não é válido ou está null ou vazio - deve ter caracteres de a-z - " +
+                "Único caractere especial permitido é o hífen");
         this.name = name;
         this.code = code;
+    }
+
+    public Category(String name, String code, CategoryStatus status) {
+        this(name, code);
+        this.status = status;
     }
 
     public Category(String name, String code, String description, CategoryStatus status, int order, String imageUrl, String colorCode) {
@@ -66,11 +73,7 @@ public class Category {
     }
 
     public boolean isActive() {
-        return CategoryStatus.ACTIVE.equals(this.getStatus());
-    }
-
-    public static List<Category> getActiveCategories(List<Category> categories) {
-        return categories.stream().filter(Category::isActive).toList();
+        return ACTIVE.equals(this.getStatus());
     }
 
     @Override

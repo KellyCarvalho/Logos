@@ -6,6 +6,7 @@ import Logos.subCategory.enums.SubCategoryStatus;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static Logos.commonValidator.ObjectValidator.isObjectValid;
@@ -73,6 +74,22 @@ public class Course {
         return name;
     }
 
+    public String getCode() {
+        return code;
+    }
+
+    public String getTargetAudience() {
+        return targetAudience;
+    }
+
+    public String getCourseProgramDescription() {
+        return courseProgramDescription;
+    }
+
+    public String getDevelopedSkills() {
+        return developedSkills;
+    }
+
     public Category getCategory() {
         return getSubCategory().getCategory();
     }
@@ -81,26 +98,33 @@ public class Course {
         return visibility;
     }
 
-    public static boolean hasAnyPrivateCourse(List<Course> courses) {
-        return courses.stream().anyMatch(course -> !course.isVisibility());
+    public String getSubCategoryCode() {
+        return this.getSubCategory().getCode();
     }
 
     public String getInstructorName() {
         return instructorName;
     }
 
-    public static List<String> getInstructorFrom(List<Course> courses) {
-        return courses.stream().map(course -> course.getInstructorName()).distinct().toList();
-    }
 
-    public static Map<String, Long> getInstructorsWithCourseQuantities(List<Course> courses) {
-        return courses.stream().collect(Collectors.groupingBy(Course::getInstructorName, Collectors.counting()));
-    }
 
     private static boolean isValidEstimatedTime(int estimatedTime, int min, int max) {
         if (estimatedTime < min || estimatedTime > max)
             throw new IllegalArgumentException("Tempo estimado de curso não pode ser menor que " + min + " ou maior que " + max);
         return true;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Course course = (Course) o;
+        return code.equals(course.code);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(code);
     }
 
     @Override

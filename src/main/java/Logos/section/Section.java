@@ -25,7 +25,6 @@ public class Section {
         this.course = course;
     }
 
-
     @Override
     public String toString() {
         return "Section" + '\n' +
