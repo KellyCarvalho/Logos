@@ -18,7 +18,6 @@ public class GenerateHtml {
     public static void generateCategoryPage(List<Course> courses, List<SubCategory> subCategories, List<Category> categories) {
         StringBuilder sb = new StringBuilder();
         try (PrintStream ps = new PrintStream(new File("categories.html"), "UTF-16");) {
-
             Collections.sort(categories, Comparator.comparing(Category::getOrder));
             Collections.sort(subCategories, Comparator.comparing(SubCategory::getOrder));
             String textHeader = """
@@ -42,8 +41,7 @@ public class GenerateHtml {
                                     <th>SubCategorias</th>
                                 </tr>
                         </div>
-                                                                                """;
-
+                    """;
             sb.append(textHeader);
             categories.forEach(category -> {
 
