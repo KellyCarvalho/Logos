@@ -64,4 +64,24 @@ public class DaoCourse {
             e.printStackTrace();
         }
     }
+
+    public static int turnPublic() {
+        int result = 0;
+        try (Connection connection = factory.recoverConnection()) {
+            connection.setAutoCommit(false);
+            String sql = """
+                      UPDATE Course set visibility=TRUE where visibility=FALSE;
+                    """;
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+                result = preparedStatement.executeUpdate();
+                connection.commit();
+            } catch (Exception e) {
+                e.printStackTrace();
+                connection.rollback();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 }
