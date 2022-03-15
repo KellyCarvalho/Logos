@@ -15,6 +15,7 @@ import static Logos.commonValidator.StringValidator.isValidCode;
 
 public class Course {
 
+    private int id;
     private String name;
     private String code;
     private int estimatedTime;
@@ -47,6 +48,27 @@ public class Course {
         this.courseProgramDescription = courseProgramDescription;
         this.developedSkills = developedSkills;
 
+    }
+
+    public Course(int id, String name, String code, int estimatedTime, String instructorName, SubCategory subCategory) {
+        this.id = id;
+        this.name = name;
+        this.code = code;
+        this.estimatedTime = estimatedTime;
+        this.instructorName = instructorName;
+        this.subCategory = subCategory;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public int getSubcategoryId(){
+      return  this.getSubCategory().getId();
+    }
+
+    public String getSubCategoryName(){
+        return  this.getSubCategory().getName();
     }
 
     public int getEstimatedTime() {
@@ -105,7 +127,6 @@ public class Course {
     public String getInstructorName() {
         return instructorName;
     }
-
 
 
     private static boolean isValidEstimatedTime(int estimatedTime, int min, int max) {

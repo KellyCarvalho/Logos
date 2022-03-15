@@ -5,6 +5,8 @@ import Logos.subCategory.SubCategory;
 import Logos.utils.ConnectionFactory;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DaoCourse {
     private static ConnectionFactory factory = new ConnectionFactory();
@@ -13,7 +15,7 @@ public class DaoCourse {
         try (Connection connection = factory.recoverConnection()) {
             Category category = new Category("programação", "programacao");
             SubCategory subCategory = new SubCategory("java", "java", category);
-            Course course = new Course("java", "java-t7", 10, "Paulo", subCategory);
+            Course course = new Course("java", "java-t8", 10, "Paulo", subCategory);
             connection.setAutoCommit(false);
             String sql = """
                     INSERT INTO Course(`name`,`identifier_code`,`estimated_time`,`visibility`,`target_audience`,`instructor_name`,
@@ -60,7 +62,7 @@ public class DaoCourse {
                 e.printStackTrace();
                 connection.rollback();
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -79,9 +81,57 @@ public class DaoCourse {
                 e.printStackTrace();
                 connection.rollback();
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return result;
+    }
+
+    public static List<Course> courses() {
+        List<Course> courses = new ArrayList<>();
+        try (Connection connection = factory.recoverConnection()) {
+            String sql = """
+                    SELECT course.id,course.identifier_code,course.name, course.estimated_time,
+                    course.instructor_name,subcategory.id id_subcategory,
+                    subcategory.name subcategory_name,subcategory.identifier_code subcategory_code,subcategory.id fk_subcategory,
+                    category.name category_name,category.identifier_code category_code
+                    FROM `Course`  course
+                    INNER JOIN `Subcategory` subcategory
+                    ON subcategory.id = course.fk_subcategory
+                    INNER JOIN Category category
+                    ON category.id = subcategory.fk_category
+                     WHERE course.visibility=1 ORDER BY subcategory.position;
+                    """;
+
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+                preparedStatement.execute();
+                ResultSet resultSet = preparedStatement.getResultSet();
+                while (resultSet.next()) {
+                    int id = resultSet.getInt("id");
+                    String name = resultSet.getString("name");
+                    String code = resultSet.getString("identifier_code").strip();
+                    int estimatedTime = resultSet.getInt("estimated_time");
+                    String instructorName = resultSet.getString("instructor_name");
+                    String subcategoryCode = resultSet.getString("subcategory_code");
+                    String subcategoryName = resultSet.getString("subcategory_name");
+                    int fkSubcategory = resultSet.getInt("fk_subcategory");
+                    String categoryCode = resultSet.getString("category_code");
+                    String categoryName = resultSet.getString("category_name");
+                    Category category = new Category(categoryName, categoryCode);
+                    SubCategory subCategory = new SubCategory(fkSubcategory,subcategoryName, subcategoryCode, category);
+                    isValidCourse(courses,id, name, code, estimatedTime, instructorName, subCategory);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return courses;
+    }
+
+    private static void isValidCourse(List<Course> courses,int id, String name, String code, int estimatedTime, String instructorName,
+                                      SubCategory subCategory) {
+        if ((name != "" && name != null) && (code != "" && code != null) && subCategory != null) {
+            courses.add(new Course(id,name, code, estimatedTime, instructorName, subCategory));
+        }
     }
 }
