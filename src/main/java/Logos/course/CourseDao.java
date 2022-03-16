@@ -2,24 +2,24 @@ package Logos.course;
 
 import Logos.category.Category;
 import Logos.subCategory.SubCategory;
+import Logos.subCategory.SubCategoryDTO;
 import Logos.utils.ConnectionFactory;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DaoCourse {
+import static Logos.commonValidator.StringValidator.isNotBlankEmptyOrNull;
+
+public class CourseDao {
     private static ConnectionFactory factory = new ConnectionFactory();
 
-    public static int insert() throws SQLException {
+    public void insert(SubCategoryDTO subCategoryDTO, CourseDTO course) throws SQLException {
         try (Connection connection = factory.recoverConnection()) {
-            Category category = new Category("programação", "programacao");
-            SubCategory subCategory = new SubCategory("java", "java", category);
-            Course course = new Course("java", "java-t8", 10, "Paulo", subCategory);
             connection.setAutoCommit(false);
             String sql = """
-                    INSERT INTO Course(`name`,`identifier_code`,`estimated_time`,`visibility`,`target_audience`,`instructor_name`,
-                    `course_program_description`,`developed_skills`,`fk_subcategory`)
+                    INSERT INTO Course(`name`,`identifier_code`,`estimated_time`,`visibility`,`target_audience`,
+                    `instructor_name`, `course_program_description`,`developed_skills`,`fk_subcategory`)
                     VALUES(?,?,?,?,?,?,?,?,?);                             
                     """;
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -31,51 +31,48 @@ public class DaoCourse {
                 preparedStatement.setString(6, course.getInstructorName());
                 preparedStatement.setString(7, course.getCourseProgramDescription());
                 preparedStatement.setString(8, course.getDevelopedSkills());
-                preparedStatement.setInt(9, 1);
+                preparedStatement.setInt(9, subCategoryDTO.getCategoryId());
                 preparedStatement.execute();
                 connection.commit();
                 try (ResultSet resultSet = preparedStatement.getGeneratedKeys()) {
                     while (resultSet.next()) {
-                        return resultSet.getInt(1);
+                        System.out.println(resultSet.getInt(1));
                     }
-                } catch (Exception e) {
-                    connection.rollback();
-                    e.printStackTrace();
                 }
             } catch (Exception e) {
+                connection.rollback();
                 e.printStackTrace();
             }
         }
-        return 0;
     }
 
-    public static void delete(String code) {
+    public void delete(String code) throws SQLException {
+        isNotBlankEmptyOrNull(code, "Código de curso é requerido");
         try (Connection connection = factory.recoverConnection()) {
             connection.setAutoCommit(false);
             String sql = """
-                     DELETE FROM `Course`  WHERE `identifier_code`='%s';
+                     DELETE FROM `Course` WHERE `identifier_code`='%s';
                     """.formatted(code);
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                 preparedStatement.execute();
+                System.out.println("Query executada com sucesso");
+                ;
                 connection.commit();
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 e.printStackTrace();
                 connection.rollback();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
-    public static int turnPublic() {
-        int result = 0;
+    public void turnPublic() {
         try (Connection connection = factory.recoverConnection()) {
             connection.setAutoCommit(false);
             String sql = """
-                      UPDATE Course set visibility=TRUE where visibility=FALSE;
+                      UPDATE Course SET visibility = TRUE WHERE visibility = FALSE;
                     """;
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-                result = preparedStatement.executeUpdate();
+                System.out.println(preparedStatement.executeUpdate());
                 connection.commit();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -84,12 +81,12 @@ public class DaoCourse {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return result;
     }
 
-    public static List<Course> courses() {
-        List<Course> courses = new ArrayList<>();
+    public List<CourseDTO> courses() {
+        List<CourseDTO> courses = new ArrayList<>();
         try (Connection connection = factory.recoverConnection()) {
+            connection.setAutoCommit(false);
             String sql = """
                     SELECT course.id,course.identifier_code,course.name, course.estimated_time,
                     course.instructor_name,subcategory.id id_subcategory,
@@ -118,20 +115,20 @@ public class DaoCourse {
                     String categoryCode = resultSet.getString("category_code");
                     String categoryName = resultSet.getString("category_name");
                     Category category = new Category(categoryName, categoryCode);
-                    SubCategory subCategory = new SubCategory(fkSubcategory,subcategoryName, subcategoryCode, category);
-                    isValidCourse(courses,id, name, code, estimatedTime, instructorName, subCategory);
+                    SubCategory subCategory = new SubCategory(fkSubcategory, subcategoryName, subcategoryCode, category);
+                    isValidCourse(courses, id, name, code, estimatedTime, instructorName, subCategory);
                 }
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return courses;
     }
 
-    private static void isValidCourse(List<Course> courses,int id, String name, String code, int estimatedTime, String instructorName,
+    private static void isValidCourse(List<CourseDTO> courses, int id, String name, String code, int estimatedTime, String instructorName,
                                       SubCategory subCategory) {
         if ((name != "" && name != null) && (code != "" && code != null) && subCategory != null) {
-            courses.add(new Course(id,name, code, estimatedTime, instructorName, subCategory));
+            courses.add(new CourseDTO(id, name, code, estimatedTime, instructorName, subCategory));
         }
     }
 }

@@ -1,7 +1,32 @@
-SELECT * FROM `Category` WHERE status='ACTIVE' order by position;
-SELECT * FROM `Subcategory` WHERE status='ACTIVE' order by position;
-SELECT * FROM `Course` WHERE visibility=1;
-SELECT `name` FROM `Subcategory` WHERE description="";
+SELECT * FROM `Category` WHERE status = 'ACTIVE' order by position;
+SELECT * FROM `Subcategory` WHERE status = 'ACTIVE' order by position;
+SELECT * FROM `Course` WHERE visibility = true;
+SELECT `name` FROM `Subcategory` WHERE description = "" or description is null;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 SELECT course.id,course.identifier_code,course.name, course.estimated_time,
 course.instructor_name,subcategory.id id_subcategory,

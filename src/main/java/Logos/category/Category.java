@@ -12,6 +12,7 @@ import static Logos.commonValidator.StringValidator.*;
 
 public class Category {
 
+    private int id;
     private String name;
     private String code;
     private String description;
@@ -42,6 +43,10 @@ public class Category {
         this.order = order;
         this.imageUrl = imageUrl;
         this.colorCode = colorCode;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getCode() {

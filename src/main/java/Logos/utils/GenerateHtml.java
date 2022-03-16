@@ -2,6 +2,8 @@ package Logos.utils;
 
 import Logos.category.Category;
 import Logos.course.Course;
+import Logos.course.CourseDTO;
+import Logos.course.CourseDao;
 import Logos.subCategory.SubCategory;
 
 import java.io.*;
@@ -10,13 +12,12 @@ import java.util.Comparator;
 import java.util.List;
 
 import static Logos.course.CourseService.*;
-import static Logos.course.DaoCourse.courses;
 
 public class GenerateHtml {
 
     public static void generateCategoryPage(List<Course> courses, List<SubCategory> subCategories, List<Category> categories) {
         StringBuilder sb = new StringBuilder();
-        try (PrintStream ps = new PrintStream(new File("categories.html"), "UTF-16");) {
+        try (PrintStream ps = new PrintStream(new File("categories.html"), "UTF-16")) {
             Collections.sort(categories, Comparator.comparing(Category::getOrder));
             Collections.sort(subCategories, Comparator.comparing(SubCategory::getOrder));
             String textHeader = """
@@ -119,7 +120,8 @@ public class GenerateHtml {
                         </tr>                       
                 """;
         sb.append(htmlHeader);
-        List<Course> courses = courses();
+        CourseDao courseDao = new CourseDao();
+        List<CourseDTO> courses = courseDao.courses();
         try (PrintStream printStream = new PrintStream(new File("files/courses.html"), "UTF-16")) {
             courses.forEach(course -> {
                 String body = """
