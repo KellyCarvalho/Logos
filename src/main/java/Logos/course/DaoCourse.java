@@ -74,7 +74,7 @@ public class DaoCourse {
             String sql = """
                       UPDATE Course set visibility=TRUE where visibility=FALSE;
                     """;
-            try (PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
                 result = preparedStatement.executeUpdate();
                 connection.commit();
             } catch (Exception e) {
@@ -100,7 +100,7 @@ public class DaoCourse {
                     ON subcategory.id = course.fk_subcategory
                     INNER JOIN Category category
                     ON category.id = subcategory.fk_category
-                     WHERE course.visibility=1 ORDER BY subcategory.position;
+                     WHERE course.visibility=1 ORDER BY course.id;
                     """;
 
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {

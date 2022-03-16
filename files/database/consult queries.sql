@@ -3,13 +3,20 @@ SELECT * FROM `Subcategory` WHERE status='ACTIVE' order by position;
 SELECT * FROM `Course` WHERE visibility=1;
 SELECT `name` FROM `Subcategory` WHERE description="";
 
-SELECT *,subcat.name  subcategoryName 
+SELECT course.id,course.identifier_code,course.name, course.estimated_time,
+course.instructor_name,subcategory.id id_subcategory,
+subcategory.name subcategory_name,subcategory.identifier_code subcategory_code,subcategory.id fk_subcategory,
+category.name category_name,category.identifier_code category_code
 FROM `Course`  course
-INNER JOIN `Subcategory` subcat
-ON subcat.id = course.fk_subcategory
- WHERE course.visibility=1 ORDER BY position;
+INNER JOIN `Subcategory` subcategory
+ON subcategory.id = course.fk_subcategory
+INNER JOIN Category category
+ON category.id = subcategory.fk_category
+ WHERE course.visibility=1 ORDER BY subcategory.position;
  
- SELECT * FROM `Course`;
+
  
- DELETE FROM `Course`  WHERE `identifier_code`=' java-jpa-consultas2-avancadas-performance-modelos-complexos ';
- UPDATE Course set visibility=FALSE where visibility=TRUE;
+ 
+ 
+ 
+ 

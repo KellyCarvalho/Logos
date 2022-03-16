@@ -140,7 +140,8 @@ public class GenerateHtml {
                                 <p>%s</p>
                               </th>
                             </tr>
-                        """.formatted(course.getId(), course.getName(), course.getEstimatedTime(), course.getSubcategoryId(), course.getSubCategoryName());
+                        """.formatted(course.getId(), course.getName(), course.getEstimatedTime(), course.getSubcategoryId(),
+                        course.getSubCategoryName());
                 sb.append(body);
             });
             String htmlFooter = """
@@ -150,13 +151,8 @@ public class GenerateHtml {
                     """;
             sb.append(htmlFooter);
             printStream.println(sb);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
+        } catch (Exception  e) {
             e.printStackTrace();
         }
-        courses.forEach(course -> {
-
-        });
     }
 }
