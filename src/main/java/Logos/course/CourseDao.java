@@ -56,7 +56,6 @@ public class CourseDao {
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                 preparedStatement.execute();
                 System.out.println("Query executada com sucesso");
-                ;
                 connection.commit();
             } catch (SQLException e) {
                 e.printStackTrace();

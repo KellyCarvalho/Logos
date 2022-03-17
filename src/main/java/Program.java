@@ -17,7 +17,7 @@ public class Program {
         CourseDTO course = new CourseDTO("Golang", "golang", 10, "Fábio");
         courseDao.insert(subcategoryDao.getSubCategoryById(1), course);
 
-        courseDao.delete("java-t9");
+        courseDao.delete("golang");
         courseDao.turnPublic();
     }
 }
