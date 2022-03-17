@@ -14,10 +14,10 @@ public class Program {
         CourseDao courseDao = new CourseDao();
 
         SubcategoryDao subcategoryDao = new SubcategoryDao();
-        CourseDTO course = new CourseDTO("Golang", "golang", 10, "Fábio");
+        CourseDTO course = new CourseDTO("Golang", "golang2", 10, "Fábio");
         courseDao.insert(subcategoryDao.getSubCategoryById(1), course);
 
-        courseDao.delete("golang");
+        courseDao.delete("golang2");
         courseDao.turnPublic();
     }
 }
