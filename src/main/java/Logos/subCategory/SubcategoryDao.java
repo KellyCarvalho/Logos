@@ -9,8 +9,7 @@ import java.sql.*;
 public class SubcategoryDao {
 
     public SubCategory getById(int id) {
-        SubCategoryDTO subCategoryDTO = new SubCategoryDTO();
-        CategoryDTO categoryDTO = new CategoryDTO();
+        SubCategoryDTO subCategoryDTO = null;
         ConnectionFactory factory = new ConnectionFactory();
         try (Connection connection = factory.recoverConnection()) {
             String sql = """
@@ -25,21 +24,14 @@ public class SubcategoryDao {
             preparedStatement.execute();
             ResultSet resultSet = preparedStatement.getResultSet();
             while (resultSet.next()) {
-                int subcategoryId = resultSet.getInt("id_subcategory");
-                String subcategoryName = resultSet.getString("subcategory_name");
-                String subcategoryCode = resultSet.getString("subcategory_identifier_code");
-                int categoryId = resultSet.getInt("fk_category");
-                String categoryName = resultSet.getString("category_name");
-                String categoryCode = resultSet.getString("category_identifier_code");
-                categoryDTO = new CategoryDTO(categoryId, categoryName, categoryCode);
-                subCategoryDTO = new SubCategoryDTO(subcategoryId, subcategoryName, subcategoryCode, categoryDTO);
+                CategoryDTO   categoryDTO = new CategoryDTO(resultSet.getInt("fk_category"), resultSet.getString("category_name"), resultSet.getString("category_identifier_code"));
+                subCategoryDTO = new SubCategoryDTO(resultSet.getInt("id_subcategory"), resultSet.getString("subcategory_name"), resultSet.getString("subcategory_identifier_code"), categoryDTO);
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            return toSubcategory(subCategoryDTO);
         }
+        return toSubcategory(subCategoryDTO);
     }
 
     private SubCategory toSubcategory(SubCategoryDTO subCategoryDTO) {

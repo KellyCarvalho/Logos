@@ -6,6 +6,7 @@ import static Logos.commonValidator.ObjectValidator.isObjectValid;
 import static Logos.commonValidator.StringValidator.isNotBlankEmptyOrNull;
 
 public class Alternative {
+
     private String description;
     private int order;
     private boolean correct;

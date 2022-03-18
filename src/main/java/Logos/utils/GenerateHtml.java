@@ -124,7 +124,7 @@ public class GenerateHtml {
                 """;
         sb.append(htmlHeader);
         CourseDao courseDao = new CourseDao();
-        List<CourseDTO> courses = courseDao.getAllCourses();
+        List<CourseDTO> courses = courseDao.getAllPublic();
         try (PrintStream printStream = new PrintStream(new File("files/courses.html"), "UTF-16")) {
             courses.forEach(course -> {
                 String body = """

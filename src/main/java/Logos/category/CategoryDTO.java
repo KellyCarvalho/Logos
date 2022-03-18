@@ -1,23 +1,15 @@
 package Logos.category;
 
 public class CategoryDTO {
-    private int id;
-    private String name;
-    private String code;
+
+    private final int id;
+    private final String name;
+    private final String code;
 
     public CategoryDTO(int id, String name, String code) {
         this.id = id;
         this.name = name;
         this.code = code;
-    }
-
-    public CategoryDTO(String name, String code) {
-        this.name = name;
-        this.code = code;
-    }
-
-    public CategoryDTO() {
-
     }
 
     public int getId() {
@@ -30,14 +22,5 @@ public class CategoryDTO {
 
     public String getCode() {
         return code;
-    }
-
-    @Override
-    public String toString() {
-        return "CategoryDTO{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", code='" + code + '\'' +
-                '}';
     }
 }

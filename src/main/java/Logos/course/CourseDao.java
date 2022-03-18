@@ -10,9 +10,10 @@ import java.util.List;
 import static Logos.commonValidator.StringValidator.isNotBlankEmptyOrNull;
 
 public class CourseDao {
+    
     private static final ConnectionFactory factory = new ConnectionFactory();
 
-    public void insert(Course course) throws SQLException {
+    public void insert(Course course) {
         try (Connection connection = factory.recoverConnection()) {
             connection.setAutoCommit(false);
             String sql = """
@@ -34,12 +35,12 @@ public class CourseDao {
                 connection.commit();
                 ResultSet resultSet = preparedStatement.getGeneratedKeys();
                 while (resultSet.next()) {
-                    System.out.println(resultSet.getInt(1));
+                    System.out.println("Id do curso: " + resultSet.getInt(+1));
                 }
             } catch (SQLException e) {
                 connection.rollback();
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -73,14 +74,14 @@ public class CourseDao {
                       UPDATE Course SET visibility = TRUE WHERE visibility = FALSE;
                     """;
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            System.out.println(preparedStatement.executeUpdate());
+            System.out.println("Linhas afetadas: " + preparedStatement.executeUpdate());
             connection.commit();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public List<CourseDTO> getAllCourses() {
+    public List<CourseDTO> getAllPublic() {
         List<CourseDTO> courses = new ArrayList<>();
         try (Connection connection = factory.recoverConnection()) {
             connection.setAutoCommit(false);

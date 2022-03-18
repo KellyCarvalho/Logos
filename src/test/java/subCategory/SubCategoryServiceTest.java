@@ -18,6 +18,7 @@ import static Logos.subCategory.enums.SubCategoryStatus.ACTIVE;
 import static Logos.subCategory.enums.SubCategoryStatus.DISABLED;
 
 public class SubCategoryServiceTest {
+
     private static Category category;
     private static List<SubCategory> subCategories;
 

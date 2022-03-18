@@ -3,6 +3,7 @@ package Logos.course;
 import Logos.subCategory.SubCategoryDTO;
 
 public class CourseDTO {
+
     private int id;
     private String name;
     private int estimatedTime;

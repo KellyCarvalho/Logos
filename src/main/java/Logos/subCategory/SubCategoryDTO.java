@@ -4,8 +4,8 @@ import Logos.category.CategoryDTO;
 
 public class SubCategoryDTO {
 
-    private int id;
-    private String name;
+    private final int id;
+    private final String name;
     private String code;
     private CategoryDTO category;
 
@@ -14,10 +14,6 @@ public class SubCategoryDTO {
         this.name = name;
         this.code = code;
         this.category = category;
-    }
-
-    public SubCategoryDTO() {
-
     }
 
     public SubCategoryDTO(int id, String name) {
@@ -51,15 +47,5 @@ public class SubCategoryDTO {
 
     public String getCategoryName() {
         return this.category.getName();
-    }
-
-    @Override
-    public String toString() {
-        return "SubCategoryDTO{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", code='" + code + '\'' +
-                ", category=" + category +
-                '}';
     }
 }

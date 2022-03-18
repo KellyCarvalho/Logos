@@ -18,6 +18,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CourseTest {
+
     private static SubCategory subCategory;
     private static Category category;
     private static List<Course> courses = new ArrayList<>();

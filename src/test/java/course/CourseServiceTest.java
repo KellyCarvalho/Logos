@@ -14,6 +14,7 @@ import static Logos.course.CourseService.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CourseServiceTest {
+
     private static List<Course> courses;
     private static Category category;
     private static SubCategory subCategory;
