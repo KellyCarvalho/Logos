@@ -18,7 +18,8 @@ public class Program {
         SubcategoryDao subcategoryDao = new SubcategoryDao();
         Course course = new Course("Golang", "golang14", 10, "Fábio", subcategoryDao.getById(1));
         courseDao.insert(course);
-        courseDao.delete("golang13");
         courseDao.turnAllPublic();
+        courseDao.delete("golang14");
+
     }
 }
