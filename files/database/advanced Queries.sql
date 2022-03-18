@@ -16,14 +16,7 @@ SELECT category.name, count(*) `All Courses`, COALESCE(SUM(course.estimated_time
 FROM Category category
 LEFT JOIN Subcategory subcategory
 ON category.id = subcategory.fk_category
-RIGHT JOIN Course course
+LEFT JOIN Course course
 ON subcategory.id = course.fk_subcategory
 WHERE category.status = "ACTIVE"
 GROUP BY category.id;
-
-
-
-
-
-
-

@@ -4,10 +4,10 @@ import Logos.subCategory.SubCategoryDTO;
 
 public class CourseDTO {
 
-    private int id;
-    private String name;
-    private int estimatedTime;
-    private SubCategoryDTO subCategory;
+    private final int id;
+    private final String name;
+    private final int estimatedTime;
+    private final SubCategoryDTO subCategory;
 
     public CourseDTO(int id, String name, int estimatedTime, SubCategoryDTO subCategory) {
         this.id = id;

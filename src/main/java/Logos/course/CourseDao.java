@@ -91,7 +91,7 @@ public class CourseDao {
                     INNER JOIN `Subcategory` subcategory ON subcategory.id = course.fk_subcategory
                     WHERE course.visibility=1 ORDER BY course.id;
                     """;
-            PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.execute();
             ResultSet resultSet = preparedStatement.getResultSet();
             while (resultSet.next()) {
