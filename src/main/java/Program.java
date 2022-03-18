@@ -16,6 +16,5 @@ public class Program {
         courseDao.insert(course);
         courseDao.turnAllPublic();
         courseDao.delete("golang14");
-
     }
 }
