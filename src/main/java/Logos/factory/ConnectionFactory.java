@@ -1,4 +1,4 @@
-package Logos.utils;
+package Logos.factory;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 

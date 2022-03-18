@@ -110,44 +110,38 @@ public class GenerateHtml {
                   <body style="padding:20px;background-color:#FFC0CB">
                   <h1>Cursos</h1>
                   <hr>
-                      <table width="467"  style="background-color:#DB7093;border-radius:20px;border:2px;">
+                    <table width="467"  style="background-color:#DB7093;border-radius:20px;border:2px;">
+                      <thead>
                         <tr>
                           <th style="padding:20px;">Id</th>      
                           <th style="padding:20px;">Nome</th>
                           <th style="padding:20px;">Tempo de finalização</th>
                           <th style="padding:20px;">Id da subcategoria</th>
                           <th style="padding:20px;">Nome da subcategoria</th>
-                        </tr>                       
+                        </tr>  
+                      </thead>
+                      <tbody>
                 """;
         sb.append(htmlHeader);
         CourseDao courseDao = new CourseDao();
-        List<CourseDTO> courses = courseDao.courses();
+        List<CourseDTO> courses = courseDao.getAllCourses();
         try (PrintStream printStream = new PrintStream(new File("files/courses.html"), "UTF-16")) {
             courses.forEach(course -> {
                 String body = """
                             <tr>
-                              <th style="padding:20px;">
-                                <p>%d</p>
-                              </th>
-                              <th style="padding:20px;">
-                                <p>%s</p>
-                              </th>
-                              <th style="padding:20px;">
-                                <p>%d</p>
-                              </th>
-                              <th style="padding:20px;">
-                                <p>%d</p>
-                              </th>
-                              <th style="padding:20px;">
-                                <p>%s</p>
-                              </th>
+                              <td style="padding:20px;">%d</td>
+                              <td style="padding:20px;">%s</td>
+                              <td style="padding:20px;">%d</td>
+                              <td style="padding:20px;">%d</td>
+                              <td style="padding:20px;">%s</td>
                             </tr>
                         """.formatted(course.getId(), course.getName(), course.getEstimatedTime(), course.getSubcategoryId(),
                         course.getSubCategoryName());
                 sb.append(body);
             });
             String htmlFooter = """
-                     </table>
+                        </tbody>
+                      </table>
                     </body>
                     </html>
                     """;

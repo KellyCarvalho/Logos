@@ -1,34 +1,18 @@
 package Logos.course;
 
-import Logos.subCategory.SubCategory;
+import Logos.subCategory.SubCategoryDTO;
 
 public class CourseDTO {
     private int id;
     private String name;
-    private String code;
     private int estimatedTime;
-    private boolean visibility;
-    private String targetAudience;
-    private String instructorName;
-    private String courseProgramDescription;
-    private String developedSkills;
-    private SubCategory subCategory;
+    private SubCategoryDTO subCategory;
 
-    public CourseDTO(int id, String name, String code, int estimatedTime, String instructorName, SubCategory subCategory) {
+    public CourseDTO(int id, String name, int estimatedTime, SubCategoryDTO subCategory) {
         this.id = id;
         this.name = name;
-        this.code = code;
         this.estimatedTime = estimatedTime;
-        this.instructorName = instructorName;
         this.subCategory = subCategory;
-    }
-
-    public CourseDTO(String name, String code, int estimatedTime, String instructorName) {
-        this.id = id;
-        this.name = name;
-        this.code = code;
-        this.estimatedTime = estimatedTime;
-        this.instructorName = instructorName;
     }
 
     public int getId() {
@@ -39,19 +23,11 @@ public class CourseDTO {
         return name;
     }
 
-    public String getCode() {
-        return code;
-    }
-
     public int getEstimatedTime() {
         return estimatedTime;
     }
 
-    public String getInstructorName() {
-        return instructorName;
-    }
-
-    public SubCategory getSubCategory() {
+    public SubCategoryDTO getSubCategory() {
         return subCategory;
     }
 
@@ -61,21 +37,5 @@ public class CourseDTO {
 
     public Object getSubcategoryId() {
         return subCategory.getId();
-    }
-
-    public boolean isVisibility() {
-        return visibility;
-    }
-
-    public String getTargetAudience() {
-        return targetAudience;
-    }
-
-    public String getCourseProgramDescription() {
-        return courseProgramDescription;
-    }
-
-    public String getDevelopedSkills() {
-        return developedSkills;
     }
 }

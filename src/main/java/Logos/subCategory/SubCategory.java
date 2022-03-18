@@ -39,13 +39,6 @@ public class SubCategory {
         this.order = order;
     }
 
-    public SubCategory(int id, String name, String code, Category category) {
-        this.id = id;
-        this.name = name;
-        this.code = code;
-        this.category = category;
-    }
-
     public int getId() {
         return id;
     }
@@ -78,8 +71,12 @@ public class SubCategory {
         return ACTIVE.equals(this.status);
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public boolean isEmptyDescription() {
-        return this.getDescription() == null? false : this.getDescription().isEmpty();
+        return this.getDescription() == null ? false : this.getDescription().isEmpty();
     }
 
     public String getCategoryCode() {

@@ -17,6 +17,12 @@ public class SubCategoryDTO {
     }
 
     public SubCategoryDTO() {
+
+    }
+
+    public SubCategoryDTO(int id, String name) {
+        this.id = id;
+        this.name = name;
     }
 
     public int getId() {
@@ -31,8 +37,20 @@ public class SubCategoryDTO {
         return code;
     }
 
+    public CategoryDTO getCategory() {
+        return category;
+    }
+
     public int getCategoryId() {
-        return category.getId();
+        return this.category.getId();
+    }
+
+    public String getCategoryCode() {
+        return this.category.getCode();
+    }
+
+    public String getCategoryName() {
+        return this.category.getName();
     }
 
     @Override

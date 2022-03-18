@@ -1,13 +1,15 @@
 package Logos.subCategory;
 
+import Logos.category.Category;
 import Logos.category.CategoryDTO;
-import Logos.utils.ConnectionFactory;
+import Logos.factory.ConnectionFactory;
 
 import java.sql.*;
 
 public class SubcategoryDao {
-    public SubCategoryDTO getSubCategoryById(int id) {
+    public SubCategory getById(int id) {
         SubCategoryDTO subCategoryDTO = new SubCategoryDTO();
+        CategoryDTO categoryDTO = new CategoryDTO();
         ConnectionFactory factory = new ConnectionFactory();
         try (Connection connection = factory.recoverConnection()) {
             String sql = """
@@ -18,7 +20,7 @@ public class SubcategoryDao {
                     ON s.fk_category = c.id
                     WHERE s.id=%s
                     """.formatted(id);
-            try (PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
                 preparedStatement.execute();
                 ResultSet resultSet = preparedStatement.getResultSet();
                 while (resultSet.next()) {
@@ -28,13 +30,23 @@ public class SubcategoryDao {
                     int categoryId = resultSet.getInt("fk_category");
                     String categoryName = resultSet.getString("category_name");
                     String categoryCode = resultSet.getString("category_identifier_code");
-                    CategoryDTO category = new CategoryDTO(categoryId, categoryName, categoryCode);
-                    subCategoryDTO = new SubCategoryDTO(subcategoryId, subcategoryName, subcategoryCode, category);
+                     categoryDTO = new CategoryDTO(categoryId, categoryName, categoryCode);
+                    subCategoryDTO = new SubCategoryDTO(subcategoryId, subcategoryName, subcategoryCode, categoryDTO);
                 }
-            }
+
         } catch (SQLException e) {
             e.printStackTrace();
+        }finally {
+            return toSubcategory(subCategoryDTO);
         }
-        return subCategoryDTO;
     }
+
+    private SubCategory toSubcategory(SubCategoryDTO subCategoryDTO){
+        Category category = new Category(subCategoryDTO.getCategoryName(),subCategoryDTO.getCategoryCode());
+        category.setId(subCategoryDTO.getCategoryId());
+        SubCategory subCategory = new SubCategory(subCategoryDTO.getName(), subCategoryDTO.getCode(), category);
+        subCategory.setId(subCategoryDTO.getId());
+        return subCategory;
+    }
+
 }

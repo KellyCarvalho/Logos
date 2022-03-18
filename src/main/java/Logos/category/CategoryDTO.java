@@ -11,6 +11,15 @@ public class CategoryDTO {
         this.code = code;
     }
 
+    public CategoryDTO(String name, String code) {
+        this.name = name;
+        this.code = code;
+    }
+
+    public CategoryDTO() {
+
+    }
+
     public int getId() {
         return id;
     }
