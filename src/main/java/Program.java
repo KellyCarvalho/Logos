@@ -1,10 +1,6 @@
 import Logos.course.Course;
-import Logos.course.CourseDTO;
 import Logos.course.CourseDao;
-import Logos.subCategory.SubCategory;
 import Logos.subCategory.SubcategoryDao;
-
-import java.sql.SQLException;
 
 import static Logos.utils.GenerateHtml.generateCoursePage;
 import static Logos.utils.GenerateSql.writeSql;
