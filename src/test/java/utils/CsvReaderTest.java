@@ -17,6 +17,7 @@ import static Logos.utils.CsvReader.readSubCategories;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CsvReaderTest {
+
     private static List<Category> categories;
     private static List<SubCategory> subcategories;
     private static List<Course> courses;

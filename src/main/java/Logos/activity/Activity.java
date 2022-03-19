@@ -7,6 +7,7 @@ import static Logos.commonValidator.StringValidator.isNotBlankEmptyOrNull;
 import static Logos.commonValidator.StringValidator.isValidCode;
 
 public abstract class Activity {
+
     private String title;
     private String code;
     private Section section;

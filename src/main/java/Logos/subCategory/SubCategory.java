@@ -13,6 +13,7 @@ import static Logos.subCategory.enums.SubCategoryStatus.ACTIVE;
 
 public class SubCategory {
 
+    private int id;
     private String name;
     private String code;
     private String description;
@@ -36,6 +37,10 @@ public class SubCategory {
         this.description = description;
         this.status = status;
         this.order = order;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getCode() {
@@ -66,8 +71,12 @@ public class SubCategory {
         return ACTIVE.equals(this.status);
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public boolean isEmptyDescription() {
-        return this.getDescription() == null? false : this.getDescription().isEmpty();
+        return this.getDescription() == null ? false : this.getDescription().isEmpty();
     }
 
     public String getCategoryCode() {

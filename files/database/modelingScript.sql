@@ -97,4 +97,3 @@ CREATE TABLE `Alternative`(
 `fk_question` BIGINT NOT NULL,
 FOREIGN KEY(`fk_question`) REFERENCES `Question`(`id`)
 );
-

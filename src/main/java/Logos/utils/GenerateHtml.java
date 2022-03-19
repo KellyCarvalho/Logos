@@ -2,11 +2,11 @@ package Logos.utils;
 
 import Logos.category.Category;
 import Logos.course.Course;
+import Logos.course.CourseDTO;
+import Logos.course.CourseDao;
 import Logos.subCategory.SubCategory;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintStream;
+import java.io.*;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -17,8 +17,7 @@ public class GenerateHtml {
 
     public static void generateCategoryPage(List<Course> courses, List<SubCategory> subCategories, List<Category> categories) {
         StringBuilder sb = new StringBuilder();
-        try (PrintStream ps = new PrintStream(new File("categories.html"), "UTF-16");) {
-
+        try (PrintStream ps = new PrintStream(new File("categories.html"), "UTF-16")) {
             Collections.sort(categories, Comparator.comparing(Category::getOrder));
             Collections.sort(subCategories, Comparator.comparing(SubCategory::getOrder));
             String textHeader = """
@@ -42,8 +41,7 @@ public class GenerateHtml {
                                     <th>SubCategorias</th>
                                 </tr>
                         </div>
-                                                                                """;
-
+                    """;
             sb.append(textHeader);
             categories.forEach(category -> {
 
@@ -100,6 +98,57 @@ public class GenerateHtml {
         } catch (IOException e) {
             System.out.println("Ocorreu um erro ao gerar o arquivo html, certifique de que não faltou nenhuma lista a " +
                     "ser referenciada, pois é necessário que a lista de categorias, subcategorias e cursos sejam passadas obrigatoriamente para gerar o arquivo");
+        }
+    }
+
+    public static void generateCoursePage() {
+        StringBuilder sb = new StringBuilder();
+        String htmlHeader = """
+                <html>
+                  <head>
+                  </head>    
+                  <body style="padding:20px;background-color:#FFC0CB">
+                  <h1>Cursos</h1>
+                  <hr>
+                    <table width="467"  style="background-color:#DB7093;border-radius:20px;border:2px;">
+                      <thead>
+                        <tr>
+                          <th style="padding:20px;">Id</th>      
+                          <th style="padding:20px;">Nome</th>
+                          <th style="padding:20px;">Tempo de finalização</th>
+                          <th style="padding:20px;">Id da subcategoria</th>
+                          <th style="padding:20px;">Nome da subcategoria</th>
+                        </tr>  
+                      </thead>
+                      <tbody>
+                """;
+        sb.append(htmlHeader);
+        CourseDao courseDao = new CourseDao();
+        List<CourseDTO> courses = courseDao.getAllPublic();
+        try (PrintStream printStream = new PrintStream(new File("files/courses.html"), "UTF-16")) {
+            courses.forEach(course -> {
+                String body = """
+                            <tr>
+                              <td style="padding:20px;">%d</td>
+                              <td style="padding:20px;">%s</td>
+                              <td style="padding:20px;">%d</td>
+                              <td style="padding:20px;">%d</td>
+                              <td style="padding:20px;">%s</td>
+                            </tr>
+                        """.formatted(course.getId(), course.getName(), course.getEstimatedTime(), course.getSubcategoryId(),
+                        course.getSubCategoryName());
+                sb.append(body);
+            });
+            String htmlFooter = """
+                        </tbody>
+                      </table>
+                    </body>
+                    </html>
+                    """;
+            sb.append(htmlFooter);
+            printStream.println(sb);
+        } catch (Exception  e) {
+            e.printStackTrace();
         }
     }
 }

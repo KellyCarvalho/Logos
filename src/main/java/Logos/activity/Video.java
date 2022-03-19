@@ -5,6 +5,7 @@ import Logos.section.Section;
 import static Logos.commonValidator.StringValidator.isNotBlankEmptyOrNull;
 
 public class Video extends Activity {
+
     private String url;
     private int durationInMinutes;
     private String transcription;

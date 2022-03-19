@@ -7,6 +7,7 @@ import static Logos.commonValidator.ObjectValidator.isObjectValid;
 import static Logos.commonValidator.StringValidator.isNotBlankEmptyOrNull;
 
 public class Question extends Activity {
+
     private String description;
     private TypeQuestion type;
 

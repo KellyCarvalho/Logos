@@ -4,10 +4,7 @@ import Logos.category.Category;
 import Logos.subCategory.SubCategory;
 import Logos.subCategory.enums.SubCategoryStatus;
 
-import java.util.List;
-import java.util.Map;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 import static Logos.commonValidator.ObjectValidator.isObjectValid;
 import static Logos.commonValidator.StringValidator.isNotBlankEmptyOrNull;
@@ -15,6 +12,7 @@ import static Logos.commonValidator.StringValidator.isValidCode;
 
 public class Course {
 
+    private int id;
     private String name;
     private String code;
     private int estimatedTime;
@@ -46,7 +44,6 @@ public class Course {
         this.targetAudience = targetAudience;
         this.courseProgramDescription = courseProgramDescription;
         this.developedSkills = developedSkills;
-
     }
 
     public int getEstimatedTime() {
@@ -62,7 +59,6 @@ public class Course {
     }
 
     public String getNameSubCategory() {
-
         return subCategory.getName();
     }
 
@@ -102,16 +98,15 @@ public class Course {
         return this.getSubCategory().getCode();
     }
 
+    public int getSubCategoryId() { return this.subCategory.getId();}
+
     public String getInstructorName() {
         return instructorName;
     }
 
-
-
-    private static boolean isValidEstimatedTime(int estimatedTime, int min, int max) {
+    private static void isValidEstimatedTime(int estimatedTime, int min, int max) {
         if (estimatedTime < min || estimatedTime > max)
             throw new IllegalArgumentException("Tempo estimado de curso não pode ser menor que " + min + " ou maior que " + max);
-        return true;
     }
 
     @Override

@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class CourseService {
+
     public static long getTotalCourseHours(List<Course> courses) {
         return courses.stream().map(course -> course.getEstimatedTime()).reduce(0, (subtotal, element) -> subtotal + element);
     }
