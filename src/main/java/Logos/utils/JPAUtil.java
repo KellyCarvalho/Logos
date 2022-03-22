@@ -10,4 +10,9 @@ public class JPAUtil {
     public static EntityManager getEntityManager() {
         return FACTORY.createEntityManager();
     }
+
+    public static EntityManager getEntityManagerTest() {
+        EntityManagerFactory FACTORY_TEST = Persistence.createEntityManagerFactory("test");
+        return FACTORY_TEST.createEntityManager();
+    }
 }

@@ -55,17 +55,17 @@ public class SubcategoryDao {
         return subCategory;
     }
 
-    public List<SubCategory> getAllSubcategoriesActives(){
+    public List<SubCategory> getAllActivesSubcategories(){
         List<SubCategory> subCategories = new ArrayList<>();
         TypedQuery<SubCategory> query = em.createQuery("SELECT c FROM SubCategory c WHERE c.status='ACTIVE' ORDER BY c.order",SubCategory.class);
         subCategories = query.getResultList();
         return subCategories;
     }
 
-    public List<SubCategory> getSubcategoriesWithoutDescription(){
-        List<SubCategory> subCategories = new ArrayList<>();
-        TypedQuery<SubCategory> query = em.createQuery("SELECT c FROM SubCategory c WHERE c.description='' ORDER BY c.order",SubCategory.class);
-        subCategories = query.getResultList();
-        return subCategories;
+    public List<String> getSubcategoriesWithoutDescription(){
+        List<String> subCategoriesNames = new ArrayList<>();
+        TypedQuery<String> query = em.createQuery("SELECT c.name FROM SubCategory c WHERE c.description='' ORDER BY c.order",String.class);
+        subCategoriesNames = query.getResultList();
+        return subCategoriesNames;
     }
 }

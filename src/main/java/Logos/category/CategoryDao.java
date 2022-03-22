@@ -17,7 +17,7 @@ public class CategoryDao {
 
     }
 
-    public List<Category> getAllCategoriesActives(){
+    public List<Category> getAllActivesCategories(){
         List<Category> categories = new ArrayList<>();
         TypedQuery<Category> query = em.createQuery("SELECT c FROM Category c WHERE c.status='ACTIVE' ORDER BY c.order",Category.class);
         categories = query.getResultList();

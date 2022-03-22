@@ -3,7 +3,6 @@ package Logos.utils;
 import Logos.category.Category;
 import Logos.category.CategoryDao;
 import Logos.course.Course;
-import Logos.course.CourseDTO;
 import Logos.course.CourseDao;
 import Logos.subCategory.SubCategory;
 
@@ -214,7 +213,7 @@ public class GenerateHtml {
 
     }
 
-    public static StringBuilder generateDataQueriesCategoryPage() {
+    public static StringBuilder showDataCategoryPage() {
         StringBuilder sb = new StringBuilder();
         String htmlHeader = """
 
@@ -237,7 +236,7 @@ public class GenerateHtml {
         sb.append(htmlHeader);
         EntityManager entityManager = getEntityManager();
         CategoryDao categoryDao = new CategoryDao(entityManager);
-        List<Category> categories = categoryDao.getAllCategoriesActives();
+        List<Category> categories = categoryDao.getAllActivesCategories();
             categories.forEach(category -> {
                 String body = """
                             <tr>
@@ -262,7 +261,7 @@ public class GenerateHtml {
             return sb;
     }
 
-    public static StringBuilder generateDataQueriesSubCategoryPage() {
+    public static StringBuilder showDataSubCategoryPage() {
         StringBuilder sb = new StringBuilder();
         String htmlHeader = """
 
@@ -285,7 +284,7 @@ public class GenerateHtml {
         sb.append(htmlHeader);
         EntityManager entityManager = getEntityManager();
         CategoryDao categoryDao = new CategoryDao(entityManager);
-        List<Category> categories = categoryDao.getAllCategoriesActives();
+        List<Category> categories = categoryDao.getAllActivesCategories();
             categories.forEach(category -> {
                 String body = """
                             <tr>

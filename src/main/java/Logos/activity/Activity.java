@@ -2,22 +2,25 @@ package Logos.activity;
 
 import Logos.section.Section;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 import static Logos.commonValidator.ObjectValidator.isObjectValid;
 import static Logos.commonValidator.StringValidator.isNotBlankEmptyOrNull;
 import static Logos.commonValidator.StringValidator.isValidCode;
-
+@MappedSuperclass
 public abstract class Activity {
 
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String title;
+    @Column(name="identifier_code")
     private String code;
+    @ManyToOne
+    @JoinColumn(name = "fk_section")
     private Section section;
     private boolean active;
+    @Column(name="position")
     private int order;
 
     public Activity() {

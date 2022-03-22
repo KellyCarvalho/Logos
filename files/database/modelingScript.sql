@@ -58,8 +58,8 @@ CREATE TABLE `Explanation`(
 `active` BOOLEAN DEFAULT FALSE,
 `position` INT,
 `description` TEXT NOT NULL,
-`fk_section_explanation`  BIGINT NOT NULL,
-FOREIGN KEY(`fk_section_explanation`) REFERENCES `Section`(`id`)
+`fk_section`  BIGINT NOT NULL,
+FOREIGN KEY(`fk_section`) REFERENCES `Section`(`id`)
 );
 
 
@@ -72,8 +72,8 @@ CREATE TABLE `Video`(
 `url` VARCHAR(255) NOT NULL,
 `duration_in_minutes` INT,
 `transcription` TEXT,
-`fk_section_video`  BIGINT NOT NULL,
-FOREIGN KEY (`fk_section_video`) REFERENCES `Section`(`id`)
+`fk_section`  BIGINT NOT NULL,
+FOREIGN KEY (`fk_section`) REFERENCES `Section`(`id`)
 );
 
 CREATE TABLE `Question`(
@@ -84,13 +84,13 @@ CREATE TABLE `Question`(
 `position` INT,
 `description` TEXT NOT NULL,
 `type_question` ENUM('SINGLE_ANSWER','MULTIPLE_CHOICE','TRUE_OR_FALSE') NOT NULL,
-`fk_section_question` BIGINT NOT NULL,
-FOREIGN KEY(`fk_section_question`) REFERENCES `Section`(`id`)
+`fk_section` BIGINT NOT NULL,
+FOREIGN KEY(`fk_section`) REFERENCES `Section`(`id`)
 );
 
 CREATE TABLE `Alternative`(
 `id` BIGINT  PRIMARY KEY AUTO_INCREMENT,
-`alternative_description` TEXT NOT NULL,
+`description` TEXT NOT NULL,
 `position` INT,
 `correct` BOOLEAN DEFAULT FALSE, 
 `explanation_answer` VARCHAR(255),
