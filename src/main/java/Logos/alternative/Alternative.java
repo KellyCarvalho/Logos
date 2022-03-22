@@ -7,11 +7,15 @@ import static Logos.commonValidator.StringValidator.isNotBlankEmptyOrNull;
 
 public class Alternative {
 
+
     private String description;
     private int order;
     private boolean correct;
     private String explanationAnswer;
     private Question question;
+
+    public Alternative() {
+    }
 
     public Alternative(String description, boolean correct, Question question) {
         isNotBlankEmptyOrNull(description, "Descrição de alternativa é requerida, não pode ser nula ou vazia");

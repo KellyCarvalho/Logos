@@ -4,24 +4,24 @@ import Logos.category.CategoryDTO;
 
 public class SubCategoryDTO {
 
-    private final int id;
+    private final Long id;
     private final String name;
     private String code;
     private CategoryDTO category;
 
-    public SubCategoryDTO(int id, String name, String code, CategoryDTO category) {
+    public SubCategoryDTO(Long id, String name, String code, CategoryDTO category) {
         this.id = id;
         this.name = name;
         this.code = code;
         this.category = category;
     }
 
-    public SubCategoryDTO(int id, String name) {
+    public SubCategoryDTO(Long id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
@@ -37,7 +37,7 @@ public class SubCategoryDTO {
         return category;
     }
 
-    public int getCategoryId() {
+    public Long getCategoryId() {
         return this.category.getId();
     }
 

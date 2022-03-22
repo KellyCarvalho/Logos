@@ -3,6 +3,7 @@ package Logos.subCategory;
 import Logos.category.Category;
 import Logos.subCategory.enums.SubCategoryStatus;
 
+import javax.persistence.*;
 import java.util.Objects;
 
 import static Logos.commonValidator.ObjectValidator.isObjectValid;
@@ -10,17 +11,31 @@ import static Logos.commonValidator.StringValidator.isNotBlankEmptyOrNull;
 import static Logos.commonValidator.StringValidator.doesCodeContainsOnlyLettersInLowerCaseAndHyphen;
 import static Logos.subCategory.enums.SubCategoryStatus.DISABLED;
 import static Logos.subCategory.enums.SubCategoryStatus.ACTIVE;
-
+@Entity
+@Table(name = "Subcategory")
 public class SubCategory {
 
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String name;
+    @Column(name="identifier_code")
     private String code;
+    @Column(columnDefinition = "TEXT")
     private String description;
+    @Column(name="study_guide", columnDefinition = "TEXT")
     private String studyGuide;
+    @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "ENUM('ACTIVE','DISABLED')")
     private SubCategoryStatus status = DISABLED;
+    @Column(name="position")
     private int order;
+    @ManyToOne
+    @JoinColumn(name = "fk_category")
     private Category category;
+
+    public SubCategory() {
+    }
 
     public SubCategory(String name, String code, Category category) {
         isNotBlankEmptyOrNull(name, "Nome da SubCategoria é requerido, não pode ser vazio ou nulo");
@@ -39,7 +54,7 @@ public class SubCategory {
         this.order = order;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
@@ -71,7 +86,7 @@ public class SubCategory {
         return ACTIVE.equals(this.status);
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

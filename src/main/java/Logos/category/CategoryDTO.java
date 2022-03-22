@@ -2,17 +2,17 @@ package Logos.category;
 
 public class CategoryDTO {
 
-    private final int id;
+    private final Long id;
     private final String name;
     private final String code;
 
-    public CategoryDTO(int id, String name, String code) {
+    public CategoryDTO(Long id, String name, String code) {
         this.id = id;
         this.name = name;
         this.code = code;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 

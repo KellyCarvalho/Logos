@@ -4,24 +4,39 @@ import Logos.category.Category;
 import Logos.subCategory.SubCategory;
 import Logos.subCategory.enums.SubCategoryStatus;
 
+import javax.persistence.*;
 import java.util.Objects;
 
 import static Logos.commonValidator.ObjectValidator.isObjectValid;
 import static Logos.commonValidator.StringValidator.isNotBlankEmptyOrNull;
 import static Logos.commonValidator.StringValidator.isValidCode;
 
+@Entity
 public class Course {
 
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String name;
+    @Column(name = "identifier_code")
     private String code;
+    @Column(name = "estimated_time")
     private int estimatedTime;
     private boolean visibility;
+    @Column(name = "target_audience")
     private String targetAudience;
+    @Column(name = "instructor_name")
     private String instructorName;
+    @Column(name = "course_program_description", columnDefinition = "TEXT")
     private String courseProgramDescription;
+    @Column(name = "developed_skills", columnDefinition = "TEXT")
     private String developedSkills;
+    @ManyToOne
+    @JoinColumn(name = "fk_subcategory")
     private SubCategory subCategory;
+
+    public Course() {
+    }
 
     public Course(String name, String code, int estimatedTime, String instructorName, SubCategory subCategory) {
         isValidCode(code, "Código do curso não é válido ou está null ou vazio - deve ter caracteres de a-z " +
@@ -98,7 +113,9 @@ public class Course {
         return this.getSubCategory().getCode();
     }
 
-    public int getSubCategoryId() { return this.subCategory.getId();}
+    public Long getSubCategoryId() {
+        return this.subCategory.getId();
+    }
 
     public String getInstructorName() {
         return instructorName;
@@ -107,6 +124,18 @@ public class Course {
     private static void isValidEstimatedTime(int estimatedTime, int min, int max) {
         if (estimatedTime < min || estimatedTime > max)
             throw new IllegalArgumentException("Tempo estimado de curso não pode ser menor que " + min + " ou maior que " + max);
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public Object getSubcategoryId() {
+        return subCategory.getId();
+    }
+
+    public Object getSubCategoryName() {
+        return subCategory.getName();
     }
 
     @Override

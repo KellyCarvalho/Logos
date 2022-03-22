@@ -2,6 +2,8 @@ package Logos.activity;
 
 import Logos.section.Section;
 
+import javax.persistence.Entity;
+
 import static Logos.commonValidator.StringValidator.isNotBlankEmptyOrNull;
 
 public class Video extends Activity {

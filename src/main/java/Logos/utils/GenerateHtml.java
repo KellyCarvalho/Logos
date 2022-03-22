@@ -1,17 +1,20 @@
 package Logos.utils;
 
 import Logos.category.Category;
+import Logos.category.CategoryDao;
 import Logos.course.Course;
 import Logos.course.CourseDTO;
 import Logos.course.CourseDao;
 import Logos.subCategory.SubCategory;
 
+import javax.persistence.EntityManager;
 import java.io.*;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
 import static Logos.course.CourseService.*;
+import static Logos.utils.JPAUtil.getEntityManager;
 
 public class GenerateHtml {
 
@@ -124,15 +127,15 @@ public class GenerateHtml {
                 """;
         sb.append(htmlHeader);
         CourseDao courseDao = new CourseDao();
-        List<CourseDTO> courses = courseDao.getAllPublic();
+        List<Course> courses = courseDao.getAllPublic();
         try (PrintStream printStream = new PrintStream(new File("files/courses.html"), "UTF-16")) {
             courses.forEach(course -> {
                 String body = """
                             <tr>
                               <td style="padding:20px;">%d</td>
                               <td style="padding:20px;">%s</td>
-                              <td style="padding:20px;">%d</td>
-                              <td style="padding:20px;">%d</td>
+                              <td style="padding:20px;">%s</td>
+                              <td style="padding:20px;">%s</td>
                               <td style="padding:20px;">%s</td>
                             </tr>
                         """.formatted(course.getId(), course.getName(), course.getEstimatedTime(), course.getSubcategoryId(),
@@ -148,6 +151,172 @@ public class GenerateHtml {
             sb.append(htmlFooter);
             printStream.println(sb);
         } catch (Exception  e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static StringBuilder generateDataQueriesCoursePage() {
+        StringBuilder sb = new StringBuilder();
+        String htmlHeader = """
+                <html>
+                  <head>
+                  </head>    
+                  <body style="padding:20px;background-color:#FFC0CB">
+                  <h1>Cursos</h1>
+                  <hr>
+                    <table width="467"  style="background-color:#DB7093;border-radius:20px;border:2px;">
+                      <thead>
+                        <tr>
+                          <th style="padding:20px;">Id</th>      
+                          <th style="padding:20px;">Nome</th>
+                          <th style="padding:20px;">Code</th>
+                          <th style="padding:20px;">Tempo de finalização</th>
+                          <th style="padding:20px;">Público Alvo</th>
+                          <th style="padding:20px;">Ementa</th>
+                          <th style="padding:20px;">Habilidades Desenvolvidas</th>
+                        </tr>  
+                      </thead>
+                      <tbody>
+                """;
+        sb.append(htmlHeader);
+        EntityManager entityManager = getEntityManager();
+        CourseDao courseDao = new CourseDao(entityManager);
+        List<Course> courses = courseDao.getAllPublic();
+        try (PrintStream printStream = new PrintStream(new File("files/data.html"), "UTF-16")) {
+            courses.forEach(course -> {
+                String body = """
+                            <tr>
+                              <td style="padding:20px;">%d</td>
+                              <td style="padding:20px;">%s</td>
+                              <td style="padding:20px;">%s</td>
+                              <td style="padding:20px;">%d</td>
+                              <td style="padding:20px;">%s</td>
+                              <td style="padding:20px;">%s</td>
+                              <td style="padding:20px;">%s</td>
+
+                            </tr>
+                        """.formatted(course.getId(), course.getName(), course.getCode(), course.getEstimatedTime(),
+                        course.getTargetAudience(),course.getCourseProgramDescription(),course.getDevelopedSkills());
+                sb.append(body);
+            });
+            String htmlFooter = """
+                        </tbody>
+                      </table>
+                    </body>
+                    </html>
+                    """;
+            sb.append(htmlFooter);
+            printStream.println(sb);
+        } catch (Exception  e) {
+            e.printStackTrace();
+        }
+            return sb;
+
+    }
+
+    public static StringBuilder generateDataQueriesCategoryPage() {
+        StringBuilder sb = new StringBuilder();
+        String htmlHeader = """
+
+                  <h1>Categorias</h1>
+                  <hr>
+                    <table width="467"  style="background-color:#DB7093;border-radius:20px;border:2px;">
+                      <thead>
+                        <tr>
+                          <th style="padding:20px;">Id</th>      
+                          <th style="padding:20px;">Nome</th>
+                          <th style="padding:20px;">Code</th>
+                          <th style="padding:20px;">Description</th>
+                          <th style="padding:20px;">Guia de Estudo</th>
+                          <th style="padding:20px;">Status</th>
+                          <th style="padding:20px;">Ordem</th>
+                        </tr>  
+                      </thead>
+                      <tbody>
+                """;
+        sb.append(htmlHeader);
+        EntityManager entityManager = getEntityManager();
+        CategoryDao categoryDao = new CategoryDao(entityManager);
+        List<Category> categories = categoryDao.getAllCategoriesActives();
+            categories.forEach(category -> {
+                String body = """
+                            <tr>
+                              <td style="padding:20px;">%d</td>
+                              <td style="padding:20px;">%s</td>
+                              <td style="padding:20px;">%s</td>
+                              <td style="padding:20px;">%s</td>
+                              <td style="padding:20px;">%s</td>
+                              <td style="padding:20px;">%s</td>
+                              <td style="padding:20px;">%s</td>
+
+                            </tr>
+                        """.formatted(category.getId(), category.getName(), category.getCode(), category.getDescription(),category.getStudyGuide(),category.getStatus(),category.getOrder());
+                sb.append(body);
+            });
+            String htmlFooter = """
+                        </tbody>
+                      </table> 
+                    """;
+            sb.append(htmlFooter);
+
+            return sb;
+    }
+
+    public static StringBuilder generateDataQueriesSubCategoryPage() {
+        StringBuilder sb = new StringBuilder();
+        String htmlHeader = """
+
+                  <h1>SubCategorias</h1>
+                  <hr>
+                    <table width="467"  style="background-color:#DB7093;border-radius:20px;border:2px;">
+                      <thead>
+                        <tr>
+                          <th style="padding:20px;">Id</th>      
+                          <th style="padding:20px;">Nome</th>
+                          <th style="padding:20px;">Code</th>
+                          <th style="padding:20px;">Description</th>
+                          <th style="padding:20px;">Guia de Estudo</th>
+                          <th style="padding:20px;">Status</th>
+                          <th style="padding:20px;">Ordem</th>
+                        </tr>  
+                      </thead>
+                      <tbody>
+                """;
+        sb.append(htmlHeader);
+        EntityManager entityManager = getEntityManager();
+        CategoryDao categoryDao = new CategoryDao(entityManager);
+        List<Category> categories = categoryDao.getAllCategoriesActives();
+            categories.forEach(category -> {
+                String body = """
+                            <tr>
+                              <td style="padding:20px;">%d</td>
+                              <td style="padding:20px;">%s</td>
+                              <td style="padding:20px;">%s</td>
+                              <td style="padding:20px;">%s</td>
+                              <td style="padding:20px;">%s</td>
+                              <td style="padding:20px;">%s</td>
+                              <td style="padding:20px;">%s</td>
+
+                            </tr>
+                        """.formatted(category.getId(), category.getName(), category.getCode(), category.getDescription(),category.getStudyGuide(),category.getStatus(),category.getOrder());
+                sb.append(body);
+            });
+            String htmlFooter = """
+                        </tbody>
+                      </table> 
+                    """;
+            sb.append(htmlFooter);
+
+        return sb;
+    }
+    public static void writeHtml(StringBuilder sbCourse, StringBuilder sbCategory,StringBuilder sbSubCategory){
+        try (PrintStream printStream = new PrintStream("files/data.html", "UTF-16")) {
+            printStream.println(sbCourse);
+            printStream.println(sbCategory);
+            printStream.println(sbSubCategory);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
     }

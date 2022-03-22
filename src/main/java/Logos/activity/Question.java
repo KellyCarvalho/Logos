@@ -3,6 +3,8 @@ package Logos.activity;
 import Logos.activity.enums.TypeQuestion;
 import Logos.section.Section;
 
+import javax.persistence.Entity;
+
 import static Logos.commonValidator.ObjectValidator.isObjectValid;
 import static Logos.commonValidator.StringValidator.isNotBlankEmptyOrNull;
 

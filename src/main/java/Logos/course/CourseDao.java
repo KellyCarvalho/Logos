@@ -3,6 +3,9 @@ package Logos.course;
 import Logos.subCategory.SubCategoryDTO;
 import Logos.factory.ConnectionFactory;
 
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,10 +13,23 @@ import java.util.List;
 import static Logos.commonValidator.StringValidator.isNotBlankEmptyOrNull;
 
 public class CourseDao {
-    
+    private EntityManager em;
+
+    public CourseDao() {
+    }
+
+    public CourseDao(EntityManager em) {
+        this.em = em;
+    }
+
+    public Long insert(Course course) {
+        this.em.persist(course);
+        return course.getId();
+    }
+
     private static final ConnectionFactory factory = new ConnectionFactory();
 
-    public void insert(Course course) {
+    public void insert_old(Course course) {
         try (Connection connection = factory.recoverConnection()) {
             connection.setAutoCommit(false);
             String sql = """
@@ -30,7 +46,7 @@ public class CourseDao {
                 preparedStatement.setString(6, course.getInstructorName());
                 preparedStatement.setString(7, course.getCourseProgramDescription());
                 preparedStatement.setString(8, course.getDevelopedSkills());
-                preparedStatement.setInt(9, course.getSubCategoryId());
+                preparedStatement.setLong(9, course.getSubCategoryId());
                 preparedStatement.execute();
                 connection.commit();
                 ResultSet resultSet = preparedStatement.getGeneratedKeys();
@@ -46,66 +62,25 @@ public class CourseDao {
     }
 
     public void delete(String code) {
+        existCourse(code);
         isNotBlankEmptyOrNull(code, "Código de curso é requerido");
-        if (!existCourse(code)) throw new IllegalArgumentException("Código não existe no registro de cursos");
-        try (Connection connection = factory.recoverConnection()) {
-            connection.setAutoCommit(false);
-            String sql = """
-                     DELETE FROM `Course` WHERE `identifier_code`='%s';
-                    """.formatted(code);
-            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-                preparedStatement.execute();
-                System.out.println("Curso deletado com sucesso");
-                connection.commit();
-            } catch (SQLException e) {
-                e.printStackTrace();
-                connection.rollback();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Query query = em.createQuery("DELETE FROM Course WHERE code = :code")
+                .setParameter("code", code);
+        query.executeUpdate();
 
     }
 
     public void turnAllPublic() {
-        try (Connection connection = factory.recoverConnection()) {
-            connection.setAutoCommit(false);
-            String sql = """
-                      UPDATE Course SET visibility = TRUE WHERE visibility = FALSE;
-                    """;
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            System.out.println("Linhas afetadas: " + preparedStatement.executeUpdate());
-            connection.commit();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Query query = em.createQuery("UPDATE Course c SET c.visibility = true WHERE visibility=false");
+        query.executeUpdate();
+
+
     }
 
-    public List<CourseDTO> getAllPublic() {
-        List<CourseDTO> courses = new ArrayList<>();
-        try (Connection connection = factory.recoverConnection()) {
-            connection.setAutoCommit(false);
-            String sql = """
-                    SELECT course.id, course.name, course.estimated_time, subcategory.id id_subcategory, subcategory.name subcategory_name
-                    FROM `Course`  course
-                    INNER JOIN `Subcategory` subcategory ON subcategory.id = course.fk_subcategory
-                    WHERE course.visibility=1 ORDER BY course.id;
-                    """;
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.execute();
-            ResultSet resultSet = preparedStatement.getResultSet();
-            while (resultSet.next()) {
-                SubCategoryDTO subCategoryDTO = new SubCategoryDTO(resultSet.getInt("id_subcategory"),
-                        resultSet.getString("subcategory_name"));
-
-                CourseDTO courseDTO = new CourseDTO(resultSet.getInt("id"), resultSet.getString("name"),
-                        resultSet.getInt("estimated_time"), subCategoryDTO);
-
-                courses.add(courseDTO);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    public List<Course> getAllPublic() {
+        List<Course> courses = new ArrayList<>();
+        TypedQuery<Course> query = em.createQuery("SELECT c FROM Course c WHERE c.visibility=true",Course.class);
+        courses = (query.getResultList());
         return courses;
     }
 

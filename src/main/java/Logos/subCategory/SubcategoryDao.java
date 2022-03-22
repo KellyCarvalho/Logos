@@ -4,9 +4,22 @@ import Logos.category.Category;
 import Logos.category.CategoryDTO;
 import Logos.factory.ConnectionFactory;
 
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SubcategoryDao {
+
+    private EntityManager em;
+
+    public SubcategoryDao() {
+    }
+
+    public SubcategoryDao(EntityManager em) {
+        this.em = em;
+    }
 
     public SubCategory getById(int id) {
         SubCategoryDTO subCategoryDTO = null;
@@ -24,8 +37,8 @@ public class SubcategoryDao {
             preparedStatement.execute();
             ResultSet resultSet = preparedStatement.getResultSet();
             while (resultSet.next()) {
-                CategoryDTO   categoryDTO = new CategoryDTO(resultSet.getInt("fk_category"), resultSet.getString("category_name"), resultSet.getString("category_identifier_code"));
-                subCategoryDTO = new SubCategoryDTO(resultSet.getInt("id_subcategory"), resultSet.getString("subcategory_name"), resultSet.getString("subcategory_identifier_code"), categoryDTO);
+                CategoryDTO   categoryDTO = new CategoryDTO(resultSet.getLong("fk_category"), resultSet.getString("category_name"), resultSet.getString("category_identifier_code"));
+                subCategoryDTO = new SubCategoryDTO(resultSet.getLong("id_subcategory"), resultSet.getString("subcategory_name"), resultSet.getString("subcategory_identifier_code"), categoryDTO);
             }
 
         } catch (SQLException e) {
@@ -42,4 +55,17 @@ public class SubcategoryDao {
         return subCategory;
     }
 
+    public List<SubCategory> getAllSubcategoriesActives(){
+        List<SubCategory> subCategories = new ArrayList<>();
+        TypedQuery<SubCategory> query = em.createQuery("SELECT c FROM SubCategory c WHERE c.status='ACTIVE' ORDER BY c.order",SubCategory.class);
+        subCategories = query.getResultList();
+        return subCategories;
+    }
+
+    public List<SubCategory> getSubcategoriesWithoutDescription(){
+        List<SubCategory> subCategories = new ArrayList<>();
+        TypedQuery<SubCategory> query = em.createQuery("SELECT c FROM SubCategory c WHERE c.description='' ORDER BY c.order",SubCategory.class);
+        subCategories = query.getResultList();
+        return subCategories;
+    }
 }
