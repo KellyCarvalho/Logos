@@ -25,12 +25,12 @@ public class Program {
 
         //Objeto de inserção
         SubCategory subCategory = subcategoryDao.getByCode("java");
-        Course course = new Course("Python", "python", 10, "alana", subCategory);
+        Course course = new Course("Java oo", "javaoo", 10, "alana", subCategory);
 
         //INSERT
         System.out.println("Curso inserido: " + courseDao.insert(course));
         //DELETE
-        courseDao.delete("python");
+        courseDao.delete("javaoo");
 
         System.out.println("Cursos Públicos");
         courseDao.getAllPublic().forEach(publicCourse -> {
