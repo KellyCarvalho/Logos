@@ -14,6 +14,7 @@ public class Program {
 
     public static void main(String[] args) {
 
+        //Script para popular BD
         writeSql();
         EntityManager entityManager = getEntityManager("logos");
         entityManager.getTransaction().begin();
@@ -36,7 +37,7 @@ public class Program {
             System.out.println("Nome: " + publicCourse.getName());
         });
 
-        //TORNAR PÚBLICO
+        //Tornar público
         courseDao.turnAllPublic();
 
         courseDao.getAllPublic().forEach(publicCourse -> {
