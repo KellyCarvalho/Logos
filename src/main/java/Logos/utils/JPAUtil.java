@@ -7,12 +7,13 @@ import javax.persistence.Persistence;
 public class JPAUtil {
     private static final EntityManagerFactory FACTORY = Persistence.createEntityManagerFactory("logos");
 
+    //TODO passar o nome da unidade por argumento
     public static EntityManager getEntityManager() {
         return FACTORY.createEntityManager();
     }
 
     public static EntityManager getEntityManagerTest() {
-        EntityManagerFactory FACTORY_TEST = Persistence.createEntityManagerFactory("test");
+       final EntityManagerFactory FACTORY_TEST = Persistence.createEntityManagerFactory("test");
         return FACTORY_TEST.createEntityManager();
     }
 }

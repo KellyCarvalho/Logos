@@ -98,6 +98,10 @@ public class SubCategory {
         return this.getCategory().getCode();
     }
 
+    public String getStudyGuide() {
+        return studyGuide;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -6,12 +6,7 @@
     <!-- unidade de persistencia -->
 
     <persistence-unit name="logos" transaction-type="RESOURCE_LOCAL">
-        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <class>Logos.category.Category</class>
-        <class>Logos.activity.Question</class>
 
-
-        <!-- Implementação do JPA, no nessa caso Hibernate -->
         <properties>
             <!-- Propriedades JDBC -->
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />

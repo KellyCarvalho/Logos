@@ -2,7 +2,6 @@ package Logos.utils.builder;
 
 import Logos.category.Category;
 import Logos.category.enums.CategoryStatus;
-import Logos.subCategory.enums.SubCategoryStatus;
 
 public class CategoryBuilder {
 
@@ -25,8 +24,6 @@ public class CategoryBuilder {
         this.code = code;
         return this;
     }
-
-
 
     public CategoryBuilder withDescription(String description) {
         this.description = description;

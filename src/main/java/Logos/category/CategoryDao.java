@@ -17,10 +17,8 @@ public class CategoryDao {
 
     }
 
-    public List<Category> getAllActivesCategories(){
-        List<Category> categories = new ArrayList<>();
-        TypedQuery<Category> query = em.createQuery("SELECT c FROM Category c WHERE c.status='ACTIVE' ORDER BY c.order",Category.class);
-        categories = query.getResultList();
-        return categories;
+    public List<Category> getAllActiveCategories(){
+        TypedQuery<Category> query = em.createQuery("SELECT c FROM Category c WHERE c.status = 'ACTIVE' ORDER BY c.order", Category.class);
+        return query.getResultList();
     }
 }
