@@ -51,5 +51,4 @@ public class SubCategoryBuilder {
     public SubCategory create() {
         return new SubCategory(name, code, description,status,order,category);
     }
-
 }
