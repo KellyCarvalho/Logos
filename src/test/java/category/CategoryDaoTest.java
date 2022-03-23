@@ -11,14 +11,14 @@ import org.junit.jupiter.api.Test;
 
 import javax.persistence.EntityManager;
 
-import static Logos.utils.JPAUtil.getEntityManagerTest;
+import static Logos.utils.JPAUtil.getEntityManager;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
 public class CategoryDaoTest {
 
     private CategoryDao dao;
 
-    private final static EntityManager em = getEntityManagerTest();
+    private final static EntityManager em = getEntityManager("test");
 
     @BeforeEach
     void setUp() {
@@ -31,6 +31,9 @@ public class CategoryDaoTest {
                 .withName("Programação")
                 .withCode("programacao")
                 .withColorCode("#1C1C1C")
+                .withStudyGuide("guia de estudo")
+                .withDescription("description")
+                .withImageUrl("urlimage")
                 .withOrder(1)
                 .withStatus(CategoryStatus.ACTIVE)
                 .create();
@@ -39,6 +42,9 @@ public class CategoryDaoTest {
                 .withName("Business")
                 .withCode("business")
                 .withColorCode("#1C1C1C")
+                .withStudyGuide("guia de estudo")
+                .withDescription("description")
+                .withImageUrl("urlimage")
                 .withOrder(2)
                 .withStatus(CategoryStatus.ACTIVE)
                 .create();

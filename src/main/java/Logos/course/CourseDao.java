@@ -25,7 +25,7 @@ public class CourseDao {
         existCourse(code);
         Query query = em.createQuery("DELETE FROM Course WHERE code = :code")
                 .setParameter("code", code);
-        System.out.println("Curso deletado com sucesso: "+code);
+        System.out.println("Curso deletado com sucesso: " + code);
         query.executeUpdate();
     }
 
@@ -44,6 +44,4 @@ public class CourseDao {
                 .setParameter("code", code);
         return query.getSingleResult();
     }
-
-
 }

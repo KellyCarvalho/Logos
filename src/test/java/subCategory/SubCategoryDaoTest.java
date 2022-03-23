@@ -13,13 +13,13 @@ import org.junit.jupiter.api.Test;
 
 import javax.persistence.EntityManager;
 
-import static Logos.utils.JPAUtil.getEntityManagerTest;
+import static Logos.utils.JPAUtil.getEntityManager;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class SubCategoryDaoTest {
 
     private SubcategoryDao dao;
-    private static final EntityManager em = getEntityManagerTest();
+    private static final EntityManager em = getEntityManager("test");
     private Category category;
 
     @BeforeEach

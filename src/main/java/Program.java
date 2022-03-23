@@ -7,13 +7,15 @@ import Logos.subCategory.SubcategoryDao;
 import javax.persistence.EntityManager;
 
 import static Logos.utils.GenerateHtml.writeHtml;
+import static Logos.utils.GenerateSql.writeSql;
 import static Logos.utils.JPAUtil.getEntityManager;
 
 public class Program {
 
     public static void main(String[] args) {
 
-        EntityManager entityManager = getEntityManager();
+        writeSql();
+        EntityManager entityManager = getEntityManager("logos");
         entityManager.getTransaction().begin();
 
         CategoryDao categoryDao = new CategoryDao(entityManager);

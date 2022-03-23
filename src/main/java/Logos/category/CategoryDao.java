@@ -2,7 +2,6 @@ package Logos.category;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryDao {
@@ -11,10 +10,6 @@ public class CategoryDao {
 
     public CategoryDao(EntityManager em) {
         this.em = em;
-    }
-
-    public CategoryDao() {
-
     }
 
     public List<Category> getAllActiveCategories(){
