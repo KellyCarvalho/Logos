@@ -7,7 +7,6 @@ import Logos.subCategory.SubCategory;
 import Logos.utils.builder.CategoryBuilder;
 import Logos.utils.builder.CourseBuilder;
 import Logos.utils.builder.SubCategoryBuilder;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,10 +21,11 @@ public class CourseDaoTest {
     private CourseDao dao;
     private Category category;
     private SubCategory subCategory;
-    private static final EntityManager em = getEntityManager("test");
+    private static EntityManager em;
 
     @BeforeEach
     void setUp() {
+        em = getEntityManager("test");
         em.getTransaction().begin();
         this.dao = new CourseDao(em);
 
@@ -42,6 +42,12 @@ public class CourseDaoTest {
 
         em.persist(category);
         em.persist(subCategory);
+    }
+
+    @AfterEach
+    void tearDown() {
+        em.getTransaction().rollback();
+        em.close();
     }
 
     @Test
@@ -86,15 +92,5 @@ public class CourseDaoTest {
                 .extracting(Course::getCode)
                 .containsExactly("java", "php")
                 .doesNotContain("golang");
-    }
-
-    @AfterEach
-    void rollback() {
-        em.getTransaction().rollback();
-    }
-
-    @AfterAll
-    static void close() {
-        em.close();
     }
 }

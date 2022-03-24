@@ -8,7 +8,7 @@ public class CourseBuilder {
     private String code;
     private int estimatedTime;
     private String instructorName;
-    private boolean visibility=false;
+    private boolean visibility = false;
     private SubCategory subCategory;
     private String targetAudience;
     private String courseProgramDescription;
@@ -34,32 +34,32 @@ public class CourseBuilder {
         return this;
     }
 
-    public CourseBuilder withSubCategory(SubCategory subCategory){
+    public CourseBuilder withSubCategory(SubCategory subCategory) {
         this.subCategory = subCategory;
         return this;
     }
-    
-    public CourseBuilder withVisibility(boolean visibility){
+
+    public CourseBuilder withVisibility(boolean visibility) {
         this.visibility = visibility;
         return this;
     }
-    
-    public CourseBuilder withTargetAudience(String targetAudience){
-        this.targetAudience=targetAudience;
+
+    public CourseBuilder withTargetAudience(String targetAudience) {
+        this.targetAudience = targetAudience;
         return this;
     }
 
-    public CourseBuilder withCourseProgramDescription(String courseProgramDescription){
+    public CourseBuilder withCourseProgramDescription(String courseProgramDescription) {
         this.courseProgramDescription = courseProgramDescription;
         return this;
     }
 
-    public  CourseBuilder withDevelopedSkills(String developedSkills){
+    public CourseBuilder withDevelopedSkills(String developedSkills) {
         this.developedSkills = developedSkills;
         return this;
     }
 
     public Course create() {
-        return new Course(name,code,estimatedTime,visibility,targetAudience,instructorName,courseProgramDescription,developedSkills,subCategory);
+        return new Course(name, code, estimatedTime, visibility, targetAudience, instructorName, courseProgramDescription, developedSkills, subCategory);
     }
 }

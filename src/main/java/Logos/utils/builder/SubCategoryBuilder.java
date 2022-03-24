@@ -38,17 +38,17 @@ public class SubCategoryBuilder {
         return this;
     }
 
-    public SubCategoryBuilder withStatus(SubCategoryStatus status){
+    public SubCategoryBuilder withStatus(SubCategoryStatus status) {
         this.status = status;
         return this;
     }
 
-    public SubCategoryBuilder withOrder(int order){
+    public SubCategoryBuilder withOrder(int order) {
         this.order = order;
         return this;
     }
 
     public SubCategory create() {
-        return new SubCategory(name, code, description,status,order,category);
+        return new SubCategory(name, code, description, status, order, category);
     }
 }

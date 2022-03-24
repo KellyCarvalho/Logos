@@ -4,7 +4,6 @@ import Logos.category.Category;
 import Logos.category.CategoryDao;
 import Logos.category.enums.CategoryStatus;
 import Logos.utils.builder.CategoryBuilder;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,11 +17,19 @@ public class CategoryDaoTest {
 
     private CategoryDao dao;
 
-    private final static EntityManager em = getEntityManager("test");
+    private static EntityManager em;
 
     @BeforeEach
     void setUp() {
+        em = getEntityManager("test");
         this.dao = new CategoryDao(em);
+        em.getTransaction().begin();
+    }
+
+    @AfterEach
+    void tearDown() {
+        em.getTransaction().rollback();
+        em.close();
     }
 
     @Test
@@ -56,7 +63,6 @@ public class CategoryDaoTest {
                 .withStatus(CategoryStatus.DISABLED)
                 .create();
 
-        em.getTransaction().begin();
         em.persist(activeCategory1);
         em.persist(activeCategory2);
         em.persist(disabledCategory1);
@@ -65,15 +71,5 @@ public class CategoryDaoTest {
                 .hasSize(2).extracting(Category::getCode)
                 .containsExactly("programacao", "business")
                 .doesNotContain("devops");
-    }
-
-    @AfterEach
-    void rollback() {
-        em.getTransaction().rollback();
-    }
-
-    @AfterAll
-    static void close() {
-        em.close();
     }
 }

@@ -35,27 +35,27 @@ public class CategoryBuilder {
         return this;
     }
 
-    public CategoryBuilder withStatus(CategoryStatus status){
+    public CategoryBuilder withStatus(CategoryStatus status) {
         this.status = status;
         return this;
     }
 
-    public CategoryBuilder withOrder(int order){
+    public CategoryBuilder withOrder(int order) {
         this.order = order;
         return this;
     }
 
-    public CategoryBuilder withImageUrl(String imageUrl){
+    public CategoryBuilder withImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
         return this;
     }
 
-    public CategoryBuilder withColorCode(String colorCode){
+    public CategoryBuilder withColorCode(String colorCode) {
         this.colorCode = colorCode;
         return this;
     }
 
-    public Category create(){
-        return new Category(name,code,description,status,order,imageUrl,colorCode);
+    public Category create() {
+        return new Category(name, code, description, status, order, imageUrl, colorCode);
     }
 }

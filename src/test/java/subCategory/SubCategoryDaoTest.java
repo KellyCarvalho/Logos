@@ -6,7 +6,6 @@ import Logos.subCategory.SubcategoryDao;
 import Logos.subCategory.enums.SubCategoryStatus;
 import Logos.utils.builder.CategoryBuilder;
 import Logos.utils.builder.SubCategoryBuilder;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,11 +18,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class SubCategoryDaoTest {
 
     private SubcategoryDao dao;
-    private static final EntityManager em = getEntityManager("test");
+    private static EntityManager em;
     private Category category;
 
     @BeforeEach
     void setUp() {
+        em = getEntityManager("test");
         this.dao = new SubcategoryDao(em);
         em.getTransaction().begin();
         category = new CategoryBuilder()
@@ -34,13 +34,19 @@ public class SubCategoryDaoTest {
         em.persist(category);
     }
 
+    @AfterEach
+    void tearDown() {
+        em.getTransaction().rollback();
+        em.close();
+    }
+
     @Test
     void getAllActiveSubcategoriesShouldReturnOnlyActiveSubCategoriesByOrder() {
         SubCategory disabledSubcategory1 = new SubCategoryBuilder()
                 .withName("python")
                 .withCode("python")
                 .withDescription("")
-                .withStudyGuide("java...")
+                .withStudyGuide("python...")
                 .withStatus(SubCategoryStatus.DISABLED)
                 .withOrder(1)
                 .withCategory(category).create();
@@ -76,16 +82,24 @@ public class SubCategoryDaoTest {
 
     @Test
     void getSubcategoriesWithoutDescriptionShouldReturnOnlySubCategoriesWithoutDescription() {
-        SubCategory subCategoryDisabled1 = new SubCategoryBuilder()
+        SubCategory subCategoryWithoutDescription1 = new SubCategoryBuilder()
                 .withName("python")
                 .withCode("python")
                 .withDescription("")
-                .withStudyGuide("java...")
+                .withStudyGuide("python...")
                 .withStatus(SubCategoryStatus.DISABLED)
                 .withOrder(1)
                 .withCategory(category).create();
 
-        SubCategory subCategoryActive1 = new SubCategoryBuilder()
+        SubCategory subCategoryWithoutDescription2 = new SubCategoryBuilder()
+                .withName("go")
+                .withCode("go")
+                .withStudyGuide("go ...")
+                .withStatus(SubCategoryStatus.ACTIVE)
+                .withOrder(2)
+                .withCategory(category).create();
+
+        SubCategory subCategoryWithDescription1 = new SubCategoryBuilder()
                 .withName("java")
                 .withCode("java")
                 .withDescription("java...")
@@ -94,31 +108,12 @@ public class SubCategoryDaoTest {
                 .withOrder(1)
                 .withCategory(category).create();
 
-        SubCategory subCategoryActive2 = new SubCategoryBuilder()
-                .withName("python")
-                .withCode("python")
-                .withDescription("python...")
-                .withStudyGuide("python ...")
-                .withStatus(SubCategoryStatus.ACTIVE)
-                .withOrder(2)
-                .withCategory(category).create();
-
-        em.persist(subCategoryDisabled1);
-        em.persist(subCategoryActive1);
-        em.persist(subCategoryActive2);
+        em.persist(subCategoryWithoutDescription1);
+        em.persist(subCategoryWithDescription1);
+        em.persist(subCategoryWithoutDescription2);
         assertThat(dao.getSubcategoriesWithoutDescription())
-                .hasSize(1)
-                .containsExactly("python")
-                .doesNotContain("java", "go");
-    }
-
-    @AfterEach
-    void rollback() {
-        em.getTransaction().rollback();
-    }
-
-    @AfterAll
-    static void close() {
-        em.close();
+                .hasSize(2)
+                .containsExactly("python", "go")
+                .doesNotContain("java");
     }
 }

@@ -40,23 +40,6 @@ public class Program {
         //Tornar público
         courseDao.turnAllPublic();
 
-        courseDao.getAllPublic().forEach(publicCourse -> {
-            System.out.println("Curso Público: " + publicCourse.getName());
-        });
-
-        categoryDao.getAllActiveCategories().forEach(category -> {
-            System.out.println("Categoria Ativa: " + category.getName());
-        });
-
-        subcategoryDao.getAllActiveSubcategories().forEach(activesubCategory -> {
-            System.out.println(activesubCategory.getName());
-        });
-
-        subcategoryDao.getSubcategoriesWithoutDescription().forEach(subcategoryName -> {
-                    System.out.println("Subcategoria sem descrição: " + subcategoryName);
-                }
-        );
-
         writeHtml(courseDao.getAllPublic(), subcategoryDao.getAllActiveSubcategories(), subcategoryDao.getSubcategoriesWithoutDescription(), categoryDao.getAllActiveCategories());
 
         entityManager.getTransaction().commit();
