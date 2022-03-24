@@ -24,6 +24,11 @@ public class Alternative {
     @JoinColumn(name = "fk_question")
     private Question question;
 
+    @Deprecated
+    public Alternative() {
+
+    }
+
     public Alternative(String description, boolean correct, Question question) {
         isNotBlankEmptyOrNull(description, "Descrição de alternativa é requerida, não pode ser nula ou vazia");
         isObjectValid(question, "Questão é obrigatória, não pode ser nula");

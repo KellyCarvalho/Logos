@@ -22,26 +22,18 @@ public class CourseDao {
 
     public void delete(String code) {
         isNotBlankEmptyOrNull(code, "Código de curso é requerido");
-        existCourse(code);
         Query query = em.createQuery("DELETE FROM Course WHERE code = :code")
                 .setParameter("code", code);
-        System.out.println("Curso deletado com sucesso: " + code);
         query.executeUpdate();
     }
 
     public void turnAllPublic() {
-        Query query = em.createQuery("UPDATE Course c SET c.visibility = true WHERE visibility = false");
+        Query query = em.createQuery("UPDATE Course c SET c.visibility = true WHERE c.visibility = false");
         query.executeUpdate();
     }
 
     public List<Course> getAllPublic() {
         TypedQuery<Course> query = em.createQuery("SELECT c FROM Course c WHERE c.visibility = true", Course.class);
         return query.getResultList();
-    }
-
-    public Course existCourse(String code) {
-        TypedQuery<Course> query = em.createQuery("SELECT c FROM Course c WHERE c.code = :code", Course.class)
-                .setParameter("code", code);
-        return query.getSingleResult();
     }
 }

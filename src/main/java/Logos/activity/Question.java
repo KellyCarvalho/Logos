@@ -16,6 +16,11 @@ public class Question extends Activity {
     @Column(name = "type_question", columnDefinition = "ENUM('ACTIVE','DISABLED')")
     private TypeQuestion type;
 
+    @Deprecated
+    public Question(){
+
+    }
+
     public Question(String title, String code, Section section, String description, TypeQuestion type) {
         super(title, code, section);
         isNotBlankEmptyOrNull(description, "Descrição de questão é requerida, não pode ser vazia ou nula");

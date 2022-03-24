@@ -23,6 +23,7 @@ public abstract class Activity {
     @Column(name="position")
     private int order;
 
+    @Deprecated
     public Activity() {
     }
 

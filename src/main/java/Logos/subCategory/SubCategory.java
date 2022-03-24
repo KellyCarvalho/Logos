@@ -34,6 +34,7 @@ public class SubCategory {
     @JoinColumn(name = "fk_category")
     private Category category;
 
+    @Deprecated
     public SubCategory() {
     }
 

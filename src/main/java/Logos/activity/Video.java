@@ -4,7 +4,6 @@ import Logos.section.Section;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.MappedSuperclass;
 
 import static Logos.commonValidator.StringValidator.isNotBlankEmptyOrNull;
 @Entity
@@ -20,6 +19,11 @@ public class Video extends Activity {
         super(title, code, section);
         isNotBlankEmptyOrNull(url, "Url de vídeo não pode ser vazia ou nula");
         this.url = url;
+    }
+
+    @Deprecated
+    public Video() {
+
     }
 
     @Override

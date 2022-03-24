@@ -9,8 +9,6 @@ import static Logos.subCategory.enums.SubCategoryStatus.DISABLED;
 
 public class SubCategoryDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String code;

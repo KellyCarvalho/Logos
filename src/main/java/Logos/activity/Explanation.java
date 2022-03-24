@@ -4,7 +4,6 @@ import Logos.section.Section;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.MappedSuperclass;
 
 import static Logos.commonValidator.StringValidator.isNotBlankEmptyOrNull;
 @Entity
@@ -13,6 +12,7 @@ public class Explanation extends Activity {
     @Column(columnDefinition = "TEXT")
     private String description;
 
+    @Deprecated
     public Explanation() {
     }
 

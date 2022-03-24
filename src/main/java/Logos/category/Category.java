@@ -33,6 +33,7 @@ public class Category {
     @Column(name = "color_code")
     private String colorCode;
 
+    @Deprecated
     public Category() {
     }
 
