@@ -8,7 +8,7 @@ CREATE TABLE `Category`(
 `identifier_code` VARCHAR(255) UNIQUE NOT NULL,
 `study_guide` TEXT,
 `description` TEXT,
-`status` ENUM('ACTIVE','DISABLED') DEFAULT 'DISABLED', 
+`status` ENUM('ACTIVE','DISABLED') DEFAULT 'DISABLED',
 `position` INT,
 `image_url` VARCHAR(255),
 `color_code` VARCHAR(7)
@@ -34,7 +34,7 @@ CREATE TABLE `Course`(
 `visibility`BOOLEAN DEFAULT FALSE,
 `target_audience` VARCHAR(255),
 `instructor_name` VARCHAR(255) NOT NULL,
-`course_program_description` TEXT,
+`description` TEXT,
 `developed_skills` TEXT,
 `fk_subcategory`  BIGINT NOT NULL,
 FOREIGN KEY(`fk_subcategory`) REFERENCES `Subcategory`(`id`)
@@ -68,7 +68,7 @@ CREATE TABLE `Video`(
 `title` VARCHAR(255) NOT NULL,
 `identifier_code` VARCHAR(255) UNIQUE  NOT NULL,
 `active` BOOLEAN DEFAULT FALSE,
-`position` INT, 
+`position` INT,
 `url` VARCHAR(255) NOT NULL,
 `duration_in_minutes` INT,
 `transcription` TEXT,
@@ -92,7 +92,7 @@ CREATE TABLE `Alternative`(
 `id` BIGINT  PRIMARY KEY AUTO_INCREMENT,
 `description` TEXT NOT NULL,
 `position` INT,
-`correct` BOOLEAN DEFAULT FALSE, 
+`correct` BOOLEAN DEFAULT FALSE,
 `explanation_answer` VARCHAR(255),
 `fk_question` BIGINT NOT NULL,
 FOREIGN KEY(`fk_question`) REFERENCES `Question`(`id`)

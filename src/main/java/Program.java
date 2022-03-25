@@ -26,7 +26,7 @@ public class Program {
         SubcategoryDao subcategoryDao = new SubcategoryDao(entityManager);
         CourseDao courseDao = new CourseDao(entityManager);
 
-        List<Course> PublicCourses = courseDao.getAllPublic();
+        List<Course> publicCourses = courseDao.getAllPublic();
         List<SubCategory> activeSubcategories = subcategoryDao.getAllActiveSubcategories();
         List<String> subCategoriesWithoutDescription = subcategoryDao.getSubcategoriesWithoutDescription();
         List<Category> activeCategories = categoryDao.getAllActiveCategories();
@@ -45,7 +45,7 @@ public class Program {
 
         System.out.println();
         System.out.println("Cursos Públicos");
-        System.out.println(PublicCourses);
+        System.out.println(publicCourses);
         System.out.println();
         System.out.println("SubCategorias Ativas");
         System.out.println(activeSubcategories);
@@ -56,7 +56,7 @@ public class Program {
         System.out.println("Categorias Ativas");
         System.out.println(activeCategories);
 
-        writeHtml(PublicCourses, activeSubcategories, subCategoriesWithoutDescription, activeCategories);
+        writeHtml(publicCourses, activeSubcategories, subCategoriesWithoutDescription, activeCategories);
 
         entityManager.getTransaction().commit();
         entityManager.close();

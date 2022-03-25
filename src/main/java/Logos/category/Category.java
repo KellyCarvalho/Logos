@@ -5,6 +5,7 @@ import Logos.category.enums.CategoryStatus;
 
 import javax.persistence.*;
 import java.util.Objects;
+
 import static Logos.category.enums.CategoryStatus.DISABLED;
 import static Logos.category.enums.CategoryStatus.ACTIVE;
 
@@ -21,7 +22,7 @@ public class Category {
     private String code;
     @Column(columnDefinition = "TEXT")
     private String description;
-    @Column(name = "study_guide",columnDefinition = "TEXT")
+    @Column(name = "study_guide", columnDefinition = "TEXT")
     private String studyGuide;
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "ENUM('ACTIVE','DISABLED')")
@@ -90,10 +91,6 @@ public class Category {
 
     public CategoryStatus getStatus() {
         return status;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getStudyGuide() {

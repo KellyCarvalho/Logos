@@ -114,10 +114,6 @@ public class Course {
         return this.getSubCategory().getCode();
     }
 
-    public Long getSubCategoryId() {
-        return this.subCategory.getId();
-    }
-
     public String getInstructorName() {
         return instructorName;
     }
@@ -129,14 +125,6 @@ public class Course {
 
     public Long getId() {
         return id;
-    }
-
-    public Object getSubcategoryId() {
-        return subCategory.getId();
-    }
-
-    public Object getSubCategoryName() {
-        return subCategory.getName();
     }
 
     @Override
@@ -159,7 +147,7 @@ public class Course {
                 "visibility=" + visibility + '\n' +
                 "targetAudience='" + targetAudience + '\n' +
                 "instructor='" + instructorName + '\n' +
-                "courseProgramDescription='" + description + '\n' +
+                "Description='" + description + '\n' +
                 "skillsDeveloped='" + developedSkills + '\n'
                 + "subCategory:" + subCategory + '\n';
     }

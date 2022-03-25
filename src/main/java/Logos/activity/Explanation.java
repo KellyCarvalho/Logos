@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 
 import static Logos.commonValidator.StringValidator.isNotBlankEmptyOrNull;
+
 @Entity
 public class Explanation extends Activity {
 
@@ -18,7 +19,7 @@ public class Explanation extends Activity {
 
     public Explanation(String title, String code, Section section, String description) {
         super(title, code, section);
-        isNotBlankEmptyOrNull(description,"Descrição de explicação não pode ser nula ou vazia");
+        isNotBlankEmptyOrNull(description, "Descrição de explicação não pode ser nula ou vazia");
         this.description = description;
     }
 }

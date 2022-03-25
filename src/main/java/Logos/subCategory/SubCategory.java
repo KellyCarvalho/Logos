@@ -11,6 +11,7 @@ import static Logos.commonValidator.StringValidator.isNotBlankEmptyOrNull;
 import static Logos.commonValidator.StringValidator.doesCodeContainsOnlyLettersInLowerCaseAndHyphen;
 import static Logos.subCategory.enums.SubCategoryStatus.DISABLED;
 import static Logos.subCategory.enums.SubCategoryStatus.ACTIVE;
+
 @Entity
 @Table(name = "Subcategory")
 public class SubCategory {
@@ -19,16 +20,16 @@ public class SubCategory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @Column(name="identifier_code")
+    @Column(name = "identifier_code")
     private String code;
     @Column(columnDefinition = "TEXT")
     private String description;
-    @Column(name="study_guide", columnDefinition = "TEXT")
+    @Column(name = "study_guide", columnDefinition = "TEXT")
     private String studyGuide;
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "ENUM('ACTIVE','DISABLED')")
     private SubCategoryStatus status = DISABLED;
-    @Column(name="position")
+    @Column(name = "position")
     private int order;
     @ManyToOne
     @JoinColumn(name = "fk_category")
@@ -85,10 +86,6 @@ public class SubCategory {
 
     public boolean isActive() {
         return ACTIVE.equals(this.status);
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public boolean isEmptyDescription() {

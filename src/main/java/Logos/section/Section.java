@@ -7,6 +7,7 @@ import javax.persistence.*;
 import static Logos.commonValidator.ObjectValidator.isObjectValid;
 import static Logos.commonValidator.StringValidator.isNotBlankEmptyOrNull;
 import static Logos.commonValidator.StringValidator.isValidCode;
+
 @Entity
 public class Section {
 
@@ -23,6 +24,10 @@ public class Section {
     @ManyToOne
     @JoinColumn(name = "fk_course")
     private Course course;
+
+    @Deprecated
+    public Section() {
+    }
 
     public Section(String name, String code, Course course) {
         isNotBlankEmptyOrNull(name, "Nome da seção é requerido, não pode ser vazio ou nulo");

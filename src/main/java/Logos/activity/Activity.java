@@ -7,6 +7,7 @@ import javax.persistence.*;
 import static Logos.commonValidator.ObjectValidator.isObjectValid;
 import static Logos.commonValidator.StringValidator.isNotBlankEmptyOrNull;
 import static Logos.commonValidator.StringValidator.isValidCode;
+
 @MappedSuperclass
 public abstract class Activity {
 
@@ -14,13 +15,13 @@ public abstract class Activity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
-    @Column(name="identifier_code")
+    @Column(name = "identifier_code")
     private String code;
     @ManyToOne
     @JoinColumn(name = "fk_section")
     private Section section;
     private boolean active;
-    @Column(name="position")
+    @Column(name = "position")
     private int order;
 
     @Deprecated
