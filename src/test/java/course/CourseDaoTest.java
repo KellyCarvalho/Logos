@@ -67,7 +67,7 @@ public class CourseDaoTest {
                 .withSubCategory(subCategory)
                 .withVisibility(true)
                 .withTargetAudience("iniciantes")
-                .withCourseProgramDescription("java e OO")
+                .withDescription("java e OO")
                 .withDevelopedSkills("Java")
                 .create();
 
@@ -79,7 +79,7 @@ public class CourseDaoTest {
                 .withSubCategory(subCategory)
                 .withVisibility(true)
                 .withTargetAudience("iniciantes")
-                .withCourseProgramDescription("PHP e OO")
+                .withDescription("PHP e OO")
                 .withDevelopedSkills("PHP")
                 .create();
 

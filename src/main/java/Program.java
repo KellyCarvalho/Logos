@@ -43,18 +43,23 @@ public class Program {
         //Tornar público
         courseDao.turnAllPublic();
 
-        System.out.println();
         System.out.println("Cursos Públicos");
-        System.out.println(publicCourses);
+        publicCourses.forEach(publicCourse -> {
+            System.out.println(publicCourse.getName());
+        });
         System.out.println();
         System.out.println("SubCategorias Ativas");
-        System.out.println(activeSubcategories);
+        activeCategories.forEach(activeCategory -> {
+            System.out.println(activeCategory.getName());
+        });
         System.out.println();
         System.out.println("Nomes das SubCategorias sem descrição");
         System.out.println(subCategoriesWithoutDescription);
         System.out.println();
         System.out.println("Categorias Ativas");
-        System.out.println(activeCategories);
+        activeCategories.forEach(activeCategory->{
+            System.out.println(activeCategory.getName());
+        });
 
         writeHtml(publicCourses, activeSubcategories, subCategoriesWithoutDescription, activeCategories);
 

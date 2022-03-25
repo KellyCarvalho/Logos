@@ -50,8 +50,8 @@ public class CourseBuilder {
         return this;
     }
 
-    public CourseBuilder withCourseProgramDescription(String courseProgramDescription) {
-        this.description = courseProgramDescription;
+    public CourseBuilder withDescription(String description) {
+        this.description = description;
         return this;
     }
 
