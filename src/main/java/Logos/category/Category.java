@@ -3,6 +3,7 @@ package Logos.category;
 
 import Logos.category.enums.CategoryStatus;
 
+import javax.persistence.*;
 import java.util.Objects;
 
 import static Logos.category.enums.CategoryStatus.DISABLED;
@@ -10,17 +11,32 @@ import static Logos.category.enums.CategoryStatus.ACTIVE;
 
 import static Logos.commonValidator.StringValidator.*;
 
+@Entity
 public class Category {
 
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String name;
+    @Column(name = "identifier_code")
     private String code;
+    @Column(columnDefinition = "TEXT")
     private String description;
+    @Column(name = "study_guide", columnDefinition = "TEXT")
     private String studyGuide;
+    @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "ENUM('ACTIVE','DISABLED')")
     private CategoryStatus status = DISABLED;
+    @Column(name = "position")
     private int order;
+    @Column(name = "image_url")
     private String imageUrl;
+    @Column(name = "color_code")
     private String colorCode;
+
+    @Deprecated
+    public Category() {
+    }
 
     public Category(String name, String code) {
         isNotBlankEmptyOrNull(name, "Nome da categoria é requerido, não pode ser vazio ou em branco");
@@ -45,7 +61,7 @@ public class Category {
         this.colorCode = colorCode;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
@@ -77,8 +93,8 @@ public class Category {
         return status;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public String getStudyGuide() {
+        return studyGuide;
     }
 
     public boolean isActive() {

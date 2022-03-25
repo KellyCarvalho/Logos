@@ -2,18 +2,32 @@ package Logos.section;
 
 import Logos.course.Course;
 
+import javax.persistence.*;
+
 import static Logos.commonValidator.ObjectValidator.isObjectValid;
 import static Logos.commonValidator.StringValidator.isNotBlankEmptyOrNull;
 import static Logos.commonValidator.StringValidator.isValidCode;
 
+@Entity
 public class Section {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String name;
+    @Column(name = "identifier_code")
     private String code;
+    @Column(name = "position")
     private int order;
     private boolean active;
     private boolean test;
+    @ManyToOne
+    @JoinColumn(name = "fk_course")
     private Course course;
+
+    @Deprecated
+    public Section() {
+    }
 
     public Section(String name, String code, Course course) {
         isNotBlankEmptyOrNull(name, "Nome da seção é requerido, não pode ser vazio ou nulo");

@@ -2,153 +2,203 @@ package Logos.utils;
 
 import Logos.category.Category;
 import Logos.course.Course;
-import Logos.course.CourseDTO;
-import Logos.course.CourseDao;
 import Logos.subCategory.SubCategory;
 
-import java.io.*;
-import java.util.Collections;
-import java.util.Comparator;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
-import static Logos.course.CourseService.*;
-
 public class GenerateHtml {
-
-    public static void generateCategoryPage(List<Course> courses, List<SubCategory> subCategories, List<Category> categories) {
-        StringBuilder sb = new StringBuilder();
-        try (PrintStream ps = new PrintStream(new File("categories.html"), "UTF-16")) {
-            Collections.sort(categories, Comparator.comparing(Category::getOrder));
-            Collections.sort(subCategories, Comparator.comparing(SubCategory::getOrder));
-            String textHeader = """
-                    <html>
-
-                    <head>
-                    </head>
-
-                    <body style="background-color:#BCE0F3;">
-                        <div style="padding:20px;">
-                            <hr>
-                            <table>
-                                <tr>
-                                    <th>Categoria</th>
-                                    <th>Descrição</th>
-                                    <th>Ícone</th>
-                                    <th>Cor de Fundo</th>
-                                    <th>Nº Cursos</th>
-                                    <th>Horas de Curso</th>
-                                    <th>Cursos</th>
-                                    <th>SubCategorias</th>
-                                </tr>
-                        </div>
-                    """;
-            sb.append(textHeader);
-            categories.forEach(category -> {
-
-                List<Course> coursesToCategory = courses.stream().filter(course -> course.getCategory() == category).toList();
-
-                String text = """
+    
+    public static StringBuilder courseDataTable(List<Course> courses) {
+        StringBuilder html = new StringBuilder();
+        courses.forEach(course -> {
+            String body = """
                         <tr>
-                            <td>
-                                <div style="padding:20px;"> %s</div>
-                            </td>
-                            <td>
-                                <div style="padding:20px;"> %s</div>
-                            </td>
-                            <td><img style="width:100px;height:100px;" src="%s"></td>
-                            <td>
-                                <div style="background-color:%s; padding:40px; border-radius:40px"></div>
-                            </td>
-                            <td>
-                                <div style="padding:20px;"> %s</div>
-                            </td>
-                            <td>
-                                <div style="padding:20px;"> %s</div>
-                            </td>
-                            <td>
-                                <div style="padding:20px;"> %s</div>
-                            </td>
-                            <td>
-                                <div style="padding:20px;">
-                                    <dl>
-                                        <dd>%s</dd>
-                                    </dl>
-                                </div>
-                            </td>
+                          <td>%d</td>
+                          <td>%s</td>
+                          <td>%s</td>
+                          <td>%d</td>
+                          <td>%s</td>
+                          <td>%s</td>
+                          <td>%s</td>
                         </tr>
-                                                                 
-                                                """.formatted(category.getName(), category.getDescription(), category.getImageUrl(),
-                        category.getColorCode(), coursesToCategory.size(), getTotalCourseHours(coursesToCategory),
-                        getCoursesNames(coursesToCategory), getSubCategoryName(coursesToCategory));
+                    """.formatted(course.getId(), course.getName(), course.getCode(), course.getEstimatedTime(),
+                    course.getTargetAudience(), course.getDescription(), course.getDevelopedSkills());
+            html.append(body);
+        });
+        String htmlFooter = """
+                    </tbody>
+                  </table>
+                """;
+        html.append(htmlFooter);
+            return html;
+}
 
-                sb.append(!(getSubCategoryName(coursesToCategory).isBlank() || getSubCategoryName(coursesToCategory).isBlank() ||
-                        getSubCategoryName(coursesToCategory).equals(null)) ? text : "");
-
-            });
-            String textFoot = """
-                    </table>
-                    <hr>
-                    </body>
-
-                    </html>
-                                        """;
-            sb.append(textFoot);
-            ps.println(sb);
-            ps.flush();
-        } catch (IOException e) {
-            System.out.println("Ocorreu um erro ao gerar o arquivo html, certifique de que não faltou nenhuma lista a " +
-                    "ser referenciada, pois é necessário que a lista de categorias, subcategorias e cursos sejam passadas obrigatoriamente para gerar o arquivo");
-        }
-    }
-
-    public static void generateCoursePage() {
+    public static StringBuilder categoryDataTable(List<Category> categories) {
         StringBuilder sb = new StringBuilder();
         String htmlHeader = """
-                <html>
-                  <head>
-                  </head>    
-                  <body style="padding:20px;background-color:#FFC0CB">
-                  <h1>Cursos</h1>
+                  <h1>Categorias</h1>
                   <hr>
-                    <table width="467"  style="background-color:#DB7093;border-radius:20px;border:2px;">
+                    <table>
                       <thead>
                         <tr>
-                          <th style="padding:20px;">Id</th>      
-                          <th style="padding:20px;">Nome</th>
-                          <th style="padding:20px;">Tempo de finalização</th>
-                          <th style="padding:20px;">Id da subcategoria</th>
-                          <th style="padding:20px;">Nome da subcategoria</th>
+                          <th>Id</th>      
+                          <th>Nome</th>
+                          <th>Code</th>
+                          <th>Description</th>
+                          <th>Guia de Estudo</th>
+                          <th>Status</th>
+                          <th>Ordem</th>
                         </tr>  
                       </thead>
                       <tbody>
                 """;
         sb.append(htmlHeader);
-        CourseDao courseDao = new CourseDao();
-        List<CourseDTO> courses = courseDao.getAllPublic();
-        try (PrintStream printStream = new PrintStream(new File("files/courses.html"), "UTF-16")) {
-            courses.forEach(course -> {
-                String body = """
-                            <tr>
-                              <td style="padding:20px;">%d</td>
-                              <td style="padding:20px;">%s</td>
-                              <td style="padding:20px;">%d</td>
-                              <td style="padding:20px;">%d</td>
-                              <td style="padding:20px;">%s</td>
-                            </tr>
-                        """.formatted(course.getId(), course.getName(), course.getEstimatedTime(), course.getSubcategoryId(),
-                        course.getSubCategoryName());
-                sb.append(body);
-            });
-            String htmlFooter = """
-                        </tbody>
-                      </table>
-                    </body>
-                    </html>
-                    """;
-            sb.append(htmlFooter);
-            printStream.println(sb);
-        } catch (Exception  e) {
+        categories.forEach(category -> {
+            String body = """
+                        <tr>
+                          <td>%d</td>
+                          <td>%s</td>
+                          <td>%s</td>
+                          <td>%s</td>
+                          <td>%s</td>
+                          <td>%s</td>
+                          <td>%s</td>
+                        </tr>
+                    """.formatted(category.getId(), category.getName(), category.getCode(), category.getDescription(), category.getStudyGuide(), category.getStatus(), category.getOrder());
+            sb.append(body);
+        });
+        String htmlFooter = """
+                    </tbody>
+                  </table> 
+                """;
+        sb.append(htmlFooter);
+
+        return sb;
+    }
+
+    private static StringBuilder subCategoriesNamesWithoutDescriptionDataTable(List<String> subCategoriesNames){
+        StringBuilder sb = new StringBuilder();
+        String htmlHeader = """
+                  <h1>Nome das subcategorias sem descrição</h1>
+                  <hr>
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>Nomes </th>
+                        </tr>  
+                      </thead>
+                      <tbody>
+                """;
+        sb.append(htmlHeader);
+        subCategoriesNames.forEach(name -> {
+            String body = """
+                        <tr>
+                          <td>%s</td>
+                        </tr>
+                    """.formatted(name);
+            sb.append(body);
+        });
+        String htmlFooter = """
+                    </tbody>
+                  </table> 
+                """;
+        sb.append(htmlFooter);
+
+        return sb;
+    }
+
+    private static StringBuilder subCategoryDataTable(List<SubCategory> subCategories) {
+        StringBuilder sb = new StringBuilder();
+        String htmlHeader = """
+                  <h1>SubCategorias</h1>
+                  <hr>
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>Id</th>      
+                          <th>Nome</th>
+                          <th>Code</th>
+                          <th>Description</th>
+                          <th>Guia de Estudo</th>
+                          <th>Status</th>
+                          <th>Ordem</th>
+                        </tr>  
+                      </thead>
+                      <tbody>
+                """;
+        sb.append(htmlHeader);
+        subCategories.forEach(subCategory -> {
+            String body = """
+                        <tr>
+                          <td>%d</td>
+                          <td>%s</td>
+                          <td>%s</td>
+                          <td>%s</td>
+                          <td>%s</td>
+                          <td>%s</td>
+                          <td>%s</td>
+                        </tr>
+                    """.formatted(subCategory.getId(), subCategory.getName(), subCategory.getCode(), subCategory.getDescription(),
+                    subCategory.getStudyGuide(), subCategory.getStatus(), subCategory.getOrder());
+            sb.append(body);
+        });
+        return sb;
+    }
+
+    public static void writeHtml(List<Course> courses, List<SubCategory> subCategories,List<String> subcategoriesName, List<Category> categories) {
+        try (PrintStream printStream = new PrintStream(new File("files/data.html"), "UTF-16")) {
+
+            printStream.print(htmlHeader());
+            printStream.println(courseDataTable(courses));
+            printStream.println(categoryDataTable(categories));
+            printStream.println(subCategoriesNamesWithoutDescriptionDataTable(subcategoriesName));
+            printStream.println(subCategoryDataTable(subCategories));
+            printStream.print(htmlFooter());
+        } catch (FileNotFoundException | UnsupportedEncodingException e) {
             e.printStackTrace();
         }
+    }
+
+    private static String htmlHeader(){
+        return   """
+                    <html>
+                  <head>  
+                  <style>
+                  table, th, td {
+                    border: 1px solid black;
+                    border-collapse: collapse;
+                  }
+                  </style>
+                  </head>    
+                  <body>
+                  <h1>Cursos</h1>
+                  <hr>
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>Id</th>      
+                          <th>Nome</th>
+                          <th>Code</th>
+                          <th>Tempo de finalização</th>
+                          <th>Público Alvo</th>
+                          <th>Ementa</th>
+                          <th>Habilidades Desenvolvidas</th>
+                        </tr>  
+                      </thead>
+                      <tbody>
+                    """;
+    }
+
+    private static String htmlFooter(){
+        return  """
+                    </tbody>
+                  </table> 
+                </body>
+                </html>
+                """;
     }
 }

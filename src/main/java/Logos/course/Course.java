@@ -4,24 +4,40 @@ import Logos.category.Category;
 import Logos.subCategory.SubCategory;
 import Logos.subCategory.enums.SubCategoryStatus;
 
+import javax.persistence.*;
 import java.util.Objects;
 
 import static Logos.commonValidator.ObjectValidator.isObjectValid;
 import static Logos.commonValidator.StringValidator.isNotBlankEmptyOrNull;
 import static Logos.commonValidator.StringValidator.isValidCode;
 
+@Entity
 public class Course {
 
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String name;
+    @Column(name = "identifier_code")
     private String code;
+    @Column(name = "estimated_time")
     private int estimatedTime;
     private boolean visibility;
+    @Column(name = "target_audience")
     private String targetAudience;
+    @Column(name = "instructor_name")
     private String instructorName;
-    private String courseProgramDescription;
+    @Column(columnDefinition = "TEXT")
+    private String description;
+    @Column(name = "developed_skills", columnDefinition = "TEXT")
     private String developedSkills;
+    @ManyToOne
+    @JoinColumn(name = "fk_subcategory")
     private SubCategory subCategory;
+
+    @Deprecated
+    public Course() {
+    }
 
     public Course(String name, String code, int estimatedTime, String instructorName, SubCategory subCategory) {
         isValidCode(code, "Código do curso não é válido ou está null ou vazio - deve ter caracteres de a-z " +
@@ -38,11 +54,11 @@ public class Course {
     }
 
     public Course(String name, String code, int estimatedTime, boolean visibility, String targetAudience, String instructorName,
-                  String courseProgramDescription, String developedSkills, SubCategory subCategory) {
+                  String description, String developedSkills, SubCategory subCategory) {
         this(name, code, estimatedTime, instructorName, subCategory);
         this.visibility = visibility;
         this.targetAudience = targetAudience;
-        this.courseProgramDescription = courseProgramDescription;
+        this.description = description;
         this.developedSkills = developedSkills;
     }
 
@@ -78,8 +94,8 @@ public class Course {
         return targetAudience;
     }
 
-    public String getCourseProgramDescription() {
-        return courseProgramDescription;
+    public String getDescription() {
+        return description;
     }
 
     public String getDevelopedSkills() {
@@ -98,8 +114,6 @@ public class Course {
         return this.getSubCategory().getCode();
     }
 
-    public int getSubCategoryId() { return this.subCategory.getId();}
-
     public String getInstructorName() {
         return instructorName;
     }
@@ -107,6 +121,10 @@ public class Course {
     private static void isValidEstimatedTime(int estimatedTime, int min, int max) {
         if (estimatedTime < min || estimatedTime > max)
             throw new IllegalArgumentException("Tempo estimado de curso não pode ser menor que " + min + " ou maior que " + max);
+    }
+
+    public Long getId() {
+        return id;
     }
 
     @Override
@@ -129,7 +147,7 @@ public class Course {
                 "visibility=" + visibility + '\n' +
                 "targetAudience='" + targetAudience + '\n' +
                 "instructor='" + instructorName + '\n' +
-                "courseProgramDescription='" + courseProgramDescription + '\n' +
+                "Description='" + description + '\n' +
                 "skillsDeveloped='" + developedSkills + '\n'
                 + "subCategory:" + subCategory + '\n';
     }
