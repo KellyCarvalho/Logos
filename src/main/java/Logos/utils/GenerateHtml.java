@@ -26,7 +26,7 @@ public class GenerateHtml {
                           <td>%s</td>
                         </tr>
                     """.formatted(course.getId(), course.getName(), course.getCode(), course.getEstimatedTime(),
-                    course.getTargetAudience(), course.getCourseProgramDescription(), course.getDevelopedSkills());
+                    course.getTargetAudience(), course.getDescription(), course.getDevelopedSkills());
             html.append(body);
         });
         String htmlFooter = """

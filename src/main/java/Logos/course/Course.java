@@ -28,7 +28,7 @@ public class Course {
     @Column(name = "instructor_name")
     private String instructorName;
     @Column(name = "course_program_description", columnDefinition = "TEXT")
-    private String courseProgramDescription;
+    private String description;
     @Column(name = "developed_skills", columnDefinition = "TEXT")
     private String developedSkills;
     @ManyToOne
@@ -54,11 +54,11 @@ public class Course {
     }
 
     public Course(String name, String code, int estimatedTime, boolean visibility, String targetAudience, String instructorName,
-                  String courseProgramDescription, String developedSkills, SubCategory subCategory) {
+                  String description, String developedSkills, SubCategory subCategory) {
         this(name, code, estimatedTime, instructorName, subCategory);
         this.visibility = visibility;
         this.targetAudience = targetAudience;
-        this.courseProgramDescription = courseProgramDescription;
+        this.description = description;
         this.developedSkills = developedSkills;
     }
 
@@ -94,8 +94,8 @@ public class Course {
         return targetAudience;
     }
 
-    public String getCourseProgramDescription() {
-        return courseProgramDescription;
+    public String getDescription() {
+        return description;
     }
 
     public String getDevelopedSkills() {
@@ -159,7 +159,7 @@ public class Course {
                 "visibility=" + visibility + '\n' +
                 "targetAudience='" + targetAudience + '\n' +
                 "instructor='" + instructorName + '\n' +
-                "courseProgramDescription='" + courseProgramDescription + '\n' +
+                "courseProgramDescription='" + description + '\n' +
                 "skillsDeveloped='" + developedSkills + '\n'
                 + "subCategory:" + subCategory + '\n';
     }

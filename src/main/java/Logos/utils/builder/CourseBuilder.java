@@ -3,10 +3,6 @@ package Logos.utils.builder;
 import Logos.course.Course;
 import Logos.subCategory.SubCategory;
 
-import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
 public class CourseBuilder {
 
     private String name;
@@ -15,7 +11,7 @@ public class CourseBuilder {
     private boolean visibility;
     private String targetAudience;
     private String instructorName;
-    private String courseProgramDescription;
+    private String description;
     private String developedSkills;
     private SubCategory subCategory;
 
@@ -55,7 +51,7 @@ public class CourseBuilder {
     }
 
     public CourseBuilder withCourseProgramDescription(String courseProgramDescription) {
-        this.courseProgramDescription = courseProgramDescription;
+        this.description = courseProgramDescription;
         return this;
     }
 
@@ -65,6 +61,6 @@ public class CourseBuilder {
     }
 
     public Course create() {
-        return new Course(name, code, estimatedTime, visibility, targetAudience, instructorName, courseProgramDescription, developedSkills, subCategory);
+        return new Course(name, code, estimatedTime, visibility, targetAudience, instructorName, description, developedSkills, subCategory);
     }
 }

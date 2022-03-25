@@ -47,7 +47,7 @@ public class GenerateSql {
                     VALUES("%s","%s",%s,%s,"%s","%s","%s","%s",(SELECT `id` FROM `Subcategory` WHERE `identifier_code`="%s"));
                                         
                     """.formatted(course.getName(), course.getCode(), course.getEstimatedTime(), course.isVisibility(),
-                    course.getTargetAudience(), course.getInstructorName(), course.getCourseProgramDescription(), course.getDevelopedSkills(), course.getSubCategoryCode());
+                    course.getTargetAudience(), course.getInstructorName(), course.getDescription(), course.getDevelopedSkills(), course.getSubCategoryCode());
             sb.append(sql);
         });
     }
