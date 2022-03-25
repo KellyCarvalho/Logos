@@ -32,11 +32,6 @@ public class Program {
         //DELETE
         courseDao.delete("javaoo");
 
-        System.out.println("Cursos Públicos");
-        courseDao.getAllPublic().forEach(publicCourse -> {
-            System.out.println("Nome: " + publicCourse.getName());
-        });
-
         //Tornar público
         courseDao.turnAllPublic();
 

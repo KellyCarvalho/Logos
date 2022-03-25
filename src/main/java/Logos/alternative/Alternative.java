@@ -6,6 +6,7 @@ import javax.persistence.*;
 
 import static Logos.commonValidator.ObjectValidator.isObjectValid;
 import static Logos.commonValidator.StringValidator.isNotBlankEmptyOrNull;
+
 @Entity
 public class Alternative {
 
@@ -26,7 +27,6 @@ public class Alternative {
 
     @Deprecated
     public Alternative() {
-
     }
 
     public Alternative(String description, boolean correct, Question question) {

@@ -7,6 +7,7 @@ import javax.persistence.*;
 
 import static Logos.commonValidator.ObjectValidator.isObjectValid;
 import static Logos.commonValidator.StringValidator.isNotBlankEmptyOrNull;
+
 @Entity
 public class Question extends Activity {
 
@@ -17,8 +18,7 @@ public class Question extends Activity {
     private TypeQuestion type;
 
     @Deprecated
-    public Question(){
-
+    public Question() {
     }
 
     public Question(String title, String code, Section section, String description, TypeQuestion type) {

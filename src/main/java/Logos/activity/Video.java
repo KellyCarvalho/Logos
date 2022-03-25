@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 
 import static Logos.commonValidator.StringValidator.isNotBlankEmptyOrNull;
+
 @Entity
 public class Video extends Activity {
 
@@ -15,15 +16,14 @@ public class Video extends Activity {
     @Column(columnDefinition = "TEXT")
     private String transcription;
 
+    @Deprecated
+    public Video() {
+    }
+
     public Video(String title, String code, Section section, String url) {
         super(title, code, section);
         isNotBlankEmptyOrNull(url, "Url de vídeo não pode ser vazia ou nula");
         this.url = url;
-    }
-
-    @Deprecated
-    public Video() {
-
     }
 
     @Override

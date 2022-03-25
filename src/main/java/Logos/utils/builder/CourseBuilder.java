@@ -3,16 +3,21 @@ package Logos.utils.builder;
 import Logos.course.Course;
 import Logos.subCategory.SubCategory;
 
+import javax.persistence.Column;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
 public class CourseBuilder {
+
     private String name;
     private String code;
     private int estimatedTime;
-    private String instructorName;
-    private boolean visibility = false;
-    private SubCategory subCategory;
+    private boolean visibility;
     private String targetAudience;
+    private String instructorName;
     private String courseProgramDescription;
     private String developedSkills;
+    private SubCategory subCategory;
 
     public CourseBuilder withName(String name) {
         this.name = name;
