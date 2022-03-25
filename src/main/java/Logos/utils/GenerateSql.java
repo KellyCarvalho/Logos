@@ -43,7 +43,7 @@ public class GenerateSql {
     public static void writeInsertCourses() {
         courses.forEach(course -> {
             String sql = """
-                    INSERT INTO Course(`name`,`identifier_code`,`estimated_time`,`visibility`,`target_audience`,`instructor_name`,`course_program_description`,`developed_skills`,`fk_subcategory`)
+                    INSERT INTO Course(`name`,`identifier_code`,`estimated_time`,`visibility`,`target_audience`,`instructor_name`,`description`,`developed_skills`,`fk_subcategory`)
                     VALUES("%s","%s",%s,%s,"%s","%s","%s","%s",(SELECT `id` FROM `Subcategory` WHERE `identifier_code`="%s"));
                                         
                     """.formatted(course.getName(), course.getCode(), course.getEstimatedTime(), course.isVisibility(),

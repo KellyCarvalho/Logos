@@ -1,3 +1,4 @@
+import Logos.category.Category;
 import Logos.category.CategoryDao;
 import Logos.course.Course;
 import Logos.course.CourseDao;
@@ -5,6 +6,8 @@ import Logos.subCategory.SubCategory;
 import Logos.subCategory.SubcategoryDao;
 
 import javax.persistence.EntityManager;
+
+import java.util.List;
 
 import static Logos.utils.GenerateHtml.writeHtml;
 import static Logos.utils.GenerateSql.writeSql;
@@ -23,6 +26,11 @@ public class Program {
         SubcategoryDao subcategoryDao = new SubcategoryDao(entityManager);
         CourseDao courseDao = new CourseDao(entityManager);
 
+        List<Course> PublicCourses = courseDao.getAllPublic();
+        List<SubCategory> activeSubcategories = subcategoryDao.getAllActiveSubcategories();
+        List<String> subCategoriesWithoutDescription = subcategoryDao.getSubcategoriesWithoutDescription();
+        List<Category> activeCategories = categoryDao.getAllActiveCategories();
+
         //Objeto de inserção
         SubCategory subCategory = subcategoryDao.getByCode("java");
         Course course = new Course("Java oo", "javaoo", 10, "alana", subCategory);
@@ -35,7 +43,20 @@ public class Program {
         //Tornar público
         courseDao.turnAllPublic();
 
-        writeHtml(courseDao.getAllPublic(), subcategoryDao.getAllActiveSubcategories(), subcategoryDao.getSubcategoriesWithoutDescription(), categoryDao.getAllActiveCategories());
+        System.out.println();
+        System.out.println("Cursos Públicos");
+        System.out.println(PublicCourses);
+        System.out.println();
+        System.out.println("SubCategorias Ativas");
+        System.out.println(activeSubcategories);
+        System.out.println();
+        System.out.println("Nomes das SubCategorias sem descrição");
+        System.out.println(subCategoriesWithoutDescription);
+        System.out.println();
+        System.out.println("Categorias Ativas");
+        System.out.println(activeCategories);
+
+        writeHtml(PublicCourses, activeSubcategories, subCategoriesWithoutDescription, activeCategories);
 
         entityManager.getTransaction().commit();
         entityManager.close();

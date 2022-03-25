@@ -27,7 +27,7 @@ public class Course {
     private String targetAudience;
     @Column(name = "instructor_name")
     private String instructorName;
-    @Column(name = "course_program_description", columnDefinition = "TEXT")
+    @Column(columnDefinition = "TEXT")
     private String description;
     @Column(name = "developed_skills", columnDefinition = "TEXT")
     private String developedSkills;
