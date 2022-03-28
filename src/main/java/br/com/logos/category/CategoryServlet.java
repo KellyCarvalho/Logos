@@ -21,56 +21,13 @@ public class CategoryServlet extends HttpServlet {
         categoryDao = new CategoryDao(getEntityManager("logos"));
         List<Category> categories = categoryDao.getAllCategories();
 
-        PrintWriter out = response.getWriter();
-
-        StringBuilder html = new StringBuilder("""
-                <html>
-                <head>
-                </head>
-                <body>
-                <h1>Categorias<h1>
-                  <table>
-                    <thead>
-                      <th>Id</th>
-                      <th>Código</th>
-                      <th>Nome</th>
-                      <th>Descrição</th>
-                      <th>Guia de Estudo</th>
-                      <th>Status</th>
-                      <th>Ordem</th>
-                      <th>Imagem</th>
-                      <th>Código da cor</th>
-                      </thead>
-                      <tbody>
-                """);
-
-        categories.forEach(category -> {
-            html.append("""
-                    <tr>
-                    <td>%s</td>
-                    <td>%s</td>
-                    <td>%s</td>
-                    <td>%s</td>
-                    <td>%s</td>
-                    <td>%s</td>
-                    <td>%s</td>
-                    <td>%s</td>
-                    <td>%s</td>
-                    </tr>
-
-                    """.formatted(category.getId(), category.getCode(), category.getName(), category.getDescription(),
-                    category.getStudyGuide(), category.getStatus(), category.getOrder(), category.getImageUrl(), category.getColorCode()));
-        });
-        html.append("""
-                </tbody>
-                </body>
-                </html>
-                """);
-        out.println(html);
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/CategoriesList.jsp");
+        request.setAttribute("categories",categories);
+        requestDispatcher.forward(request,response);
     }
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }
+//    @Override
+//    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//
+//    }
 }
