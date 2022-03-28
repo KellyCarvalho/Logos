@@ -1,6 +1,5 @@
-<%@ page import="java.util.List" %>
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
     <title>Categories</title>
@@ -22,34 +21,19 @@
     </tr>
     <tbody>
 
-    <%@ page import="br.com.logos.category.Category" %>
-    <%
-        List<Category> categories = (List<Category>) request.getAttribute("categories");
-        for (Category category : categories) {
-    %>
+    <c:forEach items="${categories}" var="category">
     <tr>
-        <td><%= category.getId()%>
-        </td>
-        <td><%= category.getCode()%>
-        </td>
-        <td><%= category.getName()%>
-        </td>
-        <td><%= category.getDescription()%>
-        </td>
-        <td><%= category.getStudyGuide()%>
-        </td>
-        <td><%= category.getStatus()%>
-        </td>
-        <td><%= category.getOrder()%>
-        </td>
-        <td><%= category.getImageUrl()%>
-        </td>
-        <td><%= category.getColorCode()%>
-        </td>
+        <td>${category.id}</td>
+        <td>${category.code}</td>
+        <td>${category.name}</td>
+        <td>${category.description}</td>
+        <td>${category.studyGuide}</td>
+        <td>${category.status}</td>
+        <td>${category.order}</td>
+        <td>${category.imageUrl}</td>
+        <td>${category.colorCode}</td>
     </tr>
-    <%
-        }
-    %>
+    </c:forEach>
 
     </tbody>
 </table>
