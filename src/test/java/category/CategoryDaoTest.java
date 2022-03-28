@@ -1,16 +1,16 @@
 package category;
 
-import Logos.category.Category;
-import Logos.category.CategoryDao;
-import Logos.category.enums.CategoryStatus;
-import Logos.utils.builder.CategoryBuilder;
+import br.com.logos.category.Category;
+import br.com.logos.category.CategoryDao;
+import br.com.logos.category.enums.CategoryStatus;
+import br.com.logos.utils.builder.CategoryBuilder;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javax.persistence.EntityManager;
 
-import static Logos.utils.JPAUtil.getEntityManager;
+import static br.com.logos.utils.JPAUtil.getEntityManager;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
 public class CategoryDaoTest {

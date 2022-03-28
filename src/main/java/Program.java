@@ -1,17 +1,17 @@
-import Logos.category.Category;
-import Logos.category.CategoryDao;
-import Logos.course.Course;
-import Logos.course.CourseDao;
-import Logos.subCategory.SubCategory;
-import Logos.subCategory.SubcategoryDao;
+import br.com.logos.category.Category;
+import br.com.logos.category.CategoryDao;
+import br.com.logos.course.Course;
+import br.com.logos.course.CourseDao;
+import br.com.logos.subCategory.SubCategory;
+import br.com.logos.subCategory.SubcategoryDao;
 
 import javax.persistence.EntityManager;
 
 import java.util.List;
 
-import static Logos.utils.GenerateHtml.writeHtml;
-import static Logos.utils.GenerateSql.writeSql;
-import static Logos.utils.JPAUtil.getEntityManager;
+import static br.com.logos.utils.GenerateHtml.writeHtml;
+import static br.com.logos.utils.GenerateSql.writeSql;
+import static br.com.logos.utils.JPAUtil.getEntityManager;
 
 public class Program {
 

@@ -1,7 +1,7 @@
 package subCategory;
 
-import Logos.category.Category;
-import Logos.subCategory.SubCategory;
+import br.com.logos.category.Category;
+import br.com.logos.subCategory.SubCategory;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -10,12 +10,12 @@ import org.junit.jupiter.params.provider.EmptySource;
 import java.util.Arrays;
 import java.util.List;
 
-import static Logos.subCategory.SubCategoryService.getQuantitySubCategoriesActivesWithDescription;
-import static Logos.subCategory.SubCategoryService.getSubCategoriesWithoutDescription;
+import static br.com.logos.subCategory.SubCategoryService.getQuantitySubCategoriesActivesWithDescription;
+import static br.com.logos.subCategory.SubCategoryService.getSubCategoriesWithoutDescription;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static Logos.subCategory.enums.SubCategoryStatus.ACTIVE;
-import static Logos.subCategory.enums.SubCategoryStatus.DISABLED;
+import static br.com.logos.subCategory.enums.SubCategoryStatus.ACTIVE;
+import static br.com.logos.subCategory.enums.SubCategoryStatus.DISABLED;
 
 public class SubCategoryServiceTest {
 
