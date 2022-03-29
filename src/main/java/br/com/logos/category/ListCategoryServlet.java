@@ -7,6 +7,7 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.List;
 
+import static br.com.logos.utils.GenerateSql.writeSql;
 import static br.com.logos.utils.JPAUtil.getEntityManager;
 
 @WebServlet("/listaCategorias")
@@ -20,6 +21,8 @@ public class ListCategoryServlet extends HttpServlet {
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setCharacterEncoding("UTF-8");
         request.setCharacterEncoding("UTF-8");
+        //Carregar os dados da pasta files/database
+        writeSql();
         categoryDao = new CategoryDao(getEntityManager("logos"));
         List<Category> categories = categoryDao.getAllCategories();
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("/categoriesList.jsp");
