@@ -56,6 +56,6 @@ public class CategoryBuilder {
     }
 
     public Category create() {
-        return new Category(name, code, description, status, order, imageUrl, colorCode);
+        return new Category(name, code, description,studyGuide, status, order, imageUrl, colorCode);
     }
 }

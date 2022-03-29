@@ -24,18 +24,17 @@ public class CategoryDao {
 
     public Long insert(Category category){
         this.em.persist(category);
-        this.em.getTransaction().begin();
-        this.em.getTransaction().commit();
-        em.close();
         return category.getId();
     }
 
     public Long update(Category category){
-        this.em.persist(category);
-        this.em.getTransaction().begin();
-        this.em.getTransaction().commit();
-        em.close();
+        this.em.merge(category);
         return category.getId();
+    }
+
+    public Category getById(Long id){
+        return em.createQuery("SELECT c FROM Category c  WHERE c.id=:id", Category.class)
+                .setParameter("id",id).getSingleResult();
     }
 
 }

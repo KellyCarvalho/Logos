@@ -10,25 +10,24 @@ import java.io.IOException;
 
 import static br.com.logos.utils.JPAUtil.getEntityManager;
 
-@WebServlet("/novaCategoria")
-public class CreateCategoryServlet extends HttpServlet {
+@WebServlet("/mudarStatus")
+public class ChangeStatusCategoryServlet extends HttpServlet {
 
-
+    @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setCharacterEncoding("UTF-8");
         request.setCharacterEncoding("UTF-8");
         EntityManager entityManager = getEntityManager("logos");
         entityManager.getTransaction().begin();
-        CategoryService categoryService = new CategoryService();
-
-        Category category = categoryService.toCategory(request.getParameter("id"), request.getParameter("name"), request.getParameter("code"),
-                request.getParameter("description"), request.getParameter("studyGuide"), "ACTIVE", request.getParameter("order"),
-                request.getParameter("imageUrl"), request.getParameter("colorCode"));
-
         CategoryDao categoryDao = new CategoryDao(entityManager);
-        categoryDao.insert(category);
+
+        Category category = categoryDao.getById(Long.parseLong(request.getParameter("id")));
+
+        if (category.getStatus() == CategoryStatus.ACTIVE) {
+            category.setStatus(CategoryStatus.DISABLED);
+        }
+        categoryDao.update(category);
         entityManager.getTransaction().commit();
         entityManager.close();
-        response.sendRedirect("/listaCategorias");
     }
 }

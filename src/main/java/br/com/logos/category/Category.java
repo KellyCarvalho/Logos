@@ -51,17 +51,27 @@ public class Category {
     }
 
     public Category(String name, String code, String description, CategoryStatus status, int order, String imageUrl, String colorCode) {
-        this(name, code);
+        this(name, code, status);
         StringValidator.isValidColor(colorCode, "Cor de categoria não é válida");
         this.description = description;
-        this.status = status;
+        this.status=status;
         this.order = order;
         this.imageUrl = imageUrl;
         this.colorCode = colorCode;
     }
 
+    public Category(String name, String code, String description, String studyGuide, CategoryStatus status, int order, String imageUrl, String colorCode) {
+        this(name, code, description, status, order, imageUrl, colorCode);
+        StringValidator.isValidColor(colorCode, "Cor de categoria não é válida");
+        this.studyGuide = studyGuide;
+    }
+
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getCode() {
@@ -94,6 +104,10 @@ public class Category {
 
     public String getStudyGuide() {
         return studyGuide;
+    }
+
+    public void setStatus(CategoryStatus status) {
+        this.status = status;
     }
 
     public boolean isActive() {
