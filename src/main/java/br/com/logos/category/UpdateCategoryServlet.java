@@ -13,7 +13,7 @@ import static br.com.logos.utils.JPAUtil.getEntityManager;
 @WebServlet("/alterarCategoria")
 public class UpdateCategoryServlet extends HttpServlet {
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setCharacterEncoding("UTF-8");
         request.setCharacterEncoding("UTF-8");
         EntityManager entityManager = getEntityManager("logos");

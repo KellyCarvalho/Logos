@@ -17,12 +17,9 @@ public class ListCategoryServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
-
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setCharacterEncoding("UTF-8");
         request.setCharacterEncoding("UTF-8");
-        //Carregar os dados da pasta files/database
-        writeSql();
         categoryDao = new CategoryDao(getEntityManager("logos"));
         List<Category> categories = categoryDao.getAllCategories();
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("/categoriesList.jsp");

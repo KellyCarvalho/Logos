@@ -14,7 +14,7 @@ import static br.com.logos.utils.JPAUtil.getEntityManager;
 public class ChangeStatusCategoryServlet extends HttpServlet {
 
     @Override
-    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void service(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setCharacterEncoding("UTF-8");
         request.setCharacterEncoding("UTF-8");
         EntityManager entityManager = getEntityManager("logos");
