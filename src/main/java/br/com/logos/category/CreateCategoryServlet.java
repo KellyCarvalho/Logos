@@ -14,6 +14,8 @@ import static br.com.logos.utils.JPAUtil.getEntityManager;
 public class CreateCategoryServlet extends HttpServlet {
 
     protected void service(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
         EntityManager entityManager = getEntityManager("logos");
         entityManager.getTransaction().begin();
         CategoryService categoryService = new CategoryService();
