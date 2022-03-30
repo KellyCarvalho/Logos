@@ -12,8 +12,6 @@ import static br.com.logos.utils.JPAUtil.getEntityManager;
 public class ShowCategoryServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setCharacterEncoding("UTF-8");
-        request.setCharacterEncoding("UTF-8");
         EntityManager entityManager = getEntityManager("logos");
         CategoryDao categoryDao = new CategoryDao(entityManager);
         Category category = categoryDao.getById(Long.parseLong(request.getParameter("id")));
