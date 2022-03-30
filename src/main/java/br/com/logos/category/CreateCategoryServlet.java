@@ -1,11 +1,10 @@
 package br.com.logos.category;
 
-import br.com.logos.category.enums.CategoryStatus;
-
 import javax.persistence.EntityManager;
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import static br.com.logos.utils.JPAUtil.getEntityManager;
