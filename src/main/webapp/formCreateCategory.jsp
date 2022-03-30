@@ -2,24 +2,32 @@
 <html>
 <head>
     <title>Criar Categoria</title>
+    <meta charset="UTF-8">
 </head>
 <body>
-<form action="/novaCategoria" method="post">
-    <br><label>Nome</label>
-    <input type="text" name="name"/>
+  <h1>Nova Categoria</h1>
+  <form action="/novaCategoria" method="post">
+    <label>Nome</label>
+    <input type="text" name="name" required/>
     <br>
     <br>
     <label>Código</label>
-    <input type="text" name="code"/>
+    <input type="text" name="code" required/>
     <br>
     <br>
     <label>Descrição</label>
-    <input name="description"/>
+    <textarea name="description"></textarea>
     <br>
     <br>
     <label>Guia de estudos</label>
     <input type="text" name="studyGuide"/>
     <br>
+    <br>
+    <label>Status</label>
+    <select name="status"  text="${category.status}">
+        <option value="ACTIVE">ATIVA</option>
+        <option value="DISABLED">DESABILITADA</option>
+    </select>
     <br>
     <br>
     <label>Ordem</label>
@@ -34,7 +42,7 @@
     <input type="color" name="colorCode">
     <br>
     <br>
-    <input type="submit">
-</form>
+    <input value="Salvar" type="submit">
+  </form>
 </body>
 </html>

@@ -114,6 +114,12 @@ public class Category {
         return ACTIVE.equals(this.getStatus());
     }
 
+    void disableCategory() {
+        if (getStatus() == ACTIVE) {
+            setStatus(DISABLED);
+        }
+    }
+
     @Override
     public String toString() {
         return "Nome= " + name + '\n' +
@@ -138,4 +144,5 @@ public class Category {
     public int hashCode() {
         return Objects.hash(code);
     }
+
 }

@@ -14,14 +14,12 @@ import static br.com.logos.utils.JPAUtil.getEntityManager;
 public class CreateCategoryServlet extends HttpServlet {
 
     protected void service(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.setCharacterEncoding("UTF-8");
-        request.setCharacterEncoding("UTF-8");
         EntityManager entityManager = getEntityManager("logos");
         entityManager.getTransaction().begin();
         CategoryService categoryService = new CategoryService();
 
         Category category = categoryService.toCategory(request.getParameter("id"), request.getParameter("name"), request.getParameter("code"),
-                request.getParameter("description"), request.getParameter("studyGuide"), "ACTIVE", request.getParameter("order"),
+                request.getParameter("description"), request.getParameter("studyGuide"), request.getParameter("status"), request.getParameter("order"),
                 request.getParameter("imageUrl"), request.getParameter("colorCode"));
 
         CategoryDao categoryDao = new CategoryDao(entityManager);

@@ -36,5 +36,4 @@ public class CategoryDao {
         return em.createQuery("SELECT c FROM Category c  WHERE c.id=:id", Category.class)
                 .setParameter("id",id).getSingleResult();
     }
-
 }
