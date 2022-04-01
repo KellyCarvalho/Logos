@@ -4,6 +4,7 @@
     <title>Criar Categoria</title>
     <meta charset="UTF-8">
 </head>
+
 <body>
   <h1>Nova Categoria</h1>
   <form action="/novaCategoria" method="post">
@@ -25,8 +26,8 @@
     <br>
     <label>Status</label>
     <select name="status"  text="${category.status}">
-        <option value="ACTIVE">ATIVA</option>
-        <option value="DISABLED">DESABILITADA</option>
+      <option value="ACTIVE">ATIVA</option>
+      <option value="DISABLED">DESABILITADA</option>
     </select>
     <br>
     <br>
