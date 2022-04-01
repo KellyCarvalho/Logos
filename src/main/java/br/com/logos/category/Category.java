@@ -54,7 +54,7 @@ public class Category {
         this(name, code, status);
         StringValidator.isValidColor(colorCode, "Cor de categoria não é válida");
         this.description = description;
-        this.status=status;
+        this.status = status;
         this.order = order;
         this.imageUrl = imageUrl;
         this.colorCode = colorCode;

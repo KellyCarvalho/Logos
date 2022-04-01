@@ -33,7 +33,7 @@ public class CategoryDao {
     }
 
     public Category getById(Long id){
-        return em.createQuery("SELECT c FROM Category c  WHERE c.id=:id", Category.class)
+        return em.createQuery("SELECT c FROM Category c  WHERE c.id = :id", Category.class)
                 .setParameter("id",id).getSingleResult();
     }
 }

@@ -19,9 +19,7 @@ public class CreateCategoryServlet extends HttpServlet {
         entityManager.getTransaction().begin();
         CategoryService categoryService = new CategoryService();
 
-        Category category = categoryService.toCategory(request.getParameter("id"), request.getParameter("name"), request.getParameter("code"),
-                request.getParameter("description"), request.getParameter("studyGuide"), request.getParameter("status"), request.getParameter("order"),
-                request.getParameter("imageUrl"), request.getParameter("colorCode"));
+        Category category = categoryService.toCategory(request);
 
         CategoryDao categoryDao = new CategoryDao(entityManager);
         categoryDao.insert(category);

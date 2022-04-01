@@ -3,7 +3,7 @@
 <html>
 
 <head>
-    <title>Categories</title>
+    <title>Categorias</title>
     <meta charset="UTF-8">
 </head>
 
@@ -51,9 +51,8 @@
   <script>
 
   function disableCategory(id) {
-
     let status = document.querySelector("#status_" + id);
-    let url = "/mudarStatus?id=" + id + "";
+    let url = "/mudarStatusCategoria?id=" + id;
     if (status.textContent === "ACTIVE") {
       const request = new XMLHttpRequest();
       request.open("POST", url);
@@ -61,7 +60,7 @@
         if (request.status == 200) {
           status.textContent = "DISABLED";
         } else {
-          alert("Ocorreu um erro, nada foi alterado!");
+          alert("Ocorreu um erro, tente novamente mais tarde");
         }
       })
       request.send();

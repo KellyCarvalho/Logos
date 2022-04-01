@@ -6,7 +6,7 @@ import javax.servlet.annotation.*;
 
 import static br.com.logos.utils.JPAUtil.getEntityManager;
 
-@WebServlet("/mudarStatus")
+@WebServlet("/mudarStatusCategoria")
 public class ChangeStatusCategoryServlet extends HttpServlet {
 
     @Override
