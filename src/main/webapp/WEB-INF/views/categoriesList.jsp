@@ -9,7 +9,7 @@
 
 <body>
   <h1>Categorias</h1>
-  <h2><a href="/formCreateCategory.jsp">Nova Categoria</a></h2>
+  <h2><a href="/showViewCreateCategory">Nova Categoria</a></h2>
   <table>
     <thead>
       <th>Id</th>

@@ -16,7 +16,7 @@ public class ShowCategoryServlet extends HttpServlet {
         CategoryDao categoryDao = new CategoryDao(entityManager);
         Category category = categoryDao.getById(Long.parseLong(request.getParameter("id")));
         request.setAttribute("category", category);
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/formUpdateCategory.jsp");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/views/formUpdateCategory.jsp");
         requestDispatcher.forward(request, response);
     }
 }

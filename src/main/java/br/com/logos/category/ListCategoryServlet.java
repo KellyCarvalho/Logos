@@ -21,7 +21,7 @@ public class ListCategoryServlet extends HttpServlet {
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         categoryDao = new CategoryDao(getEntityManager("logos"));
         List<Category> categories = categoryDao.getAllCategories();
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/categoriesList.jsp");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/views/categoriesList.jsp");
         request.setAttribute("categories", categories);
         requestDispatcher.forward(request, response);
     }
