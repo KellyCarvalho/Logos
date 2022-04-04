@@ -1,6 +1,6 @@
 package category;
 
-import Logos.category.Category;
+import br.com.logos.category.Category;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -8,9 +8,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.Arrays;
 import java.util.List;
 
-import static Logos.category.CategoryService.getActiveCategories;
-import static Logos.category.enums.CategoryStatus.ACTIVE;
-import static Logos.category.enums.CategoryStatus.DISABLED;
+import static br.com.logos.category.CategoryService.getActiveCategories;
+import static br.com.logos.category.enums.CategoryStatus.ACTIVE;
+import static br.com.logos.category.enums.CategoryStatus.DISABLED;
 
 public class CategoryServiceTest {
 

@@ -1,19 +1,19 @@
 package course;
 
-import Logos.category.Category;
-import Logos.course.Course;
-import Logos.course.CourseDao;
-import Logos.subCategory.SubCategory;
-import Logos.utils.builder.CategoryBuilder;
-import Logos.utils.builder.CourseBuilder;
-import Logos.utils.builder.SubCategoryBuilder;
+import br.com.logos.category.Category;
+import br.com.logos.course.Course;
+import br.com.logos.course.CourseDao;
+import br.com.logos.subCategory.SubCategory;
+import br.com.logos.utils.builder.CategoryBuilder;
+import br.com.logos.utils.builder.CourseBuilder;
+import br.com.logos.utils.builder.SubCategoryBuilder;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javax.persistence.EntityManager;
 
-import static Logos.utils.JPAUtil.getEntityManager;
+import static br.com.logos.utils.JPAUtil.getEntityManager;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class CourseDaoTest {

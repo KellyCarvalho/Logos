@@ -1,12 +1,12 @@
 package category;
 
-import Logos.category.Category;
+import br.com.logos.category.Category;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import static Logos.category.enums.CategoryStatus.ACTIVE;
+import static br.com.logos.category.enums.CategoryStatus.ACTIVE;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 

@@ -1,19 +1,19 @@
 package utils;
 
-import Logos.category.Category;
-import Logos.category.enums.CategoryStatus;
-import Logos.course.Course;
-import Logos.subCategory.SubCategory;
-import Logos.subCategory.enums.SubCategoryStatus;
-import Logos.utils.CsvReader;
+import br.com.logos.category.Category;
+import br.com.logos.category.enums.CategoryStatus;
+import br.com.logos.course.Course;
+import br.com.logos.subCategory.SubCategory;
+import br.com.logos.subCategory.enums.SubCategoryStatus;
+import br.com.logos.utils.CsvReader;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static Logos.utils.CsvReader.readCategories;
-import static Logos.utils.CsvReader.readSubCategories;
+import static br.com.logos.utils.CsvReader.readCategories;
+import static br.com.logos.utils.CsvReader.readSubCategories;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CsvReaderTest {

@@ -4,11 +4,11 @@
              version="2.0" xmlns="http://java.sun.com/xml/ns/persistence">
 
     <persistence-unit name="test" transaction-type="RESOURCE_LOCAL">
-        <class>Logos.category.Category</class>
-        <class>Logos.subCategory.SubCategory</class>
-        <class>Logos.activity.Question</class>
-        <class>Logos.section.Section</class>
-        <class>Logos.course.Course</class>
+        <class>br.com.logos.category.Category</class>
+        <class>br.com.logos.subCategory.SubCategory</class>
+        <class>br.com.logos.activity.Question</class>
+        <class>br.com.logos.section.Section</class>
+        <class>br.com.logos.course.Course</class>
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
             <property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:test"/>

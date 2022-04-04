@@ -1,18 +1,18 @@
 package subCategory;
 
-import Logos.category.Category;
-import Logos.subCategory.SubCategory;
-import Logos.subCategory.SubcategoryDao;
-import Logos.subCategory.enums.SubCategoryStatus;
-import Logos.utils.builder.CategoryBuilder;
-import Logos.utils.builder.SubCategoryBuilder;
+import br.com.logos.category.Category;
+import br.com.logos.subCategory.SubCategory;
+import br.com.logos.subCategory.SubcategoryDao;
+import br.com.logos.subCategory.enums.SubCategoryStatus;
+import br.com.logos.utils.builder.CategoryBuilder;
+import br.com.logos.utils.builder.SubCategoryBuilder;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javax.persistence.EntityManager;
 
-import static Logos.utils.JPAUtil.getEntityManager;
+import static br.com.logos.utils.JPAUtil.getEntityManager;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class SubCategoryDaoTest {

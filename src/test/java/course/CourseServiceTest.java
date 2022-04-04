@@ -1,16 +1,16 @@
 package course;
 
-import Logos.category.Category;
-import Logos.course.Course;
-import Logos.subCategory.SubCategory;
-import Logos.subCategory.enums.SubCategoryStatus;
+import br.com.logos.category.Category;
+import br.com.logos.course.Course;
+import br.com.logos.subCategory.SubCategory;
+import br.com.logos.subCategory.enums.SubCategoryStatus;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static Logos.course.CourseService.*;
+import static br.com.logos.course.CourseService.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CourseServiceTest {

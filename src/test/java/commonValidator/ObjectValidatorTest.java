@@ -2,7 +2,7 @@ package commonValidator;
 
 import org.junit.jupiter.api.Test;
 
-import static Logos.commonValidator.ObjectValidator.isObjectValid;
+import static br.com.logos.commonValidator.ObjectValidator.isObjectValid;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
