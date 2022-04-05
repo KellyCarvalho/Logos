@@ -67,7 +67,6 @@ public class CategoryController {
 
     @PostMapping("/admin/categories/{code}")
     public String update(@Valid CategoryUpdateDTO categoryUpdateDTO, @PathVariable String code) {
-        System.out.println(code);
         if (categoryUpdateDTO.getStatus() == null) {
             categoryUpdateDTO.setStatus(CategoryStatus.DISABLED);
         }
