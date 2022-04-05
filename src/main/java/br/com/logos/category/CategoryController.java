@@ -10,15 +10,15 @@ import br.com.logos.subCategory.SubCategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,36 +44,59 @@ public class CategoryController {
     public ModelAndView getAllCategories() {
         List<Category> categories = categoryRepository.findAll();
         ModelAndView modelAndView = new ModelAndView("/categoriesList");
-        modelAndView.addObject("categories",categories);
+        modelAndView.addObject("categories", categories);
         return modelAndView;
     }
 
     @GetMapping("/admin/categories/new")
-    public ModelAndView viewFormCreateCategory(){
-        ModelAndView modelAndView = new ModelAndView("/formCreateCategory");
-        return modelAndView;
+    public String viewFormCreateCategory(CategoryInsertDTO categoryInsertDTO, BindingResult result) {
+        return "/formCategory";
     }
 
     @PostMapping("/admin/categories")
-    public ResponseEntity<Category> insert(@Valid CategoryInsertDTO categoryInsertDTO, BindingResult bindingResult, UriComponentsBuilder uriComponentsBuilder){
-        if (bindingResult.hasErrors()){
-            ResponseEntity.badRequest();
+    public String insert(@Valid CategoryInsertDTO categoryInsertDTO, BindingResult result) {
+        if (result.hasFieldErrors()){
+            return viewFormCreateCategory(categoryInsertDTO,  result);
         }
-        Category category = toCategory(categoryInsertDTO);
-         categoryRepository.save(category);
-        URI uri = uriComponentsBuilder.path("category/{id}").buildAndExpand(category.getId()).toUri();
-        return ResponseEntity.created(uri).body(category);
+            if (categoryInsertDTO.getStatus() == null) {
+                categoryInsertDTO.setStatus(CategoryStatus.DISABLED);
+            }
+            Category category = insertDTOtoCategory(categoryInsertDTO);
+            categoryRepository.save(category);
+
+        return "redirect:/admin/categories";
+    }
+
+    @PostMapping("/admin/categories/{code}")
+    public String update(@Valid CategoryUpdateDTO categoryUpdateDTO, @PathVariable String code) {
+        if (categoryUpdateDTO.getStatus() == null) {
+            categoryUpdateDTO.setStatus(CategoryStatus.DISABLED);
+        }
+       if(categoryRepository.findCategoryByCode(code)!=null){
+           Category category = updateDTOtoCategory(categoryUpdateDTO);
+           category.setId(categoryUpdateDTO.getId());
+           categoryRepository.save(category);
+       }
+        return "redirect:/admin/categories";
+    }
+
+    @GetMapping("/admin/categories/{code}")
+    public ModelAndView showCategory(@PathVariable String code) {
+        Category category = categoryRepository.findCategoryByCode(code);
+        ModelAndView modelAndView = new ModelAndView("/formCategory");
+        modelAndView.addObject("category", category);
+        return modelAndView;
     }
 
     private List<CategoryListDTO> toListCategoryDTO(List<Category> categories) {
-        List<Course> courses = courseRepository.findCoursesByVisibilityAndSubCategoryCategoryStatusOrderBySubCategoryCategoryOrder(true, CategoryStatus.ACTIVE);
+        List<Course> courses = courseRepository.findByVisibilityAndSubCategory_Category_StatusOrderBySubCategory_Category_Order(true, CategoryStatus.ACTIVE);
         List<SubCategory> subCategories = subCategoryRepository.findAll();
 
         List<CategoryListDTO> categoriesDto = new ArrayList<>();
 
         categories.forEach(category -> {
             categoriesDto.add(new CategoryListDTO(category.getName(), category.getCode(), category.getOrder(),
-                    category.getColorCode(), category.getStudyGuide(), courseRepository.findAllBySubCategoryCategoryId(category.getId()).size(),
+                    category.getColorCode(), category.getStudyGuide(), courseRepository.findBySubCategory_Category_Id(category.getId()).size(),
                     addCoursesToCategoriesList(courses, category.getId()), addSubCategoriesToCategoriesList(subCategories, category.getId())));
         });
         return categoriesDto;
@@ -82,7 +105,7 @@ public class CategoryController {
     private List<CourseDTO> addCoursesToCategoriesList(List<Course> courses, Long id) {
         List<CourseDTO> coursesDTOs = new ArrayList<>();
         courses.forEach(course -> {
-            if (course.getSubCategory().getCategory().getId() == id) {
+            if (course.getCategoryId() == id) {
                 coursesDTOs.add(new CourseDTO(course.getName(), course.getCode(), course.getEstimatedTime(), course.getDevelopedSkills()));
             }
         });
@@ -92,7 +115,7 @@ public class CategoryController {
     private List<SubCategoryDTO> addSubCategoriesToCategoriesList(List<SubCategory> subCategories, Long id) {
         List<SubCategoryDTO> subCategoriesDTO = new ArrayList<>();
         subCategories.forEach(subCategory -> {
-            if (subCategory.getCategory().getId() == id) {
+            if (subCategory.getCategoryId() == id) {
                 subCategoriesDTO.add(new SubCategoryDTO(subCategory.getName(), subCategory.getCode(), subCategory.getStudyGuide()));
 
             }
@@ -100,9 +123,15 @@ public class CategoryController {
         return subCategoriesDTO;
     }
 
-    private Category toCategory(CategoryInsertDTO categoryInsertDTO) {
+    private Category insertDTOtoCategory(CategoryInsertDTO categoryInsertDTO) {
         return new Category(categoryInsertDTO.getName(), categoryInsertDTO.getCode(), categoryInsertDTO.getDescription(),
                 categoryInsertDTO.getStudyGuide(), categoryInsertDTO.getStatus(), categoryInsertDTO.getOrder(),
                 categoryInsertDTO.getImageUrl(), categoryInsertDTO.getColorCode());
+    }
+
+    private Category updateDTOtoCategory(CategoryUpdateDTO categoryUpdateDTO) {
+        return new Category(categoryUpdateDTO.getName(), categoryUpdateDTO.getCode(), categoryUpdateDTO.getDescription(),
+                categoryUpdateDTO.getStudyGuide(), categoryUpdateDTO.getStatus(), categoryUpdateDTO.getOrder(),
+                categoryUpdateDTO.getImageUrl(), categoryUpdateDTO.getColorCode());
     }
 }

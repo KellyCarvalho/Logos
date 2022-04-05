@@ -128,6 +128,10 @@ public class Course {
         return id;
     }
 
+    public Long getCategoryId(){
+        return this.getCategory().getId();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

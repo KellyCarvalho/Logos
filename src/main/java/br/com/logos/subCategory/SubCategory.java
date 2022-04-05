@@ -75,6 +75,10 @@ public class SubCategory {
         return category;
     }
 
+    public Long getCategoryId(){
+        return this.getCategory().getId();
+    }
+
     public int getOrder() {
         return order;
     }
