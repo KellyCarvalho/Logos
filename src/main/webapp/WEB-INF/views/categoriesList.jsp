@@ -1,74 +1,44 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <html>
-
 <head>
-    <title>Categorias</title>
+    <link rel='stylesheet' href='/webjars/bootstrap/3.3.7/css/bootstrap.min.css'>
+    <title>Todas as categorias</title>
     <meta charset="UTF-8">
 </head>
-
 <body>
-  <h1>Categorias</h1>
-  <h2><a href="/showViewCreateCategory">Nova Categoria</a></h2>
-  <table>
-    <thead>
-      <th>Id</th>
-      <th>Código</th>
-      <th>Nome</th>
-      <th>Descrição</th>
-      <th>Guia de Estudo</th>
-      <th>Status</th>
-      <th>Ordem</th>
-      <th>Imagem</th>
-      <th>Código da cor</th>
-    </thead>
+    <section style="padding: 10px" class="container">
+        <h3>Categorias</h3>
+        <a href="/admin/categories/new"><button  class="btn btn-primary">Nova Categoria</button></a>
 
-    <tbody>
+    </section>
+    <section class="container">
+        <table class="table table-dark table-bordered">
+            <thead>
+                <th scope="col">Nome</th>
+                <th scope="col">Código</th>
+                <th scope="col">Status</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
 
-      <c:forEach items="${categories}" var="category">
-        <tr>
-          <td>${category.id}</td>
-          <td>${category.code}</td>
-          <td>${category.name}</td>
-          <td>${category.description}</td>
-          <td>${category.studyGuide}</td>
-          <td id="status_${category.id}">${category.status}</td>
-          <td>${category.order}</td>
-          <td><img style="width: 100px; height: 100px" src="${category.imageUrl}"></td>
-          <td style="background-color:${category.colorCode} "></td>
-          <td>
-            <button><a style="text-decoration: none" href="/mostrarCategoria?id=${category.id}">Editar</a></button>
-          </td>
-          <td>
-            <button onclick="disableCategory(${category.id})" class="disable">Desativar</button>
-          </td>
-        </tr>
-      </c:forEach>
+            </thead>
 
-    </tbody>
-  </table>
+        <c:forEach items="${categories}" var="category">
 
-  <script>
-
-  function disableCategory(id) {
-    let status = document.querySelector("#status_" + id);
-    let url = "/mudarStatusCategoria?id=" + id;
-    if (status.textContent === "ACTIVE") {
-      const request = new XMLHttpRequest();
-      request.open("POST", url);
-      request.addEventListener("load", function () {
-        if (request.status == 200) {
-          status.textContent = "DISABLED";
-        } else {
-          alert("Ocorreu um erro, tente novamente mais tarde");
-        }
-      })
-      request.send();
-    }
-  }
-
-  </script>
+            <tbody>
+                <tr scope="row">
+                    <td>${category.name}</td>
+                    <td>${category.code}</td>
+                    <td>${category.status}</td>
+                    <td><a href="/admin/subcategories/${category.code}">SubCategorias</td>
+                    <td>
+                        <a style="text-decoration: none; color: #0c0101" href="/admin/categories/${category.code}">
+                            <button class="btn btn-dark"> Editar</button>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </c:forEach></table>
+    </section>
 </body>
-
 </html>
-

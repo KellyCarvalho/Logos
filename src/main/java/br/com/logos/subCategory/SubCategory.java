@@ -5,6 +5,9 @@ import br.com.logos.subCategory.enums.SubCategoryStatus;
 import br.com.logos.commonValidator.ObjectValidator;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 import static br.com.logos.commonValidator.StringValidator.isNotBlankEmptyOrNull;

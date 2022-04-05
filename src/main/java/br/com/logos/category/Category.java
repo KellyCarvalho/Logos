@@ -5,6 +5,10 @@ import br.com.logos.category.enums.CategoryStatus;
 import br.com.logos.commonValidator.StringValidator;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.Objects;
 
 import static br.com.logos.category.enums.CategoryStatus.DISABLED;
@@ -112,12 +116,6 @@ public class Category {
 
     public boolean isActive() {
         return ACTIVE.equals(this.getStatus());
-    }
-
-    void disableCategory() {
-        if (getStatus() == ACTIVE) {
-            setStatus(DISABLED);
-        }
     }
 
     @Override
