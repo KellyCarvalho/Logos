@@ -7,6 +7,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
+import static br.com.logos.category.enums.CategoryStatus.ACTIVE;
 import static br.com.logos.category.enums.CategoryStatus.DISABLED;
 
 public class CategoryInsertDTO {
@@ -24,7 +25,6 @@ public class CategoryInsertDTO {
     private String description;
     private CategoryStatus status = DISABLED;
     private String imageUrl;
-    @Pattern(regexp = "^#([a-fA-F0-9]){3}(([a-fA-F0-9]){3})?$", message = "Deve ser uma cor válida")
     private String colorCode;
 
     public CategoryInsertDTO(String name, String code, int order, String studyGuide, String description, CategoryStatus status, String imageUrl, String colorCode) {
@@ -72,5 +72,9 @@ public class CategoryInsertDTO {
 
     public void setStatus(CategoryStatus status) {
         this.status = status;
+    }
+
+    public void checkStatus(){
+        this.status = this==null? DISABLED:ACTIVE;
     }
 }

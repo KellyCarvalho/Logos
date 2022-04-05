@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -41,52 +40,52 @@ public class CategoryController {
     }
 
     @GetMapping("/admin/categories")
-    public ModelAndView getAllCategories() {
+    public String getAllCategories(Model model) {
         List<Category> categories = categoryRepository.findAll();
-        ModelAndView modelAndView = new ModelAndView("/categoriesList");
-        modelAndView.addObject("categories", categories);
-        return modelAndView;
+        model.addAttribute("categories", categories);
+        return "/categoriesList";
     }
 
     @GetMapping("/admin/categories/new")
-    public String viewFormCreateCategory(CategoryInsertDTO categoryInsertDTO, BindingResult result) {
-        return "/formCategory";
+    public String viewFormInsertCategory(CategoryInsertDTO categoryInsertDTO, BindingResult result) {
+        return "/formInsertCategory";
     }
 
     @PostMapping("/admin/categories")
     public String insert(@Valid CategoryInsertDTO categoryInsertDTO, BindingResult result) {
-        if (result.hasFieldErrors()){
-            return viewFormCreateCategory(categoryInsertDTO,  result);
+        if (result.hasFieldErrors()) {
+            viewFormInsertCategory(categoryInsertDTO, result);
         }
-            if (categoryInsertDTO.getStatus() == null) {
-                categoryInsertDTO.setStatus(CategoryStatus.DISABLED);
-            }
-            Category category = insertDTOtoCategory(categoryInsertDTO);
-            categoryRepository.save(category);
+        if (categoryInsertDTO.getStatus() == null) {
+            categoryInsertDTO.setStatus(CategoryStatus.DISABLED);
+        }
+        Category category = insertDTOtoCategory(categoryInsertDTO);
+        categoryRepository.save(category);
 
         return "redirect:/admin/categories";
     }
 
     @PostMapping("/admin/categories/{code}")
     public String update(@Valid CategoryUpdateDTO categoryUpdateDTO, @PathVariable String code) {
+        System.out.println(code);
         if (categoryUpdateDTO.getStatus() == null) {
             categoryUpdateDTO.setStatus(CategoryStatus.DISABLED);
         }
-       if(categoryRepository.findCategoryByCode(code)!=null){
-           Category category = updateDTOtoCategory(categoryUpdateDTO);
-           category.setId(categoryUpdateDTO.getId());
-           categoryRepository.save(category);
-       }
+        if (categoryRepository.findCategoryByCode(code) != null) {
+            Category category = updateDTOtoCategory(categoryUpdateDTO);
+            category.setId(categoryUpdateDTO.getId());
+            categoryRepository.save(category);
+        }
         return "redirect:/admin/categories";
     }
 
     @GetMapping("/admin/categories/{code}")
-    public ModelAndView showCategory(@PathVariable String code) {
+    public String showCategory(@PathVariable String code, Model model) {
         Category category = categoryRepository.findCategoryByCode(code);
-        ModelAndView modelAndView = new ModelAndView("/formCategory");
-        modelAndView.addObject("category", category);
-        return modelAndView;
+        model.addAttribute("category", category);
+        return "/formUpdateCategory";
     }
+
 
     private List<CategoryListDTO> toListCategoryDTO(List<Category> categories) {
         List<Course> courses = courseRepository.findByVisibilityAndSubCategory_Category_StatusOrderBySubCategory_Category_Order(true, CategoryStatus.ACTIVE);

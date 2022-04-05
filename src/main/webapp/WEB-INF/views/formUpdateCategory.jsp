@@ -12,19 +12,15 @@
 <body>
     <section class="container">
 
-        <h1>${category == null ? "Nova Categoria":"Editar Categoria"}</h1>
+        <h1>Editar Categoria</h1>
 
         <form class="mb-3" action="/admin/categories/<c:out value="${category.code}"/>" method="post">
             <input type="hidden" name="id" value="${category.id}">
             <label  class="form-label" for="name">Nome</label>
-            <form:input path="categoryInsertDTO.name" value="${category.name}" placeholder="Digite Aqui o nome da categoria" class="form-control" id="name" type="text" name="name" />
-            <form:errors  path="categoryInsertDTO.name" />
-
+            <input  value="${category.name}" placeholder="Digite Aqui o nome da categoria" class="form-control" id="name" type="text" name="name" />
             <br>
             <label class="form-label" for="code">Código</label>
-            <form:input path="categoryInsertDTO.code"  value="${category.code}" placeholder="por exemplo: desenvolvimento, mobile(não use letras maíusculas, acentos ou caracteres especiais)" class="form-control" id="code" type="text" name="code" />
-            <form:errors  path="categoryInsertDTO.code" />
-
+            <input value="${category.code}" placeholder="por exemplo: desenvolvimento, mobile(não use letras maíusculas, acentos ou caracteres especiais)" class="form-control" id="code" type="text" name="code" />
             <br>
                 <div class="form-check">
                     <input ${category.status == "ACTIVE" ? "checked" : ""} class="form-check-input" placeholder="Mostra ou deixa de mostrar a categoria na listagem dos alunos, de formações, etc" type="checkbox" value="DISABLED" id="status" name="status">
@@ -45,7 +41,9 @@
             <br>
 
             <label class="form-label" for="colorCode">Cor</label>
-            <input value="${category.colorCode}" placeholder="por exemplo #fcc14a" class="form-control" id="colorCode" type="text" name="colorCode">
+            <input  value="${category.colorCode}" placeholder="por exemplo #fcc14a" class="form-control" id="colorCode" type="text" name="colorCode">
+
+
             <br>
             <label class="form-label" for="description">Descrição</label>
             <input value="${category.description}" placeholder="por exemplo: IOS, Android, PhoneGap e mais..." class="form-control" id="description" name="description"/>
