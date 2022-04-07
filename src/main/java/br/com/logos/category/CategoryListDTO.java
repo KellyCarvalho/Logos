@@ -33,6 +33,9 @@ public class CategoryListDTO {
     private List<CourseDTO> courses;
     private List<SubCategoryDTO> subCategories;
 
+    @Deprecated
+    public CategoryListDTO(){}
+
     public CategoryListDTO(String name, String code, int order, String colorCode, String studyGuide, List<CourseDTO> courses, List<SubCategoryDTO> subCategories) {
         this.name = name;
         this.code = code;
@@ -48,36 +51,64 @@ public class CategoryListDTO {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getCode() {
         return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public int getOrder() {
         return order;
     }
 
-    public String getStudyGuide() {
-        return studyGuide;
+    public void setOrder(int order) {
+        this.order = order;
     }
 
     public String getColorCode() {
         return colorCode;
     }
 
+    public void setColorCode(String colorCode) {
+        this.colorCode = colorCode;
+    }
+
+    public String getStudyGuide() {
+        return studyGuide;
+    }
+
+    public void setStudyGuide(String studyGuide) {
+        this.studyGuide = studyGuide;
+    }
+
     public int getQuantityCoursesCategory() {
         return quantityCoursesCategory;
+    }
+
+    public void setQuantityCoursesCategory(int quantityCoursesCategory) {
+        this.quantityCoursesCategory = quantityCoursesCategory;
     }
 
     public List<CourseDTO> getCourses() {
         return courses;
     }
 
+    public void setCourses(List<CourseDTO> courses) {
+        this.courses = courses;
+    }
+
     public List<SubCategoryDTO> getSubCategories() {
         return subCategories;
     }
 
-    public void setQuantityCoursesCategory(int quantityCoursesCategory) {
-        this.quantityCoursesCategory = quantityCoursesCategory;
+    public void setSubCategories(List<SubCategoryDTO> subCategories) {
+        this.subCategories = subCategories;
     }
 
     public static List<CategoryListDTO> toListCategoryDTO(List<Category> categories, List<Course> courses, List<SubCategory> subCategories) {
@@ -90,5 +121,19 @@ public class CategoryListDTO {
                     getPublicCoursesByCategory(courses, category.getId()), getActiveSubcategoriesByCategory(subCategories, category.getId())));
         });
         return categoriesDto;
+    }
+
+    @Override
+    public String toString() {
+        return "CategoryListDTO{" +
+                "name='" + name + '\'' +
+                ", code='" + code + '\'' +
+                ", order=" + order +
+                ", colorCode='" + colorCode + '\'' +
+                ", studyGuide='" + studyGuide + '\'' +
+                ", quantityCoursesCategory=" + quantityCoursesCategory +
+                ", courses=" + courses +
+                ", subCategories=" + subCategories +
+                '}';
     }
 }

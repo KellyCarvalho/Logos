@@ -5,14 +5,11 @@ import br.com.logos.category.enums.CategoryStatus;
 import br.com.logos.commonValidator.StringValidator;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import java.util.Objects;
 
-import static br.com.logos.category.enums.CategoryStatus.DISABLED;
 import static br.com.logos.category.enums.CategoryStatus.ACTIVE;
+import static br.com.logos.category.enums.CategoryStatus.DISABLED;
+import static br.com.logos.commonValidator.StringValidator.isValidColor;
 
 @Entity
 public class Category {
@@ -49,24 +46,23 @@ public class Category {
         this.code = code;
     }
 
-    public Category(String name, String code, CategoryStatus status) {
+    public Category(String name, String code, boolean active) {
         this(name, code);
-        this.status = status;
+        this.status = active ? ACTIVE : DISABLED;
     }
 
-    public Category(String name, String code, String description, CategoryStatus status, int order, String imageUrl, String colorCode) {
-        this(name, code, status);
-        StringValidator.isValidColor(colorCode, "Cor de categoria não é válida");
+    public Category(String name, String code, String description, boolean active, int order, String imageUrl, String colorCode) {
+        this(name, code, active);
+        isValidColor(colorCode, "Cor de categoria não é válida");
         this.description = description;
-        this.status = status;
         this.order = order;
         this.imageUrl = imageUrl;
         this.colorCode = colorCode;
     }
 
-    public Category(String name, String code, String description, String studyGuide, CategoryStatus status, int order, String imageUrl, String colorCode) {
+    public Category(String name, String code, String description, String studyGuide, boolean status, int order, String imageUrl, String colorCode) {
         this(name, code, description, status, order, imageUrl, colorCode);
-        StringValidator.isValidColor(colorCode, "Cor de categoria não é válida");
+        isValidColor(colorCode, "Cor de categoria não é válida");
         this.studyGuide = studyGuide;
     }
 
@@ -110,8 +106,8 @@ public class Category {
         return studyGuide;
     }
 
-    public void setStatus(CategoryStatus status) {
-        this.status = status;
+    public void setStatus(boolean active) {
+        this.status = active ? ACTIVE : DISABLED;
     }
 
     public boolean isActive() {

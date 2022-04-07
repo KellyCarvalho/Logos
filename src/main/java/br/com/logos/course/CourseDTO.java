@@ -5,17 +5,23 @@ import java.util.List;
 import java.util.Objects;
 
 public class CourseDTO {
-    //TODO podem ser final
-    private String name;
-    private String code;
-    private int estimatedTime;
-    private String developedSkills;
+    private final String name;
+    private final String code;
+    private final int estimatedTime;
+    private final String developedSkills;
 
     public CourseDTO(String name, String code, int estimatedTime, String developedSkills) {
         this.name = name;
         this.code = code;
         this.estimatedTime = estimatedTime;
         this.developedSkills = developedSkills;
+    }
+
+    public CourseDTO(Course course){
+        this.code = course.getCode();
+        this.name = course.getName();
+        this.developedSkills = course.getDevelopedSkills();
+        this.estimatedTime = course.getEstimatedTime();
     }
 
     public String getName() {
@@ -37,17 +43,10 @@ public class CourseDTO {
     public static List<CourseDTO> getPublicCoursesByCategory(List<Course> courses, Long categoryId) {
         List<CourseDTO> coursesDTOs = new ArrayList<>();
         courses.forEach(course -> {
-            if (course.getCategoryId() == categoryId) {
-                coursesDTOs.add(new CourseDTO(course.getName(), course.getCode(),
-                        course.getEstimatedTime(), course.getDevelopedSkills()));
+            if (Objects.equals(course.getCategoryId(), categoryId)) {
+                coursesDTOs.add(new CourseDTO(course));
             }
         });
-//        courses.forEach(course -> {
-//            if (course.getCategoryId() == categoryId) {
-//                //TODO passar course
-//                coursesDTOs.add();
-//            }
-//        });
         return coursesDTOs;
     }
 }

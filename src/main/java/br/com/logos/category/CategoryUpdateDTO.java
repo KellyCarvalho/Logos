@@ -1,14 +1,10 @@
 package br.com.logos.category;
 
-import br.com.logos.category.enums.CategoryStatus;
-
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.PositiveOrZero;
 
-import static br.com.logos.category.enums.CategoryStatus.ACTIVE;
-import static br.com.logos.category.enums.CategoryStatus.DISABLED;
+import static br.com.logos.commonValidator.StringValidator.*;
 
 public class CategoryUpdateDTO {
 
@@ -16,12 +12,15 @@ public class CategoryUpdateDTO {
     @NotBlank(message = "Nome não pode estar em branco")
     private String name;
     @NotBlank(message = "Código não pode estar em branco")
+    @Pattern(regexp = "[[a-z-]+]+", message = "Código  inválido, não pode ter caracteres especiais ou números, apenas o hífem é perminido, letras devem ser minúsculas")
     private String code;
-    private int order;
+    @PositiveOrZero(message = "Ordem deve ter valor positivo ou 0, se nada for preenchido valor default será 0")
+    private String order;
     private String studyGuide;
     private String description;
-//    private CategoryStatus status;
+    private boolean active;
     private String imageUrl;
+    @Pattern(regexp = "^#([a-fA-F0-9]){6}?$|^[\s]*$", message = "cor inválida")
     private String colorCode;
 
     @Deprecated
@@ -29,13 +28,16 @@ public class CategoryUpdateDTO {
     }
 
     public CategoryUpdateDTO(Category category) {
+        isValidColor(category.getColorCode(), "Cor não é válida");
+        isValidCode(category.getCode(), "Código não é válido");
+        isNotBlankEmptyOrNull(category.getName(), "Nome é requerido");
         this.id = category.getId();
         this.name = category.getName();
         this.code = category.getCode();
-        this.order = category.getOrder();
+        this.order = Integer.toString(category.getOrder());
         this.studyGuide = category.getStudyGuide();
         this.description = category.getDescription();
-//        this.status = category.getStatus() == null ? DISABLED : ACTIVE;
+        this.active = category.isActive();
         this.imageUrl = category.getImageUrl();
         this.colorCode = category.getColorCode();
     }
@@ -64,11 +66,11 @@ public class CategoryUpdateDTO {
         this.code = code;
     }
 
-    public int getOrder() {
+    public String getOrder() {
         return order;
     }
 
-    public void setOrder(int order) {
+    public void setOrder(String order) {
         this.order = order;
     }
 
@@ -88,13 +90,13 @@ public class CategoryUpdateDTO {
         this.description = description;
     }
 
-//    public CategoryStatus getStatus() {
-//        return status;
-//    }
-//
-//    public void setStatus(CategoryStatus status) {
-//        this.status = status;
-//    }
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 
     public String getImageUrl() {
         return imageUrl;
@@ -112,13 +114,17 @@ public class CategoryUpdateDTO {
         this.colorCode = colorCode;
     }
 
+    public int convertOrder(String order){
+        return  order != null && !order.isBlank() && !order.isEmpty() ? Integer.parseInt(order)  : 0;
+    }
+
     public void update(Category category) {
         category.setName(this.name);
         category.setCode(this.code);
         category.setDescription(this.description);
         category.setStudyGuide(this.studyGuide);
-        category.setOrder(this.order);
-//        category.setStatus(this.status);
+        category.setOrder(convertOrder(this.order));
+        category.setStatus(this.active);
         category.setImageUrl(this.imageUrl);
         category.setColorCode(this.colorCode);
     }

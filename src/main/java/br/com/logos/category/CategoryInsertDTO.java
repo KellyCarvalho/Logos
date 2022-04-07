@@ -1,79 +1,101 @@
 package br.com.logos.category;
 
-import br.com.logos.category.enums.CategoryStatus;
-
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-
-import static br.com.logos.category.enums.CategoryStatus.ACTIVE;
-import static br.com.logos.category.enums.CategoryStatus.DISABLED;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.PositiveOrZero;
 
 public class CategoryInsertDTO {
 
-    //TODO colocar o pattern de código e cor
-    //TODO validar min de order
-    //TODO validar a url
     @NotBlank(message = "Nome não pode estar em branco")
     private String name;
     @NotBlank(message = "Código não pode estar em branco")
+    @Pattern(regexp = "[a-z-]+", message = "Código  inválido, não pode ter caracteres especiais ou números, apenas o hífem é perminido, letras devem ser minúsculas")
     private String code;
-    private int order;
+    @PositiveOrZero(message = "Ordem deve ter valor positivo ou 0, se nada for preenchido valor default será 0")
+    private String order;
     private String studyGuide;
     private String description;
-    private CategoryStatus status = DISABLED;
+    private boolean active;
     private String imageUrl;
+    @Pattern(regexp = "^#([a-fA-F0-9]){6}?$|^[\s]*$", message = "cor inválida")
     private String colorCode;
 
-    public CategoryInsertDTO(String name, String code, int order, String studyGuide, String description, CategoryStatus status, String imageUrl, String colorCode) {
-        this.name = name;
-        this.code = code;
-        this.order = order;
-        this.studyGuide = studyGuide;
-        this.description = description;
-        this.status = status;
-        this.imageUrl = imageUrl;
-        this.colorCode = colorCode;
-    }
+    @Deprecated
+    public CategoryInsertDTO(){}
 
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getCode() {
         return code;
     }
 
-    public int getOrder() {
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getOrder() {
         return order;
+    }
+
+    public void setOrder(String order) {
+        this.order = order;
     }
 
     public String getStudyGuide() {
         return studyGuide;
     }
 
+    public void setStudyGuide(String studyGuide) {
+        this.studyGuide = studyGuide;
+    }
+
     public String getDescription() {
         return description;
     }
 
-    public CategoryStatus getStatus() {
-        return status;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     public String getImageUrl() {
         return imageUrl;
     }
 
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
     public String getColorCode() {
         return colorCode;
     }
 
-   public Category insertDTOtoEntity(CategoryInsertDTO categoryInsertDTO) {
-        return new Category(categoryInsertDTO.getName(), categoryInsertDTO.getCode(), categoryInsertDTO.getDescription(),
-                categoryInsertDTO.getStudyGuide(), categoryInsertDTO.getStatus(), categoryInsertDTO.getOrder(),
-                categoryInsertDTO.getImageUrl(), categoryInsertDTO.getColorCode());
+    public void setColorCode(String colorCode) {
+        this.colorCode = colorCode;
     }
 
+    public int convertOrder(String order){
+        return  order != null && !order.isBlank() && !order.isEmpty() ? Integer.parseInt(order)  : 0;
+    }
+
+    public Category insertDTOtoEntity(CategoryInsertDTO categoryInsertDTO) {
+        return new Category(categoryInsertDTO.getName(), categoryInsertDTO.getCode(), categoryInsertDTO.getDescription(),
+                categoryInsertDTO.getStudyGuide(), active, convertOrder(categoryInsertDTO.getOrder()),
+                categoryInsertDTO.getImageUrl(), categoryInsertDTO.getColorCode());
+    }
 
     @Override
     public String toString() {
@@ -83,7 +105,7 @@ public class CategoryInsertDTO {
                 ", order=" + order +
                 ", studyGuide='" + studyGuide + '\'' +
                 ", description='" + description + '\'' +
-                ", status=" + status +
+                ", status=" + active +
                 ", imageUrl='" + imageUrl + '\'' +
                 ", colorCode='" + colorCode + '\'' +
                 '}';

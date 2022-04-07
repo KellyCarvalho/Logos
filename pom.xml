@@ -58,6 +58,10 @@
 			<artifactId>webjars-locator-core</artifactId>
 			<version>0.48</version>
 		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-xml</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
