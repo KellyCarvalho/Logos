@@ -1,12 +1,9 @@
 package br.com.logos.category;
 
 import br.com.logos.category.enums.CategoryStatus;
-import br.com.logos.course.Course;
-import br.com.logos.course.CourseDTO;
 import br.com.logos.course.CourseRepository;
-import br.com.logos.subCategory.SubCategory;
-import br.com.logos.subCategory.SubCategoryDTO;
 import br.com.logos.subCategory.SubCategoryRepository;
+import br.com.logos.subCategory.enums.SubCategoryStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -17,9 +14,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
+import static br.com.logos.category.CategoryListDTO.toListCategoryDTO;
 
 @Controller
 public class CategoryController {
@@ -33,15 +33,23 @@ public class CategoryController {
     @Autowired
     private CourseRepository courseRepository;
 
-    @GetMapping("/api/categories")
-    @ResponseBody
+    //TODO dar suporte a XML e JSON
+    //TODO colocar em outro controller
+    @GetMapping(value = "/api/categories")
+    @ResponseBody()
     public ResponseEntity<List<CategoryListDTO>> getActiveCategories() {
-        return ResponseEntity.ok().body(toListCategoryDTO(categoryRepository.findCategoriesByStatusOrderByOrder(CategoryStatus.ACTIVE)));
+        return ResponseEntity.ok().body(toListCategoryDTO(
+                categoryRepository
+                .findCategoriesByStatusOrderByOrder(CategoryStatus.ACTIVE),
+                courseRepository
+                        .findByVisibilityAndSubCategory_Category_StatusOrderBySubCategory_Category_Order(true, CategoryStatus.ACTIVE),
+                subCategoryRepository
+                        .findAllByStatus(SubCategoryStatus.ACTIVE)));
     }
 
     @GetMapping("/admin/categories")
     public String getAllCategories(Model model) {
-        List<Category> categories = categoryRepository.findAll();
+        List<Category> categories = categoryRepository.findByOrderByOrder();
         model.addAttribute("categories", categories);
         return "/categoriesList";
     }
@@ -51,85 +59,42 @@ public class CategoryController {
         return "/formInsertCategory";
     }
 
-    @PostMapping("/admin/categories")
+    @Transactional
+    @PostMapping("/admin/categories/new")
     public String insert(@Valid CategoryInsertDTO categoryInsertDTO, BindingResult result) {
-        if (result.hasFieldErrors()) {
-            viewFormInsertCategory(categoryInsertDTO, result);
+        if (result.hasErrors()) {
+            return viewFormInsertCategory(categoryInsertDTO, result);
         }
-        if (categoryInsertDTO.getStatus() == null) {
-            categoryInsertDTO.setStatus(CategoryStatus.DISABLED);
-        }
-        Category category = insertDTOtoCategory(categoryInsertDTO);
+        Category category = categoryInsertDTO.insertDTOtoEntity(categoryInsertDTO);
         categoryRepository.save(category);
 
         return "redirect:/admin/categories";
     }
 
+    //TODO retornar um not found se o código não existir
+    //TODO trocar o nome do paramentro para categoryCode
+    @Transactional
     @PostMapping("/admin/categories/{code}")
-    public String update(@Valid CategoryUpdateDTO categoryUpdateDTO, @PathVariable String code) {
-        if (categoryUpdateDTO.getStatus() == null) {
-            categoryUpdateDTO.setStatus(CategoryStatus.DISABLED);
+    public String update(@PathVariable String code, @Valid CategoryUpdateDTO categoryUpdateDTO, BindingResult result, Model model) {
+        if (result.hasErrors()){
+            System.out.println(result.getAllErrors());
+            return showCategory(code, categoryUpdateDTO, result, model);
         }
-        if (categoryRepository.findCategoryByCode(code) != null) {
-            Category category = updateDTOtoCategory(categoryUpdateDTO);
-            category.setId(categoryUpdateDTO.getId());
-            categoryRepository.save(category);
+        Optional <Category> category = categoryRepository.findByCode(code);
+        if (category.isEmpty()) {
+            return "notFound";
         }
+        categoryUpdateDTO.update(category.get());
         return "redirect:/admin/categories";
     }
 
     @GetMapping("/admin/categories/{code}")
-    public String showCategory(@PathVariable String code, Model model) {
-        Category category = categoryRepository.findCategoryByCode(code);
-        model.addAttribute("category", category);
+    public String showCategory(@PathVariable String code, CategoryUpdateDTO categoryUpdateDTO, BindingResult result, Model model) {
+       Optional <Category> category = categoryRepository.findByCode(code);
+        if (category.isEmpty()) {
+            return "notFound";
+        }
+        model.addAttribute("categoryUpdateDTO", new CategoryUpdateDTO(category.get()));
         return "/formUpdateCategory";
-    }
-
-
-    private List<CategoryListDTO> toListCategoryDTO(List<Category> categories) {
-        List<Course> courses = courseRepository.findByVisibilityAndSubCategory_Category_StatusOrderBySubCategory_Category_Order(true, CategoryStatus.ACTIVE);
-        List<SubCategory> subCategories = subCategoryRepository.findAll();
-
-        List<CategoryListDTO> categoriesDto = new ArrayList<>();
-
-        categories.forEach(category -> {
-            categoriesDto.add(new CategoryListDTO(category.getName(), category.getCode(), category.getOrder(),
-                    category.getColorCode(), category.getStudyGuide(), courseRepository.findBySubCategory_Category_Id(category.getId()).size(),
-                    addCoursesToCategoriesList(courses, category.getId()), addSubCategoriesToCategoriesList(subCategories, category.getId())));
-        });
-        return categoriesDto;
-    }
-
-    private List<CourseDTO> addCoursesToCategoriesList(List<Course> courses, Long id) {
-        List<CourseDTO> coursesDTOs = new ArrayList<>();
-        courses.forEach(course -> {
-            if (course.getCategoryId() == id) {
-                coursesDTOs.add(new CourseDTO(course.getName(), course.getCode(), course.getEstimatedTime(), course.getDevelopedSkills()));
-            }
-        });
-        return coursesDTOs;
-    }
-
-    private List<SubCategoryDTO> addSubCategoriesToCategoriesList(List<SubCategory> subCategories, Long id) {
-        List<SubCategoryDTO> subCategoriesDTO = new ArrayList<>();
-        subCategories.forEach(subCategory -> {
-            if (subCategory.getCategoryId() == id) {
-                subCategoriesDTO.add(new SubCategoryDTO(subCategory.getName(), subCategory.getCode(), subCategory.getStudyGuide()));
-
-            }
-        });
-        return subCategoriesDTO;
-    }
-
-    private Category insertDTOtoCategory(CategoryInsertDTO categoryInsertDTO) {
-        return new Category(categoryInsertDTO.getName(), categoryInsertDTO.getCode(), categoryInsertDTO.getDescription(),
-                categoryInsertDTO.getStudyGuide(), categoryInsertDTO.getStatus(), categoryInsertDTO.getOrder(),
-                categoryInsertDTO.getImageUrl(), categoryInsertDTO.getColorCode());
-    }
-
-    private Category updateDTOtoCategory(CategoryUpdateDTO categoryUpdateDTO) {
-        return new Category(categoryUpdateDTO.getName(), categoryUpdateDTO.getCode(), categoryUpdateDTO.getDescription(),
-                categoryUpdateDTO.getStudyGuide(), categoryUpdateDTO.getStatus(), categoryUpdateDTO.getOrder(),
-                categoryUpdateDTO.getImageUrl(), categoryUpdateDTO.getColorCode());
     }
 }

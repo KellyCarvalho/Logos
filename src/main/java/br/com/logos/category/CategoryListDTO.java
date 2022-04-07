@@ -1,13 +1,19 @@
 package br.com.logos.category;
 
+import br.com.logos.course.Course;
 import br.com.logos.course.CourseDTO;
+import br.com.logos.subCategory.SubCategory;
 import br.com.logos.subCategory.SubCategoryDTO;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.util.ArrayList;
 import java.util.List;
+
+import static br.com.logos.course.CourseDTO.getPublicCoursesByCategory;
+import static br.com.logos.subCategory.SubCategoryDTO.getActiveSubcategoriesByCategory;
 
 public class CategoryListDTO {
 
@@ -27,13 +33,13 @@ public class CategoryListDTO {
     private List<CourseDTO> courses;
     private List<SubCategoryDTO> subCategories;
 
-    public CategoryListDTO(String name, String code, int order, String colorCode, String studyGuide, int quantityCoursesCategory, List<CourseDTO> courses, List<SubCategoryDTO> subCategories) {
+    public CategoryListDTO(String name, String code, int order, String colorCode, String studyGuide, List<CourseDTO> courses, List<SubCategoryDTO> subCategories) {
         this.name = name;
         this.code = code;
         this.order = order;
         this.colorCode = colorCode;
         this.studyGuide = studyGuide;
-        this.quantityCoursesCategory = quantityCoursesCategory;
+        this.quantityCoursesCategory = courses.size();
         this.courses = courses;
         this.subCategories = subCategories;
     }
@@ -72,5 +78,17 @@ public class CategoryListDTO {
 
     public void setQuantityCoursesCategory(int quantityCoursesCategory) {
         this.quantityCoursesCategory = quantityCoursesCategory;
+    }
+
+    public static List<CategoryListDTO> toListCategoryDTO(List<Category> categories, List<Course> courses, List<SubCategory> subCategories) {
+
+        List<CategoryListDTO> categoriesDto = new ArrayList<>();
+
+        categories.forEach(category -> {
+            categoriesDto.add(new CategoryListDTO(category.getName(), category.getCode(), category.getOrder(),
+                    category.getColorCode(), category.getStudyGuide(),
+                    getPublicCoursesByCategory(courses, category.getId()), getActiveSubcategoriesByCategory(subCategories, category.getId())));
+        });
+        return categoriesDto;
     }
 }

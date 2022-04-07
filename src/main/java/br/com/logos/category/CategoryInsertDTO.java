@@ -5,20 +5,18 @@ import br.com.logos.category.enums.CategoryStatus;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 
 import static br.com.logos.category.enums.CategoryStatus.ACTIVE;
 import static br.com.logos.category.enums.CategoryStatus.DISABLED;
 
 public class CategoryInsertDTO {
 
+    //TODO colocar o pattern de código e cor
+    //TODO validar min de order
+    //TODO validar a url
     @NotBlank(message = "Nome não pode estar em branco")
-    @NotEmpty(message = "Nome não pode estar Vazio")
-    @NotNull(message = "Nome não pode estar nulo")
     private String name;
     @NotBlank(message = "Código não pode estar em branco")
-    @NotEmpty(message = "Código não pode estar Vazio")
-    @NotNull(message = "Código não pode estar nulo")
     private String code;
     private int order;
     private String studyGuide;
@@ -70,11 +68,24 @@ public class CategoryInsertDTO {
         return colorCode;
     }
 
-    public void setStatus(CategoryStatus status) {
-        this.status = status;
+   public Category insertDTOtoEntity(CategoryInsertDTO categoryInsertDTO) {
+        return new Category(categoryInsertDTO.getName(), categoryInsertDTO.getCode(), categoryInsertDTO.getDescription(),
+                categoryInsertDTO.getStudyGuide(), categoryInsertDTO.getStatus(), categoryInsertDTO.getOrder(),
+                categoryInsertDTO.getImageUrl(), categoryInsertDTO.getColorCode());
     }
 
-    public void checkStatus(){
-        this.status = this==null? DISABLED:ACTIVE;
+
+    @Override
+    public String toString() {
+        return "CategoryInsertDTO{" +
+                "name='" + name + '\'' +
+                ", code='" + code + '\'' +
+                ", order=" + order +
+                ", studyGuide='" + studyGuide + '\'' +
+                ", description='" + description + '\'' +
+                ", status=" + status +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", colorCode='" + colorCode + '\'' +
+                '}';
     }
 }
