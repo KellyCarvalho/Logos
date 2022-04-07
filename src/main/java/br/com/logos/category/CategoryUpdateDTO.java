@@ -14,7 +14,7 @@ public class CategoryUpdateDTO {
     @NotBlank(message = "Código não pode estar em branco")
     @Pattern(regexp = "[[a-z-]+]+", message = "Código  inválido, não pode ter caracteres especiais ou números, apenas o hífem é perminido, letras devem ser minúsculas")
     private String code;
-    @PositiveOrZero(message = "Ordem deve ter valor positivo ou 0, se nada for preenchido valor default será 0")
+    @PositiveOrZero(message = "Ordem deve ter valor positivo ou 0")
     private String order;
     private String studyGuide;
     private String description;
