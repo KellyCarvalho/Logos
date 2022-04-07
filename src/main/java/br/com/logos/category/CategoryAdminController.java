@@ -23,6 +23,7 @@ public class CategoryAdminController {
     public String getAllCategories(Model model) {
         List<Category> categories = categoryRepository.findByOrderByOrder();
         model.addAttribute("categories", categories);
+
         return "category/categoriesList";
     }
 
@@ -64,11 +65,12 @@ public class CategoryAdminController {
 
     @GetMapping("/admin/categories/{code}")
     public String showCategory(@PathVariable String code, CategoryUpdateDTO categoryUpdateDTO, BindingResult result, Model model) {
-       Optional <Category> category = categoryRepository.findByCode(code);
+        Optional<Category> category = categoryRepository.findByCode(code);
         if (category.isEmpty()) {
             return "notFound";
         }
         model.addAttribute("categoryUpdateDTO", new CategoryUpdateDTO(category.get()));
+
         return "category/formUpdateCategory";
     }
 }
