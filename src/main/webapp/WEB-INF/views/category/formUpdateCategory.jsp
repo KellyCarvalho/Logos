@@ -49,11 +49,12 @@
             <div class="md-4">
                 <form:label path="imageUrl" class="form-label" for="imageUrl">Caminho da imagem</form:label>
                 <form:input path="imageUrl"  placeholder="por exemplo: /images/categorias/programacao.svg" class="form-control" id="imageUrl" type="text"/>
+                <form:errors  path="imageUrl" />
             </div>
 
-            <div class="md-4">
+            <div class="md-4" style="padding-top: 10px" >
                 <form:label path="colorCode" class="form-label" for="colorCode">Cor</form:label>
-                <form:input path="colorCode"  placeholder="por exemplo #fcc14a" class="form-control" id="colorCode" type="text" />
+                <form:input path="colorCode"  placeholder="por exemplo #fcc14a" class="col-2" id="colorCode" type="color" />
                 <form:errors  path="colorCode" />
             </div>
 

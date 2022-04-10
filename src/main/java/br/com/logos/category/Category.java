@@ -3,8 +3,12 @@ package br.com.logos.category;
 
 import br.com.logos.category.enums.CategoryStatus;
 import br.com.logos.commonValidator.StringValidator;
+import org.hibernate.validator.constraints.URL;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.PositiveOrZero;
 import java.util.Objects;
 
 import static br.com.logos.category.enums.CategoryStatus.ACTIVE;
@@ -17,8 +21,11 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank(message = "Nome não pode estar em branco")
     private String name;
     @Column(name = "identifier_code")
+    @NotBlank(message = "Código não pode estar em branco")
+    @Pattern(regexp = "[[a-z-]+]+", message = "Código  inválido, não pode ter caracteres especiais ou números, apenas o hífem é perminido, letras devem ser minúsculas")
     private String code;
     @Column(columnDefinition = "TEXT")
     private String description;
@@ -28,10 +35,13 @@ public class Category {
     @Column(columnDefinition = "ENUM('ACTIVE','DISABLED')")
     private CategoryStatus status = DISABLED;
     @Column(name = "position")
+    @PositiveOrZero(message = "Ordem deve ter valor positivo ou 0")
     private int order;
+    @URL(message = "URL Inválida")
     @Column(name = "image_url")
     private String imageUrl;
     @Column(name = "color_code")
+    @Pattern(regexp = "^#([a-fA-F0-9]){6}?$|^[\s]*$", message = "cor inválida")
     private String colorCode;
 
     @Deprecated
@@ -46,13 +56,13 @@ public class Category {
         this.code = code;
     }
 
-    public Category(String name, String code, boolean active) {
+    public Category(String name, String code, CategoryStatus status) {
         this(name, code);
-        this.status = active ? ACTIVE : DISABLED;
+        this.status = status;
     }
 
-    public Category(String name, String code, String description, boolean active, int order, String imageUrl, String colorCode) {
-        this(name, code, active);
+    public Category(String name, String code, String description, CategoryStatus status, int order, String imageUrl, String colorCode) {
+        this(name, code, status);
         isValidColor(colorCode, "Cor de categoria não é válida");
         this.description = description;
         this.order = order;
@@ -60,9 +70,8 @@ public class Category {
         this.colorCode = colorCode;
     }
 
-    public Category(String name, String code, String description, String studyGuide, boolean status, int order, String imageUrl, String colorCode) {
+    public Category(String name, String code, String description, String studyGuide, CategoryStatus status, int order, String imageUrl, String colorCode) {
         this(name, code, description, status, order, imageUrl, colorCode);
-        isValidColor(colorCode, "Cor de categoria não é válida");
         this.studyGuide = studyGuide;
     }
 
@@ -106,40 +115,23 @@ public class Category {
         return studyGuide;
     }
 
-    public void setStatus(boolean active) {
-        this.status = active ? ACTIVE : DISABLED;
+    public void setStatus(CategoryStatus status) {
+        this.status = status;
     }
 
     public boolean isActive() {
         return ACTIVE.equals(this.getStatus());
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setStudyGuide(String studyGuide) {
-        this.studyGuide = studyGuide;
-    }
-
-    public void setOrder(int order) {
-        this.order = order;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    public void setColorCode(String colorCode) {
-        this.colorCode = colorCode;
+    public void update(CategoryUpdateDTO categoryUpdateDTO) {
+        this.name = categoryUpdateDTO.getName();
+        this.code = categoryUpdateDTO.getCode();
+        this.description = categoryUpdateDTO.getDescription();
+        this.studyGuide = categoryUpdateDTO.getStudyGuide();
+        this.order = categoryUpdateDTO.convertOrder(categoryUpdateDTO.getOrder());
+        this.status = categoryUpdateDTO.isActive() ? ACTIVE : DISABLED;
+        this.imageUrl = categoryUpdateDTO.getImageUrl();
+        this.colorCode = categoryUpdateDTO.getColorCode();
     }
 
     @Override

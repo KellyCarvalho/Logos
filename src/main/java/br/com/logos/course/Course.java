@@ -1,15 +1,10 @@
 package br.com.logos.course;
 
 import br.com.logos.category.Category;
-import br.com.logos.subCategory.SubCategory;
-import br.com.logos.subCategory.enums.SubCategoryStatus;
 import br.com.logos.commonValidator.ObjectValidator;
 import br.com.logos.commonValidator.StringValidator;
-
+import br.com.logos.subCategory.SubCategory;
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 @Entity
@@ -71,28 +66,12 @@ public class Course {
         return subCategory;
     }
 
-    public SubCategoryStatus isActiveSubCategory() {
-        return subCategory.getStatus();
-    }
-
-    public String getNameSubCategory() {
-        return subCategory.getName();
-    }
-
-    public String getDescriptionSubCategory() {
-        return subCategory.getDescription();
-    }
-
     public String getName() {
         return name;
     }
 
     public String getCode() {
         return code;
-    }
-
-    public String getTargetAudience() {
-        return targetAudience;
     }
 
     public String getDescription() {
@@ -105,18 +84,6 @@ public class Course {
 
     public Category getCategory() {
         return getSubCategory().getCategory();
-    }
-
-    public boolean isVisibility() {
-        return visibility;
-    }
-
-    public String getSubCategoryCode() {
-        return this.getSubCategory().getCode();
-    }
-
-    public String getInstructorName() {
-        return instructorName;
     }
 
     private static void isValidEstimatedTime(int estimatedTime, int min, int max) {

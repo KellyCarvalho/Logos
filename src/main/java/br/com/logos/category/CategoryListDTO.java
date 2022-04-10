@@ -5,10 +5,7 @@ import br.com.logos.course.CourseDTO;
 import br.com.logos.subCategory.SubCategory;
 import br.com.logos.subCategory.SubCategoryDTO;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,15 +15,13 @@ import static br.com.logos.subCategory.SubCategoryDTO.getActiveSubcategoriesByCa
 public class CategoryListDTO {
 
     @NotBlank(message = "Nome não pode estar em branco")
-    @NotEmpty(message = "Nome não pode estar Vazio")
-    @NotNull(message = "Nome não pode estar nulo")
     private String name;
     @NotBlank(message = "Código não pode estar em branco")
-    @NotEmpty(message = "Código não pode estar Vazio")
-    @NotNull(message = "Código não pode estar nulo")
+    @Pattern(regexp = "[[a-z-]+]+", message = "Código  inválido, não pode ter caracteres especiais ou números, apenas o hífem é perminido, letras devem ser minúsculas")
     private String code;
+    @PositiveOrZero(message = "Ordem deve ter valor positivo ou 0")
     private int order;
-    @Pattern(regexp = "^#([a-fA-F0-9]){3}(([a-fA-F0-9]){3})?$",message = "Deve ser uma cor válida")
+    @Pattern(regexp = "^#([a-fA-F0-9]){6}?$|^[\s]*$", message = "cor inválida")
     private String colorCode;
     private String studyGuide;
     private int quantityCoursesCategory;
@@ -36,12 +31,12 @@ public class CategoryListDTO {
     @Deprecated
     public CategoryListDTO(){}
 
-    public CategoryListDTO(String name, String code, int order, String colorCode, String studyGuide, List<CourseDTO> courses, List<SubCategoryDTO> subCategories) {
-        this.name = name;
-        this.code = code;
-        this.order = order;
-        this.colorCode = colorCode;
-        this.studyGuide = studyGuide;
+    public CategoryListDTO(Category category, List<CourseDTO> courses, List<SubCategoryDTO> subCategories) {
+        this.name = category.getName();
+        this.code = category.getCode();
+        this.order = category.getOrder();
+        this.colorCode = category.getColorCode();
+        this.studyGuide = category.getStudyGuide();
         this.quantityCoursesCategory = courses.size();
         this.courses = courses;
         this.subCategories = subCategories;
@@ -116,8 +111,7 @@ public class CategoryListDTO {
         List<CategoryListDTO> categoriesDto = new ArrayList<>();
 
         categories.forEach(category -> {
-            categoriesDto.add(new CategoryListDTO(category.getName(), category.getCode(), category.getOrder(),
-                    category.getColorCode(), category.getStudyGuide(),
+            categoriesDto.add(new CategoryListDTO(category,
                     getPublicCoursesByCategory(courses, category.getId()), getActiveSubcategoriesByCategory(subCategories, category.getId())));
         });
         return categoriesDto;

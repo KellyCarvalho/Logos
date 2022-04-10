@@ -1,19 +1,16 @@
 package br.com.logos.subCategory;
 
 import br.com.logos.category.Category;
-import br.com.logos.subCategory.enums.SubCategoryStatus;
 import br.com.logos.commonValidator.ObjectValidator;
+import br.com.logos.subCategory.enums.SubCategoryStatus;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
-import static br.com.logos.commonValidator.StringValidator.isNotBlankEmptyOrNull;
 import static br.com.logos.commonValidator.StringValidator.doesCodeContainsOnlyLettersInLowerCaseAndHyphen;
-import static br.com.logos.subCategory.enums.SubCategoryStatus.DISABLED;
+import static br.com.logos.commonValidator.StringValidator.isNotBlankEmptyOrNull;
 import static br.com.logos.subCategory.enums.SubCategoryStatus.ACTIVE;
+import static br.com.logos.subCategory.enums.SubCategoryStatus.DISABLED;
 
 @Entity
 @Table(name = "Subcategory")
@@ -79,28 +76,12 @@ public class SubCategory {
         return this.getCategory().getId();
     }
 
-    public int getOrder() {
-        return order;
-    }
-
-    public SubCategoryStatus getStatus() {
-        return status;
-    }
-
     public String getDescription() {
         return description;
     }
 
     public boolean isActive() {
         return ACTIVE.equals(this.status);
-    }
-
-    public boolean isEmptyDescription() {
-        return this.getDescription() == null ? false : this.getDescription().isEmpty();
-    }
-
-    public String getCategoryCode() {
-        return this.getCategory().getCode();
     }
 
     public String getStudyGuide() {

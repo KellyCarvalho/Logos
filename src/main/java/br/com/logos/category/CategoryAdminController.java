@@ -38,7 +38,7 @@ public class CategoryAdminController {
         if (result.hasErrors()) {
             return viewFormInsertCategory(categoryInsertDTO, result, model);
         }
-        Category category = categoryInsertDTO.insertDTOtoEntity(categoryInsertDTO);
+        Category category = categoryInsertDTO.toEntity(categoryInsertDTO);
         categoryRepository.save(category);
 
         return "redirect:/admin/categories";
@@ -50,7 +50,7 @@ public class CategoryAdminController {
         Optional<Category> category = categoryRepository.findByCode(categoryCode);
 
         if (category.isEmpty()) {
-            return "notFound";
+            return "errors/notFound";
         }
 
         if (result.hasErrors()) {
@@ -58,7 +58,7 @@ public class CategoryAdminController {
             return "category/formUpdateCategory";
         }
 
-        categoryUpdateDTO.update(category.get());
+        category.get().update(categoryUpdateDTO);
 
         return "redirect:/admin/categories";
     }
@@ -67,7 +67,7 @@ public class CategoryAdminController {
     public String showCategory(@PathVariable String code, CategoryUpdateDTO categoryUpdateDTO, BindingResult result, Model model) {
         Optional<Category> category = categoryRepository.findByCode(code);
         if (category.isEmpty()) {
-            return "notFound";
+            return "errors/notFound";
         }
         model.addAttribute("categoryUpdateDTO", new CategoryUpdateDTO(category.get()));
 

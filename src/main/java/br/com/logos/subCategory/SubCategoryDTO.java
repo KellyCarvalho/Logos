@@ -9,12 +9,6 @@ public class SubCategoryDTO {
     private final String code;
     private final String studyGuide;
 
-    public SubCategoryDTO(String name, String code, String studyGuide) {
-        this.name = name;
-        this.code = code;
-        this.studyGuide = studyGuide;
-    }
-
     public SubCategoryDTO(SubCategory subCategory) {
         this.name = subCategory.getCode();
         this.code = subCategory.getCode();

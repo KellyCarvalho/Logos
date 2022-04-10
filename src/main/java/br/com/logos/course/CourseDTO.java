@@ -10,13 +10,6 @@ public class CourseDTO {
     private final int estimatedTime;
     private final String developedSkills;
 
-    public CourseDTO(String name, String code, int estimatedTime, String developedSkills) {
-        this.name = name;
-        this.code = code;
-        this.estimatedTime = estimatedTime;
-        this.developedSkills = developedSkills;
-    }
-
     public CourseDTO(Course course){
         this.code = course.getCode();
         this.name = course.getName();

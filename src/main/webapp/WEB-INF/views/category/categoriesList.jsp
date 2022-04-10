@@ -27,7 +27,7 @@
                         <tr scope="row">
                             <td>${category.name}</td>
                             <td>${category.code}</td>
-                            <td>${category.status}</td>
+                            <td>${category.status == 'ACTIVE' ? 'Ativa' : 'Inativa'}</td>
                             <td><a href="/admin/subcategories/${category.code}">SubCategorias</td>
                             <td>
                                 <a style="text-decoration: none; color: #0c0101" href="/admin/categories/${category.code}">

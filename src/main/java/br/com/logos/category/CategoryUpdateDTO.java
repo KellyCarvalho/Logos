@@ -1,5 +1,8 @@
 package br.com.logos.category;
 
+import br.com.logos.category.enums.CategoryStatus;
+import org.hibernate.validator.constraints.URL;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.PositiveOrZero;
@@ -19,6 +22,7 @@ public class CategoryUpdateDTO {
     private String studyGuide;
     private String description;
     private boolean active;
+    @URL(message = "URL Inválida")
     private String imageUrl;
     @Pattern(regexp = "^#([a-fA-F0-9]){6}?$|^[\s]*$", message = "cor inválida")
     private String colorCode;
@@ -116,17 +120,6 @@ public class CategoryUpdateDTO {
 
     public int convertOrder(String order){
         return  order != null && !order.isBlank() && !order.isEmpty() ? Integer.parseInt(order)  : 0;
-    }
-
-    public void update(Category category) {
-        category.setName(this.name);
-        category.setCode(this.code);
-        category.setDescription(this.description);
-        category.setStudyGuide(this.studyGuide);
-        category.setOrder(convertOrder(this.order));
-        category.setStatus(this.active);
-        category.setImageUrl(this.imageUrl);
-        category.setColorCode(this.colorCode);
     }
 
     @Override
