@@ -115,10 +115,6 @@ public class Category {
         return studyGuide;
     }
 
-    public void setStatus(CategoryStatus status) {
-        this.status = status;
-    }
-
     public boolean isActive() {
         return ACTIVE.equals(this.getStatus());
     }

@@ -48,7 +48,6 @@
         <div class="md-4">
             <form:label path="imageUrl" class="form-label" for="imageUrl">Caminho da imagem</form:label>
             <form:input  path="imageUrl"  placeholder="por exemplo: /images/categorias/programacao.svg" class="form-control" id="imageUrl" type="text" name="imageUrl"/>
-            <form:errors  path="imageUrl" />
         </div>
 
         <div class="md-4" style="padding-top: 10px">

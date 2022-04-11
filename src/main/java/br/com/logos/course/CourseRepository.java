@@ -8,5 +8,4 @@ import java.util.List;
 public interface CourseRepository extends JpaRepository<Course, Long> {
 
     List<Course> findByVisibilityAndSubCategory_Category_StatusOrderBySubCategory_Category_Order(boolean visibility, CategoryStatus status);
-    List<Course> findBySubCategory_Category_Id(Long id);
 }

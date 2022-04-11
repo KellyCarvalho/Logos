@@ -22,7 +22,6 @@ public class CategoryUpdateDTO {
     private String studyGuide;
     private String description;
     private boolean active;
-    @URL(message = "URL Inválida")
     private String imageUrl;
     @Pattern(regexp = "^#([a-fA-F0-9]){6}?$|^[\s]*$", message = "cor inválida")
     private String colorCode;

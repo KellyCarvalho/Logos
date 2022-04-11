@@ -1,5 +1,5 @@
 
-use LOGOS;
+use logos;
 INSERT INTO Category (`name`,`identifier_code`,`position`,`description`,`status`,`image_url`,`color_code`)
 VALUES("Programação","programacao",1,"Programe nas principais linguagens e plataformas. Iniciantes são bem vindos nos cursos de lógica e JavaScript.","ACTIVE","https://www.alura.com.br/assets/api/formacoes/categorias/512/programacao-transparent.png","#00c86f");
 
