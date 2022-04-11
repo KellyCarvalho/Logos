@@ -3,12 +3,17 @@ package br.com.logos.category;
 
 import br.com.logos.category.enums.CategoryStatus;
 import br.com.logos.commonValidator.StringValidator;
+import org.hibernate.validator.constraints.URL;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.PositiveOrZero;
 import java.util.Objects;
 
-import static br.com.logos.category.enums.CategoryStatus.DISABLED;
 import static br.com.logos.category.enums.CategoryStatus.ACTIVE;
+import static br.com.logos.category.enums.CategoryStatus.DISABLED;
+import static br.com.logos.commonValidator.StringValidator.isValidColor;
 
 @Entity
 public class Category {
@@ -16,8 +21,11 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank(message = "Nome não pode estar em branco")
     private String name;
     @Column(name = "identifier_code")
+    @NotBlank(message = "Código não pode estar em branco")
+    @Pattern(regexp = "[[a-z-]+]+", message = "Código  inválido, não pode ter caracteres especiais ou números, apenas o hífem é perminido, letras devem ser minúsculas")
     private String code;
     @Column(columnDefinition = "TEXT")
     private String description;
@@ -27,10 +35,13 @@ public class Category {
     @Column(columnDefinition = "ENUM('ACTIVE','DISABLED')")
     private CategoryStatus status = DISABLED;
     @Column(name = "position")
+    @PositiveOrZero(message = "Ordem deve ter valor positivo ou 0")
     private int order;
+    @URL(message = "URL Inválida")
     @Column(name = "image_url")
     private String imageUrl;
     @Column(name = "color_code")
+    @Pattern(regexp = "^#([a-fA-F0-9]){6}?$|^[\s]*$", message = "cor inválida")
     private String colorCode;
 
     @Deprecated
@@ -52,9 +63,8 @@ public class Category {
 
     public Category(String name, String code, String description, CategoryStatus status, int order, String imageUrl, String colorCode) {
         this(name, code, status);
-        StringValidator.isValidColor(colorCode, "Cor de categoria não é válida");
+        isValidColor(colorCode, "Cor de categoria não é válida");
         this.description = description;
-        this.status = status;
         this.order = order;
         this.imageUrl = imageUrl;
         this.colorCode = colorCode;
@@ -62,7 +72,6 @@ public class Category {
 
     public Category(String name, String code, String description, String studyGuide, CategoryStatus status, int order, String imageUrl, String colorCode) {
         this(name, code, description, status, order, imageUrl, colorCode);
-        StringValidator.isValidColor(colorCode, "Cor de categoria não é válida");
         this.studyGuide = studyGuide;
     }
 
@@ -114,10 +123,15 @@ public class Category {
         return ACTIVE.equals(this.getStatus());
     }
 
-    void disableCategory() {
-        if (getStatus() == ACTIVE) {
-            setStatus(DISABLED);
-        }
+    public void update(CategoryUpdateDTO categoryUpdateDTO) {
+        this.name = categoryUpdateDTO.getName();
+        this.code = categoryUpdateDTO.getCode();
+        this.description = categoryUpdateDTO.getDescription();
+        this.studyGuide = categoryUpdateDTO.getStudyGuide();
+        this.order = categoryUpdateDTO.convertOrder(categoryUpdateDTO.getOrder());
+        this.status = categoryUpdateDTO.isActive() ? ACTIVE : DISABLED;
+        this.imageUrl = categoryUpdateDTO.getImageUrl();
+        this.colorCode = categoryUpdateDTO.getColorCode();
     }
 
     @Override

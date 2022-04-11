@@ -1,11 +1,9 @@
 package br.com.logos.course;
 
 import br.com.logos.category.Category;
-import br.com.logos.subCategory.SubCategory;
-import br.com.logos.subCategory.enums.SubCategoryStatus;
 import br.com.logos.commonValidator.ObjectValidator;
 import br.com.logos.commonValidator.StringValidator;
-
+import br.com.logos.subCategory.SubCategory;
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -68,28 +66,12 @@ public class Course {
         return subCategory;
     }
 
-    public SubCategoryStatus isActiveSubCategory() {
-        return subCategory.getStatus();
-    }
-
-    public String getNameSubCategory() {
-        return subCategory.getName();
-    }
-
-    public String getDescriptionSubCategory() {
-        return subCategory.getDescription();
-    }
-
     public String getName() {
         return name;
     }
 
     public String getCode() {
         return code;
-    }
-
-    public String getTargetAudience() {
-        return targetAudience;
     }
 
     public String getDescription() {
@@ -104,18 +86,6 @@ public class Course {
         return getSubCategory().getCategory();
     }
 
-    public boolean isVisibility() {
-        return visibility;
-    }
-
-    public String getSubCategoryCode() {
-        return this.getSubCategory().getCode();
-    }
-
-    public String getInstructorName() {
-        return instructorName;
-    }
-
     private static void isValidEstimatedTime(int estimatedTime, int min, int max) {
         if (estimatedTime < min || estimatedTime > max)
             throw new IllegalArgumentException("Tempo estimado de curso não pode ser menor que " + min + " ou maior que " + max);
@@ -123,6 +93,10 @@ public class Course {
 
     public Long getId() {
         return id;
+    }
+
+    public Long getCategoryId(){
+        return this.getCategory().getId();
     }
 
     @Override

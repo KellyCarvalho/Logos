@@ -7,7 +7,7 @@ public class StringValidator {
     }
 
     public static void isValidColor(String color, String message) {
-        boolean isValidCode = color != null ? color.matches("^#([a-fA-F0-9]){3}(([a-fA-F0-9]){3})?$") : false;
+        boolean isValidCode = color != null ? color.matches("^#([a-fA-F0-9]){6}?$|^[\s]*$") : false;
         if (!isValidCode) throw new IllegalArgumentException(message);
     }
 
