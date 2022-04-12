@@ -2,6 +2,8 @@ package br.com.logos.category;
 
 import br.com.logos.category.enums.CategoryStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,4 +15,12 @@ public interface CategoryRepository extends JpaRepository<Category,Long> {
     Optional<Category> findByCode(String code);
 
     List<Category> findByOrderByOrder();
+
+    List<Category> findByOrderByName();
+
+    @Query(value = "select id, name from Category where identifier_code = :categoryCode order by position ", nativeQuery = true)
+    Optional<CategoryProjection> findOrderByOrder(@Param("categoryCode") String categoryCode);
+
+    @Query(value = "select id, name from Category order by name asc", nativeQuery = true)
+    List<CategoryProjection> findAllOrderByName();
 }

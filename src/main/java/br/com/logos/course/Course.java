@@ -86,6 +86,11 @@ public class Course {
         return getSubCategory().getCategory();
     }
 
+    public String getCategoryName() {
+        return getCategory().getName();
+    }
+
+
     private static void isValidEstimatedTime(int estimatedTime, int min, int max) {
         if (estimatedTime < min || estimatedTime > max)
             throw new IllegalArgumentException("Tempo estimado de curso não pode ser menor que " + min + " ou maior que " + max);

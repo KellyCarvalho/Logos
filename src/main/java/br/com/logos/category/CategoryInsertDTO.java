@@ -1,7 +1,6 @@
 package br.com.logos.category;
 
 import br.com.logos.category.enums.CategoryStatus;
-import org.hibernate.validator.constraints.URL;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;

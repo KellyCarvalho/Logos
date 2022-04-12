@@ -3,7 +3,6 @@ package br.com.logos.category;
 
 import br.com.logos.category.enums.CategoryStatus;
 import br.com.logos.commonValidator.StringValidator;
-import org.hibernate.validator.constraints.URL;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -37,7 +36,6 @@ public class Category {
     @Column(name = "position")
     @PositiveOrZero(message = "Ordem deve ter valor positivo ou 0")
     private int order;
-    @URL(message = "URL Inválida")
     @Column(name = "image_url")
     private String imageUrl;
     @Column(name = "color_code")

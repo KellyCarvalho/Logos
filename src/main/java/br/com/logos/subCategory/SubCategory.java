@@ -1,6 +1,7 @@
 package br.com.logos.subCategory;
 
 import br.com.logos.category.Category;
+import br.com.logos.category.enums.CategoryStatus;
 import br.com.logos.commonValidator.ObjectValidator;
 import br.com.logos.subCategory.enums.SubCategoryStatus;
 
@@ -56,6 +57,20 @@ public class SubCategory {
         this.order = order;
     }
 
+    public SubCategory(SubCategoryInsertDTO subCategoryInsertDTO){
+        isNotBlankEmptyOrNull(subCategoryInsertDTO.getName(), "Nome da SubCategoria é requerido, não pode ser vazio ou nulo");
+        doesCodeContainsOnlyLettersInLowerCaseAndHyphen(subCategoryInsertDTO.getCode(), "Código da SubCategoria não é válido ou está null ou vazio - deve ter caracteres de a-z -" +
+                "Único caractere especial permitido é o hífen");
+        ObjectValidator.isObjectValid(subCategoryInsertDTO.getCategory(), "Categoria é obrigatória, não pode ser nula");
+        this.name = subCategoryInsertDTO.getName();
+        this.code = subCategoryInsertDTO.getCode();
+        this.description = subCategoryInsertDTO.getDescription();
+        this.order = subCategoryInsertDTO.convertOrder(subCategoryInsertDTO.getOrder());
+        this.status = subCategoryInsertDTO.isActive() ? ACTIVE : DISABLED;
+        this.studyGuide = subCategoryInsertDTO.getStudyGuide();
+        this.category = subCategoryInsertDTO.getCategory();
+    }
+
     public Long getId() {
         return id;
     }
@@ -92,12 +107,26 @@ public class SubCategory {
         return status;
     }
 
+    public int getOrder() {
+        return order;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         SubCategory that = (SubCategory) o;
         return code.equals(that.code);
+    }
+
+    public void update(SubCategoryUpdateDTO subCategoryUpdateDTO) {
+        this.name = subCategoryUpdateDTO.getName();
+        this.code = subCategoryUpdateDTO.getCode();
+        this.description = subCategoryUpdateDTO.getDescription();
+        this.studyGuide = subCategoryUpdateDTO.getStudyGuide();
+        this.order = subCategoryUpdateDTO.convertOrder(subCategoryUpdateDTO.getOrder());
+        this.status = subCategoryUpdateDTO.isActive() ? SubCategoryStatus.ACTIVE : SubCategoryStatus.DISABLED;
+        this.category = subCategoryUpdateDTO.getCategory();
     }
 
     @Override

@@ -3,13 +3,14 @@
 <html>
     <head>
         <link rel='stylesheet' href='/webjars/bootstrap/3.3.7/css/bootstrap.min.css'>
-        <title>Nome da Categoria</title>
+        <title>Subcategorias</title>
         <meta charset="utf-8">
     </head>
     <body>
         <section style="padding: 10px" class="container">
+            <h1>${category.name}</h1>
             <h3>SubCategoria</h3>
-            <a href="/admin/categories/new"><button  class="btn btn-primary">Nova Subcategoria</button></a>
+            <a href="/admin/subcategories/new"><button  class="btn btn-primary">Nova Subcategoria</button></a>
         </section>
 
         <section class="container">
@@ -30,7 +31,7 @@
                             <td>${subcategory.status == 'ACTIVE' ? 'Ativa' : 'Inativa'}</td>
                             <td><a href="/admin/subcategories/${subcategory.code}"/>Cursos</td>
                             <td>
-                                <a style="text-decoration: none; color: #0c0101" href="/admin/courses/${subcategory.code}">
+                                <a style="text-decoration: none; color: #0c0101" href="/admin/subcategories/${category.code}/${subcategory.code}">
                                     <button class="btn btn-dark">Editar</button>
                                 </a>
                             </td>
