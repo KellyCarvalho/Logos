@@ -41,7 +41,7 @@
                 </li>
                     <c:forEach begin="1" end="${courses.totalPages}" var="page">
                         <li class="page-item">
-                            <a href="?page=${page-1}" class="page-link">${page-1}</a>
+                            <a href="?page=${page-1}" class="page-link">${page}</a>
                         </li>
                     </c:forEach>
                 <li class="page-item">
