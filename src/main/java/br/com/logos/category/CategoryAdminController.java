@@ -7,6 +7,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -72,5 +73,13 @@ public class CategoryAdminController {
         model.addAttribute("categoryUpdateDTO", new CategoryUpdateDTO(category.get()));
 
         return "category/formUpdateCategory";
+    }
+
+    @PostMapping("admin/categories/disable/{categoryCode}")
+    @Transactional
+    @ResponseBody
+    public void disableCategory(@PathVariable String categoryCode){
+        Optional<Category> category = categoryRepository.findByCode(categoryCode);
+            category.get().disableCategory();
     }
 }

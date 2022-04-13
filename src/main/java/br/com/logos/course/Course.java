@@ -112,6 +112,10 @@ public class Course {
         return code.equals(course.code);
     }
 
+    public boolean isVisibility() {
+        return visibility;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(code);

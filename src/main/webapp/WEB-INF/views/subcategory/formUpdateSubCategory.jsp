@@ -55,8 +55,8 @@
 
         <h1>Categoria</h1>
         <form:select class="form-control" path="category" id="category">
-            <form:option  value="${categoryFromSubCategory}" selected="${categoryFromSubCategory}" >${categoryFromSubCategory.getName()}</form:option>
-            <form:options   items="${categories}"></form:options>
+            <form:option itemLabel="name"  value="${categoryFromSubCategory}" selected="${categoryFromSubCategory}" >${categoryFromSubCategory.getName()}</form:option>
+            <form:options itemLabel="name" items="${categories}"></form:options>
         </form:select>
 
         <div class="md-4" style="padding-top: 20px">

@@ -4,6 +4,7 @@
     <head>
         <link rel='stylesheet' href='/webjars/bootstrap/3.3.7/css/bootstrap.min.css'>
         <title>Subcategorias</title>
+        <script src="/webjars/jquery/3.6.0/jquery.js"></script>
         <meta charset="utf-8">
     </head>
     <body>
@@ -28,11 +29,18 @@
                         <tr scope="row">
                             <td>${subcategory.name}</td>
                             <td>${subcategory.code}</td>
-                            <td>${subcategory.status == 'ACTIVE' ? 'Ativa' : 'Inativa'}</td>
-                            <td><a href="/admin/subcategories/${subcategory.code}"/>Cursos</td>
+                            <td id="status_${subcategory.code}">${subcategory.status == 'ACTIVE' ? 'Ativa' : 'Inativa'}</td>
+                            <td><a href="/admin/courses/${category.code}/${subcategory.code}"/>Cursos</td>
                             <td>
                                 <a style="text-decoration: none; color: #0c0101" href="/admin/subcategories/${category.code}/${subcategory.code}">
                                     <button class="btn btn-dark">Editar</button>
+                                </a>
+                            </td>
+                            <td>
+                                <a style="text-decoration: none; color: #0c0101">
+                                    <c:if test="${subcategory.status == 'ACTIVE'}">
+                                        <button onclick="disable('${subcategory.code}')" id="disableButton_${subcategory.code}"  class="btn btn-dark">Desativar</button>
+                                    </c:if>
                                 </a>
                             </td>
                         </tr>
@@ -40,6 +48,14 @@
                </c:forEach>
             </table>
         </section>
-
+        <script>
+            function disable(subcategoryCode){
+                let url = "/admin/subcategories/disable/"+subcategoryCode;
+                $.post(url, function (){
+                    $("#disableButton_"+subcategoryCode).hide();
+                    $("#status_"+subcategoryCode).text("Inativa")
+                });
+            }
+        </script>
     </body>
 </html>

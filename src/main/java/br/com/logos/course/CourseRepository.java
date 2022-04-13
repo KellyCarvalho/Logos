@@ -24,7 +24,7 @@ ORDER BY `quantity` DESC
     @Query(value = """
 SELECT instructor_name `instructorName`, COUNT(c.id)  `quantity`
 FROM Course c
-GROUP BY instructorName ORDER BY quantity DESC
+GROUP BY instructorName ORDER BY quantity DESC LIMIT 1
 """, nativeQuery = true)
     List<CoursesQuantityByInstructorname> findAllInstructorCountCourses();
 }

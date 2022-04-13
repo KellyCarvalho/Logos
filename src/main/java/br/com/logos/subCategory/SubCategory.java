@@ -1,7 +1,6 @@
 package br.com.logos.subCategory;
 
 import br.com.logos.category.Category;
-import br.com.logos.category.enums.CategoryStatus;
 import br.com.logos.commonValidator.ObjectValidator;
 import br.com.logos.subCategory.enums.SubCategoryStatus;
 
@@ -127,6 +126,10 @@ public class SubCategory {
         this.order = subCategoryUpdateDTO.convertOrder(subCategoryUpdateDTO.getOrder());
         this.status = subCategoryUpdateDTO.isActive() ? SubCategoryStatus.ACTIVE : SubCategoryStatus.DISABLED;
         this.category = subCategoryUpdateDTO.getCategory();
+    }
+
+    public void disableCategory() {
+        this.status = SubCategoryStatus.DISABLED;
     }
 
     @Override

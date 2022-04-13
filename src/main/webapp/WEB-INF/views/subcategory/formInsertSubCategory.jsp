@@ -53,7 +53,7 @@
 
         <h1>Categoria</h1>
             <form:select class="form-control" path="category" id="category">
-                <form:options   items="${categories}"></form:options>
+                <form:options itemLabel="name" items="${categories}"></form:options>
             </form:select>
 
         <div class="md-4" style="padding-top: 20px">

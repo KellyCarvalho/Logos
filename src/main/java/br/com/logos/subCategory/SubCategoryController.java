@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -46,12 +47,8 @@ public class SubCategoryController {
 
     @GetMapping("/admin/subcategories/new")
     public String showFormInsert(SubCategoryInsertDTO subCategoryInsertDTO, BindingResult result, Model model) {
-        List<Category> categories = categoryRepository.findByOrderByName();
-        Map<Long, String> categoriesMap = new HashMap<>();
-        categories.forEach(category -> {
-            categoriesMap.put(category.getId(), category.getName());
-        });
-        model.addAttribute("categories", categoriesMap);
+        List<Category> categories = categoryRepository.findAllByOrderByName();
+        model.addAttribute("categories", categories);
         return "subcategory/formInsertSubCategory";
     }
 
@@ -59,18 +56,11 @@ public class SubCategoryController {
     public String showSubCategory(@PathVariable String subcategoryCode, @PathVariable String categoryCode, SubCategoryUpdateDTO subCategoryUpdateDTO, BindingResult result, Model model) {
         Optional<SubCategory> subCategory = subCategoryRepository.findByCode(subcategoryCode);
         Optional<CategoryProjection> categoryProjection = categoryRepository.findOrderByOrder(categoryCode);
-        List<Category> categories = categoryRepository.findByOrderByName();
-        Map<Long, String> categoriesMap = new HashMap<>();
-        Map<Long, String> categoryFromSubCategory = new HashMap<>();
-        categories.forEach(category -> {
-            if (!category.getId().equals(subCategory.get().getCategory().getId()))
-            categoriesMap.put(category.getId(), category.getName());
-        });
-        categoryFromSubCategory.put(subCategory.get().getCategoryId(), subCategory.get().getCategory().getName());
+        List<Category> categories = categoryRepository.findAllByOrderByName();
         if (subCategory.isEmpty()) {
             return "erros/notFound";
         }
-        model.addAttribute("categories", categoriesMap);
+        model.addAttribute("categories", categories);
         model.addAttribute("subcategoryUpdateDTO", new SubCategoryUpdateDTO(subCategory.get()));
         model.addAttribute("categoryFromSubCategory", categoryProjection.get());
         return "/subcategory/formUpdateSubCategory";
@@ -95,4 +85,11 @@ public class SubCategoryController {
         return  "redirect:/admin/subcategories/"+subCategory.get().getCategory().getCode();
     }
 
+    @PostMapping("admin/subcategories/disable/{subcategoryCode}")
+    @Transactional
+    @ResponseBody
+    public void disableSubCategory(@PathVariable String subcategoryCode){
+        Optional<SubCategory> subCategory = subCategoryRepository.findByCode(subcategoryCode);
+        subCategory.get().disableCategory();
+    }
 }

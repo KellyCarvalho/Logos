@@ -16,11 +16,9 @@ public interface CategoryRepository extends JpaRepository<Category,Long> {
 
     List<Category> findByOrderByOrder();
 
-    List<Category> findByOrderByName();
+    List<Category> findAllByOrderByName();
 
     @Query(value = "select id, name from Category where identifier_code = :categoryCode order by position ", nativeQuery = true)
     Optional<CategoryProjection> findOrderByOrder(@Param("categoryCode") String categoryCode);
 
-    @Query(value = "select id, name from Category order by name asc", nativeQuery = true)
-    List<CategoryProjection> findAllOrderByName();
 }

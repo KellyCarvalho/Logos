@@ -109,6 +109,10 @@ public class Category {
         return status;
     }
 
+    public void setStatus(CategoryStatus status) {
+        this.status = status;
+    }
+
     public String getStudyGuide() {
         return studyGuide;
     }
@@ -126,6 +130,10 @@ public class Category {
         this.status = categoryUpdateDTO.isActive() ? ACTIVE : DISABLED;
         this.imageUrl = categoryUpdateDTO.getImageUrl();
         this.colorCode = categoryUpdateDTO.getColorCode();
+    }
+
+    public void disableCategory(){
+        this.status = DISABLED;
     }
 
     @Override
