@@ -1,14 +1,11 @@
 package br.com.logos.subCategory;
 
 import br.com.logos.category.Category;
-import br.com.logos.subCategory.enums.SubCategoryStatus;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.PositiveOrZero;
-import java.util.ArrayList;
-import java.util.List;
 
 public class SubCategoryInsertDTO {
     @NotBlank(message = "Nome é requerido")
@@ -20,21 +17,12 @@ public class SubCategoryInsertDTO {
     private String studyGuide;
     private boolean status;
     @PositiveOrZero(message = "Ordem deve ter valor positivo ou 0")
-    private String order;
+    private int order;
     @NotNull(message = "Categoria não pode ser vazia")
     private Category  category;
-    List<Category> categories = new ArrayList<>();
 
     public boolean isStatus() {
         return status;
-    }
-
-    public List<Category> getCategories() {
-        return categories;
-    }
-
-    public void setCategories(List<Category> categories) {
-        this.categories = categories;
     }
 
     public String getName() {
@@ -77,11 +65,11 @@ public class SubCategoryInsertDTO {
         this.status = status;
     }
 
-    public String getOrder() {
+    public int getOrder() {
         return order;
     }
 
-    public void setOrder(String order) {
+    public void setOrder(int order) {
         this.order = order;
     }
 
@@ -93,11 +81,7 @@ public class SubCategoryInsertDTO {
         this.category = category;
     }
 
-    public SubCategory toEntity(SubCategoryInsertDTO subCategoryInsertDTO){
-        return new SubCategory(subCategoryInsertDTO);
-    }
-
-    public int convertOrder(String order) {
-        return order != null && !order.isBlank() && !order.isEmpty() ? Integer.parseInt(order) : 0;
+    public SubCategory toEntity(){
+        return new SubCategory(this);
     }
 }

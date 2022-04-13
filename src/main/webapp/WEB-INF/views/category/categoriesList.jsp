@@ -7,8 +7,8 @@
         <script src="/webjars/jquery/3.6.0/jquery.js"></script>
         <meta charset="utf-8">
     </head>
+<%--    TODO revisar espaçamentos--%>
     <body>
-    <button id="teste"></button>
         <section style="padding: 10px" class="container">
             <h3>Categorias</h3>
             <a href="/admin/categories/new"><button  class="btn btn-primary">Nova Categoria</button></a>
@@ -48,16 +48,15 @@
                     </tbody>
                </c:forEach>
             </table>
-            <p></p>
         </section>
         <script>
-function disable(categoryCode){
-    let url = "/admin/categories/disable/"+categoryCode;
-    $.post(url, function (){
-        $("#disableButton_"+categoryCode).hide();
-        $("#status_"+categoryCode).text("Inativa")
-    });
-}
-    </script>
+            function disable(categoryCode){
+                let url = "/admin/categories/disable/"+categoryCode;
+                $.post(url, function (){
+                    $("#disableButton_"+categoryCode).hide();
+                    $("#status_"+categoryCode).text("Inativa")
+                });
+            }
+        </script>
     </body>
 </html>

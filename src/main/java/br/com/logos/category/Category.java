@@ -132,7 +132,7 @@ public class Category {
         this.colorCode = categoryUpdateDTO.getColorCode();
     }
 
-    public void disableCategory(){
+    public void disable(){
         this.status = DISABLED;
     }
 

@@ -1,16 +1,13 @@
 package br.com.logos.subCategory;
 
 import br.com.logos.category.Category;
-import br.com.logos.category.CategoryProjection;
 import br.com.logos.category.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -26,10 +23,14 @@ public class SubCategoryController {
 
     @GetMapping("/admin/subcategories/{categoryCode}")
     public String getSubCategoriesByCategoryCode(@PathVariable String categoryCode, Model model) {
-        List<SubCategoryProjection> subcategories = subCategoryRepository.findAllByCategoryOrderByOrder(categoryCode);
-        Optional<Category> category = categoryRepository.findByCode(categoryCode);
+        Optional<Category> possibleCategory = categoryRepository.findByCode(categoryCode);
+        List<SubCategoryProjection> subcategories = subCategoryRepository.getAllByCategoryOrderByOrder(categoryCode);
+
+        if (possibleCategory.isEmpty()) {
+            return "errors/notFound";
+        }
         model.addAttribute("subcategories", subcategories);
-        category.ifPresent(value -> model.addAttribute("category", value));
+        model.addAttribute("category", possibleCategory.get());
         return "subcategory/subcategoriesList";
     }
 
@@ -39,10 +40,10 @@ public class SubCategoryController {
         if (result.hasErrors()) {
             return showFormInsert(subCategoryInsertDTO, result, model);
         }
-        SubCategory subCategory = subCategoryInsertDTO.toEntity(subCategoryInsertDTO);
+        SubCategory subCategory = subCategoryInsertDTO.toEntity();
         subCategoryRepository.save(subCategory);
 
-        return "redirect:/admin/subcategories/" + subCategory.getCategory().getCode();
+        return "redirect:/admin/subcategories/" + subCategory.getCategoryCode();
     }
 
     @GetMapping("/admin/subcategories/new")
@@ -53,43 +54,45 @@ public class SubCategoryController {
     }
 
     @GetMapping("/admin/subcategories/{categoryCode}/{subcategoryCode}")
-    public String showSubCategory(@PathVariable String subcategoryCode, @PathVariable String categoryCode, SubCategoryUpdateDTO subCategoryUpdateDTO, BindingResult result, Model model) {
-        Optional<SubCategory> subCategory = subCategoryRepository.findByCode(subcategoryCode);
-        Optional<CategoryProjection> categoryProjection = categoryRepository.findOrderByOrder(categoryCode);
+    public String showFormUpdate(@PathVariable String subcategoryCode, @PathVariable String categoryCode,
+                                 SubCategoryUpdateDTO subCategoryUpdateDTO, BindingResult result, Model model) {
+        Optional<Category> possibleCategory = categoryRepository.findByCode(categoryCode);
+        Optional<SubCategory> possibleSubCategory = subCategoryRepository.findByCode(subcategoryCode);
         List<Category> categories = categoryRepository.findAllByOrderByName();
-        if (subCategory.isEmpty()) {
-            return "erros/notFound";
+        if (possibleSubCategory.isEmpty() || possibleCategory.isEmpty()) {
+            return "errors/notFound";
         }
+
+        model.addAttribute("subCategoryUpdateDTO", result.hasErrors() ? subCategoryUpdateDTO : new SubCategoryUpdateDTO(possibleSubCategory.get()));
         model.addAttribute("categories", categories);
-        model.addAttribute("subcategoryUpdateDTO", new SubCategoryUpdateDTO(subCategory.get()));
-        model.addAttribute("categoryFromSubCategory", categoryProjection.get());
         return "/subcategory/formUpdateSubCategory";
     }
 
     @Transactional
     @PostMapping("/admin/subcategories/{categoryCode}/{subcategoryCode}")
-    public String update(@PathVariable String categoryCode, @PathVariable String subcategoryCode, @Valid SubCategoryUpdateDTO subCategoryUpdateDTO, BindingResult result, Model model) {
+    public String update(@PathVariable String categoryCode, @PathVariable String subcategoryCode,
+                         @Valid SubCategoryUpdateDTO subCategoryUpdateDTO, BindingResult result, Model model) {
+        Optional<Category> category = categoryRepository.findByCode(categoryCode);
         Optional<SubCategory> subCategory = subCategoryRepository.findByCode(subcategoryCode);
 
-        if (subCategory.isEmpty()) {
-        return "errors/notFound";
+        if (subCategory.isEmpty() || category.isEmpty()) {
+            return "errors/notFound";
         }
 
         if(result.hasErrors()){
-            model.addAttribute("categoryUpdateDTO", result.hasErrors() ? subCategoryUpdateDTO : new SubCategoryUpdateDTO(subCategory.get()));
-            return "subcategory/formUpdateSubCategory";
+            return showFormUpdate(subcategoryCode, categoryCode, subCategoryUpdateDTO, result, model);
         }
 
         subCategory.get().update(subCategoryUpdateDTO);
 
-        return  "redirect:/admin/subcategories/"+subCategory.get().getCategory().getCode();
+        return  "redirect:/admin/subcategories/"+subCategory.get().getCategoryCode();
     }
 
     @PostMapping("admin/subcategories/disable/{subcategoryCode}")
     @Transactional
-    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
     public void disableSubCategory(@PathVariable String subcategoryCode){
         Optional<SubCategory> subCategory = subCategoryRepository.findByCode(subcategoryCode);
-        subCategory.get().disableCategory();
+        subCategory.get().disable();
     }
 }

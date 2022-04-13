@@ -64,7 +64,8 @@ public class SubCategory {
         this.name = subCategoryInsertDTO.getName();
         this.code = subCategoryInsertDTO.getCode();
         this.description = subCategoryInsertDTO.getDescription();
-        this.order = subCategoryInsertDTO.convertOrder(subCategoryInsertDTO.getOrder());
+//        this.order = subCategoryInsertDTO.convertOrder(subCategoryInsertDTO.getOrder());
+        this.order = subCategoryInsertDTO.getOrder();
         this.status = subCategoryInsertDTO.isActive() ? ACTIVE : DISABLED;
         this.studyGuide = subCategoryInsertDTO.getStudyGuide();
         this.category = subCategoryInsertDTO.getCategory();
@@ -87,7 +88,11 @@ public class SubCategory {
     }
 
     public Long getCategoryId(){
-        return this.getCategory().getId();
+        return this.category.getId();
+    }
+
+    public String getCategoryCode(){
+        return this.category.getCode();
     }
 
     public String getDescription() {
@@ -123,12 +128,12 @@ public class SubCategory {
         this.code = subCategoryUpdateDTO.getCode();
         this.description = subCategoryUpdateDTO.getDescription();
         this.studyGuide = subCategoryUpdateDTO.getStudyGuide();
-        this.order = subCategoryUpdateDTO.convertOrder(subCategoryUpdateDTO.getOrder());
+        this.order = subCategoryUpdateDTO.getOrder();
         this.status = subCategoryUpdateDTO.isActive() ? SubCategoryStatus.ACTIVE : SubCategoryStatus.DISABLED;
         this.category = subCategoryUpdateDTO.getCategory();
     }
 
-    public void disableCategory() {
+    public void disable() {
         this.status = SubCategoryStatus.DISABLED;
     }
 

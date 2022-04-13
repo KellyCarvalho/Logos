@@ -15,12 +15,13 @@ public class DashboardController {
     @Autowired
     private CourseRepository courseRepository;
 
-    @GetMapping(value = "/admin/admin/dashboard")
-    public String getCoursesCategory(Model model) {
-    List<CourseByCategoryProjection> allCoursesFromCategory = courseRepository.findAllCoursesCountByCategory();
-    List<CoursesQuantityByInstructorname> allCoursesFromInstructorName = courseRepository.findAllInstructorCountCourses();
-    model.addAttribute("coursesByCategory", allCoursesFromCategory);
-    model.addAttribute("coursesByInstructor", allCoursesFromInstructorName);
+    //TODO criar o endpoint /admin
+    @GetMapping(value = "/admin/dashboard")
+    public String getCoursesByCategory(Model model) {
+        List<CourseByCategoryProjection> allCoursesFromCategory = courseRepository.findAllCoursesCountByCategory();
+        List<CoursesQuantityByInstructorname> allCoursesFromInstructorName = courseRepository.findAllInstructorCountCourses();
+        model.addAttribute("coursesByCategory", allCoursesFromCategory);
+        model.addAttribute("coursesByInstructor", allCoursesFromInstructorName);
         return "dashboard/dashboard";
     }
 }

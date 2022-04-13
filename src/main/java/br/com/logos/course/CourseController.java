@@ -13,6 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -24,12 +26,20 @@ public class CourseController {
     @Autowired
     private SubCategoryRepository subCategoryRepository;
 
+    @Autowired
+    private CategoryRepository categoryRepository;
+
     @GetMapping(value = "/admin/courses/{categoryCode}/{subcategoryCode}")
-    public String getAllCoursesPage(@PathVariable String categoryCode, @PathVariable String subcategoryCode, @PageableDefault(size = 5) Pageable pageable, Model model){
-        Page<Course> courses = courseRepository.findAll(pageable);
-        Optional<SubCategory> subCategory = subCategoryRepository.findByCode(subcategoryCode);
+    public String getAllCoursesPage(@PathVariable String categoryCode, @PathVariable String subcategoryCode,
+                                    @PageableDefault(size = 5) Pageable pageable, Model model) {
+        Optional<Category> possibleCategory = categoryRepository.findByCode(categoryCode);
+        Optional<SubCategory> possibleSubCategory = subCategoryRepository.findByCode(subcategoryCode);
+        if (possibleSubCategory.isEmpty() || possibleCategory.isEmpty()) {
+            return "errors/notFound";
+        }
+        Page<Course> courses = courseRepository.findAllBySubCategory(possibleSubCategory.get(), pageable);
         model.addAttribute("courses", courses);
-        model.addAttribute("subcategory", subCategory.get().getName());
+        model.addAttribute("subcategoryName", possibleSubCategory.get().getName());
         return "course/courseList";
     }
 }

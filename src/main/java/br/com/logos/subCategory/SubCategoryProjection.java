@@ -4,5 +4,4 @@ public interface SubCategoryProjection {
     String getName();
     String getCode();
     String getStatus();
-    String getCategoryName();
 }

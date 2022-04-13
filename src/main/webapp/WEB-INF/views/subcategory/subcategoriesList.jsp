@@ -11,7 +11,9 @@
         <section style="padding: 10px" class="container">
             <h1>${category.name}</h1>
             <h3>SubCategoria</h3>
-            <a href="/admin/subcategories/new"><button  class="btn btn-primary">Nova Subcategoria</button></a>
+            <a href="/admin/subcategories/new">
+                <button  class="btn btn-primary">Nova Subcategoria</button>
+            </a>
         </section>
 
         <section class="container">
@@ -30,7 +32,11 @@
                             <td>${subcategory.name}</td>
                             <td>${subcategory.code}</td>
                             <td id="status_${subcategory.code}">${subcategory.status == 'ACTIVE' ? 'Ativa' : 'Inativa'}</td>
-                            <td><a href="/admin/courses/${category.code}/${subcategory.code}"/>Cursos</td>
+                            <td>
+                                <a href="/admin/courses/${category.code}/${subcategory.code}">
+                                    Cursos
+                                </a>
+                            </td>
                             <td>
                                 <a style="text-decoration: none; color: #0c0101" href="/admin/subcategories/${category.code}/${subcategory.code}">
                                     <button class="btn btn-dark">Editar</button>
@@ -39,7 +45,7 @@
                             <td>
                                 <a style="text-decoration: none; color: #0c0101">
                                     <c:if test="${subcategory.status == 'ACTIVE'}">
-                                        <button onclick="disable('${subcategory.code}')" id="disableButton_${subcategory.code}"  class="btn btn-dark">Desativar</button>
+                                        <button onclick="disable('${subcategory.code}')" id="disableButton_${subcategory.code}" class="btn btn-dark">Desativar</button>
                                     </c:if>
                                 </a>
                             </td>
@@ -53,7 +59,7 @@
                 let url = "/admin/subcategories/disable/"+subcategoryCode;
                 $.post(url, function (){
                     $("#disableButton_"+subcategoryCode).hide();
-                    $("#status_"+subcategoryCode).text("Inativa")
+                    $("#status_"+subcategoryCode).text("Inativa");
                 });
             }
         </script>

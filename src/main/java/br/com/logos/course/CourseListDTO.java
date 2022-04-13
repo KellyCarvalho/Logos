@@ -1,9 +1,5 @@
 package br.com.logos.course;
 
-import br.com.logos.subCategory.SubCategory;
-
-import javax.persistence.*;
-
 public class CourseListDTO {
 
     private String name;

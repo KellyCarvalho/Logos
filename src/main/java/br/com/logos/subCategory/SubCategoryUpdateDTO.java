@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SubCategoryUpdateDTO {
+    private Long id;
     @NotBlank(message = "Nome é requerido")
     private String name;
     @Pattern(regexp = "[[a-z-]+]+", message = "Código  inválido, não pode ter caracteres especiais ou números, apenas o hífem é perminido, letras devem ser minúsculas")
@@ -19,10 +20,9 @@ public class SubCategoryUpdateDTO {
     private String studyGuide;
     private boolean active;
     @PositiveOrZero(message = "Ordem deve ter valor positivo ou 0")
-    private String order;
+    private int order;
     @NotNull(message = "Categoria não pode ser vazia")
     private Category category;
-    List<Category> categories = new ArrayList<>();
 
     @Deprecated
     public SubCategoryUpdateDTO() {
@@ -32,18 +32,15 @@ public class SubCategoryUpdateDTO {
         this.name = subCategory.getName();
         this.code = subCategory.getCode();
         this.description = subCategory.getDescription();
-        this.order =  Integer.toString(subCategory.getOrder());
+        //TODO trocar o order pra int e apagar o convert
+        this.order = subCategory.getOrder();
         this.studyGuide = subCategory.getStudyGuide();
         this.active = subCategory.isActive();
         this.category = subCategory.getCategory();
     }
 
-    public List<Category> getCategories() {
-        return categories;
-    }
-
-    public void setCategories(List<Category> categories) {
-        this.categories = categories;
+    public Long getId() {
+        return id;
     }
 
     public String getName() {
@@ -86,11 +83,11 @@ public class SubCategoryUpdateDTO {
         this.active = active;
     }
 
-    public String getOrder() {
+    public int getOrder() {
         return order;
     }
 
-    public void setOrder(String order) {
+    public void setOrder(int order) {
         this.order = order;
     }
 
@@ -100,9 +97,5 @@ public class SubCategoryUpdateDTO {
 
     public void setCategory(Category category) {
         this.category = category;
-    }
-
-    public int convertOrder(String order) {
-        return order != null && !order.isBlank() && !order.isEmpty() ? Integer.parseInt(order) : 0;
     }
 }
