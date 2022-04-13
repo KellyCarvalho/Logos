@@ -3,13 +3,13 @@
 <html>
     <head>
         <link rel='stylesheet' href='/webjars/bootstrap/3.3.7/css/bootstrap.min.css'>
-        <title>Todos cursos</title>
+        <title>Cursos</title>
         <meta charset="utf-8">
     </head>
     <body>
         <section class="container" style="padding-top: 50px">
-            <h3>${subcategoryName}</h3>
-            <h1>Cursos</h1>
+            <h1>${subcategoryName}</h1>
+            <h4>Cursos</h4>
             <table class="table table-dark table-bordered">
                 <thead>
                 <th scope="col">Nome</th>
