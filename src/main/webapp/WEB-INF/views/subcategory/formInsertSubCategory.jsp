@@ -12,47 +12,45 @@
         <section class="container">
 
             <h1>Nova SubCategoria</h1>
-<%--        TODO retirar o for name dos labels--%>
-<%--            TODO corrigir todos os espaçamentos a mais--%>
             <form:form modelAttribute="subCategoryInsertDTO" class="md-3" method="post">
                 <div class="md-4">
                     <form:label path="name" class="form-label">Nome</form:label>
-                    <form:input path="name" placeholder="Digite Aqui o nome da subcategoria" class="form-control" id="name" type="text" />
-                    <form:errors path="name" />
+                    <form:input path="name" placeholder="Digite Aqui o nome da subcategoria" class="form-control" type="text"/>
+                    <form:errors path="name"/>
                 </div>
 
                 <div class="md-4">
-                    <form:label path="code" class="form-label" for="code">Código</form:label>
-                    <form:input path="code"  placeholder="por exemplo: desenvolvimento, mobile(não use letras maíusculas, acentos ou caracteres especiais)" class="form-control" id="code" type="text" />
-                    <form:errors  path="code" />
+                    <form:label path="code" class="form-label">Código</form:label>
+                    <form:input path="code" placeholder="por exemplo: desenvolvimento, mobile(não use letras maíusculas, acentos ou caracteres especiais)" class="form-control" type="text"/>
+                    <form:errors path="code"/>
                 </div>
 
                 <div class="checkbox-inline" style="padding-top: 20px">
-                    <form:checkbox path="active" value="true" class="form-check-input" placeholder="Mostra ou deixa de mostrar a subcategoria na listagem dos alunos, de formações, etc"  id="active"/>
-                    <form:label path="active"  for="active">
+                    <form:checkbox path="active" value="true" class="form-check-input" placeholder="Mostra ou deixa de mostrar a subcategoria na listagem dos alunos, de formações, etc"/>
+                    <form:label path="active">
                         SubCategoria Ativa?
                         <p style="float: right; font-size: 12px; color: darkgray; padding-top: 2px; padding-left: 2px">Mostra ou deixa de mostrar a subcategoria na listagem dos alunos, de formações, etc</p>
                     </form:label>
                 </div>
 
                 <div class="md-4">
-                    <form:label path="order" class="form-label" for="order">Ordem da subcategoria</form:label>
-                    <form:input  path="order" type="number" placeholder="por exemplo: categoria de ordem 1 aparece antes da categoria de ordem 2" class="form-control" />
-                    <form:errors path="order" />
+                    <form:label path="order" class="form-label">Ordem da subcategoria</form:label>
+                    <form:input path="order" type="number" placeholder="por exemplo: categoria de ordem 1 aparece antes da categoria de ordem 2" class="form-control"/>
+                    <form:errors path="order"/>
                 </div>
 
                 <div class="md-4">
-                    <form:label path="studyGuide" class="form-label" for="studyGuide">Guias de estudo</form:label>
-                    <form:textarea  path="studyGuide" placeholder="Um texto apontando para formações para ajudar pessoas perdidas" style="height: 100px" class="form-control" id="studyGuide" type="text" name="studyGuide"/>
+                    <form:label path="studyGuide" class="form-label">Guias de estudo</form:label>
+                    <form:textarea path="studyGuide" placeholder="Um texto apontando para formações para ajudar pessoas perdidas" style="height: 100px" class="form-control" type="text"/>
                 </div>
 
                 <div class="md-4">
-                    <form:label path="description" class="form-label" for="description">Descrição</form:label>
-                    <form:input  path="description"  placeholder="por exemplo: IOS, Android, PhoneGap e mais..." class="form-control" id="description" name="description"/>
+                    <form:label path="description" class="form-label">Descrição</form:label>
+                    <form:input path="description" placeholder="por exemplo: IOS, Android, PhoneGap e mais..." class="form-control"/>
                 </div>
 
                 <h1>Categoria</h1>
-                    <form:select class="form-control" path="category" id="category">
+                    <form:select class="form-control" path="category">
                         <form:options itemLabel="name" items="${categories}"></form:options>
                     </form:select>
 
@@ -62,5 +60,7 @@
 
             </form:form>
         </section>
+
     </body>
+
 </html>

@@ -32,7 +32,7 @@ public class SubCategory {
     @Column(name = "position")
     private int order;
     @ManyToOne
-    @JoinColumn(name = "fk_category")
+    @JoinColumn(name = "category_id")
     private Category category;
 
     @Deprecated
@@ -64,7 +64,6 @@ public class SubCategory {
         this.name = subCategoryInsertDTO.getName();
         this.code = subCategoryInsertDTO.getCode();
         this.description = subCategoryInsertDTO.getDescription();
-//        this.order = subCategoryInsertDTO.convertOrder(subCategoryInsertDTO.getOrder());
         this.order = subCategoryInsertDTO.getOrder();
         this.status = subCategoryInsertDTO.isActive() ? ACTIVE : DISABLED;
         this.studyGuide = subCategoryInsertDTO.getStudyGuide();

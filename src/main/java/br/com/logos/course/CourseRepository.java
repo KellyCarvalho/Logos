@@ -16,21 +16,20 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
     @Query(value = """
         SELECT category.name `categoryName`, count(course.id) `quantity` 
         FROM Category category 
-        LEFT JOIN Subcategory subcategory ON category.id = subcategory.fk_category 
-        LEFT JOIN Course course ON subcategory.id = course.fk_subcategory 
+        LEFT JOIN Subcategory subcategory ON category.id = subcategory.category_id 
+        LEFT JOIN Course course ON subcategory.id = course.subcategory_id 
         GROUP BY category.id 
         ORDER BY `quantity` DESC
         """, nativeQuery = true)
     List<CourseByCategoryProjection> findAllCoursesCountByCategory();
 
-    //TODO colocar o nome projection no final
     @Query(value = """
         SELECT instructor_name `instructorName`, COUNT(c.id)  `quantity`
         FROM Course c
         GROUP BY instructorName 
         ORDER BY quantity DESC LIMIT 1
         """, nativeQuery = true)
-    List<CoursesQuantityByInstructorname> findAllInstructorCountCourses();
+    List<CoursesQuantityByInstructorNameProjection> findAllInstructorCountCourses();
 
     Page<Course> findAllBySubCategory(SubCategory subCategory, Pageable pageable);
 }

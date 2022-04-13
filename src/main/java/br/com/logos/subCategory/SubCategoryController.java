@@ -25,7 +25,6 @@ public class SubCategoryController {
     public String getSubCategoriesByCategoryCode(@PathVariable String categoryCode, Model model) {
         Optional<Category> possibleCategory = categoryRepository.findByCode(categoryCode);
         List<SubCategoryProjection> subcategories = subCategoryRepository.getAllByCategoryOrderByOrder(categoryCode);
-
         if (possibleCategory.isEmpty()) {
             return "errors/notFound";
         }

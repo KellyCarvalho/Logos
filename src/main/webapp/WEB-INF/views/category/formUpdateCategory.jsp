@@ -9,6 +9,7 @@
         <meta charset="UTF-8">
     </head>
     <body>
+
         <section class="container">
 
             <h1>Editar Categoria</h1>
@@ -16,19 +17,19 @@
             <form:form modelAttribute="categoryUpdateDTO" class="mb-3" method="post">
             <div class="md-4">
                 <form:input path="id" type="hidden"/>
-                <form:label path="name"  class="form-label" for="name">Nome</form:label>
-                <form:input  path="name" placeholder="Digite Aqui o nome da categoria" class="form-control" type="text" />
-                <form:errors  path="name" />
+                <form:label path="name" class="form-label">Nome</form:label>
+                <form:input path="name" placeholder="Digite Aqui o nome da categoria" class="form-control" type="text"/>
+                <form:errors path="name"/>
             </div>
 
             <div class="md-4">
-                <form:label path="code"  class="form-label" for="code">Código</form:label>
-                <form:input path="code" placeholder="por exemplo: desenvolvimento, mobile(não use letras maíusculas, acentos ou caracteres especiais)" class="form-control" type="text"  />
-                <form:errors  path="code" />
+                <form:label path="code" class="form-label">Código</form:label>
+                <form:input path="code" placeholder="por exemplo: desenvolvimento, mobile(não use letras maíusculas, acentos ou caracteres especiais)" class="form-control" type="text"/>
+                <form:errors path="code"/>
             </div>
 
             <div class="checkbox-inline" style="padding-top: 20px">
-                <form:checkbox path="active" value="${categoryUpdateDTO.isActive() ? checked : unchecked}"  class="form-check-input" placeholder="Mostra ou deixa de mostrar a categoria na listagem dos alunos, de formações, etc" id="status" />
+                <form:checkbox path="active" value="${categoryUpdateDTO.isActive() ? checked : unchecked}" class="form-check-input" placeholder="Mostra ou deixa de mostrar a categoria na listagem dos alunos, de formações, etc"/>
                 <form:label path="active">
                     Categoria Ativa?
                     <p style="float: right; font-size: 12px; color: darkgray; padding-top: 2px; padding-left: 2px">Mostra ou deixa de mostrar a categoria na listagem dos alunos, de formações, etc</p>
@@ -36,31 +37,31 @@
             </div>
 
             <div class="md-4">
-                <form:label path="order" class="form-label" >Ordem da categoria</form:label>
-                <form:input path="order" placeholder="por exemplo: categoria de ordem 1 aparece antes da categoria de ordem 2" class="form-control" id="order" type="number" />
-                <form:errors path="order" />
+                <form:label path="order" class="form-label">Ordem da categoria</form:label>
+                <form:input path="order" placeholder="por exemplo: categoria de ordem 1 aparece antes da categoria de ordem 2" class="form-control" type="number"/>
+                <form:errors path="order"/>
             </div>
 
             <div class="md-4">
-                <label class="form-label" for="studyGuide">Guias de estudo</label>
+                <form:label path="studyGuide" class="form-label">Guias de estudo</form:label>
                 <form:textarea path="studyGuide" rows="10" class="form-control" placeholder="Um texto apontando para formações para ajudar pessoas perdidas"/>
             </div>
 
             <div class="md-4">
-                <form:label path="imageUrl" class="form-label" for="imageUrl">Caminho da imagem</form:label>
-                <form:input path="imageUrl"  placeholder="por exemplo: /images/categorias/programacao.svg" class="form-control" id="imageUrl" type="text"/>
-                <form:errors  path="imageUrl" />
+                <form:label path="imageUrl" class="form-label">Caminho da imagem</form:label>
+                <form:input path="imageUrl" placeholder="por exemplo: /images/categorias/programacao.svg" class="form-control" type="text"/>
+                <form:errors path="imageUrl"/>
             </div>
 
             <div class="md-4" style="padding-top: 10px" >
-                <form:label path="colorCode" class="form-label" for="colorCode">Cor</form:label>
-                <form:input path="colorCode"  placeholder="por exemplo #fcc14a" class="col-2" id="colorCode" type="color" />
-                <form:errors  path="colorCode" />
+                <form:label path="colorCode" class="form-label">Cor</form:label>
+                <form:input path="colorCode" placeholder="por exemplo #fcc14a" class="col-2" type="color"/>
+                <form:errors path="colorCode"/>
             </div>
 
             <div class="md-4">
-                <form:label path="description" class="form-label" for="description">Descrição</form:label>
-                <form:input path="description"  placeholder="por exemplo: IOS, Android, PhoneGap e mais..." class="form-control" id="description" />
+                <form:label path="description" class="form-label">Descrição</form:label>
+                <form:input path="description" placeholder="por exemplo: IOS, Android, PhoneGap e mais..." class="form-control"/>
             </div>
 
             <div class="md-4" style="padding-top: 20px">
@@ -69,5 +70,7 @@
 
             </form:form>
         </section>
+
     </body>
+
 </html>

@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SubCategoryUpdateDTO {
-    private Long id;
     @NotBlank(message = "Nome é requerido")
     private String name;
     @Pattern(regexp = "[[a-z-]+]+", message = "Código  inválido, não pode ter caracteres especiais ou números, apenas o hífem é perminido, letras devem ser minúsculas")
@@ -32,15 +31,10 @@ public class SubCategoryUpdateDTO {
         this.name = subCategory.getName();
         this.code = subCategory.getCode();
         this.description = subCategory.getDescription();
-        //TODO trocar o order pra int e apagar o convert
         this.order = subCategory.getOrder();
         this.studyGuide = subCategory.getStudyGuide();
         this.active = subCategory.isActive();
         this.category = subCategory.getCategory();
-    }
-
-    public Long getId() {
-        return id;
     }
 
     public String getName() {

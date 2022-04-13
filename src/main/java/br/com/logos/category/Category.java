@@ -126,7 +126,7 @@ public class Category {
         this.code = categoryUpdateDTO.getCode();
         this.description = categoryUpdateDTO.getDescription();
         this.studyGuide = categoryUpdateDTO.getStudyGuide();
-        this.order = categoryUpdateDTO.convertOrder(categoryUpdateDTO.getOrder());
+        this.order = categoryUpdateDTO.getOrder();
         this.status = categoryUpdateDTO.isActive() ? ACTIVE : DISABLED;
         this.imageUrl = categoryUpdateDTO.getImageUrl();
         this.colorCode = categoryUpdateDTO.getColorCode();
@@ -160,5 +160,4 @@ public class Category {
     public int hashCode() {
         return Objects.hash(code);
     }
-
 }

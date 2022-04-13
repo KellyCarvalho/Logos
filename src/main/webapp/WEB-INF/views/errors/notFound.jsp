@@ -13,6 +13,5 @@
                 <a href="/admin/categories"><button class="btn btn-success">Voltar</button></a>
             </div>
         </section>
-
     </body>
 </html>

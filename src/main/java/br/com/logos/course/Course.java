@@ -28,7 +28,7 @@ public class Course {
     @Column(name = "developed_skills", columnDefinition = "TEXT")
     private String developedSkills;
     @ManyToOne
-    @JoinColumn(name = "fk_subcategory")
+    @JoinColumn(name = "subcategory_id")
     private SubCategory subCategory;
 
     @Deprecated

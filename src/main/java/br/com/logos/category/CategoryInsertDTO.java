@@ -14,7 +14,7 @@ public class CategoryInsertDTO {
     @Pattern(regexp = "[a-z-]+", message = "Código  inválido, não pode ter caracteres especiais ou números, apenas o hífem é perminido, letras devem ser minúsculas")
     private String code;
     @PositiveOrZero(message = "Ordem deve ter valor positivo ou 0")
-    private String order;
+    private int order;
     private String studyGuide;
     private String description;
     private boolean active;
@@ -41,11 +41,11 @@ public class CategoryInsertDTO {
         this.code = code;
     }
 
-    public String getOrder() {
+    public int getOrder() {
         return order;
     }
 
-    public void setOrder(String order) {
+    public void setOrder(int order) {
         this.order = order;
     }
 
@@ -89,13 +89,9 @@ public class CategoryInsertDTO {
         this.colorCode = colorCode;
     }
 
-    public int convertOrder(String order){
-        return  order != null && !order.isBlank() && !order.isEmpty() ? Integer.parseInt(order)  : 0;
-    }
-
     public Category toEntity(CategoryInsertDTO categoryInsertDTO) {
         return new Category(categoryInsertDTO.getName(), categoryInsertDTO.getCode(), categoryInsertDTO.getDescription(),
-                categoryInsertDTO.getStudyGuide(), categoryInsertDTO.active ? CategoryStatus.ACTIVE : CategoryStatus.DISABLED, convertOrder(categoryInsertDTO.getOrder()),
+                categoryInsertDTO.getStudyGuide(), categoryInsertDTO.active ? CategoryStatus.ACTIVE : CategoryStatus.DISABLED, categoryInsertDTO.getOrder(),
                 categoryInsertDTO.getImageUrl(), categoryInsertDTO.getColorCode());
     }
 

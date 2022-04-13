@@ -1,7 +1,6 @@
 package br.com.logos.course;
 
-//TODO manter o camelcase
-public interface CoursesQuantityByInstructorname {
+public interface CoursesQuantityByInstructorNameProjection {
     String getInstructorName();
     int getQuantity();
 }
