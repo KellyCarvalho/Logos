@@ -7,12 +7,13 @@
         <script src="/webjars/jquery/3.6.0/jquery.js"></script>
         <meta charset="utf-8">
     </head>
+
     <body>
         <section style="padding: 10px" class="container">
             <h1>${category.name}</h1>
             <h3>SubCategoria</h3>
             <a href="/admin/subcategories/new">
-                <button  class="btn btn-primary">Nova Subcategoria</button>
+                <button class="btn btn-primary">Nova Subcategoria</button>
             </a>
         </section>
 
@@ -25,7 +26,6 @@
                     <th scope="col"></th>
                     <th scope="col"></th>
                 </thead>
-
                 <c:forEach items="${subcategories}" var="subcategory">
                     <tbody>
                         <tr scope="row">
@@ -54,6 +54,7 @@
                </c:forEach>
             </table>
         </section>
+
         <script>
             function disable(subcategoryCode){
                 let url = "/admin/subcategories/disable/"+subcategoryCode;
@@ -63,5 +64,7 @@
                 });
             }
         </script>
+
     </body>
+
 </html>
