@@ -24,10 +24,10 @@ public class SubCategoryController {
     @GetMapping("/admin/subcategories/{categoryCode}")
     public String getSubCategoriesByCategoryCode(@PathVariable String categoryCode, Model model) {
         Optional<Category> possibleCategory = categoryRepository.findByCode(categoryCode);
-        List<SubCategoryProjection> subcategories = subCategoryRepository.getAllByCategoryOrderByOrder(categoryCode);
         if (possibleCategory.isEmpty()) {
             return "errors/notFound";
         }
+        List<SubCategoryProjection> subcategories = subCategoryRepository.getAllByCategoryOrderByOrder(categoryCode);
         model.addAttribute("subcategories", subcategories);
         model.addAttribute("category", possibleCategory.get());
         return "subcategory/subcategoriesList";
@@ -57,11 +57,10 @@ public class SubCategoryController {
                                  SubCategoryUpdateDTO subCategoryUpdateDTO, BindingResult result, Model model) {
         Optional<Category> possibleCategory = categoryRepository.findByCode(categoryCode);
         Optional<SubCategory> possibleSubCategory = subCategoryRepository.findByCode(subcategoryCode);
-        List<Category> categories = categoryRepository.findAllByOrderByName();
         if (possibleSubCategory.isEmpty() || possibleCategory.isEmpty()) {
             return "errors/notFound";
         }
-
+        List<Category> categories = categoryRepository.findAllByOrderByName();
         model.addAttribute("subCategoryUpdateDTO", result.hasErrors() ? subCategoryUpdateDTO : new SubCategoryUpdateDTO(possibleSubCategory.get()));
         model.addAttribute("categories", categories);
         return "/subcategory/formUpdateSubCategory";

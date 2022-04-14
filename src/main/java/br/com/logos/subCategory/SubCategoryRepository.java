@@ -14,7 +14,7 @@ public interface SubCategoryRepository extends JpaRepository<SubCategory, Long> 
     Optional<SubCategory> findByCode(String code);
 
     @Query(value = """
-            SELECT s.name,s.status, s.identifier_code as code 
+            SELECT s.name, s.status, s.identifier_code as code 
             FROM Subcategory as s 
             INNER JOIN Category as c ON c.id = s.category_id 
             where c.identifier_code = :categoryCode order by s.position

@@ -3,7 +3,7 @@
 <html>
     <head>
         <link rel='stylesheet' href='/webjars/bootstrap/3.3.7/css/bootstrap.min.css'>
-        <title>Dashboard</title>
+        <title>Dashboard Administrativo</title>
         <meta charset="utf-8">
     </head>
     <body>

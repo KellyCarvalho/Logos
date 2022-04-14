@@ -12,23 +12,23 @@
             <h4>Cursos</h4>
             <table class="table table-dark table-bordered">
                 <thead>
-                <th scope="col">Nome</th>
-                <th scope="col">Código</th>
-                <th scope="col">Status</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Código</th>
+                    <th scope="col">Status</th>
                 </thead>
 
                 <c:forEach items="${courses.content}" var="course">
                     <tbody>
-                    <tr scope="row">
-                        <td>${course.name}</td>
-                        <td>${course.code}</td>
-                        <td>${course.visibility ? 'Público' : 'Privado'}</td>
-                        <td>
-                            <a style="text-decoration: none; color: #0c0101" href="/admin/course/${course.code}">
-                                <button class="btn btn-dark">Editar</button>
-                            </a>
-                        </td>
-                    </tr>
+                        <tr scope="row">
+                            <td>${course.name}</td>
+                            <td>${course.code}</td>
+                            <td>${course.visibility ? 'Público' : 'Privado'}</td>
+                            <td>
+                                <a style="text-decoration: none; color: #0c0101" href="/admin/course/${course.code}">
+                                    <button class="btn btn-dark">Editar</button>
+                                </a>
+                            </td>
+                        </tr>
                     </tbody>
                 </c:forEach>
             </table>
