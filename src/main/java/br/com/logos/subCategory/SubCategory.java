@@ -57,17 +57,9 @@ public class SubCategory {
     }
 
     public SubCategory(SubCategoryInsertDTO subCategoryInsertDTO){
-        isNotBlankEmptyOrNull(subCategoryInsertDTO.getName(), "Nome da SubCategoria é requerido, não pode ser vazio ou nulo");
-        doesCodeContainsOnlyLettersInLowerCaseAndHyphen(subCategoryInsertDTO.getCode(), "Código da SubCategoria não é válido ou está null ou vazio - deve ter caracteres de a-z -" +
-                "Único caractere especial permitido é o hífen");
-        ObjectValidator.isObjectValid(subCategoryInsertDTO.getCategory(), "Categoria é obrigatória, não pode ser nula");
-        this.name = subCategoryInsertDTO.getName();
-        this.code = subCategoryInsertDTO.getCode();
-        this.description = subCategoryInsertDTO.getDescription();
-        this.order = subCategoryInsertDTO.getOrder();
-        this.status = subCategoryInsertDTO.isActive() ? ACTIVE : DISABLED;
-        this.studyGuide = subCategoryInsertDTO.getStudyGuide();
-        this.category = subCategoryInsertDTO.getCategory();
+        this(subCategoryInsertDTO.getName(), subCategoryInsertDTO.getCode(), subCategoryInsertDTO.getDescription(),
+                subCategoryInsertDTO.isActive() ? ACTIVE : DISABLED, subCategoryInsertDTO.getOrder(),
+                subCategoryInsertDTO.getCategory());
     }
 
     public Long getId() {
