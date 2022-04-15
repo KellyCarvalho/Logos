@@ -22,7 +22,7 @@ public class DashboardController {
         Optional<CoursesQuantityByInstructorNameProjection> quantityCoursesFromInstructorNameWithMoreCourses = courseRepository.reportInstructorWithMoreCourses();
         model.addAttribute("coursesByCategory", allCoursesFromCategory);
         if (quantityCoursesFromInstructorNameWithMoreCourses.isPresent()){
-            model.addAttribute("coursesByInstructor", quantityCoursesFromInstructorNameWithMoreCourses.get());
+        model.addAttribute("coursesByInstructor", quantityCoursesFromInstructorNameWithMoreCourses.get());
         }
         return "dashboard/dashboard";
     }
