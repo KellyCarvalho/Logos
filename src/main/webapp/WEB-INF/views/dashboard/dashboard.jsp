@@ -33,12 +33,12 @@
                     <th scope="col">Instrutor</th>
                     <th scope="col">Quantidade de cursos</th>
                 </thead>
-                    <tbody>
-                        <tr scope="row">
-                            <td>${coursesByInstructor.getInstructorName()}</td>
-                            <td>${coursesByInstructor.getQuantity()}</td>
-                        </tr>
-                    </tbody>
+                <tbody>
+                    <tr scope="row">
+                        <td>${coursesByInstructor.getInstructorName()}</td>
+                        <td>${coursesByInstructor.getQuantity()}</td>
+                    </tr>
+                </tbody>
             </table>
         </section>
 
