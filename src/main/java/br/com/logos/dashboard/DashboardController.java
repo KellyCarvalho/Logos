@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class DashboardController {
@@ -17,10 +18,12 @@ public class DashboardController {
 
     @GetMapping(value = "/admin/dashboard")
     public String getCoursesByCategory(Model model) {
-        List<CourseByCategoryProjection> allCoursesFromCategory = courseRepository.findAllCoursesCountByCategory();
-        List<CoursesQuantityByInstructorNameProjection> allCoursesFromInstructorName = courseRepository.findAllInstructorCountCourses();
+        List<CourseByCategoryProjection> allCoursesFromCategory = courseRepository.getAllCoursesCountByCategory();
+        Optional<CoursesQuantityByInstructorNameProjection> quantityCoursesFromInstructorNameWithMoreCourses = courseRepository.reportInstructorWithMoreCourses();
         model.addAttribute("coursesByCategory", allCoursesFromCategory);
-        model.addAttribute("coursesByInstructor", allCoursesFromInstructorName);
+        if (quantityCoursesFromInstructorNameWithMoreCourses.isPresent()){
+            model.addAttribute("coursesByInstructor", quantityCoursesFromInstructorNameWithMoreCourses.get());
+        }
         return "dashboard/dashboard";
     }
 

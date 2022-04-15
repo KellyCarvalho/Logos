@@ -33,14 +33,12 @@
                     <th scope="col">Instrutor</th>
                     <th scope="col">Quantidade de cursos</th>
                 </thead>
-                <c:forEach items="${coursesByInstructor}" var="courseByInstructor">
                     <tbody>
                         <tr scope="row">
-                            <td>${courseByInstructor.getInstructorName()}</td>
-                            <td>${courseByInstructor.getQuantity()}</td>
+                            <td>${coursesByInstructor.getInstructorName()}</td>
+                            <td>${coursesByInstructor.getQuantity()}</td>
                         </tr>
                     </tbody>
-                </c:forEach>
             </table>
         </section>
 

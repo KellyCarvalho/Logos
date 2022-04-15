@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CourseRepository extends JpaRepository<Course, Long> {
 
@@ -21,7 +22,7 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
         GROUP BY category.id 
         ORDER BY `quantity` DESC
         """, nativeQuery = true)
-    List<CourseByCategoryProjection> findAllCoursesCountByCategory();
+    List<CourseByCategoryProjection> getAllCoursesCountByCategory();
 
     @Query(value = """
         SELECT instructor_name `instructorName`, COUNT(c.id)  `quantity`
@@ -29,7 +30,7 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
         GROUP BY instructorName 
         ORDER BY quantity DESC LIMIT 1
         """, nativeQuery = true)
-    List<CoursesQuantityByInstructorNameProjection> findAllInstructorCountCourses();
+    Optional<CoursesQuantityByInstructorNameProjection> reportInstructorWithMoreCourses();
 
     Page<Course> findAllBySubCategory(SubCategory subCategory, Pageable pageable);
 }
