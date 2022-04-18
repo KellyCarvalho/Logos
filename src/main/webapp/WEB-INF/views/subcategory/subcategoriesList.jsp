@@ -3,16 +3,17 @@
 <html>
     <head>
         <link rel='stylesheet' href='/webjars/bootstrap/3.3.7/css/bootstrap.min.css'>
-        <title>Categorias</title>
+        <title>Subcategorias</title>
         <script src="/webjars/jquery/3.6.0/jquery.js"></script>
         <meta charset="utf-8">
     </head>
 
     <body>
         <section style="padding: 10px" class="container">
-            <h3>Categorias</h3>
-            <a href="/admin/categories/new">
-                <button class="btn btn-primary">Nova Categoria</button>
+            <h1>${category.name}</h1>
+            <h3>SubCategoria</h3>
+            <a href="/admin/subcategories/new">
+                <button class="btn btn-primary">Nova Subcategoria</button>
             </a>
         </section>
 
@@ -25,25 +26,27 @@
                     <th scope="col"></th>
                     <th scope="col"></th>
                 </thead>
-                <c:forEach items="${categories}" var="category">
+                <c:forEach items="${subcategories}" var="subcategory">
                     <tbody>
                         <tr scope="row">
-                            <td>${category.name}</td>
-                            <td>${category.code}</td>
-                            <td id="status_${category.code}">${category.status == 'ACTIVE' ? 'Ativa' : 'Inativa'}</td>
+                            <td>${subcategory.name}</td>
+                            <td>${subcategory.code}</td>
+                            <td id="status_${subcategory.code}">${subcategory.status == 'ACTIVE' ? 'Ativa' : 'Inativa'}</td>
                             <td>
-                                <a href="/admin/subcategories/${category.code}">SubCategorias</a>
+                                <a href="/admin/courses/${category.code}/${subcategory.code}">
+                                    Cursos
+                                </a>
                             </td>
                             <td>
-                                <a style="text-decoration: none; color: #0c0101" href="/admin/categories/${category.code}">
+                                <a style="text-decoration: none; color: #0c0101" href="/admin/subcategories/${category.code}/${subcategory.code}">
                                     <button class="btn btn-dark">Editar</button>
                                 </a>
                             </td>
                             <td>
                                 <a style="text-decoration: none; color: #0c0101">
-                                  <c:if test="${category.status == 'ACTIVE'}">
-                                      <button onclick="disable('${category.code}')" id="disableButton_${category.code}" class="btn btn-dark">Desativar</button>
-                                  </c:if>
+                                    <c:if test="${subcategory.status == 'ACTIVE'}">
+                                        <button onclick="disable('${subcategory.code}')" id="disableButton_${subcategory.code}" class="btn btn-dark">Desativar</button>
+                                    </c:if>
                                 </a>
                             </td>
                         </tr>
@@ -53,11 +56,11 @@
         </section>
 
         <script>
-            function disable(categoryCode){
-                let url = "/admin/categories/disable/"+categoryCode;
+            function disable(subcategoryCode){
+                let url = "/admin/subcategories/disable/"+subcategoryCode;
                 $.post(url, function (){
-                    $("#disableButton_"+categoryCode).hide();
-                    $("#status_"+categoryCode).text("Inativa")
+                    $("#disableButton_"+subcategoryCode).hide();
+                    $("#status_"+subcategoryCode).text("Inativa");
                 });
             }
         </script>

@@ -20,7 +20,7 @@ public class Section {
     private boolean active;
     private boolean test;
     @ManyToOne
-    @JoinColumn(name = "fk_course")
+    @JoinColumn(name = "course_id")
     private Course course;
 
     @Deprecated

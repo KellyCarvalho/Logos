@@ -3,7 +3,6 @@ package br.com.logos.category;
 
 import br.com.logos.category.enums.CategoryStatus;
 import br.com.logos.commonValidator.StringValidator;
-import org.hibernate.validator.constraints.URL;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -37,7 +36,6 @@ public class Category {
     @Column(name = "position")
     @PositiveOrZero(message = "Ordem deve ter valor positivo ou 0")
     private int order;
-    @URL(message = "URL Inválida")
     @Column(name = "image_url")
     private String imageUrl;
     @Column(name = "color_code")
@@ -111,12 +109,12 @@ public class Category {
         return status;
     }
 
-    public String getStudyGuide() {
-        return studyGuide;
-    }
-
     public void setStatus(CategoryStatus status) {
         this.status = status;
+    }
+
+    public String getStudyGuide() {
+        return studyGuide;
     }
 
     public boolean isActive() {
@@ -128,10 +126,14 @@ public class Category {
         this.code = categoryUpdateDTO.getCode();
         this.description = categoryUpdateDTO.getDescription();
         this.studyGuide = categoryUpdateDTO.getStudyGuide();
-        this.order = categoryUpdateDTO.convertOrder(categoryUpdateDTO.getOrder());
+        this.order = categoryUpdateDTO.getOrder();
         this.status = categoryUpdateDTO.isActive() ? ACTIVE : DISABLED;
         this.imageUrl = categoryUpdateDTO.getImageUrl();
         this.colorCode = categoryUpdateDTO.getColorCode();
+    }
+
+    public void disable(){
+        this.status = DISABLED;
     }
 
     @Override
@@ -158,5 +160,4 @@ public class Category {
     public int hashCode() {
         return Objects.hash(code);
     }
-
 }

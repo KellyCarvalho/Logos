@@ -1,12 +1,11 @@
 package br.com.logos.category;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -72,5 +71,13 @@ public class CategoryAdminController {
         model.addAttribute("categoryUpdateDTO", new CategoryUpdateDTO(category.get()));
 
         return "category/formUpdateCategory";
+    }
+
+    @PostMapping("admin/categories/disable/{categoryCode}")
+    @Transactional
+    @ResponseStatus(HttpStatus.OK)
+    public void disableCategory(@PathVariable String categoryCode){
+        Optional<Category> category = categoryRepository.findByCode(categoryCode);
+        category.get().disable();
     }
 }

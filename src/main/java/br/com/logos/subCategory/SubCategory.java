@@ -32,7 +32,7 @@ public class SubCategory {
     @Column(name = "position")
     private int order;
     @ManyToOne
-    @JoinColumn(name = "fk_category")
+    @JoinColumn(name = "category_id")
     private Category category;
 
     @Deprecated
@@ -56,6 +56,12 @@ public class SubCategory {
         this.order = order;
     }
 
+    public SubCategory(SubCategoryInsertDTO subCategoryInsertDTO){
+        this(subCategoryInsertDTO.getName(), subCategoryInsertDTO.getCode(), subCategoryInsertDTO.getDescription(),
+                subCategoryInsertDTO.isActive() ? ACTIVE : DISABLED, subCategoryInsertDTO.getOrder(),
+                subCategoryInsertDTO.getCategory());
+    }
+
     public Long getId() {
         return id;
     }
@@ -73,7 +79,11 @@ public class SubCategory {
     }
 
     public Long getCategoryId(){
-        return this.getCategory().getId();
+        return this.category.getId();
+    }
+
+    public String getCategoryCode(){
+        return this.category.getCode();
     }
 
     public String getDescription() {
@@ -88,12 +98,34 @@ public class SubCategory {
         return studyGuide;
     }
 
+    public SubCategoryStatus getStatus() {
+        return status;
+    }
+
+    public int getOrder() {
+        return order;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         SubCategory that = (SubCategory) o;
         return code.equals(that.code);
+    }
+
+    public void update(SubCategoryUpdateDTO subCategoryUpdateDTO) {
+        this.name = subCategoryUpdateDTO.getName();
+        this.code = subCategoryUpdateDTO.getCode();
+        this.description = subCategoryUpdateDTO.getDescription();
+        this.studyGuide = subCategoryUpdateDTO.getStudyGuide();
+        this.order = subCategoryUpdateDTO.getOrder();
+        this.status = subCategoryUpdateDTO.isActive() ? SubCategoryStatus.ACTIVE : SubCategoryStatus.DISABLED;
+        this.category = subCategoryUpdateDTO.getCategory();
+    }
+
+    public void disable() {
+        this.status = SubCategoryStatus.DISABLED;
     }
 
     @Override

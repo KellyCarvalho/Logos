@@ -21,7 +21,7 @@ public class Alternative {
     @Column(name = "explanation_answer")
     private String explanationAnswer;
     @ManyToOne
-    @JoinColumn(name = "fk_question")
+    @JoinColumn(name = "question_id")
     private Question question;
 
     @Deprecated

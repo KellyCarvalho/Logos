@@ -1,6 +1,6 @@
 CREATE
-DATABASE LOGOS;
--- DROP DATABASE LOGOS;
+DATABASE logos;
+-- DROP DATABASE logos;
 USE
 logos;
 
@@ -26,8 +26,8 @@ CREATE TABLE `Subcategory`
     `description`     TEXT,
     `status`          ENUM('ACTIVE','DISABLED') DEFAULT 'DISABLED',
     `position`        INT,
-    `fk_category`     BIGINT              NOT NULL,
-    FOREIGN KEY (`fk_category`) REFERENCES `Category` (`id`)
+    `category_id`     BIGINT              NOT NULL,
+    FOREIGN KEY (`category_id`) REFERENCES `Category` (`id`)
 );
 
 CREATE TABLE `Course`
@@ -41,8 +41,8 @@ CREATE TABLE `Course`
     `instructor_name`  VARCHAR(255)        NOT NULL,
     `description`      TEXT,
     `developed_skills` TEXT,
-    `fk_subcategory`   BIGINT              NOT NULL,
-    FOREIGN KEY (`fk_subcategory`) REFERENCES `Subcategory` (`id`)
+    `subcategory_id`   BIGINT              NOT NULL,
+    FOREIGN KEY (`subcategory_id`) REFERENCES `Subcategory` (`id`)
 );
 
 CREATE TABLE `Section`
@@ -53,8 +53,8 @@ CREATE TABLE `Section`
     `position`        INT,
     `active`          BOOLEAN DEFAULT FALSE,
     `test`            BOOLEAN,
-    `fk_course`       BIGINT              NOT NULL,
-    FOREIGN KEY (`fk_course`) REFERENCES `Course` (`id`)
+    `course_id`       BIGINT              NOT NULL,
+    FOREIGN KEY (`course_id`) REFERENCES `Course` (`id`)
 );
 
 CREATE TABLE `Explanation`
@@ -65,8 +65,8 @@ CREATE TABLE `Explanation`
     `active`          BOOLEAN DEFAULT FALSE,
     `position`        INT,
     `description`     TEXT                NOT NULL,
-    `fk_section`      BIGINT              NOT NULL,
-    FOREIGN KEY (`fk_section`) REFERENCES `Section` (`id`)
+    `section_id`      BIGINT              NOT NULL,
+    FOREIGN KEY (`section_id`) REFERENCES `Section` (`id`)
 );
 
 
@@ -80,8 +80,8 @@ CREATE TABLE `Video`
     `url`                 VARCHAR(255)        NOT NULL,
     `duration_in_minutes` INT,
     `transcription`       TEXT,
-    `fk_section`          BIGINT              NOT NULL,
-    FOREIGN KEY (`fk_section`) REFERENCES `Section` (`id`)
+    `section_id`          BIGINT              NOT NULL,
+    FOREIGN KEY (`section_id`) REFERENCES `Section` (`id`)
 );
 
 CREATE TABLE `Question`
@@ -93,8 +93,8 @@ CREATE TABLE `Question`
     `position`        INT,
     `description`     TEXT                NOT NULL,
     `type_question`   ENUM('SINGLE_ANSWER','MULTIPLE_CHOICE','TRUE_OR_FALSE') NOT NULL,
-    `fk_section`      BIGINT              NOT NULL,
-    FOREIGN KEY (`fk_section`) REFERENCES `Section` (`id`)
+    `section_id`      BIGINT              NOT NULL,
+    FOREIGN KEY (`section_id`) REFERENCES `Section` (`id`)
 );
 
 CREATE TABLE `Alternative`
@@ -104,6 +104,6 @@ CREATE TABLE `Alternative`
     `position`           INT,
     `correct`            BOOLEAN DEFAULT FALSE,
     `explanation_answer` VARCHAR(255),
-    `fk_question`        BIGINT NOT NULL,
-    FOREIGN KEY (`fk_question`) REFERENCES `Question` (`id`)
+    `question_id`        BIGINT NOT NULL,
+    FOREIGN KEY (`question_id`) REFERENCES `Question` (`id`)
 );

@@ -16,7 +16,7 @@ public abstract class Activity {
     @Column(name = "identifier_code")
     private String code;
     @ManyToOne
-    @JoinColumn(name = "fk_section")
+    @JoinColumn(name = "section_id")
     private Section section;
     private boolean active;
     @Column(name = "position")

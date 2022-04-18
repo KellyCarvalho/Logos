@@ -1,8 +1,5 @@
 package br.com.logos.category;
 
-import br.com.logos.category.enums.CategoryStatus;
-import org.hibernate.validator.constraints.URL;
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.PositiveOrZero;
@@ -18,11 +15,10 @@ public class CategoryUpdateDTO {
     @Pattern(regexp = "[[a-z-]+]+", message = "Código  inválido, não pode ter caracteres especiais ou números, apenas o hífem é perminido, letras devem ser minúsculas")
     private String code;
     @PositiveOrZero(message = "Ordem deve ter valor positivo ou 0")
-    private String order;
+    private int order;
     private String studyGuide;
     private String description;
     private boolean active;
-    @URL(message = "URL Inválida")
     private String imageUrl;
     @Pattern(regexp = "^#([a-fA-F0-9]){6}?$|^[\s]*$", message = "cor inválida")
     private String colorCode;
@@ -38,7 +34,7 @@ public class CategoryUpdateDTO {
         this.id = category.getId();
         this.name = category.getName();
         this.code = category.getCode();
-        this.order = Integer.toString(category.getOrder());
+        this.order = category.getOrder();
         this.studyGuide = category.getStudyGuide();
         this.description = category.getDescription();
         this.active = category.isActive();
@@ -70,11 +66,11 @@ public class CategoryUpdateDTO {
         this.code = code;
     }
 
-    public String getOrder() {
+    public int getOrder() {
         return order;
     }
 
-    public void setOrder(String order) {
+    public void setOrder(int order) {
         this.order = order;
     }
 
@@ -116,10 +112,6 @@ public class CategoryUpdateDTO {
 
     public void setColorCode(String colorCode) {
         this.colorCode = colorCode;
-    }
-
-    public int convertOrder(String order){
-        return  order != null && !order.isBlank() && !order.isEmpty() ? Integer.parseInt(order)  : 0;
     }
 
     @Override

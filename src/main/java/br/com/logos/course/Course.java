@@ -28,7 +28,7 @@ public class Course {
     @Column(name = "developed_skills", columnDefinition = "TEXT")
     private String developedSkills;
     @ManyToOne
-    @JoinColumn(name = "fk_subcategory")
+    @JoinColumn(name = "subcategory_id")
     private SubCategory subCategory;
 
     @Deprecated
@@ -86,6 +86,11 @@ public class Course {
         return getSubCategory().getCategory();
     }
 
+    public String getCategoryName() {
+        return getCategory().getName();
+    }
+
+
     private static void isValidEstimatedTime(int estimatedTime, int min, int max) {
         if (estimatedTime < min || estimatedTime > max)
             throw new IllegalArgumentException("Tempo estimado de curso não pode ser menor que " + min + " ou maior que " + max);
@@ -105,6 +110,10 @@ public class Course {
         if (o == null || getClass() != o.getClass()) return false;
         Course course = (Course) o;
         return code.equals(course.code);
+    }
+
+    public boolean isVisibility() {
+        return visibility;
     }
 
     @Override
