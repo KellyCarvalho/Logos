@@ -24,7 +24,7 @@
                             <td>${course.code}</td>
                             <td>${course.visibility ? 'Público' : 'Privado'}</td>
                             <td>
-                                <a style="text-decoration: none; color: #0c0101" href="/admin/course/${course.code}">
+                                <a style="text-decoration: none; color: #0c0101" href="/admin/subcategories/${course.categoryCode}/${course.subCategoryCode}/${course.code}">
                                     <button class="btn btn-dark">Editar</button>
                                 </a>
                             </td>

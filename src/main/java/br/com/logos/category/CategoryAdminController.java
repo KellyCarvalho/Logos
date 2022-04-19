@@ -46,29 +46,29 @@ public class CategoryAdminController {
     @Transactional
     @PostMapping("/admin/categories/{categoryCode}")
     public String update(@PathVariable String categoryCode, @Valid CategoryUpdateDTO categoryUpdateDTO, BindingResult result, Model model) {
-        Optional<Category> category = categoryRepository.findByCode(categoryCode);
+        Optional<Category> possibleCategory = categoryRepository.findByCode(categoryCode);
 
-        if (category.isEmpty()) {
+        if (possibleCategory.isEmpty()) {
             return "errors/notFound";
         }
 
         if (result.hasErrors()) {
-            model.addAttribute("categoryUpdateDTO", result.hasErrors() ? categoryUpdateDTO : new CategoryUpdateDTO(category.get()));
+            model.addAttribute("categoryUpdateDTO", result.hasErrors() ? categoryUpdateDTO : new CategoryUpdateDTO(possibleCategory.get()));
             return "category/formUpdateCategory";
         }
 
-        category.get().update(categoryUpdateDTO);
+        possibleCategory.get().update(categoryUpdateDTO);
 
         return "redirect:/admin/categories";
     }
 
     @GetMapping("/admin/categories/{code}")
-    public String showCategory(@PathVariable String code, CategoryUpdateDTO categoryUpdateDTO, BindingResult result, Model model) {
-        Optional<Category> category = categoryRepository.findByCode(code);
-        if (category.isEmpty()) {
+    public String showFormCategory(@PathVariable String code, CategoryUpdateDTO categoryUpdateDTO, BindingResult result, Model model) {
+        Optional<Category> possibleCategory = categoryRepository.findByCode(code);
+        if (possibleCategory.isEmpty()) {
             return "errors/notFound";
         }
-        model.addAttribute("categoryUpdateDTO", new CategoryUpdateDTO(category.get()));
+        model.addAttribute("categoryUpdateDTO", new CategoryUpdateDTO(possibleCategory.get()));
 
         return "category/formUpdateCategory";
     }
@@ -77,7 +77,7 @@ public class CategoryAdminController {
     @Transactional
     @ResponseStatus(HttpStatus.OK)
     public void disableCategory(@PathVariable String categoryCode){
-        Optional<Category> category = categoryRepository.findByCode(categoryCode);
-        category.get().disable();
+        Optional<Category> possibleCategory = categoryRepository.findByCode(categoryCode);
+        possibleCategory.get().disable();
     }
 }

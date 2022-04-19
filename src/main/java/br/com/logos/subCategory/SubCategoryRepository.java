@@ -20,4 +20,6 @@ public interface SubCategoryRepository extends JpaRepository<SubCategory, Long> 
             where c.identifier_code = :categoryCode order by s.position
 """, nativeQuery = true)
     List<SubCategoryProjection> getAllByCategoryOrderByOrder(@Param("categoryCode") String categoryCode);
+
+    List<SubCategory> findAllByOrderByName();
 }

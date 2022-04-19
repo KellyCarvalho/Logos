@@ -4,6 +4,7 @@ import br.com.logos.category.Category;
 import br.com.logos.commonValidator.ObjectValidator;
 import br.com.logos.commonValidator.StringValidator;
 import br.com.logos.subCategory.SubCategory;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -90,6 +91,21 @@ public class Course {
         return getCategory().getName();
     }
 
+    public String getTargetAudience() {
+        return targetAudience;
+    }
+
+    public String getInstructorName() {
+        return instructorName;
+    }
+
+    public String getCategoryCode() {
+        return this.getCategory().getCode();
+    }
+
+    public String getSubCategoryCode() {
+        return this.getSubCategory().getCode();
+    }
 
     private static void isValidEstimatedTime(int estimatedTime, int min, int max) {
         if (estimatedTime < min || estimatedTime > max)
@@ -100,7 +116,7 @@ public class Course {
         return id;
     }
 
-    public Long getCategoryId(){
+    public Long getCategoryId() {
         return this.getCategory().getId();
     }
 
@@ -114,6 +130,17 @@ public class Course {
 
     public boolean isVisibility() {
         return visibility;
+    }
+
+    public void update(CourseUpdateDTO courseUpdateDTO) {
+        this.code = courseUpdateDTO.getCode();
+        this.name = courseUpdateDTO.getName();
+        this.estimatedTime = courseUpdateDTO.getEstimatedTime();
+        this.instructorName = courseUpdateDTO.getInstructorName();
+        this.visibility = courseUpdateDTO.isVisibility();
+        this.description = courseUpdateDTO.getDescription();
+        this.developedSkills = courseUpdateDTO.getDevelopedSkills();
+        this.subCategory = courseUpdateDTO.getSubCategory();
     }
 
     @Override
