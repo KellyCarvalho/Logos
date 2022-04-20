@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface SubCategoryRepository extends JpaRepository<SubCategory, Long> {
+
     List<SubCategory> findAllByStatus(SubCategoryStatus status);
 
     Optional<SubCategory> findByCode(String code);

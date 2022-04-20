@@ -6,6 +6,7 @@
         <link rel='stylesheet' href='/webjars/bootstrap/3.3.7/css/bootstrap.min.css'>
         <title>Criar Curso</title>
         <meta charset="UTF-8">
+        <link rel="stylesheet" href="/assets/css/form.css">
     </head>
 
     <body>
@@ -34,11 +35,11 @@
                     <form:errors path="estimatedTime"/>
                 </div>
 
-                <div class="checkbox-inline" style="padding-top: 20px">
+                <div class="checkbox-inline" id="checkbox_visibility">
                     <form:checkbox path="visibility" value="true" class="form-check-input" placeholder="Mostra ou deixa de mostrar a categoria na listagem dos alunos, de formações, etc"/>
                     <form:label path="visibility">
                         Curso Público?
-                        <p style="float: right; font-size: 12px; color: darkgray; padding-top: 2px; padding-left: 2px">Curso Público é visivel para todos</p>
+                        <p id="p_visibility">Curso Público é visivel para todos</p>
                     </form:label>
                 </div>
 
@@ -72,7 +73,7 @@
                 </form:select>
                 <form:errors path="subCategory"/>
 
-                <div class="md-4" style="padding-top: 20px">
+                <div class="md-4" id="button_submit">
                     <input class="form-inline-block btn btn-success" value="Enviar" type="submit">
                 </div>
 

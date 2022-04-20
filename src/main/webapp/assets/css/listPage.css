@@ -1,0 +1,12 @@
+.button_{
+    text-decoration: none;
+    color: #0c0101;
+}
+
+#title_container{
+    padding: 10px;
+}
+
+#main_container{
+    padding-top: 20px;
+}
