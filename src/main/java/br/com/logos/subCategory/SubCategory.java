@@ -2,9 +2,12 @@ package br.com.logos.subCategory;
 
 import br.com.logos.category.Category;
 import br.com.logos.commonValidator.ObjectValidator;
+import br.com.logos.course.Course;
 import br.com.logos.subCategory.enums.SubCategoryStatus;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import static br.com.logos.commonValidator.StringValidator.doesCodeContainsOnlyLettersInLowerCaseAndHyphen;
@@ -34,6 +37,8 @@ public class SubCategory {
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
+    @OneToMany(mappedBy = "subCategory")
+    private List<Course> courses = new ArrayList<>();
 
     @Deprecated
     public SubCategory() {
@@ -104,6 +109,10 @@ public class SubCategory {
 
     public int getOrder() {
         return order;
+    }
+
+    public List<Course> getCourses() {
+        return courses;
     }
 
     @Override

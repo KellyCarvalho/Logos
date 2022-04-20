@@ -1,12 +1,9 @@
 package br.com.logos.course;
 
 import br.com.logos.category.Category;
-import br.com.logos.category.CategoryInsertDTO;
 import br.com.logos.category.CategoryRepository;
-import br.com.logos.category.CategoryUpdateDTO;
 import br.com.logos.subCategory.SubCategory;
 import br.com.logos.subCategory.SubCategoryRepository;
-import br.com.logos.subCategory.SubCategoryUpdateDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -64,8 +61,7 @@ public class CourseController {
         }
         Course course = courseInsertDTO.toEntity(courseInsertDTO);
         courseRepository.save(course);
-
-        return "redirect:/admin/courses/" + course.getCategory().getCode() + "/" + course.getSubCategory().getCode();
+        return "redirect:/admin/courses/" + course.getCategoryCode() + "/" + course.getSubCategoryCode();
     }
 
 
@@ -82,6 +78,7 @@ public class CourseController {
         List<SubCategory> subCategories = subCategoryRepository.findAllByOrderByName();
         model.addAttribute("courseUpdateDTO", result.hasErrors() ? courseUpdateDto : new CourseUpdateDTO(possibleCourse.get()));
         model.addAttribute("subCategories", subCategories);
+
         return "/course/formUpdateCourse";
     }
 
@@ -101,9 +98,7 @@ public class CourseController {
             return showFormUpdate(category, subcategory, course ,courseUpdateDTO, result, model);
         }
 
-
         possibleCourse.get().update(courseUpdateDTO);
-
         return "redirect:/admin/courses/" + possibleCourse.get().getCategoryCode()+ "/" + possibleCourse.get().getSubCategoryCode();
     }
 

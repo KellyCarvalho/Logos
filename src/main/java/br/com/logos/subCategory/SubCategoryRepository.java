@@ -22,4 +22,14 @@ public interface SubCategoryRepository extends JpaRepository<SubCategory, Long> 
     List<SubCategoryProjection> getAllByCategoryOrderByOrder(@Param("categoryCode") String categoryCode);
 
     List<SubCategory> findAllByOrderByName();
+
+    @Query(value = """
+            select distinct s from SubCategory s
+            join s.courses c
+            where s.status = 'ACTIVE'
+            and c.visibility = true
+            and s.category.code = :code
+            order by s.order          
+            """)
+    List<ActiveSubCategoriesWithCoursesProjection> getActiveSubCategoriesWithCourses(@Param("code") String categoryCode);
 }

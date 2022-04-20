@@ -56,13 +56,13 @@
 
                 <div class="md-4">
                     <form:label path="description" class="form-label">Ementa</form:label>
-                    <form:input path="description" placeholder="Nome do Instrutor" class="form-control" type="text"/>
+                    <form:input path="description" placeholder="Descrição" class="form-control" type="text"/>
                     <form:errors path="description"/>
                 </div>
 
                 <div class="md-4">
                     <form:label path="developedSkills" class="form-label">Habilidades desenvolvidas</form:label>
-                    <form:input path="developedSkills" placeholder="Nome do Instrutor" class="form-control" type="text"/>
+                    <form:input path="developedSkills" placeholder="Habilidades desenvolvidas" class="form-control" type="text"/>
                     <form:errors path="developedSkills"/>
                 </div>
 
@@ -71,7 +71,6 @@
                     <form:options itemLabel="name" items="${subcategories}"></form:options>
                 </form:select>
                 <form:errors path="subCategory"/>
-
 
                 <div class="md-4" style="padding-top: 20px">
                     <input class="form-inline-block btn btn-success" value="Enviar" type="submit">

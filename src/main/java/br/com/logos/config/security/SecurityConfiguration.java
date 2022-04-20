@@ -18,9 +18,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private AutenticationService autenticationService;
 
-    @Autowired
-    private UserRepository userRepository;
-
     @Override
     @Bean
     protected AuthenticationManager authenticationManager() throws  Exception{
@@ -36,6 +33,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void  configure(HttpSecurity http) throws Exception{
         http.authorizeRequests()
                 .antMatchers("/api/categories").permitAll()
+                .antMatchers("/bGltcGEtby1jYWNoZS1kYS1hcGktYWU").permitAll()
                 .antMatchers("/admin/**").authenticated()
                 .and().formLogin()
                 .loginPage("/login").permitAll()

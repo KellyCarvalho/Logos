@@ -4,6 +4,29 @@ DATABASE logos;
 USE
 logos;
 
+
+CREATE TABLE `User`
+(
+    `id`       BIGINT PRIMARY KEY AUTO_INCREMENT,
+    `email`    VARCHAR(255) UNIQUE NOT NULL,
+    `name`     VARCHAR(255)        NOT NULL,
+    `password` VARCHAR(255)        NOT NULL
+);
+
+CREATE TABLE `Profile`
+(
+    `id`   BIGINT PRIMARY KEY AUTO_INCREMENT,
+    `name` VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE `User_Profile`
+(
+    `user_id`    BIGINT,
+    `profile_id` BIGINT NOT NULL,
+    FOREIGN KEY (`user_id`) REFERENCES `User` (`id`),
+    FOREIGN KEY (`profile_id`) REFERENCES `Profile` (`id`)
+);
+
 CREATE TABLE `Category`
 (
     `id`              BIGINT PRIMARY KEY AUTO_INCREMENT,

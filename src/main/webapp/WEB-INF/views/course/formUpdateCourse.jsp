@@ -57,13 +57,13 @@
 
                 <div class="md-4">
                     <form:label path="description" class="form-label">Ementa</form:label>
-                    <form:input path="description" placeholder="Nome do Instrutor" class="form-control" type="text"/>
+                    <form:input path="description" placeholder="Descrição do Curso" class="form-control" type="text"/>
                     <form:errors path="description"/>
                 </div>
 
                 <div class="md-4">
                     <form:label path="developedSkills" class="form-label">Habilidades desenvolvidas</form:label>
-                    <form:input path="developedSkills" placeholder="Nome do Instrutor" class="form-control" type="text"/>
+                    <form:input path="developedSkills" placeholder="Habilidades desenvolvidas" class="form-control" type="text"/>
                     <form:errors path="developedSkills"/>
                 </div>
 
