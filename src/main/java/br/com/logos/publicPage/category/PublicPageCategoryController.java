@@ -1,5 +1,7 @@
-package br.com.logos.category;
+package br.com.logos.publicPage.category;
 
+import br.com.logos.category.CategoryProjection;
+import br.com.logos.category.CategoryRepository;
 import br.com.logos.subCategory.ActiveSubCategoriesWithCoursesProjection;
 import br.com.logos.subCategory.SubCategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +23,7 @@ public class PublicPageCategoryController {
 
     @GetMapping("category/{categoryCode}")
     public String categoryPublicPage(@PathVariable String categoryCode, Model model) {
-        Optional<CategoryNameAndCodeProjection> possibleCategory = categoryRepository.getCategoryNameAndCodeByCode(categoryCode);
+        Optional<CategoryProjection> possibleCategory = categoryRepository.getCategoryByCode(categoryCode);
         if (possibleCategory.isEmpty()){
             return "errors/notFound";
         }

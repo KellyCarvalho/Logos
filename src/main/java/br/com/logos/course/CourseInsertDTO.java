@@ -2,16 +2,14 @@ package br.com.logos.course;
 
 import br.com.logos.subCategory.SubCategory;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 
 public class CourseInsertDTO {
 
     @NotBlank(message = "Nome é requerido")
     private String name;
     @NotBlank(message = "Código é requerido")
+    @Pattern(regexp = "[a-z0-9^-]+", message = "Código  inválido, não pode ter caracteres especiais, hífem é permitido, letras devem ser minúsculas")
     private String code;
     @Min(message = "tempo mínimo não pode ser menor que 1", value = 1L)
     @Max(message = "tempo máximo não pode ser maior que 20", value = 20L)
@@ -22,25 +20,11 @@ public class CourseInsertDTO {
     private String instructorName;
     private String description;
     private String developedSkills;
-    @NotNull(message = "SubCateogria é obrigatória")
+    @NotNull(message = "SubCategoria é obrigatória")
     private SubCategory subCategory;
 
     @Deprecated
     public CourseInsertDTO() {
-    }
-
-    public CourseInsertDTO(String name, String code, int estimatedTime, boolean visibility,
-                           String targetAudience, String instructorName,
-                           String description, String developedSkills, SubCategory subCategory) {
-        this.name = name;
-        this.code = code;
-        this.estimatedTime = estimatedTime;
-        this.visibility = visibility;
-        this.targetAudience = targetAudience;
-        this.instructorName = instructorName;
-        this.description = description;
-        this.developedSkills = developedSkills;
-        this.subCategory = subCategory;
     }
 
     public String getName() {
@@ -115,9 +99,9 @@ public class CourseInsertDTO {
         this.subCategory = subCategory;
     }
 
-    public Course toEntity(CourseInsertDTO courseInsertDTO) {
-        return new Course(courseInsertDTO.getName(), courseInsertDTO.getCode(), courseInsertDTO.getEstimatedTime(),
-                courseInsertDTO.isVisibility(), courseInsertDTO.getTargetAudience(), courseInsertDTO.getInstructorName(),
-                courseInsertDTO.getDescription(), courseInsertDTO.getDevelopedSkills(), courseInsertDTO.getSubCategory());
+    public Course toEntity() {
+        return new Course(this.name, this.code, this.estimatedTime,
+                this.visibility, this.targetAudience, this.instructorName,
+                this.description, this.developedSkills, this.subCategory);
     }
 }

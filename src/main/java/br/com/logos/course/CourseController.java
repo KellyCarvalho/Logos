@@ -47,7 +47,7 @@ public class CourseController {
     }
 
     @GetMapping("/admin/courses/new")
-    public String viewFormInsertCategory(CourseInsertDTO courseInsertDTO, BindingResult result, Model model) {
+    public String viewFormInsertCourse(CourseInsertDTO courseInsertDTO, BindingResult result, Model model) {
         List<SubCategory> subcategories = subCategoryRepository.findAllByOrderByName();
         model.addAttribute("subcategories", subcategories);
         return "course/formInsertCourse";
@@ -57,9 +57,9 @@ public class CourseController {
     @PostMapping("/admin/courses/new")
     public String insert(@Valid CourseInsertDTO courseInsertDTO, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            return viewFormInsertCategory(courseInsertDTO, result, model);
+            return viewFormInsertCourse(courseInsertDTO, result, model);
         }
-        Course course = courseInsertDTO.toEntity(courseInsertDTO);
+        Course course = courseInsertDTO.toEntity();
         courseRepository.save(course);
         return "redirect:/admin/courses/" + course.getCategoryCode() + "/" + course.getSubCategoryCode();
     }
@@ -101,5 +101,4 @@ public class CourseController {
         possibleCourse.get().update(courseUpdateDTO);
         return "redirect:/admin/courses/" + possibleCourse.get().getCategoryCode()+ "/" + possibleCourse.get().getSubCategoryCode();
     }
-
 }

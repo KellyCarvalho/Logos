@@ -19,12 +19,12 @@ CREATE TABLE `Profile`
     `name` VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE `User_Profile`
+CREATE TABLE `User_profiles`
 (
     `user_id`    BIGINT,
-    `profile_id` BIGINT NOT NULL,
+    `profiles_id` BIGINT NOT NULL,
     FOREIGN KEY (`user_id`) REFERENCES `User` (`id`),
-    FOREIGN KEY (`profile_id`) REFERENCES `Profile` (`id`)
+    FOREIGN KEY (`profiles_id`) REFERENCES `Profile` (`id`)
 );
 
 CREATE TABLE `Category`

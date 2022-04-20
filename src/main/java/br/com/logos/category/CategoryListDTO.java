@@ -17,7 +17,7 @@ public class CategoryListDTO {
     @NotBlank(message = "Nome não pode estar em branco")
     private String name;
     @NotBlank(message = "Código não pode estar em branco")
-    @Pattern(regexp = "[[a-z-]+]+", message = "Código  inválido, não pode ter caracteres especiais ou números, apenas o hífem é perminido, letras devem ser minúsculas")
+    @Pattern(regexp = "[[a-z-]+]+", message = "Código  inválido, não pode ter caracteres especiais ou números, apenas o hífem é permitido, letras devem ser minúsculas")
     private String code;
     @PositiveOrZero(message = "Ordem deve ter valor positivo ou 0")
     private int order;

@@ -67,6 +67,10 @@ public class Course {
         return subCategory;
     }
 
+    public int getSubCategoryOrder(){
+        return subCategory.getOrder();
+    }
+
     public String getName() {
         return name;
     }
@@ -141,6 +145,7 @@ public class Course {
         this.description = courseUpdateDTO.getDescription();
         this.developedSkills = courseUpdateDTO.getDevelopedSkills();
         this.subCategory = courseUpdateDTO.getSubCategory();
+        this.targetAudience = courseUpdateDTO.getTargetAudience();
     }
 
     @Override

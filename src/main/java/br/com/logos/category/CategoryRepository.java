@@ -15,9 +15,11 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
     Optional<Category> findByCode(String code);
 
     @Query(value = """
-            select c.identifier_code `code`, c.name, c.image_url `imageUrl` from Category c where c.identifier_code = :code
+            select c.identifier_code `code`, c.name, c.image_url `imageUrl` 
+            from Category c 
+            where c.identifier_code = :code
             """, nativeQuery = true)
-    Optional<CategoryNameAndCodeProjection> getCategoryNameAndCodeByCode(@Param("code") String code);
+    Optional<CategoryProjection> getCategoryByCode(@Param("code") String code);
 
     List<Category> findByOrderByOrder();
 
@@ -27,10 +29,7 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
             select distinct c from Category c 
             join c.subCategories s 
             join s.courses co 
-            where c.status = 'ACTIVE' 
-            and s.status = 'ACTIVE' 
-            and co.visibility = true 
-            order by c.order, s.order             
+            where c.status = 'ACTIVE'
             """)
-    List<CategoryActiveWithSubCategoriesNameProjection> getActiveCategoriesWithSubCategoriesNames();
+    List<CategoryActiveWithSubCategoriesNameProjection> getActiveCategoriesWithSubCategories();
 }

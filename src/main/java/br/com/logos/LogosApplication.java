@@ -12,7 +12,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
 @EnableCaching
 @EnableSwagger2
 public class LogosApplication {
-
+    //TODO testar as queries sem os joins
     public static void main(String[] args) {
         SpringApplication.run(LogosApplication.class, args);
     }

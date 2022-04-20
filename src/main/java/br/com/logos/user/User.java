@@ -20,9 +20,6 @@ public class User implements UserDetails {
     private String email;
     private String password;
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "User_Profile",
-    joinColumns = @JoinColumn(name = "user_id"),
-    inverseJoinColumns = @JoinColumn(name = "profile_id"))
     private List<Profile> profiles = new ArrayList<>();
 
     public Long getId() {

@@ -10,7 +10,7 @@ import javax.validation.constraints.PositiveOrZero;
 public class SubCategoryInsertDTO {
     @NotBlank(message = "Nome é requerido")
     private String name;
-    @Pattern(regexp = "[[a-z-]+]+", message = "Código  inválido, não pode ter caracteres especiais ou números, apenas o hífem é perminido, letras devem ser minúsculas")
+    @Pattern(regexp = "[[a-z-]+]+", message = "Código  inválido, não pode ter caracteres especiais ou números, apenas o hífem é permitido, letras devem ser minúsculas")
     @NotBlank(message = "Codigo é requerido")
     private String code;
     private String description;

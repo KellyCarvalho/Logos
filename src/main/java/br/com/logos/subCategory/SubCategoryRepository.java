@@ -17,7 +17,8 @@ public interface SubCategoryRepository extends JpaRepository<SubCategory, Long> 
             SELECT s.name, s.status, s.identifier_code as code 
             FROM Subcategory as s 
             INNER JOIN Category as c ON c.id = s.category_id 
-            where c.identifier_code = :categoryCode order by s.position
+            where c.identifier_code = :categoryCode 
+            order by s.position
 """, nativeQuery = true)
     List<SubCategoryProjection> getAllByCategoryOrderByOrder(@Param("categoryCode") String categoryCode);
 

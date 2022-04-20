@@ -8,164 +8,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Login | Cursos online de tecnologia</title>
-        <style>
-            *, :after, :before {
-                margin: 0;
-                padding: 0;
-                box-sizing: border-box;
-            }
-            body {
-                background-color: #f9fbfd;
-            }
-            body, input, select, textarea {
-                font: normal 14px sans-serif;
-            }
-            a {
-                outline: none;
-            }
-            ul {
-                list-style: none;
-            }
-            .container {
-                margin: 0 auto;
-                max-width: 1200px;
-                width: 96%;
-            }
-            .auth {
-                color: #747c81;
-                display: flex;
-                align-items: center;
-                align-content: center;
-                flex-direction: column;
-            }
-            .login {
-                background-color: #fff;
-                text-align: center;
-                padding: 3em;
-                max-width: 500px;
-            }
-            .login__title {
-                font-weight: 800;
-                letter-spacing: -.5px;
-                font-size: 2em;
-            }
-            .login__subtitle {
-                font-size: 1.2em;
-                letter-spacing: -.3px;
-                margin-bottom: 1em;
-            }
-            .login__form label {
-                display: block;
-                text-align: left;
-                font-size: 1.1em;
-            }
-            .login__form input {
-                border: 1px solid #eee;
-                border-radius: 3px;
-                margin-bottom: 1em;
-                padding: 1em;
-                width: 100%;
-            }
-            .login__button {
-                color: #fff;
-                border: none;
-                font-size: 1em;
-                font-weight: 700;
-                text-transform: uppercase;
-                border-radius: 3px;
-                background-color: #747c81;
-                min-width: 195px;
-                height: 50px;
-                cursor: pointer;
-                margin-top: 1em;
-                padding: .4em 0;
-            }
-            .signup {
-                margin-top: 3em;
-                text-align: center;
-                max-width: 600px;
-            }
-            .signup__title {
-                display: inline-block;
-                font-size: 2em;
-                font-weight: 800;
-                letter-spacing: -.7px;
-                text-align: center;
-                border-bottom: 3px solid #747c81;
-                margin-bottom: 5px;
-            }
-            .signup__text {
-                font-size: 1.5em;
-                letter-spacing: -.3px;
-                margin-top: .5em;
-            }
-            .categories {
-                margin-top: 1.5em;
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            .category-card {
-                border: 5px solid hsla(0,0%,100%,.3);
-                margin-right: 5px;
-                margin-left: 5px;
-                margin-bottom: 1em;
-                width: 45%;
-            }
-            .category-card__link {
-                color: inherit;
-                text-decoration: none;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: space-between;
-                width: 100%;
-                padding: 1em;
-            }
-            .category-card__icon {
-                opacity: .6;
-                width: 100%;
-            }
-            .category-card__icon img {
-                max-width: 128px;
-            }
-            .category-card__title {
-                font-size: 1em;
-                font-weight: 700;
-                width: 100%;
-                margin-top: .5em;
-            }
-            .category-card__details {
-                font-size: .95em;
-                opacity: .6;
-                margin-top: .25em;
-            }
-            @media (min-width: 1024px) {
-                .category-card {
-                    max-width: 180px;
-                }
-            }
-            @media (min-width: 540px) {
-                .category-card {
-                    width: 30%;
-                }
-            }
-            @media (min-width: 940px) {
-                .auth {
-                    flex-direction: row;
-                    justify-content: space-between;
-                }
-                .login {
-                    width: 45%;
-                }
-                .signup {
-                    width: 50%;
-                }
-                .signup__title {
-                    font-size: 2.5em;
-                }
-            }
-        </style>
+        <link rel="stylesheet" href="/assets/css/loginPage.css">
     </head>
     <body>
         <main class="container">
@@ -173,13 +16,15 @@
                 <section class="login">
                     <h1 class="login__title">Já estuda com a gente?</h1>
                     <p class="login__subtitle">Faça seu login e boas aulas!</p>
-                    <form:form class="login__form" action="/login" method="POST">
-                        <label>E-mail</label>
-                        <input type="email" name="username"  id="login-email" autofocus>
-                        <label>Senha</label>
-                        <input type="password" name="password" id="login-password" autocomplete="off">
+                    <form class="login__form" action="/login" method="POST">
+                        <label for="login-email" >E-mail</label>
+                        <input type="email" name="username" id="login-email" autofocus="true"/>
+
+                        <label for="login-password">Senha</label>
+                        <input type="password" name="password" id="login-password" autocomplete="off"/>
+
                         <button class="login__button" type="submit">Entrar</button>
-                    </form:form>
+                    </form>
                 </section>
                 <section class="signup">
                     <h2 class="signup__title">Ainda não estuda com a gente?</h2>
@@ -192,12 +37,12 @@
                                         <img src="${category.imageUrl}">
                                     </span>
                                     <h3 class="category-card__title"> ${category.name}</h3>
-                                    <c:forEach begin="0" varStatus="number" items="${category.subCategories}" end="2" var="subcategory">
+                                    <c:forEach begin="0" varStatus="number" items="${category.activeSubCategoriesWithPublicCourse}" end="2" var="subcategory">
                                         <p class="category-card__details">
-                                            ${subcategory.name}<c:if test="${number.index < category.subCategories.size() -1}">,</c:if>
+                                            ${subcategory.name}<c:if test="${number.index < category.activeSubCategoriesWithPublicCourse.size() -1}">,</c:if>
                                         </p>
                                     </c:forEach>
-                                    <c:if test="${category.subCategories.size() > 3}">e mais...</c:if>
+                                    <c:if test="${category.activeSubCategoriesWithPublicCourse.size() > 3}">e mais...</c:if>
                                 </a>
                             </li>
                         </c:forEach>

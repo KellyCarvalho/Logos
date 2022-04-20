@@ -1,18 +1,22 @@
 package br.com.logos.category;
 
+import br.com.logos.course.Course;
 import br.com.logos.subCategory.SubCategory;
-import org.springframework.beans.factory.annotation.Value;
 
+import java.util.Comparator;
 import java.util.List;
 
 public interface CategoryActiveWithSubCategoriesNameProjection {
 
-    @Value("#{target.code}")
     String getCode();
-    @Value("#{target.name}")
     String getName();
-    @Value("#{target.imageUrl}")
     String getImageUrl();
-    @Value("#{target.subCategories}")
     List<SubCategory> getSubCategories();
+
+    default List<SubCategory> getActiveSubCategoriesWithPublicCourse(){
+        return getSubCategories().stream().filter(SubCategory::isActive)
+                .filter(subCategory -> subCategory.getCourses().stream().anyMatch(Course::isVisibility))
+                .sorted(Comparator.comparing(SubCategory::getOrder))
+                .toList();
+    }
 }

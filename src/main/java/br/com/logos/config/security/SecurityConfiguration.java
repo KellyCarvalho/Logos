@@ -1,6 +1,5 @@
 package br.com.logos.config.security;
 
-import br.com.logos.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,33 +14,38 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableWebSecurity
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+
     @Autowired
     private AutenticationService autenticationService;
 
     @Override
     @Bean
-    protected AuthenticationManager authenticationManager() throws  Exception{
+    protected AuthenticationManager authenticationManager() throws Exception {
         return super.authenticationManager();
     }
 
     @Override
-    protected void  configure(AuthenticationManagerBuilder auth) throws  Exception{
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(autenticationService).passwordEncoder(new BCryptPasswordEncoder());
     }
 
     @Override
-    protected void  configure(HttpSecurity http) throws Exception{
+    protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/api/categories").permitAll()
                 .antMatchers("/bGltcGEtby1jYWNoZS1kYS1hcGktYWU").permitAll()
                 .antMatchers("/admin/**").authenticated()
-                .and().formLogin()
-                .loginPage("/login").permitAll()
-                .defaultSuccessUrl("/admin/categories");
+                .and()
+                    .formLogin().loginPage("/login").permitAll()
+                    .defaultSuccessUrl("/admin/categories")
+                .and()
+                    .csrf().disable();
     }
 
     @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/**.html", "/v2/api-docs", "/webjars/**", "/configuration/**", "/swagger-resources/**");
+    public void configure(WebSecurity web) {
+        web.ignoring().antMatchers("/**.html", "/v2/api-docs", "/webjars/**",
+                "/configuration/**", "/swagger-resources/**", "/assets/**");
     }
+
 }
