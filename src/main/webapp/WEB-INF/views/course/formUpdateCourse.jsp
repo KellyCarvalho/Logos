@@ -31,7 +31,7 @@
 
                 <div class="md-4">
                     <form:label path="estimatedTime" class="form-label">Tempo estimado</form:label>
-                    <form:input path="estimatedTime" placeholder="Tempo estimado de curso entre 1 e 20 horas" type="number"/>
+                    <form:input path="estimatedTime" class="form-control" placeholder="Tempo estimado de curso entre 1 e 20 horas" type="number"/>
                     <form:errors path="estimatedTime"/>
                 </div>
 

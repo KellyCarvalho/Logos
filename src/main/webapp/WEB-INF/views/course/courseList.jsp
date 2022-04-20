@@ -8,8 +8,14 @@
     </head>
     <body>
         <section class="container" style="padding-top: 50px">
+            <section style="padding: 10px" class="container">
+
             <h1>${subcategoryName}</h1>
             <h4>Cursos</h4>
+            <a href="/admin/courses/new">
+                <button class="btn btn-primary">Novo Curso</button>
+            </a>
+            </section>
             <table class="table table-dark table-bordered">
                 <thead>
                     <th scope="col">Nome</th>
