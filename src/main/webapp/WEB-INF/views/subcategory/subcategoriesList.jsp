@@ -10,6 +10,7 @@
     </head>
 
     <body>
+
         <section class="container block_container">
             <h1>${category.name}</h1>
             <h3>SubCategoria</h3>
