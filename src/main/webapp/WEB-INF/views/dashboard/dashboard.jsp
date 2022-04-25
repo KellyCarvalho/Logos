@@ -7,9 +7,11 @@
         <meta charset="utf-8">
         <link rel="stylesheet" href="/assets/css/dashboardPage.css">
     </head>
+
     <body>
 
         <section class="container main_container">
+
             <h1>Cursos por Categoria</h1>
             <table class="table table-dark table-bordered">
                 <thead>
@@ -25,9 +27,11 @@
                     </tbody>
                 </c:forEach>
             </table>
+
         </section>
 
         <section class="container main_container">
+
             <h1>Instrutor com mais cursos</h1>
             <table class="table table-dark table-bordered">
                 <thead>
@@ -41,6 +45,7 @@
                     </tr>
                 </tbody>
             </table>
+
         </section>
 
     </body>

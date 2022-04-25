@@ -8,7 +8,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
 
 @SpringBootApplication
-@EnableSpringDataWebSupport
 @EnableCaching
 @EnableSwagger2
 public class LogosApplication {

@@ -38,7 +38,7 @@ public class CourseUpdateDTO {
         this.instructorName = course.getInstructorName();
         this.description = course.getDescription();
         this.developedSkills = course.getDevelopedSkills();
-        this.subCategory = getSubCategory();
+        this.subCategory = course.getSubCategory();
     }
 
     public Long getId() {

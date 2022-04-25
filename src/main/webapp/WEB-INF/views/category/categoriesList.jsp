@@ -10,14 +10,15 @@
     </head>
 
     <body>
-        <section class="container" id="title_container">
+
+        <section class="container block_container">
             <h3>Categorias</h3>
             <a href="/admin/categories/new">
                 <button class="btn btn-primary">Nova Categoria</button>
             </a>
         </section>
 
-        <section id="main_container" class="container">
+        <section class="container block_container">
             <table class="table table-dark table-bordered">
                 <thead>
                     <th scope="col">Nome</th>
@@ -36,12 +37,12 @@
                                 <a href="/admin/subcategories/${category.code}">SubCategorias</a>
                             </td>
                             <td>
-                                <a class="button_" href="/admin/categories/${category.code}">
+                                <a class="action_button" href="/admin/categories/${category.code}">
                                     <button class="btn btn-dark">Editar</button>
                                 </a>
                             </td>
                             <td>
-                                <a class="button_">
+                                <a class="action_button">
                                   <c:if test="${category.status == 'ACTIVE'}">
                                       <button onclick="disable('${category.code}')" id="disableButton_${category.code}" class="btn btn-dark">Desativar</button>
                                   </c:if>

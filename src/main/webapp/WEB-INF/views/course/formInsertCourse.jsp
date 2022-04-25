@@ -15,7 +15,7 @@
 
             <h1>Novo Curso</h1>
 
-            <form:form modelAttribute="courseInsertDTO" class="md-3" method="post">
+            <form:form modelAttribute="courseInsertDTO" class="mb-3" method="post">
 
                 <div class="md-4">
                     <form:label path="name" class="form-label">Nome</form:label>
@@ -35,11 +35,11 @@
                     <form:errors path="estimatedTime"/>
                 </div>
 
-                <div class="checkbox-inline" id="checkbox_visibility">
+                <div class="checkbox-inline checkbox_visibility">
                     <form:checkbox path="visibility" value="true" class="form-check-input" placeholder="Mostra ou deixa de mostrar a categoria na listagem dos alunos, de formações, etc"/>
                     <form:label path="visibility">
                         Curso Público?
-                        <p id="p_visibility">Curso Público é visivel para todos</p>
+                        <p class="p_visibility">Curso Público é visivel para todos</p>
                     </form:label>
                 </div>
 
@@ -73,11 +73,12 @@
                 </form:select>
                 <form:errors path="subCategory"/>
 
-                <div class="md-4" id="button_submit">
+                <div class="md-4 button_submit">
                     <input class="form-inline-block btn btn-success" value="Enviar" type="submit">
                 </div>
 
             </form:form>
+
         </section>
 
     </body>

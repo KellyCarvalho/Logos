@@ -7,17 +7,19 @@
         <meta charset="utf-8">
         <link rel="stylesheet" href="/assets/css/listPage.css">
     </head>
-    <body>
-        <section class="container">
-            <section class="container" id="title_container">
 
+    <body>
+
+        <section class="container block_container">
             <h1>${subcategoryName}</h1>
             <h4>Cursos</h4>
             <a href="/admin/courses/new">
                 <button class="btn btn-primary">Novo Curso</button>
             </a>
-            </section>
-            <table class="table table-dark table-bordered" id="main_container">
+        </section>
+
+        <section class="container block_container">
+            <table class="table table-dark table-bordered container block_container">
                 <thead>
                     <th scope="col">Nome</th>
                     <th scope="col">Código</th>
@@ -31,8 +33,8 @@
                             <td>${course.code}</td>
                             <td>${course.visibility ? 'Público' : 'Privado'}</td>
                             <td>
-                                <a class="button_" href="/admin/subcategories/${course.categoryCode}/${course.subCategoryCode}/${course.code}">
-                                    <button class="btn btn-dark">Editar</button>
+                                <a href="/admin/subcategories/${course.categoryCode}/${course.subCategoryCode}/${course.code}">
+                                    <button class="btn btn-dark action_button">Editar</button>
                                 </a>
                             </td>
                         </tr>
@@ -58,5 +60,7 @@
                 </nav>
             </c:if>
         </section>
+
     </body>
+
 </html>

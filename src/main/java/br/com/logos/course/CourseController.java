@@ -99,6 +99,6 @@ public class CourseController {
         }
 
         possibleCourse.get().update(courseUpdateDTO);
-        return "redirect:/admin/courses/" + possibleCourse.get().getCategoryCode()+ "/" + possibleCourse.get().getSubCategoryCode();
+        return "redirect:/admin/courses/" + category + "/" + possibleCourse.get().getSubCategoryCode();
     }
 }

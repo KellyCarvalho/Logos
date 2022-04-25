@@ -15,7 +15,7 @@ public class SwaggerConfigurations {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("br.com.logos.api"))
-                .paths(PathSelectors.ant("/**"))
+                .paths(PathSelectors.ant("/api/**"))
                 .build();
     }
 }

@@ -23,6 +23,7 @@ CREATE TABLE `User_profiles`
 (
     `user_id`    BIGINT,
     `profiles_id` BIGINT NOT NULL,
+    PRIMARY KEY(user_id, profiles_id),
     FOREIGN KEY (`user_id`) REFERENCES `User` (`id`),
     FOREIGN KEY (`profiles_id`) REFERENCES `Profile` (`id`)
 );

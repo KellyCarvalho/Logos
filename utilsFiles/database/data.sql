@@ -263,6 +263,6 @@ VALUES ("Java JRE e JDK: Escreva o seu primeiro código com Eclipse", "java-gafs
         "JVM? JDK? JRE? Aprenda o que são essas siglas? <br> Compile e execute código java <br> Aprenda a usar Eclipse <br> Veja como usar variáveis e controle de fluxo <br> Conheça os principais tipos do Java",
         (SELECT `id` FROM `Subcategory` WHERE `identifier_code` = "java"));
 
-insert into User (name, email, password) values ('teste', 'teste@gmail.com','$2a$10$fCijSt.rHvs9hxkHQn3lDe1ZQgmP4ywJjfvJiQWgCNYz95BBHWTKq');
+INSERT INTO User (`name`, `email`, `password`) VALUES ('teste', 'teste@gmail.com','$2a$10$fCijSt.rHvs9hxkHQn3lDe1ZQgmP4ywJjfvJiQWgCNYz95BBHWTKq');
 
 

@@ -16,22 +16,21 @@ public interface SubCategoryRepository extends JpaRepository<SubCategory, Long> 
 
     @Query(value = """
             SELECT s.name, s.status, s.identifier_code as code 
-            FROM Subcategory as s 
-            INNER JOIN Category as c ON c.id = s.category_id 
-            where c.identifier_code = :categoryCode 
-            order by s.position
+            FROM Subcategory AS s 
+            INNER JOIN Category AS c ON c.id = s.category_id 
+            WHERE c.identifier_code = :categoryCode 
+            ORDER BY s.position
 """, nativeQuery = true)
     List<SubCategoryProjection> getAllByCategoryOrderByOrder(@Param("categoryCode") String categoryCode);
 
     List<SubCategory> findAllByOrderByName();
 
     @Query(value = """
-            select distinct s from SubCategory s
-            join s.courses c
-            where s.status = 'ACTIVE'
-            and c.visibility = true
-            and s.category.code = :code
-            order by s.order          
+            SELECT distinct s FROM SubCategory s
+            JOIN s.courses c
+            WHERE s.status = 'ACTIVE'
+            AND s.category.code = :code
+            ORDER BY s.order          
             """)
     List<ActiveSubCategoriesWithCoursesProjection> getActiveSubCategoriesWithCourses(@Param("code") String categoryCode);
 }

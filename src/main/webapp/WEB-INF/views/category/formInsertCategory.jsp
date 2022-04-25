@@ -28,11 +28,11 @@
                     <form:errors path="code"/>
                 </div>
 
-                <div class="checkbox-inline"  id="checkbox_visibility">
+                <div class="checkbox-inline checkbox_visibility">
                     <form:checkbox path="active" value="true" class="form-check-input" placeholder="Mostra ou deixa de mostrar a categoria na listagem dos alunos, de formações, etc"/>
                         <form:label path="active">
                         Categoria Ativa?
-                        <p id="p_visibility">Mostra ou deixa de mostrar a categoria na listagem dos alunos, de formações, etc</p>
+                        <p class="p_visibility">Mostra ou deixa de mostrar a categoria na listagem dos alunos, de formações, etc</p>
                     </form:label>
                 </div>
 
@@ -52,7 +52,7 @@
                     <form:input path="imageUrl" placeholder="por exemplo: /images/categorias/programacao.svg" class="form-control" type="text"/>
                 </div>
 
-                <div class="md-4" id="color_code">
+                <div class="md-4 color_code">
                     <form:label path="colorCode" class="form-label">Cor</form:label>
                     <form:input path="colorCode" placeholder="por exemplo #fcc14a" class="col-2" type="color"/>
                     <form:errors path="colorCode"/>
@@ -63,11 +63,12 @@
                     <form:input path="description" placeholder="por exemplo: IOS, Android, PhoneGap e mais..." class="form-control"/>
                 </div>
 
-                <div class="md-4" id="button_submit">
+                <div class="md-4 button_submit">
                     <input class="form-inline-block btn btn-success" value="Enviar" type="submit">
                 </div>
 
             </form:form>
+
         </section>
 
     </body>

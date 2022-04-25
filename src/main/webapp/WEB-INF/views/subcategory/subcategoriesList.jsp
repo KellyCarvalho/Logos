@@ -10,7 +10,7 @@
     </head>
 
     <body>
-        <section class="container" id="title_container">
+        <section class="container block_container">
             <h1>${category.name}</h1>
             <h3>SubCategoria</h3>
             <a href="/admin/subcategories/new">
@@ -18,7 +18,7 @@
             </a>
         </section>
 
-        <section class="container" id="main_container">
+        <section class="container block_container">
             <table class="table table-dark table-bordered">
                 <thead>
                     <th scope="col">Nome</th>
@@ -39,12 +39,12 @@
                                 </a>
                             </td>
                             <td>
-                                <a class="button_" href="/admin/subcategories/${category.code}/${subcategory.code}">
-                                    <button class="btn btn-dark">Editar</button>
+                                <a class="action_button" href="/admin/subcategories/${category.code}/${subcategory.code}">
+                                    <button class="btn btn-dark action_button">Editar</button>
                                 </a>
                             </td>
                             <td>
-                                <a class="button_">
+                                <a class="action_button">
                                     <c:if test="${subcategory.status == 'ACTIVE'}">
                                         <button onclick="disable('${subcategory.code}')" id="disableButton_${subcategory.code}" class="btn btn-dark">Desativar</button>
                                     </c:if>
