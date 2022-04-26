@@ -37,7 +37,7 @@ public class CategoryAdminController {
         if (result.hasErrors()) {
             return viewFormInsertCategory(categoryInsertDTO, result, model);
         }
-        Category category = categoryInsertDTO.toEntity(categoryInsertDTO);
+        Category category = categoryInsertDTO.toEntity();
         categoryRepository.save(category);
 
         return "redirect:/admin/categories";

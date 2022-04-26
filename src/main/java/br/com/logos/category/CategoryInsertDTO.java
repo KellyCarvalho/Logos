@@ -89,10 +89,10 @@ public class CategoryInsertDTO {
         this.colorCode = colorCode;
     }
 
-    public Category toEntity(CategoryInsertDTO categoryInsertDTO) {
-        return new Category(categoryInsertDTO.getName(), categoryInsertDTO.getCode(), categoryInsertDTO.getDescription(),
-                categoryInsertDTO.getStudyGuide(), categoryInsertDTO.active ? CategoryStatus.ACTIVE : CategoryStatus.DISABLED, categoryInsertDTO.getOrder(),
-                categoryInsertDTO.getImageUrl(), categoryInsertDTO.getColorCode());
+    public Category toEntity() {
+        return new Category(this.name, this.code, this.description,
+                this.studyGuide, this.active ? CategoryStatus.ACTIVE : CategoryStatus.DISABLED, this.order,
+                this.imageUrl, this.colorCode);
     }
 
     @Override
