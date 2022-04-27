@@ -10,9 +10,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.transaction.Transactional;
+import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -39,5 +44,61 @@ public class CourseController {
         model.addAttribute("courses", courses);
         model.addAttribute("subcategoryName", possibleSubCategory.get().getName());
         return "course/courseList";
+    }
+
+    @GetMapping("/admin/courses/new")
+    public String viewFormInsertCourse(CourseInsertDTO courseInsertDTO, BindingResult result, Model model) {
+        List<SubCategory> subcategories = subCategoryRepository.findAllByOrderByName();
+        model.addAttribute("subcategories", subcategories);
+        return "course/formInsertCourse";
+    }
+
+    @Transactional
+    @PostMapping("/admin/courses/new")
+    public String insert(@Valid CourseInsertDTO courseInsertDTO, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return viewFormInsertCourse(courseInsertDTO, result, model);
+        }
+        Course course = courseInsertDTO.toEntity();
+        courseRepository.save(course);
+        return "redirect:/admin/courses/" + course.getCategoryCode() + "/" + course.getSubCategoryCode();
+    }
+
+
+    @GetMapping("/admin/subcategories/{category}/{subcategory}/{course}")
+    public String showFormUpdate(@PathVariable String category, @PathVariable String subcategory,
+                                 @PathVariable String course, CourseUpdateDTO courseUpdateDto,
+                                 BindingResult result, Model model) {
+        Optional<Category> possibleCategory = categoryRepository.findByCode(category);
+        Optional<SubCategory> possibleSubCategory = subCategoryRepository.findByCode(subcategory);
+        Optional<Course> possibleCourse = courseRepository.findByCode(course);
+        if (possibleSubCategory.isEmpty() || possibleCategory.isEmpty() || possibleCourse.isEmpty()) {
+            return "errors/notFound";
+        }
+        List<SubCategory> subCategories = subCategoryRepository.findAllByOrderByName();
+        model.addAttribute("courseUpdateDTO", result.hasErrors() ? courseUpdateDto : new CourseUpdateDTO(possibleCourse.get()));
+        model.addAttribute("subCategories", subCategories);
+
+        return "/course/formUpdateCourse";
+    }
+
+    @Transactional
+    @PostMapping("/admin/subcategories/{category}/{subcategory}/{course}")
+    public String update(@PathVariable String category, @PathVariable String subcategory,@PathVariable String course,
+                         @Valid CourseUpdateDTO courseUpdateDTO, BindingResult result, Model model) {
+        Optional<SubCategory> possibleSubCategory = subCategoryRepository.findByCode(subcategory);
+        Optional<Category> possibleCategory = categoryRepository.findByCode(category);
+        Optional<Course> possibleCourse = courseRepository.findByCode(course);
+
+        if (possibleCategory.isEmpty() || possibleSubCategory.isEmpty() || possibleCourse.isEmpty()) {
+            return "errors/notFound";
+        }
+
+        if (result.hasErrors()) {
+            return showFormUpdate(category, subcategory, course ,courseUpdateDTO, result, model);
+        }
+
+        possibleCourse.get().update(courseUpdateDTO);
+        return "redirect:/admin/courses/" + category + "/" + possibleCourse.get().getSubCategoryCode();
     }
 }

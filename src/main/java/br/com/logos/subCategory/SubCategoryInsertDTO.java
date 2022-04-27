@@ -1,6 +1,7 @@
 package br.com.logos.subCategory;
 
 import br.com.logos.category.Category;
+import br.com.logos.subCategory.enums.SubCategoryStatus;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -10,20 +11,16 @@ import javax.validation.constraints.PositiveOrZero;
 public class SubCategoryInsertDTO {
     @NotBlank(message = "Nome é requerido")
     private String name;
-    @Pattern(regexp = "[[a-z-]+]+", message = "Código  inválido, não pode ter caracteres especiais ou números, apenas o hífem é perminido, letras devem ser minúsculas")
+    @Pattern(regexp = "[[a-z-]+]+", message = "Código  inválido, não pode ter caracteres especiais ou números, apenas o hífem é permitido, letras devem ser minúsculas")
     @NotBlank(message = "Codigo é requerido")
     private String code;
     private String description;
     private String studyGuide;
-    private boolean status;
+    private boolean active;
     @PositiveOrZero(message = "Ordem deve ter valor positivo ou 0")
     private int order;
     @NotNull(message = "Categoria não pode ser vazia")
     private Category  category;
-
-    public boolean isStatus() {
-        return status;
-    }
 
     public String getName() {
         return name;
@@ -58,11 +55,11 @@ public class SubCategoryInsertDTO {
     }
 
     public boolean isActive() {
-        return status;
+        return active;
     }
 
-    public void setStatus(boolean status) {
-        this.status = status;
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     public int getOrder() {
@@ -82,6 +79,7 @@ public class SubCategoryInsertDTO {
     }
 
     public SubCategory toEntity(){
-        return new SubCategory(this);
+        return new SubCategory(this.name, this.code, this.description,
+                this.isActive() ? SubCategoryStatus.ACTIVE : SubCategoryStatus.DISABLED, this.order, this.category);
     }
 }

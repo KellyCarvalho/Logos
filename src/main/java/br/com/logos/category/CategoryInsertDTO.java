@@ -11,7 +11,7 @@ public class CategoryInsertDTO {
     @NotBlank(message = "Nome não pode estar em branco")
     private String name;
     @NotBlank(message = "Código não pode estar em branco")
-    @Pattern(regexp = "[a-z-]+", message = "Código  inválido, não pode ter caracteres especiais ou números, apenas o hífem é perminido, letras devem ser minúsculas")
+    @Pattern(regexp = "[a-z-]+", message = "Código  inválido, não pode ter caracteres especiais ou números, apenas o hífem é permitido, letras devem ser minúsculas")
     private String code;
     @PositiveOrZero(message = "Ordem deve ter valor positivo ou 0")
     private int order;
@@ -89,10 +89,10 @@ public class CategoryInsertDTO {
         this.colorCode = colorCode;
     }
 
-    public Category toEntity(CategoryInsertDTO categoryInsertDTO) {
-        return new Category(categoryInsertDTO.getName(), categoryInsertDTO.getCode(), categoryInsertDTO.getDescription(),
-                categoryInsertDTO.getStudyGuide(), categoryInsertDTO.active ? CategoryStatus.ACTIVE : CategoryStatus.DISABLED, categoryInsertDTO.getOrder(),
-                categoryInsertDTO.getImageUrl(), categoryInsertDTO.getColorCode());
+    public Category toEntity() {
+        return new Category(this.name, this.code, this.description,
+                this.studyGuide, this.active ? CategoryStatus.ACTIVE : CategoryStatus.DISABLED, this.order,
+                this.imageUrl, this.colorCode);
     }
 
     @Override

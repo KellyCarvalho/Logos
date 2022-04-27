@@ -33,4 +33,6 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
     Optional<CoursesQuantityByInstructorNameProjection> reportInstructorWithMoreCourses();
 
     Page<Course> findAllBySubCategory(SubCategory subCategory, Pageable pageable);
+
+    Optional<Course> findByCode(String categoryCode);
 }

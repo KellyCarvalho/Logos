@@ -13,6 +13,7 @@ import java.util.Optional;
 
 @Controller
 public class DashboardController {
+
     @Autowired
     private CourseRepository courseRepository;
 

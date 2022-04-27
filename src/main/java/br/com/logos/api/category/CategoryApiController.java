@@ -1,21 +1,23 @@
-package br.com.logos.category;
+package br.com.logos.api.category;
 
+import br.com.logos.category.CategoryListDTO;
+import br.com.logos.category.CategoryRepository;
 import br.com.logos.category.enums.CategoryStatus;
 import br.com.logos.course.CourseRepository;
 import br.com.logos.subCategory.SubCategoryRepository;
 import br.com.logos.subCategory.enums.SubCategoryStatus;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 import static br.com.logos.category.CategoryListDTO.toListCategoryDTO;
 
-@Controller
+@RestController
 public class CategoryApiController {
 
     @Autowired
@@ -27,8 +29,8 @@ public class CategoryApiController {
     @Autowired
     private CourseRepository courseRepository;
 
+    @Cacheable("categories")
     @GetMapping(value = "/api/categories", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
-    @ResponseBody()
     public ResponseEntity<List<CategoryListDTO>> getActiveCategories() {
         return ResponseEntity.ok().body(toListCategoryDTO(
                 categoryRepository

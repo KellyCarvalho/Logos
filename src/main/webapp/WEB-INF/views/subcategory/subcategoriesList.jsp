@@ -6,10 +6,12 @@
         <title>Subcategorias</title>
         <script src="/webjars/jquery/3.6.0/jquery.js"></script>
         <meta charset="utf-8">
+        <link rel="stylesheet" href="/assets/css/listPage.css">
     </head>
 
     <body>
-        <section style="padding: 10px" class="container">
+
+        <section class="container block_container">
             <h1>${category.name}</h1>
             <h3>SubCategoria</h3>
             <a href="/admin/subcategories/new">
@@ -17,7 +19,7 @@
             </a>
         </section>
 
-        <section class="container">
+        <section class="container block_container">
             <table class="table table-dark table-bordered">
                 <thead>
                     <th scope="col">Nome</th>
@@ -38,12 +40,12 @@
                                 </a>
                             </td>
                             <td>
-                                <a style="text-decoration: none; color: #0c0101" href="/admin/subcategories/${category.code}/${subcategory.code}">
-                                    <button class="btn btn-dark">Editar</button>
+                                <a class="action_button" href="/admin/subcategories/${category.code}/${subcategory.code}">
+                                    <button class="btn btn-dark action_button">Editar</button>
                                 </a>
                             </td>
                             <td>
-                                <a style="text-decoration: none; color: #0c0101">
+                                <a class="action_button">
                                     <c:if test="${subcategory.status == 'ACTIVE'}">
                                         <button onclick="disable('${subcategory.code}')" id="disableButton_${subcategory.code}" class="btn btn-dark">Desativar</button>
                                     </c:if>
@@ -55,15 +57,7 @@
             </table>
         </section>
 
-        <script>
-            function disable(subcategoryCode){
-                let url = "/admin/subcategories/disable/"+subcategoryCode;
-                $.post(url, function (){
-                    $("#disableButton_"+subcategoryCode).hide();
-                    $("#status_"+subcategoryCode).text("Inativa");
-                });
-            }
-        </script>
+        <script src="/assets/js/disableSubCategory.js"></script>
 
     </body>
 

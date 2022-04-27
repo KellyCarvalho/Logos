@@ -6,6 +6,7 @@
         <link rel='stylesheet' href='/webjars/bootstrap/3.3.7/css/bootstrap.min.css'>
         <title>Editar SubCategoria</title>
         <meta charset="UTF-8">
+        <link rel="stylesheet" href="/assets/css/form.css">
     </head>
 
     <body>
@@ -28,11 +29,11 @@
                     <form:errors path="code"/>
                 </div>
 
-                <div class="checkbox-inline" style="padding-top: 20px">
+                <div class="checkbox-inline checkbox_visibility">
                     <form:checkbox path="active" value="true" class="form-check-input" placeholder="Mostra ou deixa de mostrar a subcategoria na listagem dos alunos, de formações, etc"/>
                     <form:label path="active">
                         SubCategoria Ativa?
-                        <p style="float: right; font-size: 12px; color: darkgray; padding-top: 2px; padding-left: 2px">Mostra ou deixa de mostrar a subcategoria na listagem dos alunos, de formações, etc</p>
+                        <p class="p_visibility">Mostra ou deixa de mostrar a subcategoria na listagem dos alunos, de formações, etc</p>
                     </form:label>
                 </div>
 
@@ -57,11 +58,12 @@
                     <form:options itemLabel="name" items="${categories}"></form:options>
                 </form:select>
 
-                <div class="md-4" style="padding-top: 20px">
+                <div class="md-4 button_submit">
                     <input class="form-inline-block btn btn-success" value="Enviar" type="submit">
                 </div>
 
             </form:form>
+
         </section>
 
     </body>

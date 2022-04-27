@@ -6,17 +6,19 @@
         <title>Categorias</title>
         <script src="/webjars/jquery/3.6.0/jquery.js"></script>
         <meta charset="utf-8">
+        <link rel="stylesheet" href="/assets/css/listPage.css">
     </head>
 
     <body>
-        <section style="padding: 10px" class="container">
+
+        <section class="container block_container">
             <h3>Categorias</h3>
             <a href="/admin/categories/new">
                 <button class="btn btn-primary">Nova Categoria</button>
             </a>
         </section>
 
-        <section class="container">
+        <section class="container block_container">
             <table class="table table-dark table-bordered">
                 <thead>
                     <th scope="col">Nome</th>
@@ -35,12 +37,12 @@
                                 <a href="/admin/subcategories/${category.code}">SubCategorias</a>
                             </td>
                             <td>
-                                <a style="text-decoration: none; color: #0c0101" href="/admin/categories/${category.code}">
+                                <a class="action_button" href="/admin/categories/${category.code}">
                                     <button class="btn btn-dark">Editar</button>
                                 </a>
                             </td>
                             <td>
-                                <a style="text-decoration: none; color: #0c0101">
+                                <a class="action_button">
                                   <c:if test="${category.status == 'ACTIVE'}">
                                       <button onclick="disable('${category.code}')" id="disableButton_${category.code}" class="btn btn-dark">Desativar</button>
                                   </c:if>
@@ -52,15 +54,7 @@
             </table>
         </section>
 
-        <script>
-            function disable(categoryCode){
-                let url = "/admin/categories/disable/"+categoryCode;
-                $.post(url, function (){
-                    $("#disableButton_"+categoryCode).hide();
-                    $("#status_"+categoryCode).text("Inativa")
-                });
-            }
-        </script>
+        <script src="/assets/js/disableCategory.js"></script>
 
     </body>
 

@@ -3,11 +3,14 @@ package br.com.logos.category;
 
 import br.com.logos.category.enums.CategoryStatus;
 import br.com.logos.commonValidator.StringValidator;
+import br.com.logos.subCategory.SubCategory;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.PositiveOrZero;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import static br.com.logos.category.enums.CategoryStatus.ACTIVE;
@@ -41,6 +44,8 @@ public class Category {
     @Column(name = "color_code")
     @Pattern(regexp = "^#([a-fA-F0-9]){6}?$|^[\s]*$", message = "cor inválida")
     private String colorCode;
+    @OneToMany(mappedBy = "category")
+    private List<SubCategory> subCategories = new ArrayList<>();
 
     @Deprecated
     public Category() {
@@ -119,6 +124,10 @@ public class Category {
 
     public boolean isActive() {
         return ACTIVE.equals(this.getStatus());
+    }
+
+    public List<SubCategory> getSubCategories() {
+        return subCategories;
     }
 
     public void update(CategoryUpdateDTO categoryUpdateDTO) {

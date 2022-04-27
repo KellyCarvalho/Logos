@@ -70,10 +70,10 @@ public class SubCategoryController {
     @PostMapping("/admin/subcategories/{categoryCode}/{subcategoryCode}")
     public String update(@PathVariable String categoryCode, @PathVariable String subcategoryCode,
                          @Valid SubCategoryUpdateDTO subCategoryUpdateDTO, BindingResult result, Model model) {
-        Optional<Category> category = categoryRepository.findByCode(categoryCode);
-        Optional<SubCategory> subCategory = subCategoryRepository.findByCode(subcategoryCode);
+        Optional<Category> possibleCategory = categoryRepository.findByCode(categoryCode);
+        Optional<SubCategory> possibleSubCategory = subCategoryRepository.findByCode(subcategoryCode);
 
-        if (subCategory.isEmpty() || category.isEmpty()) {
+        if (possibleSubCategory.isEmpty() || possibleCategory.isEmpty()) {
             return "errors/notFound";
         }
 
@@ -81,9 +81,9 @@ public class SubCategoryController {
             return showFormUpdate(subcategoryCode, categoryCode, subCategoryUpdateDTO, result, model);
         }
 
-        subCategory.get().update(subCategoryUpdateDTO);
+        possibleSubCategory.get().update(subCategoryUpdateDTO);
 
-        return  "redirect:/admin/subcategories/"+subCategory.get().getCategoryCode();
+        return  "redirect:/admin/subcategories/"+possibleSubCategory.get().getCategoryCode();
     }
 
     @PostMapping("admin/subcategories/disable/{subcategoryCode}")
