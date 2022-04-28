@@ -24,6 +24,7 @@ public class PublicPageCategoryController {
     @GetMapping("category/{categoryCode}")
     public String categoryPublicPage(@PathVariable String categoryCode, Model model) {
         Optional<CategoryProjection> possibleCategory = categoryRepository.getCategoryByCode(categoryCode);
+
         if (possibleCategory.isEmpty()){
             return "errors/notFound";
         }

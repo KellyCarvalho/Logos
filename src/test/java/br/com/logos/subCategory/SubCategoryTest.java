@@ -1,4 +1,4 @@
-package subCategory;
+package br.com.logos.subCategory;
 
 import br.com.logos.category.Category;
 import br.com.logos.subCategory.SubCategory;
