@@ -1,7 +1,6 @@
 package br.com.logos.subCategory;
 
 import br.com.logos.category.Category;
-import br.com.logos.subCategory.SubCategory;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;

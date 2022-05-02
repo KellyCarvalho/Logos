@@ -30,7 +30,7 @@ public class CategoryApiController {
     private CourseRepository courseRepository;
 
     @Cacheable("categories")
-    @GetMapping(value = "/api/categories", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+    @GetMapping(value = "/api/categories", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<List<CategoryListDTO>> getActiveCategories() {
         return ResponseEntity.ok().body(toListCategoryDTO(
                 categoryRepository
