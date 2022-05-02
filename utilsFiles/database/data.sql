@@ -265,12 +265,13 @@ VALUES ("Java JRE e JDK: Escreva o seu primeiro código com Eclipse", "java-gafs
 
 INSERT INTO Profile(`name`) VALUES('ROLE_ADMINISTRATOR');
 
-INSERT INTO Profile(`name`) VALUES('ROLE_TEST');
+INSERT INTO Profile(`name`) VALUES('ROLE_STUDENT');
 
 INSERT INTO User (`name`, `email`, `password`) VALUES ('admin', 'admin@gmail.com','$2a$10$fCijSt.rHvs9hxkHQn3lDe1ZQgmP4ywJjfvJiQWgCNYz95BBHWTKq');
 
-INSERT INTO User (`name`, `email`, `password`) VALUES ('teste', 'teste@gmail.com','$2a$10$fCijSt.rHvs9hxkHQn3lDe1ZQgmP4ywJjfvJiQWgCNYz95BBHWTKq');
+INSERT INTO User (`name`, `email`, `password`) VALUES ('estudante', 'estudante@gmail.com','$2a$10$fCijSt.rHvs9hxkHQn3lDe1ZQgmP4ywJjfvJiQWgCNYz95BBHWTKq');
 
-INSERT INTO User_profiles(`user_id`, `profiles_id`) VALUES (1,1);
+INSERT INTO User_profiles(`user_id`, `profiles_id`) VALUES (3,7);
 
-INSERT INTO User_profiles(`user_id`, `profiles_id`) VALUES (2,2);
+INSERT INTO User_profiles(`user_id`, `profiles_id`) VALUES (6,8);
+
