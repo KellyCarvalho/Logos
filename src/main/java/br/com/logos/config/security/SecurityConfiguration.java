@@ -31,26 +31,20 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(authenticationService).passwordEncoder(new BCryptPasswordEncoder());
     }
 
-        @Override
+    @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .anyRequest().permitAll();
+                .antMatchers("/admin/**").hasRole("ADMINISTRATOR")
+                .antMatchers("/category/**").hasAnyRole("ADMINISTRATOR", "STUDENT")
+                .antMatchers("/api/categories").permitAll()
+                .antMatchers("/bGltcGEtby1jYWNoZS1kYS1hcGktYWU").permitAll()
+                .anyRequest().hasRole("ADMINISTRATOR")
+                .and()
+                    .formLogin().loginPage("/login").permitAll()
+                    .defaultSuccessUrl("/admin/categories")
+                .and()
+                    .csrf().disable();
     }
-
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//        http.authorizeRequests()
-//                .antMatchers("/admin/**").hasRole("ADMINISTRATOR")
-//                .antMatchers("/category/**").hasAnyRole("ADMINISTRATOR", "STUDENT")
-//                .antMatchers("/api/categories").permitAll()
-//                .antMatchers("/bGltcGEtby1jYWNoZS1kYS1hcGktYWU").permitAll()
-//                .anyRequest().hasRole("ADMINISTRATOR")
-//                .and()
-//                    .formLogin().loginPage("/login").permitAll()
-//                    .defaultSuccessUrl("/admin/categories")
-//                .and()
-//                    .csrf().disable();
-//    }
 
     @Override
     public void configure(WebSecurity web) {
