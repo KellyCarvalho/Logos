@@ -6,6 +6,7 @@ import br.com.logos.subCategory.SubCategory;
 import java.util.Comparator;
 import java.util.List;
 
+//TODO melhorar o nome
 public interface CategoryActiveWithSubCategoriesNameProjection {
 
     String getCode();
@@ -13,6 +14,7 @@ public interface CategoryActiveWithSubCategoriesNameProjection {
     String getImageUrl();
     List<SubCategory> getSubCategories();
 
+    //TODO arrumar o nome do método no final ...sortedBySubCategoryOrder
     default List<SubCategory> getActiveSubCategoriesWithPublicCourse(){
         return getSubCategories().stream().filter(SubCategory::isActive)
                 .filter(subCategory -> subCategory.getCourses().stream().anyMatch(Course::isVisibility))

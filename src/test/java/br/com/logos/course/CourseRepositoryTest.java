@@ -40,6 +40,7 @@ public class CourseRepositoryTest {
     @Autowired
     private CourseRepository courseRepository;
 
+    //TODO retirar os add se subcategorias e cursos de Categorias e subcategorias
     @Test
     public void findByVisibilityAndSubCategory_Category_StatusOrderBySubCategory_Category_OrderShouldReturnCoursesByVisibilityAndCategoryStatusOrdered(){
         List<Category> categories = Arrays.asList(
@@ -123,7 +124,8 @@ public class CourseRepositoryTest {
     }
 
     @Test
-    public void getAllCoursesCountByCategoryShouldReturnCategoryNameAndQuantityCoursesFromIt(){
+    public void getAllCoursesCountByCategoryShouldReturnCategoryNameAndQuantityCourses(){
+        //TODO geral criar objetos para facilitar a leitura (todo geral)
         List<Category> categories = Arrays.asList(
                 new CategoryBuilder()
                         .withName("Programação")
@@ -164,9 +166,9 @@ public class CourseRepositoryTest {
                         .withCategory(categories.get(1))
                         .create());
 
-        categories.get(0).getSubCategories().add(subCategories.get(0));
-        categories.get(0).getSubCategories().add(subCategories.get(1));
-        categories.get(1).getSubCategories().add(subCategories.get(2));
+//        categories.get(0).getSubCategories().add(subCategories.get(0));
+//        categories.get(0).getSubCategories().add(subCategories.get(1));
+//        categories.get(1).getSubCategories().add(subCategories.get(2));
 
         subCategoryRepository.saveAll(subCategories);
 
@@ -193,10 +195,6 @@ public class CourseRepositoryTest {
                         .withSubCategory(subCategories.get(2))
                         .create());
 
-        subCategories.get(0).getCourses().add(courses.get(0));
-        subCategories.get(1).getCourses().add(courses.get(1));
-        subCategories.get(1).getCourses().add(courses.get(2));
-
         courseRepository.saveAll(courses);
 
        List <CourseByCategoryProjection> courseByCategoryProjections = courseRepository.getAllCoursesCountByCategory();
@@ -206,7 +204,8 @@ public class CourseRepositoryTest {
     }
 
     @Test
-    public void reportInstructorWithMoreCoursesShouldReturnTheInstructorNameWithMoreCourses(){
+    public void getInstructorWithMoreCoursesShouldReturnTheInstructorNameWithMoreCourses(){
+        //TODO não precisa de 2 categorias nem de 2 subcategorias, pode ser criado mais cursos
         List<Category> categories = Arrays.asList(
                 new CategoryBuilder()
                         .withName("Programação")
@@ -247,10 +246,6 @@ public class CourseRepositoryTest {
                         .withCategory(categories.get(1))
                         .create());
 
-        categories.get(0).getSubCategories().add(subCategories.get(0));
-        categories.get(0).getSubCategories().add(subCategories.get(1));
-        categories.get(1).getSubCategories().add(subCategories.get(2));
-
         subCategoryRepository.saveAll(subCategories);
 
         List<Course> courses = Arrays.asList(
@@ -276,14 +271,11 @@ public class CourseRepositoryTest {
                         .withSubCategory(subCategories.get(2))
                         .create());
 
-        subCategories.get(0).getCourses().add(courses.get(0));
-        subCategories.get(1).getCourses().add(courses.get(1));
-        subCategories.get(1).getCourses().add(courses.get(2));
-
         courseRepository.saveAll(courses);
 
-        Optional<CoursesQuantityByInstructorNameProjection> possibleCourseQuantityByInstructorName = courseRepository.reportInstructorWithMoreCourses();
+        Optional<CoursesQuantityByInstructorNameProjection> possibleCourseQuantityByInstructorName = courseRepository.getInstructorWithMoreCourses();
 
+        //TODO colocar tudo em um assert
         assertThat(possibleCourseQuantityByInstructorName.get()).extracting(CoursesQuantityByInstructorNameProjection::getInstructorName).isEqualTo("Paulo Silveira");
         assertThat(possibleCourseQuantityByInstructorName.get()).extracting(CoursesQuantityByInstructorNameProjection::getQuantity).isEqualTo(2);
     }
@@ -341,6 +333,7 @@ public class CourseRepositoryTest {
         assertThat(coursePage).extracting(Course::getCode).hasSize(2).containsExactly("java-oo","jpa");
     }
 
+    //TODO testar cursos não visíveis
     @ParameterizedTest
     @ValueSource(strings = {"java-oo", "jpa"})
     public void findByCodeShouldReturnACourseByCode(String code){

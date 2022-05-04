@@ -30,7 +30,7 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
         GROUP BY instructorName 
         ORDER BY quantity DESC LIMIT 1
         """, nativeQuery = true)
-    Optional<CoursesQuantityByInstructorNameProjection> reportInstructorWithMoreCourses();
+    Optional<CoursesQuantityByInstructorNameProjection> getInstructorWithMoreCourses();
 
     Page<Course> findAllBySubCategory(SubCategory subCategory, Pageable pageable);
 

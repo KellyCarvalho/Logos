@@ -15,6 +15,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+//TODO mudar o nome do método de acoredo a projection
 public class ActiveSubCategoriesWithCoursesProjectionTest {
 
     class ActiveSubCategoriesWithCoursesProjectionImpl implements ActiveSubCategoriesWithCoursesProjection {
@@ -32,6 +33,7 @@ public class ActiveSubCategoriesWithCoursesProjectionTest {
 
         @Override
         public List<Course> getCourses() {
+            //TODo mesmos TODO de CategoryProjection
             Category activeCategoryZero = new Category("Programação", "programacao", CategoryStatus.ACTIVE);
 
             SubCategory activeSubCategoryZero = new SubCategoryBuilder()
@@ -106,9 +108,9 @@ public class ActiveSubCategoriesWithCoursesProjectionTest {
     }
 
     @Test
-    public void getActiveSubCategoriesWithPublicCourseShouldReturnOnlyVisibleCourses(){
+    public void getActiveSubCategoriesWithPublicCourseShouldReturnOnlyVisibleCourses() {
         ActiveSubCategoriesWithCoursesProjectionImpl projection = new ActiveSubCategoriesWithCoursesProjectionImpl();
-
-        assertThat(projection.getActiveSubCategoriesWithPublicCourse()).extracting(Course::getCode).containsExactly("java-oo","jpa");
+        //TODO mesmos TODOs de ...CategoryProjection
+        assertThat(projection.getVisibleCoursesWithActiveSubCategorySortedBySubCategoryOrder()).extracting(Course::getCode).containsExactly("java-oo", "jpa");
     }
 }

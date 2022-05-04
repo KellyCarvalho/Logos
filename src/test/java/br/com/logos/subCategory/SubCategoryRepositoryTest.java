@@ -97,7 +97,8 @@ public class SubCategoryRepositoryTest {
     }
 
     @Test
-    public void getAllByCategoryOrderByOrderShouldReturnASubCategoriesListFromCategoryCode(){
+    public void getAllByCategoryOrderByOrderShouldReturnSubCategoriesByCategoryCode(){
+        //TODO retirar DevOps
         List<Category> categories = Arrays.asList(
                 new CategoryBuilder()
                         .withName("Programação")
@@ -139,7 +140,7 @@ public class SubCategoryRepositoryTest {
                         .create()
         );
         subCategoryRepository.saveAll(subCategories);
-       List<SubCategoryProjection> subCategoryProjections = subCategoryRepository.getAllByCategoryOrderByOrder("programacao");
+        List<SubCategoryProjection> subCategoryProjections = subCategoryRepository.getAllByCategoryOrderByOrder("programacao");
         assertThat(subCategoryProjections).extracting(SubCategoryProjection::getCode).containsExactly("subcategory-zero","subcategory-one");
     }
 
@@ -225,9 +226,9 @@ public class SubCategoryRepositoryTest {
                         .withCategory(categories.get(1))
                         .create());
 
-        categories.get(0).getSubCategories().add(subCategories.get(0));
-        categories.get(0).getSubCategories().add(subCategories.get(1));
-        categories.get(1).getSubCategories().add(subCategories.get(2));
+//        categories.get(0).getSubCategories().add(subCategories.get(0));
+//        categories.get(0).getSubCategories().add(subCategories.get(1));
+//        categories.get(1).getSubCategories().add(subCategories.get(2));
 
         subCategoryRepository.saveAll(subCategories);
 
@@ -245,13 +246,14 @@ public class SubCategoryRepositoryTest {
                         .withSubCategory(subCategories.get(1))
                         .create());
 
-        subCategories.get(0).getCourses().add(courses.get(0));
-        subCategories.get(2).getCourses().add(courses.get(1));
+//        subCategories.get(0).getCourses().add(courses.get(0));
+//        subCategories.get(2).getCourses().add(courses.get(1));
 
         courseRepository.saveAll(courses);
 
         List<ActiveSubCategoriesWithCoursesProjection> subCategoriesWithCoursesProjections = subCategoryRepository.getActiveSubCategoriesWithCourses("programacao");
 
+        //TODO mesmos do método anterior da categoryRepositoryTest - criar cenário de acordo a categoria criada
         assertThat(subCategoriesWithCoursesProjections)
                 .hasSize(2)
                 .extracting(ActiveSubCategoriesWithCoursesProjection::getCode)

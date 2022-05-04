@@ -47,6 +47,7 @@ public class CategoryApiControllerTest {
 
     @Test
     public void shouldReturnAllCategoriesWithActiveCoursesAndSubCategories() throws Exception {
+        //TODO não precisa da categoria de indice 0, colocar a última categoria como disable, testar todos os cenários criando o mínimo de objetos possíveis
         List<Category> categories = Arrays.asList(
                 new CategoryBuilder()
                         .withName("Business")
@@ -120,7 +121,7 @@ public class CategoryApiControllerTest {
                         .create());
 
         courseRepository.saveAll(courses);
-
+        //TODo adicionar o código da subcategoria tbm
         mockMvc.perform(get("/api/categories")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .accept(MediaType.APPLICATION_JSON_VALUE))

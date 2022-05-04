@@ -43,19 +43,23 @@ public class CategoryRepositoryTest {
     @Autowired
     private TestEntityManager em;
 
+    //TODO usar assertj pra todos os testes
+    //TODO apagar os testes que não precisam
     @ParameterizedTest
     @ValueSource(strings = {"devops"})
     public void getCategoryByCodeShouldReturnTheCategoryProjectionWithRespectiveCode(String code) {
+        Optional<CategoryProjection> possibleCategory = categoryRepository.getCategoryByCode(code);
+        assertThat(possibleCategory).isEmpty();
+
         categoryRepository.save(new CategoryBuilder()
                 .withCode("devops")
                 .withName("DevOps")
                         .withColorCode("#f16165")
                 .withImageUrl("https://www.alura.com.br/assets/api/formacoes/categorias/512/devops-transparent.png").create());
-        Optional<CategoryProjection> possibleCategory = categoryRepository.getCategoryByCode(code);
-        Assert.assertEquals(Arrays.asList(possibleCategory.get().getName(), possibleCategory.get().getCode(),
-                        possibleCategory.get().getImageUrl()),
-                Arrays.asList("DevOps", "devops", "https://www.alura.com.br/assets/api/formacoes/categorias/512/devops-transparent.png"));
-        Assert.assertTrue(possibleCategory.isPresent());
+        possibleCategory = categoryRepository.getCategoryByCode(code);
+
+        assertThat(possibleCategory).isNotEmpty();
+        assertThat(possibleCategory.get().getCode()).isEqualTo("devops");
     }
 
     @Test
@@ -72,13 +76,13 @@ public class CategoryRepositoryTest {
                         .withName("Programação")
                         .withCode("programacao")
                         .withStatus(CategoryStatus.ACTIVE)
-                        .withOrder(1)
+                        .withOrder(2)
                         .withColorCode("#00c86f").create(),
                 new CategoryBuilder()
                         .withName("DevOps")
                         .withCode("devops")
                         .withStatus(CategoryStatus.ACTIVE)
-                        .withOrder(2)
+                        .withOrder(1)
                         .withColorCode("#f16165")
                         .create()
         );
@@ -120,8 +124,9 @@ public class CategoryRepositoryTest {
         Assert.assertEquals(categoriesFromDatabase, categories.stream().sorted(Comparator.comparing(Category::getName)).toList());
     }
 
+    //TODO melhorar o nome do teste de acordo a projection
     @Test
-    public void getActiveCategoriesWithSubCategoriesShouldReturnCategoryActiveWithSubCategoriesNameProjectionIfACourseIsVisibleAndTheCategoryAndSubCategoryAreActive() {
+    public void getActiveCategoriesWithSubCategoriesShouldReturnActiveCategoriesWithSubCategoriesNameProjectionIfACourseIsVisibleAndTheCategoryAndSubCategoryAreActive() {
         List<Category> categories = Arrays.asList(
                 new CategoryBuilder()
                         .withName("Business")
@@ -146,32 +151,34 @@ public class CategoryRepositoryTest {
                         .create());
 
         categoryRepository.saveAll(categories);
+        //TODO arrumar identação
+        //TODO Testar um curso visível com uma sub desativada e testar uma subcategoria ativa com uma categoria inativa
+        List<SubCategory> subCategories = Arrays.asList(
+              new SubCategoryBuilder()
+               .withCode("java")
+               .withName("Java")
+               .withStatus(SubCategoryStatus.ACTIVE)
+               .withOrder(1)
+               .withCategory(categories.get(1))
+               .create(),
+              new SubCategoryBuilder()
+               .withCode("java-e-persistencia")
+               .withName("Java e Persistência")
+               .withStatus(SubCategoryStatus.DISABLED)
+               .withOrder(2)
+               .withCategory(categories.get(1))
+               .create(),
+              new SubCategoryBuilder()
+              .withCode("builds-e-controle-de-versao")
+              .withName("Builds e Controle de versão")
+              .withStatus(SubCategoryStatus.ACTIVE)
+                      .withOrder(3)
+              .withCategory(categories.get(2))
+              .create());
 
-              List<SubCategory> subCategories = Arrays.asList(
-                      new SubCategoryBuilder()
-                       .withCode("java")
-                       .withName("Java")
-                       .withStatus(SubCategoryStatus.ACTIVE)
-                       .withOrder(1)
-                       .withCategory(categories.get(1))
-                       .create(),
-                      new SubCategoryBuilder()
-                       .withCode("java-e-persistencia")
-                       .withName("Java e Persistência")
-                       .withStatus(SubCategoryStatus.DISABLED)
-                       .withOrder(2)
-                       .withCategory(categories.get(1))
-                       .create(),
-                      new SubCategoryBuilder()
-                      .withCode("builds-e-controle-de-versao")
-                      .withName("Builds e Controle de versão")
-                      .withStatus(SubCategoryStatus.ACTIVE)
-                      .withCategory(categories.get(2))
-                      .create());
-
-        categories.get(0).getSubCategories().add(subCategories.get(0));
-        categories.get(0).getSubCategories().add(subCategories.get(1));
-        categories.get(2).getSubCategories().add(subCategories.get(2));
+//        categories.get(0).getSubCategories().add(subCategories.get(0));
+//        categories.get(0).getSubCategories().add(subCategories.get(1));
+//        categories.get(2).getSubCategories().add(subCategories.get(2));
 
         subCategoryRepository.saveAll(subCategories);
 
@@ -191,14 +198,16 @@ public class CategoryRepositoryTest {
                 .withSubCategory(subCategories.get(2))
                 .create());
 
-        subCategories.get(0).getCourses().add(courses.get(0));
-        subCategories.get(2).getCourses().add(courses.get(1));
+//        subCategories.get(0).getCourses().add(courses.get(0));
+//        subCategories.get(2).getCourses().add(courses.get(1));
 
         courseRepository.saveAll(courses);
 
         List<CategoryActiveWithSubCategoriesNameProjection> categoriesFromDatabase = categoryRepository.getActiveCategoriesWithSubCategories();
 
 
+        //TODO colocar o doesNotContains
+        //TODO ver o código das subcategorias e dos cursos
         assertThat(categoriesFromDatabase)
                 .hasSize(2)
                 .extracting(CategoryActiveWithSubCategoriesNameProjection::getCode)

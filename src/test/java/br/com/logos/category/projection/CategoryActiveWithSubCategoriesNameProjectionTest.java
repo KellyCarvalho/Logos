@@ -37,6 +37,7 @@ public class CategoryActiveWithSubCategoriesNameProjectionTest {
         @Override
         public List<SubCategory> getSubCategories() {
             Category activeCategoryZero = new Category("Programação", "programacao", CategoryStatus.ACTIVE);
+            //TODO criar apenas 2 subs uma ativa e outra inativa
 
             SubCategory activeSubCategoryZero = new SubCategoryBuilder()
                     .withName("Java")
@@ -63,9 +64,10 @@ public class CategoryActiveWithSubCategoriesNameProjectionTest {
                     .withOrder(3)
                     .withCategory(activeCategoryZero)
                     .create();
-
+            //TODO colocar em cima
             activeCategoryZero.getSubCategories().add(disabledSubCategory);
 
+            //TODO todas as combinações possiveis da visibilidade do curso com o status da categoria
             List<Course> courses = Arrays.asList(
                     new CourseBuilder()
                             .withCode("java-oo")
@@ -109,8 +111,9 @@ public class CategoryActiveWithSubCategoriesNameProjectionTest {
         }
     }
     @Test
-    public void getActiveSubCategoriesWithPublicCourseShouldReturnOnlyActiveCategoriesWithPublicCourse(){
+    public void getActiveSubCategoriesWithPublicCourseShouldReturnOnlyActiveCategoriesWithActiveSubCategoriesAndVisibleCourses(){
         CategoryActiveWithSubCategoriesNameProjectionImpl projection = new  CategoryActiveWithSubCategoriesNameProjectionImpl();
+        //TODO colocar um doesNotContains
         assertThat(projection.getActiveSubCategoriesWithPublicCourse()).extracting(SubCategory::getCode).containsExactly("java","java-persistence");
     }
 }
