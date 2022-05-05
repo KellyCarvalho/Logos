@@ -1,7 +1,7 @@
 package br.com.logos.category.projection;
 
 import br.com.logos.category.Category;
-import br.com.logos.category.CategoryActiveWithSubCategoriesNameProjection;
+import br.com.logos.category.ActiveCategoryWithActiveSubCategoriesProjection;
 import br.com.logos.category.enums.CategoryStatus;
 import br.com.logos.course.Course;
 import br.com.logos.subCategory.SubCategory;
@@ -15,9 +15,9 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class CategoryActiveWithSubCategoriesNameProjectionTest {
+public class ActiveCategoryWithActiveSubCategoriesProjectionTest {
 
-    class CategoryActiveWithSubCategoriesNameProjectionImpl implements CategoryActiveWithSubCategoriesNameProjection {
+    class ActiveCategoryWithActiveSubCategoriesProjectionImpl implements ActiveCategoryWithActiveSubCategoriesProjection {
 
         @Override
         public String getName() {
@@ -112,8 +112,8 @@ public class CategoryActiveWithSubCategoriesNameProjectionTest {
     }
     @Test
     public void getActiveSubCategoriesWithPublicCourseShouldReturnOnlyActiveCategoriesWithActiveSubCategoriesAndVisibleCourses(){
-        CategoryActiveWithSubCategoriesNameProjectionImpl projection = new  CategoryActiveWithSubCategoriesNameProjectionImpl();
+        ActiveCategoryWithActiveSubCategoriesProjectionImpl projection = new ActiveCategoryWithActiveSubCategoriesProjectionImpl();
         //TODO colocar um doesNotContains
-        assertThat(projection.getActiveSubCategoriesWithPublicCourse()).extracting(SubCategory::getCode).containsExactly("java","java-persistence");
+        assertThat(projection.getActiveSubCategoriesWithVisibleCoursesSortedBySubCategoryOrder()).extracting(SubCategory::getCode).containsExactly("java","java-persistence");
     }
 }
