@@ -9,22 +9,15 @@ import br.com.logos.subCategory.enums.SubCategoryStatus;
 import br.com.logos.utils.builders.CategoryBuilder;
 import br.com.logos.utils.builders.CourseBuilder;
 import br.com.logos.utils.builders.SubCategoryBuilder;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.EnumSource;
-import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-
-import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 
 @ActiveProfiles("test")
@@ -41,222 +34,134 @@ public class SubCategoryRepositoryTest {
     @Autowired
     private CourseRepository courseRepository;
 
-    @ParameterizedTest
-    @EnumSource(SubCategoryStatus.class)
-    public void findAllByStatusShouldReturnACategoryAccordinToStatusByParameter(SubCategoryStatus status){
-        Category category =  new CategoryBuilder()
-                .withName("Programação")
-                .withCode("programacao")
-                .withStatus(CategoryStatus.ACTIVE)
-                .withOrder(1)
-                .withColorCode("#00c86f")
-                .create();
+    @Test
+    public void getAllByCategoryOrderByOrderShouldReturnSubCategoriesByCategoryCode(){
+        Category category = new CategoryBuilder()
+                        .withName("Programação")
+                        .withCode("programacao")
+                        .withStatus(CategoryStatus.ACTIVE)
+                        .withOrder(1)
+                        .withColorCode("#00c86f")
+                        .create();
 
         categoryRepository.save(category);
 
-        SubCategory subCategory = new SubCategoryBuilder()
-                .withCode("java")
-                .withName("Java")
-                .withStatus(status)
-                .withOrder(1)
+        SubCategory activeSubCategoryZero = new SubCategoryBuilder()
+                .withCode("subcategory-zero")
+                .withName("subcategoria de programação")
+                .withStatus(SubCategoryStatus.ACTIVE)
+                .withOrder(0)
                 .withCategory(category)
                 .create();
 
-        category.getSubCategories().add(subCategory);
-        subCategoryRepository.save(subCategory);
-
-        List<SubCategory> subCategories = subCategoryRepository.findAllByStatus(status);
-        Assertions.assertThat(subCategories).extracting(SubCategory::getStatus).containsExactly(status);
-    }
-
-    @ParameterizedTest
-    @ValueSource(strings = {"java", "java-oo"})
-    public void findByCodeShouldReturnAOptionalFromSubCategoryWithTheRespectiveCode(String code){
-        Category category =  new CategoryBuilder()
-                .withName("Programação")
-                .withCode("programacao")
-                .withStatus(CategoryStatus.ACTIVE)
-                .withOrder(1)
-                .withColorCode("#00c86f")
-                .create();
-
-        categoryRepository.save(category);
-
-        SubCategory subCategoryAdd = new SubCategoryBuilder()
-                .withCode(code)
+        SubCategory activeSubCategoryOne = new SubCategoryBuilder()
+                .withCode("subcategory-one")
                 .withName("subcategoria de programação")
                 .withStatus(SubCategoryStatus.ACTIVE)
                 .withOrder(1)
                 .withCategory(category)
                 .create();
-        category.getSubCategories().add(subCategoryAdd);
-        subCategoryRepository.save(subCategoryAdd);
-        Optional<SubCategory> subCategory = subCategoryRepository.findByCode(code);
-        assertThat(subCategory.isPresent()).isTrue();
-        assertThat(subCategory.get()).extracting(SubCategory::getCode).isEqualTo(code);
-    }
 
-    @Test
-    public void getAllByCategoryOrderByOrderShouldReturnSubCategoriesByCategoryCode(){
-        //TODO retirar DevOps
-        List<Category> categories = Arrays.asList(
-                new CategoryBuilder()
-                        .withName("Programação")
-                        .withCode("programacao")
-                        .withStatus(CategoryStatus.ACTIVE)
-                        .withOrder(1)
-                        .withColorCode("#00c86f")
-                        .create(),
-                new CategoryBuilder()
-                        .withName("Devops")
-                        .withCode("devops")
-                        .withStatus(CategoryStatus.ACTIVE)
-                        .withOrder(1)
-                        .withColorCode("#00c86f")
-                        .create());
+        SubCategory disabledSubCategory = new SubCategoryBuilder()
+                .withCode("subcategory-two")
+                .withName("subcategoria de devops")
+                .withOrder(2)
+                .withCategory(category)
+                .create();
 
-        categoryRepository.saveAll(categories);
-        List<SubCategory> subCategories =  Arrays.asList(
-                new SubCategoryBuilder()
-                        .withCode("subcategory-one")
-                        .withName("subcategoria de programação")
-                        .withStatus(SubCategoryStatus.ACTIVE)
-                        .withOrder(1)
-                        .withCategory(categories.get(0))
-                        .create(),
-                new SubCategoryBuilder()
-                        .withCode("subcategory-zero")
-                        .withName("subcategoria de programação")
-                        .withStatus(SubCategoryStatus.ACTIVE)
-                        .withOrder(0)
-                        .withCategory(categories.get(0))
-                        .create(),
-                new SubCategoryBuilder()
-                        .withCode("subcategory-two")
-                        .withName("subcategoria de devops")
-                        .withStatus(SubCategoryStatus.ACTIVE)
-                        .withOrder(1)
-                        .withCategory(categories.get(1))
-                        .create()
-        );
-        subCategoryRepository.saveAll(subCategories);
+        subCategoryRepository.saveAll(List.of(activeSubCategoryZero, activeSubCategoryOne, disabledSubCategory));
+
         List<SubCategoryProjection> subCategoryProjections = subCategoryRepository.getAllByCategoryOrderByOrder("programacao");
-        assertThat(subCategoryProjections).extracting(SubCategoryProjection::getCode).containsExactly("subcategory-zero","subcategory-one");
+
+        assertThat(subCategoryProjections).extracting(SubCategoryProjection::getCode).containsExactly("subcategory-zero","subcategory-one", "subcategory-two");
     }
 
     @Test
-    public void findAllByOrderByNameShouldReturnASubCategoryListOrderByName(){
-        Category category = new CategoryBuilder()
+    public void getActiveSubCategoriesWithCoursesShouldReturnActiveSubCategoriesWithCoursesProjectionIfSubCategoryIsActiveByCategoryCode(){
+        Category activeCategoryZero = new CategoryBuilder()
                 .withName("Programação")
                 .withCode("programacao")
                 .withStatus(CategoryStatus.ACTIVE)
                 .withOrder(1)
                 .withColorCode("#00c86f")
                 .create();
-        categoryRepository.save(category);
 
-        List<SubCategory> subCategories =  Arrays.asList(
-                new SubCategoryBuilder()
-                        .withCode("subcategory-zero")
-                        .withName("a-sub")
-                        .withStatus(SubCategoryStatus.ACTIVE)
-                        .withOrder(1)
-                        .withCategory(category)
-                        .create(),
-                new SubCategoryBuilder()
-                        .withCode("subcategory-two")
-                        .withName("c-sub")
-                        .withStatus(SubCategoryStatus.ACTIVE)
-                        .withOrder(0)
-                        .withCategory(category)
-                        .create(),
-                new SubCategoryBuilder()
-                        .withCode("subcategory-one")
-                        .withName("b-sub")
-                        .withStatus(SubCategoryStatus.ACTIVE)
-                        .withOrder(1)
-                        .withCategory(category)
-                        .create()
-        );
-        subCategoryRepository.saveAll(subCategories);
-        List<SubCategory> subCategoriesOrderedByName = subCategoryRepository.findAllByOrderByName();
-        assertThat(subCategoriesOrderedByName).extracting(SubCategory::getName).containsExactly("a-sub",
-                "b-sub", "c-sub");
-    }
+        SubCategory activeSubCategoryZero = new SubCategoryBuilder()
+                .withCode("java")
+                .withName("Java")
+                .withStatus(SubCategoryStatus.ACTIVE)
+                .withOrder(1)
+                .withCategory(activeCategoryZero)
+                .create();
 
-    @Test
-    public void getActiveSubCategoriesWithCoursesShouldReturnAActiveSubCategoriesWithCoursesProjectionIfSubCategoryIsActiveByCategoryCode(){
-        List<Category> categories = Arrays.asList(
-                new CategoryBuilder()
-                        .withName("Programação")
-                        .withCode("programacao")
-                        .withStatus(CategoryStatus.ACTIVE)
-                        .withOrder(1)
-                        .withColorCode("#00c86f")
-                        .create(),
-                new CategoryBuilder()
-                        .withName("DevOps")
-                        .withCode("devops")
-                        .withStatus(CategoryStatus.ACTIVE)
-                        .withOrder(2)
-                        .withColorCode("#f16165")
-                        .create());
+        activeCategoryZero.getSubCategories().add(activeSubCategoryZero);
 
-        categoryRepository.saveAll(categories);
+        SubCategory activeSubCategoryOne = new SubCategoryBuilder()
+                .withCode("java-e-persistencia")
+                .withName("Java e persistência")
+                .withStatus(SubCategoryStatus.ACTIVE)
+                .withOrder(2)
+                .withCategory(activeCategoryZero)
+                .create();
 
-        List<SubCategory> subCategories = Arrays.asList(
-                new SubCategoryBuilder()
-                        .withCode("java")
-                        .withName("Java")
-                        .withStatus(SubCategoryStatus.ACTIVE)
-                        .withOrder(1)
-                        .withCategory(categories.get(0))
-                        .create(),
-                new SubCategoryBuilder()
-                        .withCode("java-e-persistencia")
-                        .withName("Java e Persistência")
-                        .withStatus(SubCategoryStatus.ACTIVE)
-                        .withOrder(2)
-                        .withCategory(categories.get(0))
-                        .create(),
-                new SubCategoryBuilder()
-                        .withCode("builds-e-controle-de-versao")
-                        .withName("Builds e Controle de versão")
-                        .withStatus(SubCategoryStatus.DISABLED)
-                        .withCategory(categories.get(1))
-                        .create());
+        activeCategoryZero.getSubCategories().add(activeSubCategoryOne);
 
-//        categories.get(0).getSubCategories().add(subCategories.get(0));
-//        categories.get(0).getSubCategories().add(subCategories.get(1));
-//        categories.get(1).getSubCategories().add(subCategories.get(2));
+        SubCategory disabledSubCategory = new SubCategoryBuilder()
+                .withCode("php")
+                .withName("php")
+                .withCategory(activeCategoryZero)
+                .create();
 
-        subCategoryRepository.saveAll(subCategories);
+        activeCategoryZero.getSubCategories().add(disabledSubCategory);
 
-        List<Course> courses = Arrays.asList(
-                new CourseBuilder().withCode("java-oo")
-                        .withName("Java OO: Introdução à Orientação a Objetos")
-                        .withEstimatedTime(8)
-                        .withInstructorName("Paulo Silveira")
-                        .withSubCategory(subCategories.get(0))
-                        .create(),
+        Course visibleCourseZero = new CourseBuilder()
+                .withCode("java-oo")
+                .withName("Java OO: Introdução à Orientação a Objetos")
+                .withEstimatedTime(8)
+                .withInstructorName("Paulo Silveira")
+                .withSubCategory(activeSubCategoryZero)
+                .withVisibility(true)
+                .create();
+        activeSubCategoryZero.getCourses().add(visibleCourseZero);
+
+        Course noVisibleCourseOne =
                 new CourseBuilder().withCode("jpa")
                         .withName("jpa")
                         .withEstimatedTime(9)
                         .withInstructorName("Thais")
-                        .withSubCategory(subCategories.get(1))
-                        .create());
+                        .withSubCategory(activeSubCategoryOne)
+                        .create();
 
-//        subCategories.get(0).getCourses().add(courses.get(0));
-//        subCategories.get(2).getCourses().add(courses.get(1));
+        activeSubCategoryOne.getCourses().add(noVisibleCourseOne);
 
-        courseRepository.saveAll(courses);
+        Course visibleCourseTwo =
+                new CourseBuilder()
+                        .withCode("php-iniciante")
+                        .withName("PHP Iniciante")
+                        .withEstimatedTime(9)
+                        .withInstructorName("Thais")
+                        .withSubCategory(disabledSubCategory)
+                        .withVisibility(true)
+                        .create();
 
-        List<ActiveSubCategoriesWithCoursesProjection> subCategoriesWithCoursesProjections = subCategoryRepository.getActiveSubCategoriesWithCourses("programacao");
+        disabledSubCategory.getCourses().add(visibleCourseTwo);
 
-        //TODO mesmos do método anterior da categoryRepositoryTest - criar cenário de acordo a categoria criada
-        assertThat(subCategoriesWithCoursesProjections)
+        categoryRepository.saveAll(List.of(activeCategoryZero));
+
+        subCategoryRepository.saveAll(List.of(activeSubCategoryZero, activeSubCategoryOne, disabledSubCategory));
+
+        courseRepository.saveAll(List.of(visibleCourseZero, noVisibleCourseOne, visibleCourseTwo));
+
+        List<ActiveSubCategoriesWithCoursesProjection> subCategoriesWithCoursesProjection = subCategoryRepository.getActiveSubCategoriesWithCourses("programacao");
+
+        assertThat(subCategoriesWithCoursesProjection)
                 .hasSize(2)
                 .extracting(ActiveSubCategoriesWithCoursesProjection::getCode)
-                .containsExactly("java","java-e-persistencia");
+                .containsExactly("java","java-e-persistencia")
+                .doesNotContain("php");
+//TODo does not contain
+        assertThat(subCategoriesWithCoursesProjection)
+                .extracting(cat -> cat.getVisibleCoursesWithActiveSubCategorySortedBySubCategoryOrder())
+                .contains(List.of(visibleCourseZero));
     }
 }

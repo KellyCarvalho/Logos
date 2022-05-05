@@ -187,8 +187,12 @@ public class CategoryRepositoryTest {
 
         assertThat(categoriesFromDatabase)
                 .hasSize(1)
-                .extracting(cat -> cat.getActiveSubCategoriesWithVisibleCoursesSortedBySubCategoryOrder().get(0).getCourses().get(0))
-                .hasSize(1).contains(visibleCourseFromActiveSubCategoryZero);
+                .extracting(cat -> cat.getActiveSubCategoriesWithVisibleCoursesSortedBySubCategoryOrder()
+                        .get(0)
+                        .getCourses()
+                        .get(0))
+                .hasSize(1)
+                .contains(visibleCourseFromActiveSubCategoryZero);
     }
 }
 
