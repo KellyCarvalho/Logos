@@ -17,7 +17,7 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
     @Query(value = """
         SELECT category.name `categoryName`, count(course.id) `quantity` 
         FROM Category category 
-        LEFT JOIN Subcategory subcategory ON category.id = subcategory.category_id 
+        LEFT JOIN SubCategory subcategory ON category.id = subcategory.category_id 
         LEFT JOIN Course course ON subcategory.id = course.subcategory_id 
         GROUP BY category.id 
         ORDER BY `quantity` DESC

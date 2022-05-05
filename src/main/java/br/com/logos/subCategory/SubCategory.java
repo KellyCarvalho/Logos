@@ -16,7 +16,6 @@ import static br.com.logos.subCategory.enums.SubCategoryStatus.ACTIVE;
 import static br.com.logos.subCategory.enums.SubCategoryStatus.DISABLED;
 
 @Entity
-@Table(name = "Subcategory")
 public class SubCategory {
 
     @Id
@@ -35,7 +34,6 @@ public class SubCategory {
     @Column(name = "position")
     private int order;
     @ManyToOne
-    @JoinColumn(name = "category_id")
     private Category category;
     @OneToMany(mappedBy = "subCategory")
     private List<Course> courses = new ArrayList<>();

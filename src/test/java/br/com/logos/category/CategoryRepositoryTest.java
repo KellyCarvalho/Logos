@@ -17,6 +17,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,21 +32,17 @@ public class CategoryRepositoryTest {
     private CategoryRepository categoryRepository;
 
     @Autowired
-    private SubCategoryRepository subCategoryRepository;
-
-    @Autowired
-    private CourseRepository courseRepository;
+    private EntityManager em;
 
     @ParameterizedTest
     @ValueSource(strings = {"devops"})
     public void getCategoryByCodeShouldReturnTheCategoryProjectionWithRespectiveCode(String code) {
         Optional<CategoryProjection> possibleCategory = categoryRepository.getCategoryByCode(code);
         assertThat(possibleCategory).isEmpty();
-
-        categoryRepository.save(new CategoryBuilder()
+        em.persist(new CategoryBuilder()
                 .withCode("devops")
                 .withName("DevOps")
-                        .withColorCode("#f16165")
+                .withColorCode("#f16165")
                 .withImageUrl("https://www.alura.com.br/assets/api/formacoes/categorias/512/devops-transparent.png").create());
         possibleCategory = categoryRepository.getCategoryByCode(code);
 
@@ -157,13 +154,19 @@ public class CategoryRepositoryTest {
 
         activeSubCategoryFromDisabledCategory.getCourses().add(visibleCourseFromActiveSubCategoryWithDisabledCategory);
 
-        categoryRepository.saveAll(List.of(disabledCategory, activeCategoryZero, activeCategoryOne));
+        em.persist(disabledCategory);
+        em.persist(activeCategoryZero);
+        em.persist(activeCategoryOne);
 
-        subCategoryRepository.saveAll(List.of(activeSubCategoryFromActiveCategoryZero, activeSubCategoryFromActiveCategoryOne,
-                activeSubCategoryFromDisabledCategory, disabledSubCategoryFromActiveCategory));
+        em.persist(activeSubCategoryFromActiveCategoryZero);
+        em.persist(activeSubCategoryFromActiveCategoryOne);
+        em.persist(activeSubCategoryFromDisabledCategory);
+        em.persist(disabledSubCategoryFromActiveCategory);
 
-        courseRepository.saveAll(List.of(visibleCourseFromActiveSubCategoryZero, noVisibleCourseFromActiveSubCategoryOne,
-                visibleCourseFromDisabledSubCategoryWithActiveCategory, visibleCourseFromActiveSubCategoryWithDisabledCategory));
+        em.persist(visibleCourseFromActiveSubCategoryZero);
+        em.persist(noVisibleCourseFromActiveSubCategoryOne);
+        em.persist(visibleCourseFromDisabledSubCategoryWithActiveCategory);
+        em.persist(visibleCourseFromActiveSubCategoryWithDisabledCategory);
 
         List<ActiveCategoryWithActiveSubCategoriesProjection> categoriesFromDatabase = categoryRepository.getActiveCategoriesActiveWithSubCategories();
 

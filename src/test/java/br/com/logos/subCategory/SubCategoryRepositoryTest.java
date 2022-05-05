@@ -15,6 +15,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -26,13 +27,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class SubCategoryRepositoryTest {
 
     @Autowired
-    private CategoryRepository categoryRepository;
-
-    @Autowired
     private SubCategoryRepository subCategoryRepository;
 
+
     @Autowired
-    private CourseRepository courseRepository;
+    private EntityManager em;
 
     @Test
     public void getAllByCategoryOrderByOrderShouldReturnSubCategoriesByCategoryCode(){
@@ -43,8 +42,6 @@ public class SubCategoryRepositoryTest {
                         .withOrder(1)
                         .withColorCode("#00c86f")
                         .create();
-
-        categoryRepository.save(category);
 
         SubCategory activeSubCategoryZero = new SubCategoryBuilder()
                 .withCode("subcategory-zero")
@@ -69,7 +66,10 @@ public class SubCategoryRepositoryTest {
                 .withCategory(category)
                 .create();
 
-        subCategoryRepository.saveAll(List.of(activeSubCategoryZero, activeSubCategoryOne, disabledSubCategory));
+        em.persist(category);
+        em.persist(activeSubCategoryZero);
+        em.persist(activeSubCategoryOne);
+        em.persist(disabledSubCategory);
 
         List<SubCategoryProjection> subCategoryProjections = subCategoryRepository.getAllByCategoryOrderByOrder("programacao");
 
@@ -146,11 +146,15 @@ public class SubCategoryRepositoryTest {
 
         disabledSubCategory.getCourses().add(visibleCourseTwo);
 
-        categoryRepository.saveAll(List.of(activeCategoryZero));
+        em.persist(activeCategoryZero);
+        em.persist(activeSubCategoryZero);
+        em.persist(activeSubCategoryOne);
+        em.persist(disabledSubCategory);
 
-        subCategoryRepository.saveAll(List.of(activeSubCategoryZero, activeSubCategoryOne, disabledSubCategory));
 
-        courseRepository.saveAll(List.of(visibleCourseZero, noVisibleCourseOne, visibleCourseTwo));
+        em.persist(visibleCourseZero);
+        em.persist(noVisibleCourseOne);
+        em.persist(visibleCourseTwo);
 
         List<ActiveSubCategoriesWithCoursesProjection> subCategoriesWithCoursesProjection = subCategoryRepository.getActiveSubCategoriesWithCourses("programacao");
 
@@ -159,9 +163,15 @@ public class SubCategoryRepositoryTest {
                 .extracting(ActiveSubCategoriesWithCoursesProjection::getCode)
                 .containsExactly("java","java-e-persistencia")
                 .doesNotContain("php");
-//TODo does not contain
+
         assertThat(subCategoriesWithCoursesProjection)
                 .extracting(cat -> cat.getVisibleCoursesWithActiveSubCategorySortedBySubCategoryOrder())
-                .contains(List.of(visibleCourseZero));
+                .contains(List.of(visibleCourseZero))
+                .doesNotContain(List.of(noVisibleCourseOne, visibleCourseTwo));
+
+        assertThat(subCategoriesWithCoursesProjection)
+                .extracting(ActiveSubCategoriesWithCoursesProjection::getCourses)
+                .contains(List.of(visibleCourseZero))
+                .doesNotContain(List.of(noVisibleCourseOne, visibleCourseTwo));
     }
 }
