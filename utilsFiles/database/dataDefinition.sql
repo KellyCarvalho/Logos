@@ -1,5 +1,7 @@
 CREATE
-DATABASE logos;
+-- DATABASE logos;
+DATABASE logos_test;
+
 -- DROP DATABASE logos;
 USE
 logos;
