@@ -4,7 +4,7 @@ DATABASE logos_test;
 
 -- DROP DATABASE logos;
 USE
-logos;
+logos_test;
 
 
 CREATE TABLE `User`
