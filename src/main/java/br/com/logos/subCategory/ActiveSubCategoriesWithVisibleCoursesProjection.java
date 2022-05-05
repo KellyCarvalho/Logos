@@ -5,7 +5,7 @@ import br.com.logos.course.Course;
 import java.util.Comparator;
 import java.util.List;
 
-public interface ActiveSubCategoriesWithCoursesProjection {
+public interface ActiveSubCategoriesWithVisibleCoursesProjection {
 
     String getName();
     String getCode();

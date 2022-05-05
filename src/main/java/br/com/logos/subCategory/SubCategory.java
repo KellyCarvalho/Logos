@@ -35,7 +35,7 @@ public class SubCategory {
     private int order;
     @ManyToOne
     private Category category;
-    @OneToMany(mappedBy = "subCategory")
+    @OneToMany(mappedBy = "subCategory", fetch = FetchType.EAGER)
     private List<Course> courses = new ArrayList<>();
 
     @Deprecated

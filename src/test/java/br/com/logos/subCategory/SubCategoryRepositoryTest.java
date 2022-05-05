@@ -1,10 +1,8 @@
 package br.com.logos.subCategory;
 
 import br.com.logos.category.Category;
-import br.com.logos.category.CategoryRepository;
 import br.com.logos.category.enums.CategoryStatus;
 import br.com.logos.course.Course;
-import br.com.logos.course.CourseRepository;
 import br.com.logos.subCategory.enums.SubCategoryStatus;
 import br.com.logos.utils.builders.CategoryBuilder;
 import br.com.logos.utils.builders.CourseBuilder;
@@ -34,14 +32,14 @@ public class SubCategoryRepositoryTest {
     private EntityManager em;
 
     @Test
-    public void getAllByCategoryOrderByOrderShouldReturnSubCategoriesByCategoryCode(){
+    public void getAllByCategoryOrderByOrderShouldReturnSubCategoriesByCategoryCode() {
         Category category = new CategoryBuilder()
-                        .withName("Programação")
-                        .withCode("programacao")
-                        .withStatus(CategoryStatus.ACTIVE)
-                        .withOrder(1)
-                        .withColorCode("#00c86f")
-                        .create();
+                .withName("Programação")
+                .withCode("programacao")
+                .withStatus(CategoryStatus.ACTIVE)
+                .withOrder(1)
+                .withColorCode("#00c86f")
+                .create();
 
         SubCategory activeSubCategoryZero = new SubCategoryBuilder()
                 .withCode("subcategory-zero")
@@ -73,11 +71,11 @@ public class SubCategoryRepositoryTest {
 
         List<SubCategoryProjection> subCategoryProjections = subCategoryRepository.getAllByCategoryOrderByOrder("programacao");
 
-        assertThat(subCategoryProjections).extracting(SubCategoryProjection::getCode).containsExactly("subcategory-zero","subcategory-one", "subcategory-two");
+        assertThat(subCategoryProjections).extracting(SubCategoryProjection::getCode).containsExactly("subcategory-zero", "subcategory-one", "subcategory-two");
     }
 
     @Test
-    public void getActiveSubCategoriesWithCoursesShouldReturnActiveSubCategoriesWithCoursesProjectionIfSubCategoryIsActiveByCategoryCode(){
+    public void getActiveSubCategoriesWithCoursesShouldReturnActiveSubCategoriesWithCoursesProjectionIfSubCategoryIsActiveByCategoryCode() {
         Category activeCategoryZero = new CategoryBuilder()
                 .withName("Programação")
                 .withCode("programacao")
@@ -124,25 +122,24 @@ public class SubCategoryRepositoryTest {
                 .create();
         activeSubCategoryZero.getCourses().add(visibleCourseZero);
 
-        Course noVisibleCourseOne =
-                new CourseBuilder().withCode("jpa")
-                        .withName("jpa")
-                        .withEstimatedTime(9)
-                        .withInstructorName("Thais")
-                        .withSubCategory(activeSubCategoryOne)
-                        .create();
+        Course noVisibleCourseOne = new CourseBuilder()
+                .withCode("jpa")
+                .withName("jpa")
+                .withEstimatedTime(9)
+                .withInstructorName("Thais")
+                .withSubCategory(activeSubCategoryOne)
+                .create();
 
         activeSubCategoryOne.getCourses().add(noVisibleCourseOne);
 
-        Course visibleCourseTwo =
-                new CourseBuilder()
-                        .withCode("php-iniciante")
-                        .withName("PHP Iniciante")
-                        .withEstimatedTime(9)
-                        .withInstructorName("Thais")
-                        .withSubCategory(disabledSubCategory)
-                        .withVisibility(true)
-                        .create();
+        Course visibleCourseTwo = new CourseBuilder()
+                .withCode("php-iniciante")
+                .withName("PHP Iniciante")
+                .withEstimatedTime(9)
+                .withInstructorName("Thais")
+                .withSubCategory(disabledSubCategory)
+                .withVisibility(true)
+                .create();
 
         disabledSubCategory.getCourses().add(visibleCourseTwo);
 
@@ -156,12 +153,12 @@ public class SubCategoryRepositoryTest {
         em.persist(noVisibleCourseOne);
         em.persist(visibleCourseTwo);
 
-        List<ActiveSubCategoriesWithCoursesProjection> subCategoriesWithCoursesProjection = subCategoryRepository.getActiveSubCategoriesWithCourses("programacao");
+        List<ActiveSubCategoriesWithVisibleCoursesProjection> subCategoriesWithCoursesProjection = subCategoryRepository.getActiveSubCategoriesWithCourses("programacao");
 
         assertThat(subCategoriesWithCoursesProjection)
                 .hasSize(2)
-                .extracting(ActiveSubCategoriesWithCoursesProjection::getCode)
-                .containsExactly("java","java-e-persistencia")
+                .extracting(ActiveSubCategoriesWithVisibleCoursesProjection::getCode)
+                .containsExactly("java", "java-e-persistencia")
                 .doesNotContain("php");
 
         assertThat(subCategoriesWithCoursesProjection)
@@ -170,7 +167,7 @@ public class SubCategoryRepositoryTest {
                 .doesNotContain(List.of(noVisibleCourseOne, visibleCourseTwo));
 
         assertThat(subCategoriesWithCoursesProjection)
-                .extracting(ActiveSubCategoriesWithCoursesProjection::getCourses)
+                .extracting(ActiveSubCategoriesWithVisibleCoursesProjection::getCourses)
                 .contains(List.of(visibleCourseZero))
                 .doesNotContain(List.of(noVisibleCourseOne, visibleCourseTwo));
     }

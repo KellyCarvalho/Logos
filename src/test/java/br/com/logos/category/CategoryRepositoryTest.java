@@ -2,9 +2,7 @@ package br.com.logos.category;
 
 import br.com.logos.category.enums.CategoryStatus;
 import br.com.logos.course.Course;
-import br.com.logos.course.CourseRepository;
 import br.com.logos.subCategory.SubCategory;
-import br.com.logos.subCategory.SubCategoryRepository;
 import br.com.logos.subCategory.enums.SubCategoryStatus;
 import br.com.logos.utils.builders.CategoryBuilder;
 import br.com.logos.utils.builders.CourseBuilder;
@@ -67,7 +65,7 @@ public class CategoryRepositoryTest {
                 .withColorCode("#00c86f")
                 .create();
 
-        Category activeCategoryOne =  new CategoryBuilder()
+        Category activeCategoryOne = new CategoryBuilder()
                 .withName("DevOps")
                 .withCode("devops")
                 .withStatus(CategoryStatus.ACTIVE)

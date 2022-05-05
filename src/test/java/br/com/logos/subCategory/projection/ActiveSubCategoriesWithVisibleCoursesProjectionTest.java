@@ -1,27 +1,27 @@
-package br.com.logos.category.projection;
+package br.com.logos.subCategory.projection;
 
-import br.com.logos.category.ActiveCategoryWithActiveSubCategoriesProjection;
 import br.com.logos.category.Category;
 import br.com.logos.category.enums.CategoryStatus;
 import br.com.logos.course.Course;
+import br.com.logos.subCategory.ActiveSubCategoriesWithVisibleCoursesProjection;
 import br.com.logos.subCategory.SubCategory;
 import br.com.logos.subCategory.enums.SubCategoryStatus;
 import br.com.logos.utils.builders.CourseBuilder;
 import br.com.logos.utils.builders.SubCategoryBuilder;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.tuple;
 
-public class ActiveCategoryWithActiveSubCategoriesProjectionTest {
+public class ActiveSubCategoriesWithVisibleCoursesProjectionTest {
 
-    class ActiveCategoryWithActiveSubCategoriesProjectionImpl implements ActiveCategoryWithActiveSubCategoriesProjection {
+    class ActiveSubCategoriesWithVisibleCoursesProjectionImpl implements ActiveSubCategoriesWithVisibleCoursesProjection {
+
 
         @Override
         public String getName() {
-            return "test";
+            return "Test";
         }
 
         @Override
@@ -30,12 +30,7 @@ public class ActiveCategoryWithActiveSubCategoriesProjectionTest {
         }
 
         @Override
-        public String getImageUrl() {
-            return "test.com";
-        }
-
-        @Override
-        public List<SubCategory> getSubCategories() {
+        public List<Course> getCourses() {
             Category activeCategoryZero = new Category("Programação", "programacao", CategoryStatus.ACTIVE);
 
             SubCategory activeSubCategoryZero = new SubCategoryBuilder()
@@ -85,7 +80,7 @@ public class ActiveCategoryWithActiveSubCategoriesProjectionTest {
             Course noVisibleCourseFromDisabledSubCategory = new CourseBuilder()
                     .withCode("php-iniciante")
                     .withName("Php Iniciante")
-                    .withInstructorName("Madu")
+                    .withInstructorName("Paulo")
                     .withEstimatedTime(2)
                     .withVisibility(true)
                     .withSubCategory(disabledSubCategory)
@@ -94,23 +89,20 @@ public class ActiveCategoryWithActiveSubCategoriesProjectionTest {
             activeSubCategoryZero.getCourses().addAll(List.of(visibleCourseFromActiveSubCategory, noVisibleCourseFromActiveSubCategory));
             disabledSubCategory.getCourses().addAll(List.of(visibleCourseFromDisabledSubCategory, noVisibleCourseFromDisabledSubCategory));
 
-            return List.of(activeSubCategoryZero, disabledSubCategory, disabledSubCategory);
+            return List.of(visibleCourseFromActiveSubCategory, visibleCourseFromDisabledSubCategory,
+                    noVisibleCourseFromActiveSubCategory, noVisibleCourseFromDisabledSubCategory);
         }
     }
+
     @Test
-    public void getActiveSubCategoriesWithPublicCourseShouldReturnOnlyActiveCategoriesWithActiveSubCategoriesAndVisibleCourses(){
-        ActiveCategoryWithActiveSubCategoriesProjectionImpl projection = new ActiveCategoryWithActiveSubCategoriesProjectionImpl();
-        assertThat(projection.getActiveSubCategoriesWithVisibleCoursesSortedBySubCategoryOrder())
-                .extracting(SubCategory::getCode)
+    public void getVisibleCoursesWithActiveSubCategorySortedBySubCategoryOrderShouldReturnOnlyVisibleCoursesByActiveSubCategorySortedBySubCategoryOrder() {
+        ActiveSubCategoriesWithVisibleCoursesProjectionImpl projection = new ActiveSubCategoriesWithVisibleCoursesProjectionImpl();
+        assertThat(projection.getVisibleCoursesWithActiveSubCategorySortedBySubCategoryOrder())
+                .extracting(Course::getCode)
                 .hasSize(1)
-                .containsExactly("java")
-                .doesNotContain("php");
-        assertThat(projection.getActiveSubCategoriesWithVisibleCoursesSortedBySubCategoryOrder())
-                .extracting(SubCategory::getCourses).extracting(courses -> courses.get(0))
-                .extracting("name", "code")
-                .containsExactly(tuple("OO Java", "java-oo"))
-                .doesNotContain(tuple("Boas práticas com java","boas-praticas-java"))
-                .doesNotContain(tuple("PHP orientado a objetos","php-oo"))
-                .doesNotContain(tuple("Php Iniciante","php-iniciante"));
+                .containsExactly("java-oo")
+                .doesNotContain("boas-praticas-java")
+                .doesNotContain("php-oo")
+                .doesNotContain("php-iniciante");
     }
 }

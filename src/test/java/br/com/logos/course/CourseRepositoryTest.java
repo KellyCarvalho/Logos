@@ -18,7 +18,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.tuple;
 
 @ActiveProfiles("test")
 @DataJpaTest
@@ -192,7 +191,6 @@ public class CourseRepositoryTest {
 
         Optional<CoursesQuantityByInstructorNameProjection> possibleCourseQuantityByInstructorName = courseRepository.getInstructorWithMoreCourses();
 
-        assertThat(possibleCourseQuantityByInstructorName.get())
-                .extracting("instructorName", "quantity").containsExactly(tuple("Paulo Silveira", 2).toArray());
+        assertThat(possibleCourseQuantityByInstructorName.get()).extracting("instructorName", "quantity").containsExactly("Paulo Silveira", 2);
     }
 }
