@@ -44,7 +44,7 @@ public class Category {
     @Column(name = "color_code")
     @Pattern(regexp = "^#([a-fA-F0-9]){6}?$|^[\s]*$", message = "cor inválida")
     private String colorCode;
-    @OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "category")
     private List<SubCategory> subCategories = new ArrayList<>();
 
     @Deprecated
