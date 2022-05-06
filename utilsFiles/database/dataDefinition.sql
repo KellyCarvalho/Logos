@@ -1,10 +1,10 @@
 CREATE
--- DATABASE logos;
-DATABASE logos_test;
+ DATABASE logos;
 
 -- DROP DATABASE logos;
+
 USE
-logos_test;
+logos;
 
 
 CREATE TABLE `User`
