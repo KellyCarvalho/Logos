@@ -245,7 +245,7 @@ VALUES ("Java e JPA: Consultas avançadas performance e modelos complexos", "jav
         "Rodrigo Ferreira",
         "-Mais relacionamentos <br> *Apresentação <br> *Mapeando novas entidades <br> *Relacionamentos many-to-many <br> *Relacionamentos bidirecionais <br> *Teste do relacionamento bidirecional <br>  <br> -Consultas avançadas <br> *Consultas com funções de agregação <br> *Consultas para relatórios <br> *Consultas com select new <br> *Utilizando Named Queries <br>  <br> -Performance de consultas <br> *Entendendo Lazy e Eager <br> *Consultas com Join Fetch <br>  <br> -Criteria API <br> *Consultas com parâmetros dinâmicos <br> *Consultas com Criteria API <br>  <br> -Outros tópicos <br> *Simplificando entidades com Embeddable <br> *Mapeamento de herança <br> *Mapeamento de chaves compostas <br> *Conclusão",
         "Saiba como modelar corretamente relacionamentos bidirecionais <br> Aprenda a utilizar o recurso de select new para realizar consultas avançadas <br> Entenda a diferença entre relacionamentos EAGER e LAZY <br> Conheça o recurso de join fetch para planejar queries <br> Conheça a API de Criteria da JPA <br> Saiba como mapear entidades que utilizam herança e chave composta",
-        (SELECT `id` FROM `Subcategory` WHERE `identifier_code` = "java-e-persistencia"));
+        (SELECT `id` FROM `SubCategory` WHERE `identifier_code` = "java-e-persistencia"));
 
 INSERT INTO Course(`name`, `identifier_code`, `estimated_time`, `visibility`, `target_audience`, `instructor_name`,
                    `description`, `developed_skills`, `subcategory_id`)
@@ -271,7 +271,7 @@ INSERT INTO User (`name`, `email`, `password`) VALUES ('admin', 'admin@gmail.com
 
 INSERT INTO User (`name`, `email`, `password`) VALUES ('estudante', 'estudante@gmail.com','$2a$10$fCijSt.rHvs9hxkHQn3lDe1ZQgmP4ywJjfvJiQWgCNYz95BBHWTKq');
 
-INSERT INTO User_profiles(`user_id`, `profiles_id`) VALUES (3,7);
+INSERT INTO User_profiles(`user_id`, `profiles_id`) VALUES (1,1);
 
-INSERT INTO User_profiles(`user_id`, `profiles_id`) VALUES (6,8);
+INSERT INTO User_profiles(`user_id`, `profiles_id`) VALUES (2,2);
 
