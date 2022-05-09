@@ -2,7 +2,7 @@ package br.com.logos.publicPage.category;
 
 import br.com.logos.category.CategoryProjection;
 import br.com.logos.category.CategoryRepository;
-import br.com.logos.subCategory.ActiveSubCategoriesWithVisibleCoursesProjection;
+import br.com.logos.subCategory.ActiveSubCategoriesWithCoursesProjection;
 import br.com.logos.subCategory.SubCategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,7 +28,7 @@ public class PublicPageCategoryController {
         if (possibleCategory.isEmpty()){
             return "errors/notFound";
         }
-        List<ActiveSubCategoriesWithVisibleCoursesProjection>
+        List<ActiveSubCategoriesWithCoursesProjection>
                 activeSubCategoriesWithCourses = subCategoryRepository.getActiveSubCategoriesWithCourses(categoryCode);
 
         model.addAttribute("category", possibleCategory.get());

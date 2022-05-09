@@ -34,5 +34,5 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
             AND co.visibility = true
             ORDER BY c.order
             """)
-    List<ActiveCategoryWithActiveSubCategoriesProjection> getActiveCategoriesActiveWithSubCategories();
+    List<ActiveCategoryWithActiveSubCategoriesProjection> getActiveCategoriesWithActiveSubCategories();
 }

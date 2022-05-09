@@ -33,5 +33,5 @@ public interface SubCategoryRepository extends JpaRepository<SubCategory, Long> 
             AND s.category.code = :code
             ORDER BY s.order
             """)
-    List<ActiveSubCategoriesWithVisibleCoursesProjection> getActiveSubCategoriesWithCourses(@Param("code") String categoryCode);
+    List<ActiveSubCategoriesWithCoursesProjection> getActiveSubCategoriesWithCourses(@Param("code") String categoryCode);
 }

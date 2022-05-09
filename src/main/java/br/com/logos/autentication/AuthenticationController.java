@@ -17,7 +17,7 @@ public class AuthenticationController {
 
     @GetMapping("/login")
     public String loginForm(Model model) {
-        List<ActiveCategoryWithActiveSubCategoriesProjection> activeCategoryWithActiveSubCategoriesProjectionList = categoryRepository.getActiveCategoriesActiveWithSubCategories();
+        List<ActiveCategoryWithActiveSubCategoriesProjection> activeCategoryWithActiveSubCategoriesProjectionList = categoryRepository.getActiveCategoriesWithActiveSubCategories();
         model.addAttribute("categories", activeCategoryWithActiveSubCategoriesProjectionList);
         return "login/login";
     }

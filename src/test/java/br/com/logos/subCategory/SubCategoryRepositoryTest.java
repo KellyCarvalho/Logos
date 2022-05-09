@@ -76,7 +76,7 @@ public class SubCategoryRepositoryTest {
 
     @Test
     public void getActiveSubCategoriesWithCoursesShouldReturnActiveSubCategoriesWithCoursesProjectionIfSubCategoryIsActiveByCategoryCode() {
-        Category activeCategoryZero = new CategoryBuilder()
+        Category categoryZero = new CategoryBuilder()
                 .withName("Programação")
                 .withCode("programacao")
                 .withStatus(CategoryStatus.ACTIVE)
@@ -84,90 +84,84 @@ public class SubCategoryRepositoryTest {
                 .withColorCode("#00c86f")
                 .create();
 
-        SubCategory activeSubCategoryZero = new SubCategoryBuilder()
+        SubCategory subCategoryZero = new SubCategoryBuilder()
                 .withCode("java")
                 .withName("Java")
                 .withStatus(SubCategoryStatus.ACTIVE)
                 .withOrder(1)
-                .withCategory(activeCategoryZero)
+                .withCategory(categoryZero)
                 .create();
 
-        activeCategoryZero.getSubCategories().add(activeSubCategoryZero);
+        categoryZero.getSubCategories().add(subCategoryZero);
 
-        SubCategory activeSubCategoryOne = new SubCategoryBuilder()
+        SubCategory subCategoryOne = new SubCategoryBuilder()
                 .withCode("java-e-persistencia")
                 .withName("Java e persistência")
                 .withStatus(SubCategoryStatus.ACTIVE)
                 .withOrder(2)
-                .withCategory(activeCategoryZero)
+                .withCategory(categoryZero)
                 .create();
 
-        activeCategoryZero.getSubCategories().add(activeSubCategoryOne);
+        categoryZero.getSubCategories().add(subCategoryOne);
 
-        SubCategory disabledSubCategory = new SubCategoryBuilder()
+        SubCategory subCategoryTwo = new SubCategoryBuilder()
                 .withCode("php")
                 .withName("php")
-                .withCategory(activeCategoryZero)
+                .withCategory(categoryZero)
                 .create();
 
-        activeCategoryZero.getSubCategories().add(disabledSubCategory);
+        categoryZero.getSubCategories().add(subCategoryTwo);
 
         Course visibleCourseZero = new CourseBuilder()
                 .withCode("java-oo")
                 .withName("Java OO: Introdução à Orientação a Objetos")
                 .withEstimatedTime(8)
                 .withInstructorName("Paulo Silveira")
-                .withSubCategory(activeSubCategoryZero)
+                .withSubCategory(subCategoryZero)
                 .withVisibility(true)
                 .create();
-        activeSubCategoryZero.getCourses().add(visibleCourseZero);
+        subCategoryZero.getCourses().add(visibleCourseZero);
 
         Course noVisibleCourseOne = new CourseBuilder()
                 .withCode("jpa")
                 .withName("jpa")
                 .withEstimatedTime(9)
                 .withInstructorName("Thais")
-                .withSubCategory(activeSubCategoryOne)
+                .withSubCategory(subCategoryOne)
                 .create();
 
-        activeSubCategoryOne.getCourses().add(noVisibleCourseOne);
+        subCategoryOne.getCourses().add(noVisibleCourseOne);
 
         Course visibleCourseTwo = new CourseBuilder()
                 .withCode("php-iniciante")
                 .withName("PHP Iniciante")
                 .withEstimatedTime(9)
                 .withInstructorName("Thais")
-                .withSubCategory(disabledSubCategory)
+                .withSubCategory(subCategoryTwo)
                 .withVisibility(true)
                 .create();
 
-        disabledSubCategory.getCourses().add(visibleCourseTwo);
+        subCategoryTwo.getCourses().add(visibleCourseTwo);
 
-        em.persist(activeCategoryZero);
-        em.persist(activeSubCategoryZero);
-        em.persist(activeSubCategoryOne);
-        em.persist(disabledSubCategory);
-
+        em.persist(categoryZero);
+        em.persist(subCategoryZero);
+        em.persist(subCategoryOne);
+        em.persist(subCategoryTwo);
 
         em.persist(visibleCourseZero);
         em.persist(noVisibleCourseOne);
         em.persist(visibleCourseTwo);
 
-        List<ActiveSubCategoriesWithVisibleCoursesProjection> subCategoriesWithCoursesProjection = subCategoryRepository.getActiveSubCategoriesWithCourses("programacao");
+        List<ActiveSubCategoriesWithCoursesProjection> subCategoriesWithCoursesProjection = subCategoryRepository.getActiveSubCategoriesWithCourses("programacao");
 
         assertThat(subCategoriesWithCoursesProjection)
                 .hasSize(2)
-                .extracting(ActiveSubCategoriesWithVisibleCoursesProjection::getCode)
+                .extracting(ActiveSubCategoriesWithCoursesProjection::getCode)
                 .containsExactly("java", "java-e-persistencia")
                 .doesNotContain("php");
 
         assertThat(subCategoriesWithCoursesProjection)
                 .extracting(cat -> cat.getVisibleCoursesWithActiveSubCategorySortedBySubCategoryOrder())
-                .contains(List.of(visibleCourseZero))
-                .doesNotContain(List.of(noVisibleCourseOne, visibleCourseTwo));
-
-        assertThat(subCategoriesWithCoursesProjection)
-                .extracting(ActiveSubCategoriesWithVisibleCoursesProjection::getCourses)
                 .contains(List.of(visibleCourseZero))
                 .doesNotContain(List.of(noVisibleCourseOne, visibleCourseTwo));
     }

@@ -166,7 +166,7 @@ public class CategoryRepositoryTest {
         em.persist(visibleCourseFromDisabledSubCategoryWithActiveCategory);
         em.persist(visibleCourseFromActiveSubCategoryWithDisabledCategory);
 
-        List<ActiveCategoryWithActiveSubCategoriesProjection> categoriesFromDatabase = categoryRepository.getActiveCategoriesActiveWithSubCategories();
+        List<ActiveCategoryWithActiveSubCategoriesProjection> categoriesFromDatabase = categoryRepository.getActiveCategoriesWithActiveSubCategories();
 
         assertThat(categoriesFromDatabase)
                 .hasSize(1)
@@ -185,15 +185,6 @@ public class CategoryRepositoryTest {
                 .extracting(cat -> cat.getActiveSubCategoriesWithVisibleCoursesSortedBySubCategoryOrder().get(0).getCourses())
                 .hasSize(1).doesNotContain(List.of(noVisibleCourseFromActiveSubCategoryOne,
                         visibleCourseFromDisabledSubCategoryWithActiveCategory, visibleCourseFromActiveSubCategoryWithDisabledCategory));
-
-        assertThat(categoriesFromDatabase)
-                .hasSize(1)
-                .extracting(cat -> cat.getActiveSubCategoriesWithVisibleCoursesSortedBySubCategoryOrder()
-                        .get(0)
-                        .getCourses()
-                        .get(0))
-                .hasSize(1)
-                .contains(visibleCourseFromActiveSubCategoryZero);
     }
 }
 

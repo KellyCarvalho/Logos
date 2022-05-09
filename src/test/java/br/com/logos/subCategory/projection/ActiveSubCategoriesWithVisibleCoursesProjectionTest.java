@@ -3,7 +3,7 @@ package br.com.logos.subCategory.projection;
 import br.com.logos.category.Category;
 import br.com.logos.category.enums.CategoryStatus;
 import br.com.logos.course.Course;
-import br.com.logos.subCategory.ActiveSubCategoriesWithVisibleCoursesProjection;
+import br.com.logos.subCategory.ActiveSubCategoriesWithCoursesProjection;
 import br.com.logos.subCategory.SubCategory;
 import br.com.logos.subCategory.enums.SubCategoryStatus;
 import br.com.logos.utils.builders.CourseBuilder;
@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class ActiveSubCategoriesWithVisibleCoursesProjectionTest {
 
-    class ActiveSubCategoriesWithVisibleCoursesProjectionImpl implements ActiveSubCategoriesWithVisibleCoursesProjection {
+    class ActiveSubCategoriesWithVisibleCoursesProjectionImpl implements ActiveSubCategoriesWithCoursesProjection {
 
 
         @Override

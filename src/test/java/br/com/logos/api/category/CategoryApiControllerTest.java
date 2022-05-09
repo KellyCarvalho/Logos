@@ -1,7 +1,6 @@
 package br.com.logos.api.category;
 
 import br.com.logos.category.Category;
-import br.com.logos.category.CategoryRepository;
 import br.com.logos.category.enums.CategoryStatus;
 import br.com.logos.course.Course;
 import br.com.logos.subCategory.SubCategory;
@@ -37,7 +36,7 @@ public class CategoryApiControllerTest {
     private EntityManager em;
 
     @Test
-    public void shouldReturnAllCategoriesWithActiveCoursesAndSubCategories() throws Exception {
+    public void shouldReturnAllCategoriesWithVisibleCoursesAndActiveSubCategories() throws Exception {
         Category activeCategory = new CategoryBuilder()
                 .withName("Programação")
                 .withCode("programacao")

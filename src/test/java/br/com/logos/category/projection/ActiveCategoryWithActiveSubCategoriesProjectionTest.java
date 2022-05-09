@@ -109,8 +109,9 @@ public class ActiveCategoryWithActiveSubCategoriesProjectionTest {
                 .extracting(SubCategory::getCourses).extracting(courses -> courses.get(0))
                 .extracting("name", "code")
                 .containsExactly(tuple("OO Java", "java-oo"))
-                .doesNotContain(tuple("Boas práticas com java","boas-praticas-java"))
-                .doesNotContain(tuple("PHP orientado a objetos","php-oo"))
-                .doesNotContain(tuple("Php Iniciante","php-iniciante"));
+                .doesNotContain(tuple("Boas práticas com java", "boas-praticas-java"),
+                        tuple("PHP orientado a objetos", "php-oo"),
+                        tuple("Php Iniciante", "php-iniciante")
+                );
     }
 }

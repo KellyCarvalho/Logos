@@ -32,7 +32,7 @@ public class CourseRepositoryTest {
 
     @Test
     public void getAllCoursesCountByCategoryShouldReturnCategoryNameAndQuantityCourses() {
-        Category activeCategory = new CategoryBuilder()
+        Category categoryZero = new CategoryBuilder()
                 .withName("Programação")
                 .withCode("programacao")
                 .withStatus(CategoryStatus.ACTIVE)
@@ -40,34 +40,34 @@ public class CourseRepositoryTest {
                 .withColorCode("#00c86f")
                 .create();
 
-        Category disabledCategory = new CategoryBuilder()
+        Category categoryOne = new CategoryBuilder()
                 .withName("DevOps")
                 .withCode("devops")
                 .withOrder(2)
                 .withColorCode("#f16165")
                 .create();
 
-        SubCategory activeSubCategoryZero = new SubCategoryBuilder()
+        SubCategory subCategoryZero = new SubCategoryBuilder()
                 .withCode("java")
                 .withName("Java")
                 .withStatus(SubCategoryStatus.ACTIVE)
                 .withOrder(0)
-                .withCategory(activeCategory)
+                .withCategory(categoryZero)
                 .create();
 
-        SubCategory activeSubCategoryOne = new SubCategoryBuilder()
+        SubCategory subCategoryOne = new SubCategoryBuilder()
                 .withCode("builds-e-controle-de-versao")
                 .withName("Builds e Controle de versão")
                 .withStatus(SubCategoryStatus.ACTIVE)
-                .withCategory(disabledCategory)
+                .withCategory(categoryOne)
                 .create();
 
-        SubCategory disabledSubCategory = new SubCategoryBuilder()
+        SubCategory subCategoryTwo = new SubCategoryBuilder()
                 .withCode("java-persistence")
                 .withName("Java persistence")
                 .withStatus(SubCategoryStatus.ACTIVE)
                 .withOrder(1)
-                .withCategory(activeCategory)
+                .withCategory(categoryZero)
                 .create();
 
         Course visibleCourseZero = new CourseBuilder().withCode("java-oo")
@@ -75,7 +75,7 @@ public class CourseRepositoryTest {
                 .withEstimatedTime(8)
                 .withInstructorName("Paulo Silveira")
                 .withVisibility(true)
-                .withSubCategory(activeSubCategoryZero)
+                .withSubCategory(subCategoryZero)
                 .create();
 
         Course visibleCourseOne = new CourseBuilder()
@@ -84,7 +84,7 @@ public class CourseRepositoryTest {
                 .withEstimatedTime(8)
                 .withInstructorName("Paulo Silveira")
                 .withVisibility(true)
-                .withSubCategory(disabledSubCategory)
+                .withSubCategory(subCategoryTwo)
                 .create();
 
         Course visibleCourseTwo = new CourseBuilder()
@@ -93,7 +93,7 @@ public class CourseRepositoryTest {
                 .withEstimatedTime(9)
                 .withInstructorName("Thais")
                 .withVisibility(true)
-                .withSubCategory(activeSubCategoryOne)
+                .withSubCategory(subCategoryOne)
                 .create();
 
         Course noVisibleCourseZero = new CourseBuilder().withCode("jpa")
@@ -101,14 +101,14 @@ public class CourseRepositoryTest {
                 .withEstimatedTime(8)
                 .withInstructorName("Paulo Silveira")
                 .withVisibility(false)
-                .withSubCategory(disabledSubCategory)
+                .withSubCategory(subCategoryTwo)
                 .create();
 
-        em.persist(activeCategory);
-        em.persist(disabledCategory);
-        em.persist(activeSubCategoryZero);
-        em.persist(activeSubCategoryOne);
-        em.persist(disabledSubCategory);
+        em.persist(categoryZero);
+        em.persist(categoryOne);
+        em.persist(subCategoryZero);
+        em.persist(subCategoryOne);
+        em.persist(subCategoryTwo);
         em.persist(visibleCourseZero);
         em.persist(visibleCourseOne);
         em.persist(visibleCourseTwo);
