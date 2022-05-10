@@ -2,9 +2,6 @@ package br.com.logos.course.validators;
 
 import br.com.logos.course.CourseRepository;
 import br.com.logos.course.CourseUpdateDTO;
-import br.com.logos.subCategory.SubCategoryRepository;
-import br.com.logos.subCategory.SubCategoryUpdateDTO;
-import br.com.logos.subCategory.validators.SubCategoryUpdateValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.validation.Errors;
