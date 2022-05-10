@@ -1,10 +1,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib  prefix="templates" tagdir="/WEB-INF/tags/templates" %>
+
 <html>
     <head>
-        <link rel='stylesheet' href='/webjars/bootstrap/3.3.7/css/bootstrap.min.css'>
+        <templates:admin-template></templates:admin-template>
         <title>Dashboard Administrativo</title>
-        <meta charset="utf-8">
         <link rel="stylesheet" href="/assets/css/dashboardPage.css">
     </head>
 
