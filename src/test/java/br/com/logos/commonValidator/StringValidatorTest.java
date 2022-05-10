@@ -1,4 +1,4 @@
-package commonValidator;
+package br.com.logos.commonValidator;
 
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullAndEmptySource;

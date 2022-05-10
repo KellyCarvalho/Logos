@@ -1,6 +1,8 @@
 CREATE
-DATABASE logos;
+ DATABASE logos;
+
 -- DROP DATABASE logos;
+
 USE
 logos;
 
@@ -41,7 +43,7 @@ CREATE TABLE `Category`
     `color_code`      VARCHAR(7)
 );
 
-CREATE TABLE `Subcategory`
+CREATE TABLE `SubCategory`
 (
     `id`              BIGINT PRIMARY KEY AUTO_INCREMENT,
     `name`            VARCHAR(255)        NOT NULL,
@@ -66,7 +68,7 @@ CREATE TABLE `Course`
     `description`      TEXT,
     `developed_skills` TEXT,
     `subcategory_id`   BIGINT              NOT NULL,
-    FOREIGN KEY (`subcategory_id`) REFERENCES `Subcategory` (`id`)
+    FOREIGN KEY (`subcategory_id`) REFERENCES `SubCategory` (`id`)
 );
 
 CREATE TABLE `Section`

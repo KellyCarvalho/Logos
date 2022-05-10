@@ -36,7 +36,7 @@
                 <div class="subcategory">
                     <h2 id="${subcategory.code}" class="subcategory__name">${subcategory.name}</h2>
                     <ul class="courses__list">
-                        <c:forEach items="${subcategory.activeSubCategoriesWithPublicCourse}" var="course">
+                        <c:forEach items="${subcategory.visibleCoursesWithActiveSubCategorySortedBySubCategoryOrder}" var="course">
                             <li class="course-card">
                                 <h3 class="course-card__name">${course.name}</h3>
                                 <p class="course-card__hours">${course.estimatedTime}h</p>

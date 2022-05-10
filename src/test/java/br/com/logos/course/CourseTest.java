@@ -1,4 +1,4 @@
-package course;
+package br.com.logos.course;
 
 import br.com.logos.category.Category;
 import br.com.logos.course.Course;

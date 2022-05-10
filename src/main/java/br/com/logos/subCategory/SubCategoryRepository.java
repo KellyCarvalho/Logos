@@ -16,7 +16,7 @@ public interface SubCategoryRepository extends JpaRepository<SubCategory, Long> 
 
     @Query(value = """
             SELECT s.name, s.status, s.identifier_code AS code 
-            FROM Subcategory AS s 
+            FROM SubCategory AS s 
             INNER JOIN Category AS c ON c.id = s.category_id 
             WHERE c.identifier_code = :categoryCode 
             ORDER BY s.position
@@ -26,11 +26,12 @@ public interface SubCategoryRepository extends JpaRepository<SubCategory, Long> 
     List<SubCategory> findAllByOrderByName();
 
     @Query(value = """
-            SELECT distinct s FROM SubCategory s
+            SELECT distinct s
+            FROM SubCategory s
             JOIN s.courses c
             WHERE s.status = 'ACTIVE'
             AND s.category.code = :code
-            ORDER BY s.order          
+            ORDER BY s.order
             """)
     List<ActiveSubCategoriesWithCoursesProjection> getActiveSubCategoriesWithCourses(@Param("code") String categoryCode);
 }

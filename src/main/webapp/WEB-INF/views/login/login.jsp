@@ -37,12 +37,12 @@
                                         <img src="${category.imageUrl}">
                                     </span>
                                     <h3 class="category-card__title"> ${category.name}</h3>
-                                    <c:forEach begin="0" varStatus="number" items="${category.activeSubCategoriesWithPublicCourse}" end="2" var="subcategory">
+                                    <c:forEach begin="0" varStatus="number" items="${category.activeSubCategoriesWithVisibleCoursesSortedBySubCategoryOrder}" end="2" var="subcategory">
                                         <p class="category-card__details">
-                                            ${subcategory.name}<c:if test="${number.index < category.activeSubCategoriesWithPublicCourse.size() -1}">,</c:if>
+                                            ${subcategory.name}<c:if test="${number.index < category.activeSubCategoriesWithVisibleCoursesSortedBySubCategoryOrder.size() -1}">,</c:if>
                                         </p>
                                     </c:forEach>
-                                    <c:if test="${category.activeSubCategoriesWithPublicCourse.size() > 3}">e mais...</c:if>
+                                    <c:if test="${category.activeSubCategoriesWithVisibleCoursesSortedBySubCategoryOrder.size() > 3}">e mais...</c:if>
                                 </a>
                             </li>
                         </c:forEach>

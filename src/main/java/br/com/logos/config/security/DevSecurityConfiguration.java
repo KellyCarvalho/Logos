@@ -14,8 +14,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @EnableWebSecurity
 @Configuration
-@Profile("prod")
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+@Profile("dev")
+public class DevSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private AuthenticationService authenticationService;
@@ -34,6 +34,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
+                .antMatchers("/admin/**").hasRole("ADMINISTRATOR")
                 .antMatchers("/category/**").hasAnyRole("ADMINISTRATOR", "STUDENT")
                 .antMatchers("/api/categories").permitAll()
                 .antMatchers("/bGltcGEtby1jYWNoZS1kYS1hcGktYWU").permitAll()

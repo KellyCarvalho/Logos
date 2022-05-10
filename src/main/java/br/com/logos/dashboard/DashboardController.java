@@ -20,7 +20,7 @@ public class DashboardController {
     @GetMapping(value = "/admin/dashboard")
     public String getCoursesByCategory(Model model) {
         List<CourseByCategoryProjection> allCoursesFromCategory = courseRepository.getAllCoursesCountByCategory();
-        Optional<CoursesQuantityByInstructorNameProjection> quantityCoursesFromInstructorNameWithMoreCourses = courseRepository.reportInstructorWithMoreCourses();
+        Optional<CoursesQuantityByInstructorNameProjection> quantityCoursesFromInstructorNameWithMoreCourses = courseRepository.getInstructorWithMoreCourses();
         model.addAttribute("coursesByCategory", allCoursesFromCategory);
         if (quantityCoursesFromInstructorNameWithMoreCourses.isPresent()){
         model.addAttribute("coursesByInstructor", quantityCoursesFromInstructorNameWithMoreCourses.get());

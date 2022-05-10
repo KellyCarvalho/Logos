@@ -1,6 +1,6 @@
 package br.com.logos.autentication;
 
-import br.com.logos.category.CategoryActiveWithSubCategoriesNameProjection;
+import br.com.logos.category.ActiveCategoryWithActiveSubCategoriesProjection;
 import br.com.logos.category.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,8 +17,8 @@ public class AuthenticationController {
 
     @GetMapping("/login")
     public String loginForm(Model model) {
-        List<CategoryActiveWithSubCategoriesNameProjection> categoryActiveWithSubCategoriesNameProjectionList = categoryRepository.getActiveCategoriesWithSubCategories();
-        model.addAttribute("categories", categoryActiveWithSubCategoriesNameProjectionList);
+        List<ActiveCategoryWithActiveSubCategoriesProjection> activeCategoryWithActiveSubCategoriesProjectionList = categoryRepository.getActiveCategoriesWithActiveSubCategories();
+        model.addAttribute("categories", activeCategoryWithActiveSubCategoriesProjectionList);
         return "login/login";
     }
 }

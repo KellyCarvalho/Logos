@@ -11,9 +11,10 @@ public interface ActiveSubCategoriesWithCoursesProjection {
     String getCode();
     List<Course> getCourses();
 
-    default List<Course> getActiveSubCategoriesWithPublicCourse(){
+    default List<Course> getVisibleCoursesWithActiveSubCategorySortedBySubCategoryOrder(){
         return getCourses().stream()
                 .filter(Course::isVisibility)
+                .filter(course -> course.getSubCategory().isActive())
                 .sorted(Comparator.comparing(course -> course.getSubCategoryOrder())).toList();
     }
 }
