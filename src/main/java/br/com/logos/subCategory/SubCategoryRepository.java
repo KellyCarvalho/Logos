@@ -34,4 +34,6 @@ public interface SubCategoryRepository extends JpaRepository<SubCategory, Long> 
             ORDER BY s.order
             """)
     List<ActiveSubCategoriesWithCoursesProjection> getActiveSubCategoriesWithCourses(@Param("code") String categoryCode);
+
+    boolean existsByCodeAndIdNot(String code, Long id);
 }

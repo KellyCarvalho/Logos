@@ -18,6 +18,7 @@
             <h1>Editar SubCategoria</h1>
             <form:form modelAttribute="subCategoryUpdateDTO" class="md-3" method="post">
                 <div class="md-4">
+                    <form:input path="id" type="hidden"/>
                     <form:label path="name" class="form-label">Nome</form:label>
                     <form:input path="name" placeholder="Digite Aqui o nome da subcategoria" class="form-control" type="text"/>
                     <form:errors path="name"/>

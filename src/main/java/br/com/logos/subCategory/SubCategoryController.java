@@ -2,11 +2,14 @@ package br.com.logos.subCategory;
 
 import br.com.logos.category.Category;
 import br.com.logos.category.CategoryRepository;
+import br.com.logos.subCategory.validators.SubCategoryInsertValidator;
+import br.com.logos.subCategory.validators.SubCategoryUpdateValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
@@ -18,8 +21,29 @@ public class SubCategoryController {
 
     @Autowired
     private SubCategoryRepository subCategoryRepository;
+
     @Autowired
     private CategoryRepository categoryRepository;
+
+    private final SubCategoryInsertValidator subCategoryInsertValidator;
+
+    private final SubCategoryUpdateValidator subCategoryUpdateValidator;
+
+    public SubCategoryController(SubCategoryInsertValidator subCategoryInsertValidator,
+                                 SubCategoryUpdateValidator subCategoryUpdateValidator) {
+        this.subCategoryInsertValidator = subCategoryInsertValidator;
+        this.subCategoryUpdateValidator = subCategoryUpdateValidator;
+    }
+
+    @InitBinder({"subCategoryInsertDTO"})
+    void initBinderInsertDto(WebDataBinder binder){
+        binder.addValidators(subCategoryInsertValidator);
+    }
+
+    @InitBinder({"subCategoryUpdateDTO"})
+    void initBinderUpdateDto(WebDataBinder binder){
+        binder.addValidators(subCategoryUpdateValidator);
+    }
 
     @GetMapping("/admin/subcategories/{categoryCode}")
     public String getSubCategoriesByCategoryCode(@PathVariable String categoryCode, Model model) {

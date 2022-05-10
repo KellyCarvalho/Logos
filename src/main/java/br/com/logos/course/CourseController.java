@@ -2,6 +2,8 @@ package br.com.logos.course;
 
 import br.com.logos.category.Category;
 import br.com.logos.category.CategoryRepository;
+import br.com.logos.course.validators.CourseInsertValidator;
+import br.com.logos.course.validators.CourseUpdateValidator;
 import br.com.logos.subCategory.SubCategory;
 import br.com.logos.subCategory.SubCategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +13,9 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -31,6 +35,25 @@ public class CourseController {
 
     @Autowired
     private CategoryRepository categoryRepository;
+
+    private final CourseInsertValidator courseInsertValidator;
+
+    private final CourseUpdateValidator courseUpdateValidator;
+
+    public CourseController(CourseInsertValidator courseInsertValidator, CourseUpdateValidator courseUpdateValidator) {
+        this.courseInsertValidator = courseInsertValidator;
+        this.courseUpdateValidator = courseUpdateValidator;
+    }
+
+    @InitBinder({"courseInsertDTO"})
+    void initBinderInsertDto(WebDataBinder binder){
+        binder.addValidators(courseInsertValidator);
+    }
+
+    @InitBinder({"courseUpdateDTO"})
+    void initBinderUpdateDto(WebDataBinder binder){
+        binder.addValidators(courseUpdateValidator);
+    }
 
     @GetMapping(value = "/admin/courses/{categoryCode}/{subcategoryCode}")
     public String getAllCoursesPage(@PathVariable String categoryCode, @PathVariable String subcategoryCode,
