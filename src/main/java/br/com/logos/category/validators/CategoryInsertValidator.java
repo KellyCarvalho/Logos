@@ -26,7 +26,7 @@ public class CategoryInsertValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         CategoryInsertDTO dto = (CategoryInsertDTO) target;
-        if (categoryRepository.findByCode(dto.getCode()).isPresent()){
+        if (categoryRepository.existsByCode(dto.getCode())){
             errors.rejectValue("code", "category.code.already.exists");
         }
     }

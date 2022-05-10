@@ -25,7 +25,7 @@ public class SubCategoryInsertValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         SubCategoryInsertDTO dto = (SubCategoryInsertDTO) target;
-        if (subCategoryRepository.findByCode(dto.getCode()).isPresent()){
+        if (subCategoryRepository.existsByCode(dto.getCode())){
             errors.rejectValue("code", "subCategory.code.already.exists");
         }
     }

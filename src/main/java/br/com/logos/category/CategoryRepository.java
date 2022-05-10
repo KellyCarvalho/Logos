@@ -37,4 +37,6 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
     List<ActiveCategoryWithActiveSubCategoriesProjection> getActiveCategoriesWithActiveSubCategories();
 
     boolean existsByCodeAndIdNot(String code, Long id);
+
+    boolean existsByCode(String code);
 }
