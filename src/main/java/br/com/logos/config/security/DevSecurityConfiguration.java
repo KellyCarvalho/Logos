@@ -33,9 +33,13 @@ public class DevSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .anyRequest()
-                .permitAll();
+        http.authorizeRequests().anyRequest().permitAll().and()
+                .formLogin()
+                .loginPage("/login").permitAll()
+                .defaultSuccessUrl("/admin/categories")
+                .and()
+                .csrf().disable()
+                .cors();
     }
 
     @Override

@@ -5,6 +5,7 @@ import br.com.logos.category.enums.CategoryStatus;
 import br.com.logos.commonValidator.StringValidator;
 import br.com.logos.subCategory.SubCategory;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
@@ -20,7 +21,7 @@ import static br.com.logos.category.enums.CategoryStatus.DISABLED;
 import static br.com.logos.commonValidator.StringValidator.isValidColor;
 
 @Data
-@RequiredArgsConstructor
+@NoArgsConstructor
 @Entity
 public class Category {
 
@@ -50,10 +51,6 @@ public class Category {
     private String colorCode;
     @OneToMany(mappedBy = "category")
     private List<SubCategory> subCategories = new ArrayList<>();
-
-    @Deprecated
-    public Category() {
-    }
 
     public Category(String name, String code) {
         StringValidator.isNotBlankEmptyOrNull(name, "Nome da categoria é requerido, não pode ser vazio ou em branco");
