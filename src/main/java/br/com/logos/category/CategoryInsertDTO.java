@@ -1,13 +1,15 @@
 package br.com.logos.category;
 
 import br.com.logos.category.enums.CategoryStatus;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.PositiveOrZero;
 
-@Data
+@Getter
+@Setter
 public class CategoryInsertDTO {
 
     @NotBlank(message = "Nome não pode estar em branco")

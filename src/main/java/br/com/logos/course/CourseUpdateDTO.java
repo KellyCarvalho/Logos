@@ -1,9 +1,13 @@
 package br.com.logos.course;
 
 import br.com.logos.subCategory.SubCategory;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.validation.constraints.*;
 
+@Getter
+@Setter
 public class CourseUpdateDTO {
 
     private Long id;
@@ -39,85 +43,5 @@ public class CourseUpdateDTO {
         this.description = course.getDescription();
         this.developedSkills = course.getDevelopedSkills();
         this.subCategory = course.getSubCategory();
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public int getEstimatedTime() {
-        return estimatedTime;
-    }
-
-    public void setEstimatedTime(int estimatedTime) {
-        this.estimatedTime = estimatedTime;
-    }
-
-    public boolean isVisibility() {
-        return visibility;
-    }
-
-    public void setVisibility(boolean visibility) {
-        this.visibility = visibility;
-    }
-
-    public String getTargetAudience() {
-        return targetAudience;
-    }
-
-    public void setTargetAudience(String targetAudience) {
-        this.targetAudience = targetAudience;
-    }
-
-    public String getInstructorName() {
-        return instructorName;
-    }
-
-    public void setInstructorName(String instructorName) {
-        this.instructorName = instructorName;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getDevelopedSkills() {
-        return developedSkills;
-    }
-
-    public void setDevelopedSkills(String developedSkills) {
-        this.developedSkills = developedSkills;
-    }
-
-    public SubCategory getSubCategory() {
-        return subCategory;
-    }
-
-    public void setSubCategory(SubCategory subCategory) {
-        this.subCategory = subCategory;
     }
 }

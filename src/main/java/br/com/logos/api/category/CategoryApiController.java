@@ -7,7 +7,6 @@ import br.com.logos.course.CourseRepository;
 import br.com.logos.subCategory.SubCategoryRepository;
 import br.com.logos.subCategory.enums.SubCategoryStatus;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

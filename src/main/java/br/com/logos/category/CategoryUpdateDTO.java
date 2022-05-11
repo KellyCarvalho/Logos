@@ -1,6 +1,7 @@
 package br.com.logos.category;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
@@ -8,7 +9,8 @@ import javax.validation.constraints.PositiveOrZero;
 
 import static br.com.logos.commonValidator.StringValidator.*;
 
-@Data
+@Getter
+@Setter
 public class CategoryUpdateDTO {
 
     private Long id;

@@ -4,12 +4,12 @@ import br.com.logos.category.Category;
 import br.com.logos.commonValidator.ObjectValidator;
 import br.com.logos.course.Course;
 import br.com.logos.subCategory.enums.SubCategoryStatus;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import static br.com.logos.commonValidator.StringValidator.doesCodeContainsOnlyLettersInLowerCaseAndHyphen;
 import static br.com.logos.commonValidator.StringValidator.isNotBlankEmptyOrNull;
@@ -17,6 +17,7 @@ import static br.com.logos.subCategory.enums.SubCategoryStatus.ACTIVE;
 import static br.com.logos.subCategory.enums.SubCategoryStatus.DISABLED;
 
 @Getter
+@EqualsAndHashCode
 @Entity
 public class SubCategory {
 
@@ -79,14 +80,6 @@ public class SubCategory {
         return ACTIVE.equals(this.status);
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        SubCategory that = (SubCategory) o;
-        return code.equals(that.code);
-    }
-
     public void update(SubCategoryUpdateDTO subCategoryUpdateDTO) {
         this.name = subCategoryUpdateDTO.getName();
         this.code = subCategoryUpdateDTO.getCode();
@@ -99,21 +92,5 @@ public class SubCategory {
 
     public void disable() {
         this.status = SubCategoryStatus.DISABLED;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(code);
-    }
-
-    @Override
-    public String toString() {
-        return '\n' + "Nome=" + name + '\n' +
-                "Código='" + code + '\n' +
-                "Descrição='" + description + '\n' +
-                "Guia de Estudos='" + studyGuide + '\n' +
-                "Status=" + status + '\n' +
-                "Order=" + order + '\n' + '\n' +
-                "Categoria: " + '\n' + category.toString();
     }
 }

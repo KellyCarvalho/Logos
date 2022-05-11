@@ -4,12 +4,13 @@ import br.com.logos.category.Category;
 import br.com.logos.commonValidator.ObjectValidator;
 import br.com.logos.commonValidator.StringValidator;
 import br.com.logos.subCategory.SubCategory;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @Getter
+@EqualsAndHashCode
 @Entity
 public class Course {
 
@@ -72,10 +73,6 @@ public class Course {
         return getSubCategory().getCategory();
     }
 
-    public String getCategoryName() {
-        return getCategory().getName();
-    }
-
     public String getInstructorName() {
         return instructorName;
     }
@@ -101,14 +98,6 @@ public class Course {
         return this.getCategory().getId();
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Course course = (Course) o;
-        return code.equals(course.code);
-    }
-
     public boolean isVisibility() {
         return visibility;
     }
@@ -123,22 +112,5 @@ public class Course {
         this.developedSkills = courseUpdateDTO.getDevelopedSkills();
         this.subCategory = courseUpdateDTO.getSubCategory();
         this.targetAudience = courseUpdateDTO.getTargetAudience();
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(code);
-    }
-
-    @Override
-    public String toString() {
-        return "Course" + '\n' + "name='" + name + '\n' + "code='" + code +
-                '\n' + "estimatedTime=" + estimatedTime + '\n' +
-                "visibility=" + visibility + '\n' +
-                "targetAudience='" + targetAudience + '\n' +
-                "instructor='" + instructorName + '\n' +
-                "Description='" + description + '\n' +
-                "skillsDeveloped='" + developedSkills + '\n'
-                + "subCategory:" + subCategory + '\n';
     }
 }

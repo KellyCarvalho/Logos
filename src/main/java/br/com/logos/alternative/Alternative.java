@@ -3,9 +3,11 @@ package br.com.logos.alternative;
 import br.com.logos.activity.Question;
 import br.com.logos.commonValidator.ObjectValidator;
 import br.com.logos.commonValidator.StringValidator;
+import lombok.ToString;
 
 import javax.persistence.*;
 
+@ToString
 @Entity
 public class Alternative {
 
@@ -34,16 +36,5 @@ public class Alternative {
         this.description = description;
         this.correct = correct;
         this.question = question;
-    }
-
-    @Override
-    public String toString() {
-        return "Alternative{" +
-                "description='" + description + '\'' +
-                ", order=" + order +
-                ", correct=" + correct +
-                ", explanationAnswer='" + explanationAnswer + '\'' +
-                ", question=" + question +
-                '}';
     }
 }

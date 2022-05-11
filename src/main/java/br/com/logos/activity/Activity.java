@@ -3,9 +3,11 @@ package br.com.logos.activity;
 import br.com.logos.section.Section;
 import br.com.logos.commonValidator.ObjectValidator;
 import br.com.logos.commonValidator.StringValidator;
+import lombok.ToString;
 
 import javax.persistence.*;
 
+@ToString
 @MappedSuperclass
 public abstract class Activity {
 
@@ -38,15 +40,5 @@ public abstract class Activity {
 
     public String getTitle() {
         return title;
-    }
-
-    @Override
-    public String toString() {
-        return "Activity{" + '\n' +
-                "title='" + title + '\n' +
-                "code='" + code + '\n' +
-                "active=" + active + '\n' +
-                "order=" + order + '\n' +
-                "section=" + section + '\n';
     }
 }
