@@ -2,7 +2,7 @@ package br.com.logos.category;
 
 import br.com.logos.category.validators.CategoryInsertValidator;
 import br.com.logos.category.validators.CategoryUpdateValidator;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,20 +15,15 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
+@RequiredArgsConstructor
 @Controller
 public class CategoryAdminController {
 
-    @Autowired
-    private CategoryRepository categoryRepository;
+    private final CategoryRepository categoryRepository;
 
     private final CategoryInsertValidator categoryInsertValidator;
 
     private final CategoryUpdateValidator categoryUpdateValidator;
-
-    public CategoryAdminController(CategoryInsertValidator categoryInsertValidator, CategoryUpdateValidator categoryUpdateValidator) {
-        this.categoryInsertValidator = categoryInsertValidator;
-        this.categoryUpdateValidator = categoryUpdateValidator;
-    }
 
     @InitBinder({"categoryInsertDTO"})
     void initBinderInsertDto(WebDataBinder binder){

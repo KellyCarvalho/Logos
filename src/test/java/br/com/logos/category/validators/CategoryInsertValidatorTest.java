@@ -9,6 +9,9 @@ import org.springframework.validation.Errors;
 
 import static org.mockito.Mockito.*;
 
+//TODO mudar o nome do pacote pra singular
+//TODo colocar o nome do método na frente dos testes
+//TODo geral mudar pra Should Not
 public class CategoryInsertValidatorTest {
 
     private CategoryRepository repository;
@@ -35,7 +38,7 @@ public class CategoryInsertValidatorTest {
     }
 
     @Test
-    void ifCodeDoesNotExistDoNotShouldShowError(){
+    void ifCodeDoesNotExistShouldNotShowError(){
         var dto = new CategoryInsertDTO();
         dto.setCode("programacao");
 

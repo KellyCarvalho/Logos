@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.validation.Errors;
 
+//TODO mesmos comentários do UpdateCategoryTest
 import static org.mockito.AdditionalMatchers.not;
 import static org.mockito.Mockito.*;
 
@@ -35,7 +36,7 @@ public class SubCategoryUpdateValidatorTest {
     }
 
     @Test
-    void doesNotShowErrorIfCodeAlreadyExistsAndIdCategoryIsEqualToCurrentCategoryId(){
+    void doesNotShowErrorIfCodeAlreadyExistsAndIdSubCategoryIsEqualToCurrentSubCategoryId(){
         var dto = new SubCategoryUpdateDTO();
         dto.setId(1L);
         dto.setCode("java");

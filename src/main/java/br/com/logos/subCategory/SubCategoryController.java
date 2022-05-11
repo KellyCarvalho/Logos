@@ -4,6 +4,7 @@ import br.com.logos.category.Category;
 import br.com.logos.category.CategoryRepository;
 import br.com.logos.subCategory.validators.SubCategoryInsertValidator;
 import br.com.logos.subCategory.validators.SubCategoryUpdateValidator;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -16,24 +17,17 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.util.*;
 
+@RequiredArgsConstructor
 @Controller
 public class SubCategoryController {
 
-    @Autowired
-    private SubCategoryRepository subCategoryRepository;
+    private final SubCategoryRepository subCategoryRepository;
 
-    @Autowired
-    private CategoryRepository categoryRepository;
+    private final CategoryRepository categoryRepository;
 
     private final SubCategoryInsertValidator subCategoryInsertValidator;
 
     private final SubCategoryUpdateValidator subCategoryUpdateValidator;
-
-    public SubCategoryController(SubCategoryInsertValidator subCategoryInsertValidator,
-                                 SubCategoryUpdateValidator subCategoryUpdateValidator) {
-        this.subCategoryInsertValidator = subCategoryInsertValidator;
-        this.subCategoryUpdateValidator = subCategoryUpdateValidator;
-    }
 
     @InitBinder({"subCategoryInsertDTO"})
     void initBinderInsertDto(WebDataBinder binder){

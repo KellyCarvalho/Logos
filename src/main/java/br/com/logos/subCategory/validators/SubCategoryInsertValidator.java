@@ -7,7 +7,7 @@ import br.com.logos.subCategory.SubCategoryRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
-
+//TODO mesmos todo de CategoryValidators
 @Component
 public class SubCategoryInsertValidator implements Validator {
 

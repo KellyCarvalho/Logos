@@ -6,10 +6,11 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+//TODO mesmos todo de CategoryValidators
 @Component
 public class CourseInsertValidator implements Validator {
 
-   private CourseRepository courseRepository;
+   private final CourseRepository courseRepository;
 
   public CourseInsertValidator(CourseRepository courseRepository){
       this.courseRepository = courseRepository;

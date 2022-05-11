@@ -1,7 +1,6 @@
 package br.com.logos.category;
 
 import br.com.logos.category.enums.CategoryStatus;
-import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;

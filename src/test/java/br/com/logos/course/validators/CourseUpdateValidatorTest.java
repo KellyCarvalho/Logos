@@ -9,7 +9,8 @@ import org.springframework.validation.Errors;
 import static org.mockito.AdditionalMatchers.not;
 import static org.mockito.Mockito.*;
 
-public class SubCategoryUpdateValidatorTest {
+//TODo mesmos TODO de CategoryUpdate
+public class CourseUpdateValidatorTest {
 
     private CourseRepository repository;
     private CourseUpdateValidator dtoValidator;
@@ -35,7 +36,7 @@ public class SubCategoryUpdateValidatorTest {
     }
 
     @Test
-    void doesNotShowErrorIfCodeAlreadyExistsAndIdCategoryIsEqualToCurrentCategoryId(){
+    void doesNotShowErrorIfCodeAlreadyExistsAndIdCourseIsEqualToCurrentCourseId(){
         var dto = new CourseUpdateDTO();
         dto.setId(1L);
         dto.setCode("java");

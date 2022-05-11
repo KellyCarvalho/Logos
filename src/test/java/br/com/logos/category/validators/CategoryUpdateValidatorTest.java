@@ -9,6 +9,7 @@ import org.springframework.validation.Errors;
 import static org.mockito.AdditionalMatchers.not;
 import static org.mockito.Mockito.*;
 
+//TODO combinar 2 a 2 mesmos cenários com código diferente
 public class CategoryUpdateValidatorTest {
 
     private CategoryRepository repository;

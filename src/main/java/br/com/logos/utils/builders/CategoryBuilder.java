@@ -3,6 +3,7 @@ package br.com.logos.utils.builders;
 import br.com.logos.category.Category;
 import br.com.logos.category.enums.CategoryStatus;
 
+
 public class CategoryBuilder {
 
     public String name;

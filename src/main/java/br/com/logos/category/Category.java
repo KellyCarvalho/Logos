@@ -4,6 +4,7 @@ package br.com.logos.category;
 import br.com.logos.category.enums.CategoryStatus;
 import br.com.logos.commonValidator.StringValidator;
 import br.com.logos.subCategory.SubCategory;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +20,7 @@ import java.util.Objects;
 import static br.com.logos.category.enums.CategoryStatus.ACTIVE;
 import static br.com.logos.category.enums.CategoryStatus.DISABLED;
 import static br.com.logos.commonValidator.StringValidator.isValidColor;
-
+//TODO usar cada recursos específico, manter como a subcategory e mapear onde tá usando os setters
 @Data
 @NoArgsConstructor
 @Entity

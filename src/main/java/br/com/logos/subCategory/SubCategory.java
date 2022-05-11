@@ -4,6 +4,7 @@ import br.com.logos.category.Category;
 import br.com.logos.commonValidator.ObjectValidator;
 import br.com.logos.course.Course;
 import br.com.logos.subCategory.enums.SubCategoryStatus;
+import lombok.Getter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import static br.com.logos.commonValidator.StringValidator.isNotBlankEmptyOrNull
 import static br.com.logos.subCategory.enums.SubCategoryStatus.ACTIVE;
 import static br.com.logos.subCategory.enums.SubCategoryStatus.DISABLED;
 
+@Getter
 @Entity
 public class SubCategory {
 
@@ -65,22 +67,6 @@ public class SubCategory {
                 subCategoryInsertDTO.getCategory());
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
     public Long getCategoryId(){
         return this.category.getId();
     }
@@ -89,28 +75,8 @@ public class SubCategory {
         return this.category.getCode();
     }
 
-    public String getDescription() {
-        return description;
-    }
-
     public boolean isActive() {
         return ACTIVE.equals(this.status);
-    }
-
-    public String getStudyGuide() {
-        return studyGuide;
-    }
-
-    public SubCategoryStatus getStatus() {
-        return status;
-    }
-
-    public int getOrder() {
-        return order;
-    }
-
-    public List<Course> getCourses() {
-        return courses;
     }
 
     @Override

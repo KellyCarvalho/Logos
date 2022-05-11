@@ -9,6 +9,7 @@ import org.springframework.validation.Errors;
 
 import static org.mockito.Mockito.*;
 
+//TODO mesmos todo de insertCategoryTest
 public class CourseInsertValidatorTest {
 
     private CourseRepository repository;
@@ -35,8 +36,7 @@ public class CourseInsertValidatorTest {
     }
 
     @Test
-    void ifCodeDoesNotExistDoNotShouldShowError(){
-
+    void ifCodeDoesNotExistShouldNotShowError(){
         var dto = new CourseInsertDTO();
         dto.setCode("java");
 

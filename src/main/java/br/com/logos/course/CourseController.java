@@ -6,6 +6,7 @@ import br.com.logos.course.validators.CourseInsertValidator;
 import br.com.logos.course.validators.CourseUpdateValidator;
 import br.com.logos.subCategory.SubCategory;
 import br.com.logos.subCategory.SubCategoryRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,26 +25,19 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
-
+@RequiredArgsConstructor
 @Controller
 public class CourseController {
 
-    @Autowired
-    private CourseRepository courseRepository;
-    @Autowired
-    private SubCategoryRepository subCategoryRepository;
+    private final CourseRepository courseRepository;
 
-    @Autowired
-    private CategoryRepository categoryRepository;
+    private final SubCategoryRepository subCategoryRepository;
+
+    private final CategoryRepository categoryRepository;
 
     private final CourseInsertValidator courseInsertValidator;
 
     private final CourseUpdateValidator courseUpdateValidator;
-
-    public CourseController(CourseInsertValidator courseInsertValidator, CourseUpdateValidator courseUpdateValidator) {
-        this.courseInsertValidator = courseInsertValidator;
-        this.courseUpdateValidator = courseUpdateValidator;
-    }
 
     @InitBinder({"courseInsertDTO"})
     void initBinderInsertDto(WebDataBinder binder){

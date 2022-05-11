@@ -6,11 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
-
+//TODO Lombok usar o required
 @Component
 public class CategoryUpdateValidator implements Validator {
 
-    @Autowired
     private final CategoryRepository categoryRepository;
 
     public CategoryUpdateValidator(CategoryRepository categoryRepository) {

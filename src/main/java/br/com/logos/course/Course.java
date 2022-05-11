@@ -4,10 +4,12 @@ import br.com.logos.category.Category;
 import br.com.logos.commonValidator.ObjectValidator;
 import br.com.logos.commonValidator.StringValidator;
 import br.com.logos.subCategory.SubCategory;
+import lombok.Getter;
 
 import javax.persistence.*;
 import java.util.Objects;
 
+@Getter
 @Entity
 public class Course {
 
@@ -58,10 +60,6 @@ public class Course {
         this.developedSkills = developedSkills;
     }
 
-    public int getEstimatedTime() {
-        return estimatedTime;
-    }
-
     public SubCategory getSubCategory() {
         return subCategory;
     }
@@ -70,32 +68,12 @@ public class Course {
         return subCategory.getOrder();
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public String getDevelopedSkills() {
-        return developedSkills;
-    }
-
     public Category getCategory() {
         return getSubCategory().getCategory();
     }
 
     public String getCategoryName() {
         return getCategory().getName();
-    }
-
-    public String getTargetAudience() {
-        return targetAudience;
     }
 
     public String getInstructorName() {
