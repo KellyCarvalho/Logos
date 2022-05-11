@@ -1,6 +1,6 @@
-<mxfile modified="2022-05-11T20:52:06.235Z" host="app.diagrams.net" agent="5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36" etag="FgRn6epq6krimaH0a-JD" version="18.0.2" type="github">
+<mxfile modified="2022-05-11T21:02:46.836Z" host="app.diagrams.net" agent="5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36" etag="P5mCkZOwDvd99zvF8m3j" version="18.0.2" type="github">
   <diagram id="Ht1M8jgEwFfnCIfOTk4-" name="Deploy Diagram">
-    <mxGraphModel dx="2585" dy="1455" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" background="#DAD2D8" math="0" shadow="0">
+    <mxGraphModel dx="1053" dy="547" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" background="#DAD2D8" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -54,7 +54,7 @@
         <mxCell id="G6Xr-zNiUfTveNbCJxS4-63" value="Elastic Cache Redis" style="swimlane;fillColor=#FAE5C7;startSize=23;strokeColor=#0F8B8D;fontColor=#143642;" parent="Dreo23DIPxEbcCMG-sFe-7" vertex="1">
           <mxGeometry x="670" y="485" width="200" height="205" as="geometry" />
         </mxCell>
-        <mxCell id="G6Xr-zNiUfTveNbCJxS4-72" value="Redis cache session" style="sketch=0;outlineConnect=0;fontColor=#143642;strokeColor=#0F8B8D;fillColor=#FAE5C7;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.generic_database;" parent="G6Xr-zNiUfTveNbCJxS4-63" vertex="1">
+        <mxCell id="G6Xr-zNiUfTveNbCJxS4-72" value="cache session" style="sketch=0;outlineConnect=0;fontColor=#143642;strokeColor=#0F8B8D;fillColor=#FAE5C7;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.generic_database;" parent="G6Xr-zNiUfTveNbCJxS4-63" vertex="1">
           <mxGeometry x="40" y="47.5" width="120" height="120" as="geometry" />
         </mxCell>
         <mxCell id="G6Xr-zNiUfTveNbCJxS4-64" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#A8201A;fontColor=#143642;labelBackgroundColor=#DAD2D8;" parent="Dreo23DIPxEbcCMG-sFe-7" source="G6Xr-zNiUfTveNbCJxS4-43" target="G6Xr-zNiUfTveNbCJxS4-54" edge="1">
