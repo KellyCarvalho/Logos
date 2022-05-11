@@ -1,8 +1,11 @@
 package br.com.logos.subCategory;
 
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
 public class SubCategoryDTO {
 
     private final String name;
@@ -13,18 +16,6 @@ public class SubCategoryDTO {
         this.name = subCategory.getCode();
         this.code = subCategory.getCode();
         this.studyGuide = subCategory.getStudyGuide();
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public String getStudyGuide() {
-        return studyGuide;
     }
 
     public static List<SubCategoryDTO> getActiveSubcategoriesByCategory(List<SubCategory> subCategories, Long categoryId) {
