@@ -1,4 +1,4 @@
-package br.com.logos.category.validators;
+package br.com.logos.category.validator;
 
 import br.com.logos.category.CategoryRepository;
 import br.com.logos.category.CategoryUpdateDTO;
@@ -9,7 +9,6 @@ import org.springframework.validation.Errors;
 import static org.mockito.AdditionalMatchers.not;
 import static org.mockito.Mockito.*;
 
-//TODO combinar 2 a 2 mesmos cenários com código diferente
 public class CategoryUpdateValidatorTest {
 
     private CategoryRepository repository;
@@ -25,7 +24,7 @@ public class CategoryUpdateValidatorTest {
     }
 
     @Test
-    void ifCodeAlreadyExistsWithAnotherIdShouldShowError(){
+    void validateShouldShowErrorIfCodeAlreadyExistsWithAnotherId(){
         var dto = new CategoryUpdateDTO();
         dto.setId(2L);
         dto.setCode("programacao");
@@ -36,10 +35,32 @@ public class CategoryUpdateValidatorTest {
     }
 
     @Test
-    void doesNotShowErrorIfCodeAlreadyExistsAndIdCategoryIsEqualToCurrentCategoryId(){
+    void validateShouldNotShowErrorIfCodeAlreadyExistsAndIdCategoryIsEqualToCurrentCategoryId(){
         var dto = new CategoryUpdateDTO();
         dto.setId(1L);
         dto.setCode("programacao");
+
+        dtoValidator.validate(dto, errors);
+
+        verify(errors, never()).rejectValue(anyString(), anyString());
+    }
+
+    @Test
+    void validateShouldNotErrorIfCodeDoNotExistsAndIdDoNotExists(){
+        var dto = new CategoryUpdateDTO();
+        dto.setId(2L);
+        dto.setCode("business");
+
+        dtoValidator.validate(dto, errors);
+
+        verify(errors, never()).rejectValue(anyString(), anyString());
+    }
+
+    @Test
+    void validateShouldNotErrorIfCodeDoNotExistsAndIdIsEqualCurrentId(){
+        var dto = new CategoryUpdateDTO();
+        dto.setId(1L);
+        dto.setCode("business");
 
         dtoValidator.validate(dto, errors);
 

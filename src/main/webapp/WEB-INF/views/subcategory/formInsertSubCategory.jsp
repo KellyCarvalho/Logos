@@ -3,14 +3,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@taglib  prefix="templates" tagdir="/WEB-INF/tags/templates" %>
 
-<html>
-    <head>
-        <templates:admin-template></templates:admin-template>
-        <title>Criar SubCategoria</title>
-        <link rel="stylesheet" href="/assets/css/form.css">
-    </head>
-
-    <body>
+<templates:admin-template style="/assets/css/form.css" title="Criar SubCategoria">
 
         <section class="container">
 
@@ -65,6 +58,4 @@
 
         </section>
 
-    </body>
-
-</html>
+</templates:admin-template>

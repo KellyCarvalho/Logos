@@ -4,6 +4,7 @@ package br.com.logos.category;
 import br.com.logos.category.enums.CategoryStatus;
 import br.com.logos.commonValidator.StringValidator;
 import br.com.logos.subCategory.SubCategory;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
@@ -83,7 +84,7 @@ public class Category {
     }
 
     public boolean isActive() {
-        return ACTIVE.equals(this.getStatus());
+        return ACTIVE.equals(this.status);
     }
 
     public void update(CategoryUpdateDTO categoryUpdateDTO) {

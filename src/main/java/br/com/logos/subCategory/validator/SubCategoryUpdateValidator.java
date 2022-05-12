@@ -1,23 +1,17 @@
-package br.com.logos.subCategory.validators;
+package br.com.logos.subCategory.validator;
 
-import br.com.logos.category.CategoryUpdateDTO;
-import br.com.logos.subCategory.SubCategoryInsertDTO;
 import br.com.logos.subCategory.SubCategoryRepository;
 import br.com.logos.subCategory.SubCategoryUpdateDTO;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-//TODO mesmos todo de CategoryValidators
+@RequiredArgsConstructor
 @Component
 public class SubCategoryUpdateValidator implements Validator {
 
     private final SubCategoryRepository subCategoryRepository;
-
-    public SubCategoryUpdateValidator(SubCategoryRepository subCategoryRepository) {
-        this.subCategoryRepository = subCategoryRepository;
-    }
 
     @Override
     public boolean supports(Class<?> aClass) {

@@ -1,20 +1,16 @@
-package br.com.logos.category.validators;
+package br.com.logos.category.validator;
 
 import br.com.logos.category.CategoryRepository;
 import br.com.logos.category.CategoryUpdateDTO;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
-//TODO Lombok usar o required
+@RequiredArgsConstructor
 @Component
 public class CategoryUpdateValidator implements Validator {
 
     private final CategoryRepository categoryRepository;
-
-    public CategoryUpdateValidator(CategoryRepository categoryRepository) {
-        this.categoryRepository = categoryRepository;
-    }
 
     @Override
     public boolean supports(Class<?> aClass) {

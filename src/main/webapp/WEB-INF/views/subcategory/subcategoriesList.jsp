@@ -2,20 +2,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib  prefix="templates" tagdir="/WEB-INF/tags/templates" %>
 
-<html>
-    <head>
-        <templates:admin-template></templates:admin-template>
-        <title>Subcategorias</title>
-        <link rel="stylesheet" href="/assets/css/listPage.css">
-    </head>
-
-    <body>
+<templates:admin-template style="/assets/css/listPage.css" title="SubCategorias">
 
         <section class="container block_container">
             <h1>${category.name}</h1>
             <h3>SubCategoria</h3>
             <a href="/admin/subcategories/new">
-                <button class="btn btn-primary">Nova Subcategoria</button>
+                <button class="btn btn-primary">Nova SubCategoria</button>
             </a>
         </section>
 
@@ -59,6 +52,4 @@
 
         <script src="/assets/js/disableSubCategory.js"></script>
 
-    </body>
-
-</html>
+</templates:admin-template>

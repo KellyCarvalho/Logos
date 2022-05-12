@@ -2,14 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib  prefix="templates" tagdir="/WEB-INF/tags/templates" %>
 
-<html>
-    <head>
-        <templates:admin-template></templates:admin-template>
-        <title>Cursos</title>
-        <link rel="stylesheet" href="/assets/css/listPage.css">
-    </head>
-
-    <body>
+<templates:admin-template style="/assets/css/listPage.css" title="Cursos">
 
         <section class="container block_container">
             <h1>${subcategoryName}</h1>
@@ -62,6 +55,4 @@
             </c:if>
         </section>
 
-    </body>
-
-</html>
+</templates:admin-template>

@@ -1,7 +1,7 @@
 package br.com.logos.category;
 
-import br.com.logos.category.validators.CategoryInsertValidator;
-import br.com.logos.category.validators.CategoryUpdateValidator;
+import br.com.logos.category.validator.CategoryInsertValidator;
+import br.com.logos.category.validator.CategoryUpdateValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;

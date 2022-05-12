@@ -1,20 +1,17 @@
-package br.com.logos.course.validators;
+package br.com.logos.course.validator;
 
 import br.com.logos.course.CourseInsertDTO;
 import br.com.logos.course.CourseRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-//TODO mesmos todo de CategoryValidators
+@RequiredArgsConstructor
 @Component
 public class CourseInsertValidator implements Validator {
 
    private final CourseRepository courseRepository;
-
-  public CourseInsertValidator(CourseRepository courseRepository){
-      this.courseRepository = courseRepository;
-  }
 
     @Override
     public boolean supports(Class<?> aClass) {

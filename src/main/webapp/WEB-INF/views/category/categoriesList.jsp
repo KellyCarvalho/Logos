@@ -1,15 +1,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@taglib  prefix="templates" tagdir="/WEB-INF/tags/templates" %>
+<%@taglib prefix="templates" tagdir="/WEB-INF/tags/templates" %>
 
-<html>
-    <head>
-        <templates:admin-template></templates:admin-template>
-        <title>Categorias</title>
-        <link rel="stylesheet" href="/assets/css/listPage.css">
-    </head>
-
-    <body>
+<templates:admin-template style="/assets/css/listPage.css" title="Categorias">
 
         <section class="container block_container">
             <h3>Categorias</h3>
@@ -56,6 +49,4 @@
 
         <script src="/assets/js/disableCategory.js"></script>
 
-    </body>
-
-</html>
+</templates:admin-template>

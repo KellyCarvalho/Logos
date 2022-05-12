@@ -1,4 +1,4 @@
-package br.com.logos.subCategory.validators;
+package br.com.logos.subCategory.validator;
 
 
 import br.com.logos.subCategory.SubCategoryInsertDTO;
@@ -7,7 +7,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.validation.Errors;
 
-//TODO mesmos comentários do categoryInsert
 import static org.mockito.Mockito.*;
 
 public class SubCategoryInsertValidatorTest {
@@ -24,7 +23,7 @@ public class SubCategoryInsertValidatorTest {
     }
 
    @Test
-   void ifCodeAlreadyExistsShouldShowError(){
+   void validateShouldShowErrorIfCodeAlreadyExists(){
         when(repository.existsByCode("java")).thenReturn(true);
 
         var dto = new SubCategoryInsertDTO();
@@ -36,7 +35,7 @@ public class SubCategoryInsertValidatorTest {
     }
 
     @Test
-    void ifCodeDoesNotExistDoNotShouldShowError(){
+    void validateShouldNotShowErrorIfCodeDoesNotExist(){
         var dto = new SubCategoryInsertDTO();
         dto.setCode("java");
 

@@ -2,12 +2,11 @@ package br.com.logos.course;
 
 import br.com.logos.category.Category;
 import br.com.logos.category.CategoryRepository;
-import br.com.logos.course.validators.CourseInsertValidator;
-import br.com.logos.course.validators.CourseUpdateValidator;
+import br.com.logos.course.validator.CourseInsertValidator;
+import br.com.logos.course.validator.CourseUpdateValidator;
 import br.com.logos.subCategory.SubCategory;
 import br.com.logos.subCategory.SubCategoryRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;

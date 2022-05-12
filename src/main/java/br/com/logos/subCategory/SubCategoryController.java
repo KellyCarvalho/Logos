@@ -2,10 +2,9 @@ package br.com.logos.subCategory;
 
 import br.com.logos.category.Category;
 import br.com.logos.category.CategoryRepository;
-import br.com.logos.subCategory.validators.SubCategoryInsertValidator;
-import br.com.logos.subCategory.validators.SubCategoryUpdateValidator;
+import br.com.logos.subCategory.validator.SubCategoryInsertValidator;
+import br.com.logos.subCategory.validator.SubCategoryUpdateValidator;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

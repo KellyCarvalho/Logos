@@ -1,4 +1,4 @@
-package br.com.logos.category.validators;
+package br.com.logos.category.validator;
 
 
 import br.com.logos.category.CategoryInsertDTO;
@@ -9,9 +9,6 @@ import org.springframework.validation.Errors;
 
 import static org.mockito.Mockito.*;
 
-//TODO mudar o nome do pacote pra singular
-//TODo colocar o nome do método na frente dos testes
-//TODo geral mudar pra Should Not
 public class CategoryInsertValidatorTest {
 
     private CategoryRepository repository;
@@ -26,7 +23,7 @@ public class CategoryInsertValidatorTest {
     }
 
     @Test
-   void ifCodeAlreadyExistsShouldShowError(){
+   void validateShouldShowErrorIfCodeAlreadyExists(){
         when(repository.existsByCode("programacao")).thenReturn(true);
 
         var dto = new CategoryInsertDTO();
@@ -38,7 +35,7 @@ public class CategoryInsertValidatorTest {
     }
 
     @Test
-    void ifCodeDoesNotExistShouldNotShowError(){
+    void validateShouldNotShowErrorIfCodeDoesNotExist(){
         var dto = new CategoryInsertDTO();
         dto.setCode("programacao");
 

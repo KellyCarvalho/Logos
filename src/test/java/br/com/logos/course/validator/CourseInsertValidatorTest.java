@@ -1,4 +1,4 @@
-package br.com.logos.course.validators;
+package br.com.logos.course.validator;
 
 
 import br.com.logos.course.CourseInsertDTO;
@@ -9,7 +9,6 @@ import org.springframework.validation.Errors;
 
 import static org.mockito.Mockito.*;
 
-//TODO mesmos todo de insertCategoryTest
 public class CourseInsertValidatorTest {
 
     private CourseRepository repository;
@@ -24,7 +23,7 @@ public class CourseInsertValidatorTest {
     }
 
     @Test
-   void ifCodeAlreadyExistsShouldShowError(){
+   void validateShouldShowErrorIfCodeAlreadyExists(){
         when(repository.existsByCode("java")).thenReturn(true);
 
         var dto = new CourseInsertDTO();
@@ -36,7 +35,7 @@ public class CourseInsertValidatorTest {
     }
 
     @Test
-    void ifCodeDoesNotExistShouldNotShowError(){
+    void validateShouldNotShowErrorifCodeDoesNotExist(){
         var dto = new CourseInsertDTO();
         dto.setCode("java");
 
