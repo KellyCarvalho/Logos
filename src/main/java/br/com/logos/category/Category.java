@@ -4,7 +4,6 @@ package br.com.logos.category;
 import br.com.logos.category.enums.CategoryStatus;
 import br.com.logos.commonValidator.StringValidator;
 import br.com.logos.subCategory.SubCategory;
-import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 

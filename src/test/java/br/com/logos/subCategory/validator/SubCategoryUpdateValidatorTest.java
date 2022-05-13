@@ -25,10 +25,7 @@ public class SubCategoryUpdateValidatorTest {
 
     @Test
     void validateShouldShowErrorIfCodeAlreadyExistsWithAnotherId(){
-        var dto = new SubCategoryUpdateDTO();
-        dto.setId(2L);
-        dto.setCode("java");
-
+        SubCategoryUpdateDTO dto = SubCategoryUpdateDTO.builder().id(2L).code("java").build();
         dtoValidator.validate(dto, errors);
 
         verify(errors).rejectValue("code","subCategory.code.already.exists");
@@ -36,10 +33,7 @@ public class SubCategoryUpdateValidatorTest {
 
     @Test
     void validateShouldNotShowErrorIfCodeAlreadyExistsAndIdSubCategoryIsEqualToCurrentSubCategoryId(){
-        var dto = new SubCategoryUpdateDTO();
-        dto.setId(1L);
-        dto.setCode("java");
-
+        SubCategoryUpdateDTO dto = SubCategoryUpdateDTO.builder().id(1L).code("java").build();
         dtoValidator.validate(dto, errors);
 
         verify(errors, never()).rejectValue(anyString(), anyString());
@@ -47,10 +41,7 @@ public class SubCategoryUpdateValidatorTest {
 
     @Test
     void validateShouldNotErrorIfCodeDoNotExistsAndIdDoNotExists(){
-        var dto = new SubCategoryUpdateDTO();
-        dto.setId(2L);
-        dto.setCode("php");
-
+        SubCategoryUpdateDTO dto = SubCategoryUpdateDTO.builder().id(2L).code("php").build();
         dtoValidator.validate(dto, errors);
 
         verify(errors, never()).rejectValue(anyString(), anyString());
@@ -58,10 +49,7 @@ public class SubCategoryUpdateValidatorTest {
 
     @Test
     void validateShouldNotErrorIfCodeDoNotExistsAndIdIsEqualCurrentId(){
-        var dto = new SubCategoryUpdateDTO();
-        dto.setId(1L);
-        dto.setCode("php");
-
+        SubCategoryUpdateDTO dto = SubCategoryUpdateDTO.builder().id(1L).code("java").build();
         dtoValidator.validate(dto, errors);
 
         verify(errors, never()).rejectValue(anyString(), anyString());

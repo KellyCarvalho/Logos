@@ -26,9 +26,7 @@ public class CategoryInsertValidatorTest {
    void validateShouldShowErrorIfCodeAlreadyExists(){
         when(repository.existsByCode("programacao")).thenReturn(true);
 
-        var dto = new CategoryInsertDTO();
-        dto.setCode("programacao");
-
+        CategoryInsertDTO dto = CategoryInsertDTO.builder().code("programacao").build();
         dtoValidator.validate(dto, errors);
 
         verify(errors).rejectValue("code", "category.code.already.exists");
@@ -36,9 +34,7 @@ public class CategoryInsertValidatorTest {
 
     @Test
     void validateShouldNotShowErrorIfCodeDoesNotExist(){
-        var dto = new CategoryInsertDTO();
-        dto.setCode("programacao");
-
+        CategoryInsertDTO dto = CategoryInsertDTO.builder().code("programacao").build();
         dtoValidator.validate(dto, errors);
 
         verify(errors, never()).rejectValue(anyString(), anyString());

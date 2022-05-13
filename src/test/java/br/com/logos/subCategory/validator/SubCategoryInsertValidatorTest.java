@@ -26,19 +26,15 @@ public class SubCategoryInsertValidatorTest {
    void validateShouldShowErrorIfCodeAlreadyExists(){
         when(repository.existsByCode("java")).thenReturn(true);
 
-        var dto = new SubCategoryInsertDTO();
-        dto.setCode("java");
-
-        dtoValidator.validate(dto, errors);
+       SubCategoryInsertDTO dto = SubCategoryInsertDTO.builder().code("java").build();
+       dtoValidator.validate(dto, errors);
 
         verify(errors).rejectValue("code", "subCategory.code.already.exists");
     }
 
     @Test
     void validateShouldNotShowErrorIfCodeDoesNotExist(){
-        var dto = new SubCategoryInsertDTO();
-        dto.setCode("java");
-
+        SubCategoryInsertDTO dto = SubCategoryInsertDTO.builder().code("java").build();
         dtoValidator.validate(dto, errors);
 
         verify(errors, never()).rejectValue(anyString(), anyString());

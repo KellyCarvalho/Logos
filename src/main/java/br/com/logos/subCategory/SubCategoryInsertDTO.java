@@ -2,17 +2,20 @@ package br.com.logos.subCategory;
 
 import br.com.logos.category.Category;
 import br.com.logos.subCategory.enums.SubCategoryStatus;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.PositiveOrZero;
 
+@NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
+@Builder
 @Getter
 @Setter
 public class SubCategoryInsertDTO {
+
     @NotBlank(message = "Nome é requerido")
     private String name;
     @Pattern(regexp = "[[a-z-]+]+", message = "Código  inválido, não pode ter caracteres especiais ou números, apenas o hífem é permitido, letras devem ser minúsculas")

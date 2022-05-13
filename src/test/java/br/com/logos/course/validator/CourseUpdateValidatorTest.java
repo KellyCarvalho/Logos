@@ -25,10 +25,7 @@ public class CourseUpdateValidatorTest {
 
     @Test
     void validateShouldShowErrorIfCodeAlreadyExistsWithAnotherId(){
-        var dto = new CourseUpdateDTO();
-        dto.setId(2L);
-        dto.setCode("java");
-
+        CourseUpdateDTO dto = CourseUpdateDTO.builder().id(2L).code("java").build();
         dtoValidator.validate(dto, errors);
 
         verify(errors).rejectValue("code","course.code.already.exists");
@@ -36,10 +33,7 @@ public class CourseUpdateValidatorTest {
 
     @Test
     void validateShouldNotShowErrorIfCodeAlreadyExistsAndIdCourseIsEqualToCurrentCourseId(){
-        var dto = new CourseUpdateDTO();
-        dto.setId(1L);
-        dto.setCode("java");
-
+        CourseUpdateDTO dto = CourseUpdateDTO.builder().id(1L).code("java").build();
         dtoValidator.validate(dto, errors);
 
         verify(errors, never()).rejectValue(anyString(), anyString());
@@ -47,10 +41,7 @@ public class CourseUpdateValidatorTest {
 
     @Test
     void validateShouldNotErrorIfCodeDoNotExistsAndIdDoNotExists(){
-        var dto = new CourseUpdateDTO();
-        dto.setId(2L);
-        dto.setCode("php");
-
+        CourseUpdateDTO dto = CourseUpdateDTO.builder().id(2L).code("php").build();
         dtoValidator.validate(dto, errors);
 
         verify(errors, never()).rejectValue(anyString(), anyString());
@@ -58,10 +49,7 @@ public class CourseUpdateValidatorTest {
 
     @Test
     void validateShouldNotErrorIfCodeDoNotExistsAndIdIsEqualCurrentId(){
-        var dto = new CourseUpdateDTO();
-        dto.setId(1L);
-        dto.setCode("php");
-
+        CourseUpdateDTO dto = CourseUpdateDTO.builder().id(1L).code("php").build();
         dtoValidator.validate(dto, errors);
 
         verify(errors, never()).rejectValue(anyString(), anyString());

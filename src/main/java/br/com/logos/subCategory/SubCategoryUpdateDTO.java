@@ -1,14 +1,16 @@
 package br.com.logos.subCategory;
 
 import br.com.logos.category.Category;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.PositiveOrZero;
 
+@NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
+@Builder
 @Getter
 @Setter
 public class SubCategoryUpdateDTO {
@@ -26,10 +28,6 @@ public class SubCategoryUpdateDTO {
     private int order;
     @NotNull(message = "Categoria não pode ser vazia")
     private Category category;
-
-    @Deprecated
-    public SubCategoryUpdateDTO() {
-    }
 
     public SubCategoryUpdateDTO(SubCategory subCategory) {
         this.id = subCategory.getId();

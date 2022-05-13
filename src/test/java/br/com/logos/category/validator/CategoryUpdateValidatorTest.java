@@ -25,10 +25,7 @@ public class CategoryUpdateValidatorTest {
 
     @Test
     void validateShouldShowErrorIfCodeAlreadyExistsWithAnotherId(){
-        var dto = new CategoryUpdateDTO();
-        dto.setId(2L);
-        dto.setCode("programacao");
-
+        CategoryUpdateDTO dto = CategoryUpdateDTO.builder().id(2L).code("programacao").build();
         dtoValidator.validate(dto, errors);
 
         verify(errors).rejectValue("code","category.code.already.exists");
@@ -36,10 +33,7 @@ public class CategoryUpdateValidatorTest {
 
     @Test
     void validateShouldNotShowErrorIfCodeAlreadyExistsAndIdCategoryIsEqualToCurrentCategoryId(){
-        var dto = new CategoryUpdateDTO();
-        dto.setId(1L);
-        dto.setCode("programacao");
-
+        CategoryUpdateDTO dto = CategoryUpdateDTO.builder().id(1L).code("programacao").build();
         dtoValidator.validate(dto, errors);
 
         verify(errors, never()).rejectValue(anyString(), anyString());
@@ -47,10 +41,7 @@ public class CategoryUpdateValidatorTest {
 
     @Test
     void validateShouldNotErrorIfCodeDoNotExistsAndIdDoNotExists(){
-        var dto = new CategoryUpdateDTO();
-        dto.setId(2L);
-        dto.setCode("business");
-
+        CategoryUpdateDTO dto = CategoryUpdateDTO.builder().id(2L).code("business").build();
         dtoValidator.validate(dto, errors);
 
         verify(errors, never()).rejectValue(anyString(), anyString());
@@ -58,10 +49,7 @@ public class CategoryUpdateValidatorTest {
 
     @Test
     void validateShouldNotErrorIfCodeDoNotExistsAndIdIsEqualCurrentId(){
-        var dto = new CategoryUpdateDTO();
-        dto.setId(1L);
-        dto.setCode("business");
-
+        CategoryUpdateDTO dto = CategoryUpdateDTO.builder().id(1L).code("business").build();
         dtoValidator.validate(dto, errors);
 
         verify(errors, never()).rejectValue(anyString(), anyString());

@@ -1,11 +1,13 @@
 package br.com.logos.course;
 
 import br.com.logos.subCategory.SubCategory;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.validation.constraints.*;
 
+@NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
+@Builder
 @Getter
 @Setter
 public class CourseUpdateDTO {
@@ -27,10 +29,6 @@ public class CourseUpdateDTO {
     private String developedSkills;
     @NotNull(message = "SubCateogria é obrigatória")
     private SubCategory subCategory;
-
-    @Deprecated
-    public CourseUpdateDTO() {
-    }
 
     public CourseUpdateDTO(Course course) {
         this.id = course.getId();

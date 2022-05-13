@@ -26,9 +26,7 @@ public class CourseInsertValidatorTest {
    void validateShouldShowErrorIfCodeAlreadyExists(){
         when(repository.existsByCode("java")).thenReturn(true);
 
-        var dto = new CourseInsertDTO();
-        dto.setCode("java");
-
+        CourseInsertDTO dto = CourseInsertDTO.builder().code("java").build();
         dtoValidator.validate(dto, errors);
 
         verify(errors).rejectValue("code", "course.code.already.exists");
@@ -36,9 +34,7 @@ public class CourseInsertValidatorTest {
 
     @Test
     void validateShouldNotShowErrorifCodeDoesNotExist(){
-        var dto = new CourseInsertDTO();
-        dto.setCode("java");
-
+        CourseInsertDTO dto = CourseInsertDTO.builder().code("java").build();
         dtoValidator.validate(dto, errors);
 
         verify(errors, never()).rejectValue(anyString(), anyString());

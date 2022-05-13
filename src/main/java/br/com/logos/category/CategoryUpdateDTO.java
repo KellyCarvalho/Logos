@@ -1,7 +1,6 @@
 package br.com.logos.category;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
@@ -9,6 +8,9 @@ import javax.validation.constraints.PositiveOrZero;
 
 import static br.com.logos.commonValidator.StringValidator.*;
 
+@NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
+@Builder
 @Getter
 @Setter
 public class CategoryUpdateDTO {
@@ -27,10 +29,6 @@ public class CategoryUpdateDTO {
     private String imageUrl;
     @Pattern(regexp = "^#([a-fA-F0-9]){6}?$|^[\s]*$", message = "cor inválida")
     private String colorCode;
-
-    @Deprecated
-    public CategoryUpdateDTO(){
-    }
 
     public CategoryUpdateDTO(Category category) {
         isValidColor(category.getColorCode(), "Cor não é válida");
