@@ -4,9 +4,11 @@ import br.com.logos.activity.enums.TypeQuestion;
 import br.com.logos.section.Section;
 import br.com.logos.commonValidator.ObjectValidator;
 import br.com.logos.commonValidator.StringValidator;
+import lombok.ToString;
 
 import javax.persistence.*;
 
+@ToString
 @Entity
 public class Question extends Activity {
 
@@ -26,12 +28,5 @@ public class Question extends Activity {
         ObjectValidator.isObjectValid(type, "Tipo de questão é requerida, não pode ser nula");
         this.description = description;
         this.type = type;
-    }
-
-    @Override
-    public String toString() {
-        return "Question" + '\n' +
-                "description='" + description + '\n' +
-                ", type=" + type;
     }
 }

@@ -1,11 +1,18 @@
 package br.com.logos.category;
 
+import lombok.*;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.PositiveOrZero;
 
 import static br.com.logos.commonValidator.StringValidator.*;
 
+@NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
+@Builder
+@Getter
+@Setter
 public class CategoryUpdateDTO {
 
     private Long id;
@@ -23,10 +30,6 @@ public class CategoryUpdateDTO {
     @Pattern(regexp = "^#([a-fA-F0-9]){6}?$|^[\s]*$", message = "cor inválida")
     private String colorCode;
 
-    @Deprecated
-    public CategoryUpdateDTO(){
-    }
-
     public CategoryUpdateDTO(Category category) {
         isValidColor(category.getColorCode(), "Cor não é válida");
         isValidCode(category.getCode(), "Código não é válido");
@@ -40,91 +43,5 @@ public class CategoryUpdateDTO {
         this.active = category.isActive();
         this.imageUrl = category.getImageUrl();
         this.colorCode = category.getColorCode();
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public int getOrder() {
-        return order;
-    }
-
-    public void setOrder(int order) {
-        this.order = order;
-    }
-
-    public String getStudyGuide() {
-        return studyGuide;
-    }
-
-    public void setStudyGuide(String studyGuide) {
-        this.studyGuide = studyGuide;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    public String getColorCode() {
-        return colorCode;
-    }
-
-    public void setColorCode(String colorCode) {
-        this.colorCode = colorCode;
-    }
-
-    @Override
-    public String toString() {
-        return "CategoryUpdateDTO{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", code='" + code + '\'' +
-                ", order=" + order +
-                ", studyGuide='" + studyGuide + '\'' +
-                ", description='" + description + '\'' +
-                ", imageUrl='" + imageUrl + '\'' +
-                ", colorCode='" + colorCode + '\'' +
-                '}';
     }
 }

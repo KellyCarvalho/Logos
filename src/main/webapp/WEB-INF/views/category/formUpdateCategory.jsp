@@ -1,16 +1,13 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib  prefix="templates" tagdir="/WEB-INF/tags/templates" %>
 
-<html>
-    <head>
-        <link rel='stylesheet' href='/webjars/bootstrap/3.3.7/css/bootstrap.min.css'>
-        <title>Editar Categoria</title>
-        <meta charset="UTF-8">
-        <link rel="stylesheet" href="/assets/css/form.css">
-    </head>
+<templates:admin-template-header title="Editar Categoria">
+    <link rel="stylesheet" href="/assets/css/form.css">
+</templates:admin-template-header>
 
-    <body>
+<templates:admin-template-body>
 
         <section class="container">
 
@@ -74,6 +71,7 @@
 
         </section>
 
-    </body>
+</templates:admin-template-body>
 
-</html>
+
+<templates:admin-template-footer></templates:admin-template-footer>

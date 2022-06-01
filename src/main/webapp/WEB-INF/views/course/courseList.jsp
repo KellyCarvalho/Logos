@@ -1,15 +1,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-    <head>
-        <link rel='stylesheet' href='/webjars/bootstrap/3.3.7/css/bootstrap.min.css'>
-        <title>Cursos</title>
-        <meta charset="utf-8">
-        <link rel="stylesheet" href="/assets/css/listPage.css">
-    </head>
+<%@taglib  prefix="templates" tagdir="/WEB-INF/tags/templates" %>
 
-    <body>
+<templates:admin-template-header title="Cursos">
 
+    <link rel="stylesheet" href="/assets/css/listPage.css">
+
+</templates:admin-template-header>
+
+<templates:admin-template-body>
         <section class="container block_container">
             <h1>${subcategoryName}</h1>
             <h4>Cursos</h4>
@@ -61,6 +60,6 @@
             </c:if>
         </section>
 
-    </body>
+</templates:admin-template-body>
 
-</html>
+<templates:admin-template-footer></templates:admin-template-footer>

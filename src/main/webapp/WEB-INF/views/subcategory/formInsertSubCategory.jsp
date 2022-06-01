@@ -1,16 +1,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<html>
-    <head>
-        <link rel='stylesheet' href='/webjars/bootstrap/3.3.7/css/bootstrap.min.css'>
-        <title>Criar SubCategoria</title>
-        <meta charset="UTF-8">
-        <link rel="stylesheet" href="/assets/css/form.css">
-    </head>
+<%@taglib  prefix="templates" tagdir="/WEB-INF/tags/templates" %>
 
-    <body>
+<templates:admin-template-header title="Criar SubCategoria">
 
+    <link rel="stylesheet" href="/assets/css/form.css">
+
+</templates:admin-template-header>
+
+<templates:admin-template-body>
         <section class="container">
 
             <h1>Nova SubCategoria</h1>
@@ -64,6 +63,6 @@
 
         </section>
 
-    </body>
+</templates:admin-template-body>
 
-</html>
+<templates:admin-template-footer></templates:admin-template-footer>

@@ -1,15 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<html>
-    <head>
-        <link rel='stylesheet' href='/webjars/bootstrap/3.3.7/css/bootstrap.min.css'>
-        <title>Criar Curso</title>
-        <meta charset="UTF-8">
-        <link rel="stylesheet" href="/assets/css/form.css">
-    </head>
+<%@taglib  prefix="templates" tagdir="/WEB-INF/tags/templates" %>
 
-    <body>
+<templates:admin-template-header style="/assets/css/form.css" title="Criar Curso">
 
         <section class="container">
 
@@ -81,6 +75,6 @@
 
         </section>
 
-    </body>
+</templates:admin-template-header>
 
-</html>
+<templates:admin-template-footer></templates:admin-template-footer>

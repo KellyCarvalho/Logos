@@ -35,4 +35,8 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
             ORDER BY c.order
             """)
     List<ActiveCategoryWithActiveSubCategoriesProjection> getActiveCategoriesWithActiveSubCategories();
+
+    boolean existsByCodeAndIdNot(String code, Long id);
+
+    boolean existsByCode(String code);
 }

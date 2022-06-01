@@ -2,10 +2,12 @@ package br.com.logos.activity;
 
 import br.com.logos.section.Section;
 import br.com.logos.commonValidator.StringValidator;
+import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
+@ToString
 @Entity
 public class Video extends Activity {
 
@@ -23,13 +25,5 @@ public class Video extends Activity {
         super(title, code, section);
         StringValidator.isNotBlankEmptyOrNull(url, "Url de vídeo não pode ser vazia ou nula");
         this.url = url;
-    }
-
-    @Override
-    public String toString() {
-        return "Video = " + getTitle() + '\n' +
-                "url=" + url + '\n' +
-                "durationInMinutes=" + durationInMinutes + '\n' +
-                "transcription='" + transcription;
     }
 }

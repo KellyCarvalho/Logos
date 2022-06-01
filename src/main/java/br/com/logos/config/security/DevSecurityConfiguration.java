@@ -33,17 +33,13 @@ public class DevSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers("/admin/**").hasRole("ADMINISTRATOR")
-                .antMatchers("/category/**").hasAnyRole("ADMINISTRATOR", "STUDENT")
-                .antMatchers("/api/categories").permitAll()
-                .antMatchers("/bGltcGEtby1jYWNoZS1kYS1hcGktYWU").permitAll()
-                .anyRequest().hasRole("ADMINISTRATOR")
+        http.authorizeRequests().anyRequest().permitAll().and()
+                .formLogin()
+                .loginPage("/login").permitAll()
+                .defaultSuccessUrl("/admin/categories")
                 .and()
-                    .formLogin().loginPage("/login").permitAll()
-                    .defaultSuccessUrl("/admin/categories")
-                .and()
-                    .csrf().disable();
+                .csrf().disable()
+                .cors();
     }
 
     @Override

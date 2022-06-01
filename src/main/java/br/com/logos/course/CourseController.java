@@ -2,16 +2,20 @@ package br.com.logos.course;
 
 import br.com.logos.category.Category;
 import br.com.logos.category.CategoryRepository;
+import br.com.logos.course.validator.CourseInsertValidator;
+import br.com.logos.course.validator.CourseUpdateValidator;
 import br.com.logos.subCategory.SubCategory;
 import br.com.logos.subCategory.SubCategoryRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -20,17 +24,29 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
-
+@RequiredArgsConstructor
 @Controller
 public class CourseController {
 
-    @Autowired
-    private CourseRepository courseRepository;
-    @Autowired
-    private SubCategoryRepository subCategoryRepository;
+    private final CourseRepository courseRepository;
 
-    @Autowired
-    private CategoryRepository categoryRepository;
+    private final SubCategoryRepository subCategoryRepository;
+
+    private final CategoryRepository categoryRepository;
+
+    private final CourseInsertValidator courseInsertValidator;
+
+    private final CourseUpdateValidator courseUpdateValidator;
+
+    @InitBinder({"courseInsertDTO"})
+    void initBinderInsertDto(WebDataBinder binder){
+        binder.addValidators(courseInsertValidator);
+    }
+
+    @InitBinder({"courseUpdateDTO"})
+    void initBinderUpdateDto(WebDataBinder binder){
+        binder.addValidators(courseUpdateValidator);
+    }
 
     @GetMapping(value = "/admin/courses/{categoryCode}/{subcategoryCode}")
     public String getAllCoursesPage(@PathVariable String categoryCode, @PathVariable String subcategoryCode,

@@ -1,21 +1,20 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-    <head>
-        <link rel='stylesheet' href='/webjars/bootstrap/3.3.7/css/bootstrap.min.css'>
-        <title>Subcategorias</title>
-        <script src="/webjars/jquery/3.6.0/jquery.js"></script>
-        <meta charset="utf-8">
-        <link rel="stylesheet" href="/assets/css/listPage.css">
-    </head>
+<%@taglib  prefix="templates" tagdir="/WEB-INF/tags/templates" %>
 
-    <body>
+<templates:admin-template-header title="SubCategorias">
+
+    <link rel="stylesheet" href="/assets/css/listPage.css">
+
+</templates:admin-template-header>
+
+<templates:admin-template-body>
 
         <section class="container block_container">
             <h1>${category.name}</h1>
             <h3>SubCategoria</h3>
             <a href="/admin/subcategories/new">
-                <button class="btn btn-primary">Nova Subcategoria</button>
+                <button class="btn btn-primary">Nova SubCategoria</button>
             </a>
         </section>
 
@@ -59,6 +58,6 @@
 
         <script src="/assets/js/disableSubCategory.js"></script>
 
-    </body>
+</templates:admin-template-body>
 
-</html>
+<templates:admin-template-footer></templates:admin-template-footer>

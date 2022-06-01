@@ -4,19 +4,19 @@ package br.com.logos.category;
 import br.com.logos.category.enums.CategoryStatus;
 import br.com.logos.commonValidator.StringValidator;
 import br.com.logos.subCategory.SubCategory;
+import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.PositiveOrZero;
+import javax.validation.constraints.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
-import static br.com.logos.category.enums.CategoryStatus.ACTIVE;
-import static br.com.logos.category.enums.CategoryStatus.DISABLED;
+import static br.com.logos.category.enums.CategoryStatus.*;
 import static br.com.logos.commonValidator.StringValidator.isValidColor;
 
+@Getter
+@EqualsAndHashCode
+@NoArgsConstructor(onConstructor = @__(@Deprecated))
 @Entity
 public class Category {
 
@@ -47,10 +47,6 @@ public class Category {
     @OneToMany(mappedBy = "category")
     private List<SubCategory> subCategories = new ArrayList<>();
 
-    @Deprecated
-    public Category() {
-    }
-
     public Category(String name, String code) {
         StringValidator.isNotBlankEmptyOrNull(name, "Nome da categoria é requerido, não pode ser vazio ou em branco");
         StringValidator.doesCodeContainsOnlyLettersInLowerCaseAndHyphen(code, "Código da Categoria não é válido ou está null ou vazio - deve ter caracteres de a-z - " +
@@ -78,56 +74,8 @@ public class Category {
         this.studyGuide = studyGuide;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public int getOrder() {
-        return order;
-    }
-
-    public String getColorCode() {
-        return colorCode;
-    }
-
-    public CategoryStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(CategoryStatus status) {
-        this.status = status;
-    }
-
-    public String getStudyGuide() {
-        return studyGuide;
-    }
-
     public boolean isActive() {
-        return ACTIVE.equals(this.getStatus());
-    }
-
-    public List<SubCategory> getSubCategories() {
-        return subCategories;
+        return ACTIVE.equals(this.status);
     }
 
     public void update(CategoryUpdateDTO categoryUpdateDTO) {
@@ -143,30 +91,5 @@ public class Category {
 
     public void disable(){
         this.status = DISABLED;
-    }
-
-    @Override
-    public String toString() {
-        return "Nome= " + name + '\n' +
-                "Código= " + code + '\n' +
-                "Descrição= " + description + '\n' +
-                "Guia de estudo=" + studyGuide + '\n' +
-                "status= " + status + '\n' +
-                "Ordem= " + order + '\n' +
-                "imageUrl= " + imageUrl + '\n' +
-                "Cor em Hexadecimal= " + colorCode + '\n';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Category category = (Category) o;
-        return code.equals(category.code);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(code);
     }
 }

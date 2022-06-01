@@ -3,9 +3,11 @@ package br.com.logos.section;
 import br.com.logos.course.Course;
 import br.com.logos.commonValidator.ObjectValidator;
 import br.com.logos.commonValidator.StringValidator;
+import lombok.ToString;
 
 import javax.persistence.*;
 
+@ToString
 @Entity
 public class Section {
 
@@ -35,16 +37,5 @@ public class Section {
         this.name = name;
         this.code = code;
         this.course = course;
-    }
-
-    @Override
-    public String toString() {
-        return "Section" + '\n' +
-                "name='" + name + '\n' +
-                "code='" + code + '\n' +
-                "order=" + order + '\n' +
-                "active=" + active + '\n' +
-                "test=" + test + '\n' +
-                "course=" + course;
     }
 }

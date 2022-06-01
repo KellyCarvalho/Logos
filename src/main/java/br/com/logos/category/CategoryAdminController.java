@@ -1,10 +1,13 @@
 package br.com.logos.category;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import br.com.logos.category.validator.CategoryInsertValidator;
+import br.com.logos.category.validator.CategoryUpdateValidator;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
@@ -12,11 +15,25 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
+@RequiredArgsConstructor
 @Controller
 public class CategoryAdminController {
 
-    @Autowired
-    private CategoryRepository categoryRepository;
+    private final CategoryRepository categoryRepository;
+
+    private final CategoryInsertValidator categoryInsertValidator;
+
+    private final CategoryUpdateValidator categoryUpdateValidator;
+
+    @InitBinder({"categoryInsertDTO"})
+    void initBinderInsertDto(WebDataBinder binder){
+        binder.addValidators(categoryInsertValidator);
+    }
+
+    @InitBinder({"categoryUpdateDTO"})
+    void initBinderUpdateDto(WebDataBinder binder){
+        binder.addValidators(categoryUpdateValidator);
+    }
 
     @GetMapping("/admin/categories")
     public String getAllCategories(Model model) {

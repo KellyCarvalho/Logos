@@ -1,11 +1,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-    <head>
-        <link rel='stylesheet' href='/webjars/bootstrap/3.3.7/css/bootstrap.min.css'>
-        <title>404 - Error</title>
-        <meta charset="utf-8">
-    </head>
+<%@taglib  prefix="templates" tagdir="/WEB-INF/tags/templates" %>
+
+
+<templates:admin-template-header style="/assets/css/listPage.css" title="404 - Error">
 
     <body>
 
@@ -18,5 +16,6 @@
 
         </section>
 
-    </body>
-</html>
+</templates:admin-template-header>
+
+<templates:admin-template-footer></templates:admin-template-footer>

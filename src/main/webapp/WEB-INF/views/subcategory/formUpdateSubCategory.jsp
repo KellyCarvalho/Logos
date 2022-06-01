@@ -1,15 +1,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<html>
-    <head>
-        <link rel='stylesheet' href='/webjars/bootstrap/3.3.7/css/bootstrap.min.css'>
-        <title>Editar SubCategoria</title>
-        <meta charset="UTF-8">
-        <link rel="stylesheet" href="/assets/css/form.css">
-    </head>
+<%@taglib  prefix="templates" tagdir="/WEB-INF/tags/templates" %>
 
-    <body>
+<templates:admin-template-header title="Editar SubCategoria">
+
+    <link rel="stylesheet" href="/assets/css/form.css">
+
+</templates:admin-template-header>
+
+<templates:admin-template-body>
 
         <section class="container">
 
@@ -18,6 +18,7 @@
             <h1>Editar SubCategoria</h1>
             <form:form modelAttribute="subCategoryUpdateDTO" class="md-3" method="post">
                 <div class="md-4">
+                    <form:input path="id" type="hidden"/>
                     <form:label path="name" class="form-label">Nome</form:label>
                     <form:input path="name" placeholder="Digite Aqui o nome da subcategoria" class="form-control" type="text"/>
                     <form:errors path="name"/>
@@ -66,6 +67,6 @@
 
         </section>
 
-    </body>
+</templates:admin-template-body>
 
-</html>
+<templates:admin-template-footer></templates:admin-template-footer>

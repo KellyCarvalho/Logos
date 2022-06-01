@@ -6,7 +6,7 @@ import br.com.logos.category.enums.CategoryStatus;
 import br.com.logos.course.CourseRepository;
 import br.com.logos.subCategory.SubCategoryRepository;
 import br.com.logos.subCategory.enums.SubCategoryStatus;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -17,17 +17,15 @@ import java.util.List;
 
 import static br.com.logos.category.CategoryListDTO.toListCategoryDTO;
 
+@RequiredArgsConstructor
 @RestController
 public class CategoryApiController {
 
-    @Autowired
-    private CategoryRepository categoryRepository;
+    private final CategoryRepository categoryRepository;
 
-    @Autowired
-    private SubCategoryRepository subCategoryRepository;
+    private final SubCategoryRepository subCategoryRepository;
 
-    @Autowired
-    private CourseRepository courseRepository;
+    private final CourseRepository courseRepository;
 
     @Cacheable("categories")
     @GetMapping(value = "/api/categories", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
