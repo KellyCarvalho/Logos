@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Objects;
 
 @Getter
-@Setter
 public class CourseDTO {
     private final String name;
     private final String code;

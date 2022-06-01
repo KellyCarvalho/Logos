@@ -2,7 +2,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib  prefix="templates" tagdir="/WEB-INF/tags/templates" %>
 
-<templates:admin-template style="/assets/css/listPage.css" title="SubCategorias">
+<templates:admin-template-header title="SubCategorias">
+
+    <link rel="stylesheet" href="/assets/css/listPage.css">
+
+</templates:admin-template-header>
+
+<templates:admin-template-body>
 
         <section class="container block_container">
             <h1>${category.name}</h1>
@@ -52,4 +58,6 @@
 
         <script src="/assets/js/disableSubCategory.js"></script>
 
-</templates:admin-template>
+</templates:admin-template-body>
+
+<templates:admin-template-footer></templates:admin-template-footer>

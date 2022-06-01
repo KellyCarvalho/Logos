@@ -3,7 +3,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@taglib  prefix="templates" tagdir="/WEB-INF/tags/templates" %>
 
-<templates:admin-template style="/assets/css/form.css" title="Criar Curso">
+<templates:admin-template-header style="/assets/css/form.css" title="Criar Curso">
 
         <section class="container">
 
@@ -75,4 +75,6 @@
 
         </section>
 
-</templates:admin-template>
+</templates:admin-template-header>
+
+<templates:admin-template-footer></templates:admin-template-footer>

@@ -2,11 +2,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib  prefix="templates" tagdir="/WEB-INF/tags/templates" %>
 
-<html>
-    <head>
-        <templates:admin-template></templates:admin-template>
-        <title>404 - Error</title>
-    </head>
+
+<templates:admin-template-header style="/assets/css/listPage.css" title="404 - Error">
 
     <body>
 
@@ -19,5 +16,6 @@
 
         </section>
 
-    </body>
-</html>
+</templates:admin-template-header>
+
+<templates:admin-template-footer></templates:admin-template-footer>

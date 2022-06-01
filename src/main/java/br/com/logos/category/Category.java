@@ -4,22 +4,19 @@ package br.com.logos.category;
 import br.com.logos.category.enums.CategoryStatus;
 import br.com.logos.commonValidator.StringValidator;
 import br.com.logos.subCategory.SubCategory;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
+import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.PositiveOrZero;
+import javax.validation.constraints.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static br.com.logos.category.enums.CategoryStatus.ACTIVE;
-import static br.com.logos.category.enums.CategoryStatus.DISABLED;
+import static br.com.logos.category.enums.CategoryStatus.*;
 import static br.com.logos.commonValidator.StringValidator.isValidColor;
 
 @Getter
 @EqualsAndHashCode
+@NoArgsConstructor(onConstructor = @__(@Deprecated))
 @Entity
 public class Category {
 
@@ -49,11 +46,6 @@ public class Category {
     private String colorCode;
     @OneToMany(mappedBy = "category")
     private List<SubCategory> subCategories = new ArrayList<>();
-
-    @Deprecated
-    public Category(){
-
-    }
 
     public Category(String name, String code) {
         StringValidator.isNotBlankEmptyOrNull(name, "Nome da categoria é requerido, não pode ser vazio ou em branco");

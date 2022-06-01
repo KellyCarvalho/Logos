@@ -2,14 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib  prefix="templates" tagdir="/WEB-INF/tags/templates" %>
 
-<html>
-    <head>
-        <templates:admin-template></templates:admin-template>
-        <title>Dashboard Administrativo</title>
-        <link rel="stylesheet" href="/assets/css/dashboardPage.css">
-    </head>
-
-    <body>
+<templates:admin-template-header style="/assets/css/dashboardPage.css" title="Dashboard Administrativo">
 
         <section class="container main_container">
 
@@ -49,6 +42,6 @@
 
         </section>
 
-    </body>
+</templates:admin-template-header>
 
-</html>
+<templates:admin-template-footer></templates:admin-template-footer>

@@ -1,6 +1,5 @@
 <%@tag language="java" pageEncoding="UTF-8" %>
 <%@attribute name="title" required="true" %>
-<%@attribute name="style" required="true" %>
 
 <html>
     <head>
@@ -8,10 +7,7 @@
         <script src="/webjars/jquery/3.6.0/jquery.js"></script>
         <meta charset="utf-8">
         <title>${title}</title>
-        <link rel="stylesheet" href="${style}">
+
+        <jsp:doBody />
     </head>
 
-    <body>
-        <jsp:doBody />
-    </body>
-</html>

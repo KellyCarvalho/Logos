@@ -14,7 +14,7 @@ import java.util.List;
 import static br.com.logos.commonValidator.StringValidator.doesCodeContainsOnlyLettersInLowerCaseAndHyphen;
 import static br.com.logos.commonValidator.StringValidator.isNotBlankEmptyOrNull;
 import static br.com.logos.subCategory.enums.SubCategoryStatus.ACTIVE;
-import static br.com.logos.subCategory.enums.SubCategoryStatus.DISABLED;
+import static br.com.logos.subCategory.enums.SubCategoryStatus.*;
 
 @Getter
 @EqualsAndHashCode

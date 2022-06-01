@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
+
 @RequiredArgsConstructor
 @Component
 public class CategoryUpdateValidator implements Validator {
